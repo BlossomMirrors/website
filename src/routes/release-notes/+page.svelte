@@ -1,6 +1,7 @@
 <script>
 	import Button from "$lib/components/ui/button/button.svelte";
 	import { ArrowLeft } from "@lucide/svelte";
+	import * as m from '$lib/paraglide/messages';
 </script>
 
 <style>
@@ -171,53 +172,52 @@
 	<div class="paper">
 		<div class="paper-texture"></div>
 		
-		<h1>Release Notes</h1>
-		<p class="subtitle">BlossomOS v0.1 Alpha</p>
+		<h1>{m.release_notes_title()}</h1>
+		<p class="subtitle">{m.release_notes_version()}</p>
 		
 		<div class="divider"></div>
 		
 		<div class="release-item">
-			<h3>Welcome to BlossomOS</h3>
+			<h3>{m.release_notes_welcome_title()}</h3>
 			<p>
-				BlossomOS is a beautiful, modern Linux distribution designed for an elegant user experience. 
-				This is our first alpha release, and we're excited to share it with you!
+				{m.release_notes_welcome_text()}
 			</p>
 		</div>
 
 		<div class="release-item">
-			<h3>✨ Key Features</h3>
+			<h3>{m.release_notes_features_title()}</h3>
 			<ul>
-				<li>Modern, clean desktop based on KDE Plasma</li>
-				<li>Optimized speed and performance</li>
-				<li>Beautiful default theme and icon set</li>
-				<li>Enhanced package management</li>
-				<li>Built-in development tools</li>
-                <li>Comprehensive hardware support</li>
+				<li>{m.release_notes_feature_1()}</li>
+				<li>{m.release_notes_feature_2()}</li>
+				<li>{m.release_notes_feature_3()}</li>
+				<li>{m.release_notes_feature_4()}</li>
+				<li>{m.release_notes_feature_5()}</li>
+                <li>{m.release_notes_feature_6()}</li>
 			</ul>
 		</div>
 
 		<div class="divider"></div>
 
 		<div class="release-item">
-			<h3>🐛 Known Issues</h3>
+			<h3>{m.release_notes_issues_title()}</h3>
 			<ul>
-				<li>The installer and postinstall is still a work in progress</li>
-                <li>Reinstalling and keeping files with multiple users is not supported yet</li>
-                <li>A lot of features are still not localized</li>
-                <li>The design is not final</li>
-                <li>Some configurations like NVIDIA cards or booting from MBR are untested</li>
+				<li>{m.release_notes_issue_1()}</li>
+                <li>{m.release_notes_issue_2()}</li>
+                <li>{m.release_notes_issue_3()}</li>
+                <li>{m.release_notes_issue_4()}</li>
+                <li>{m.release_notes_issue_5()}</li>
 			</ul>
 		</div>
 
 		<div class="release-item">
-			<h3>🔄 Improvements Coming</h3>
+			<h3>{m.release_notes_improvements_title()}</h3>
 			<ul>
-				<li>Enhanced installer with better design and more features</li>
-                <li>Ability to choose browser and apps in postinstall</li>
-                <li>All new app store with support for pacman packages</li>
-				<li>Additional language support</li>
-				<li>Performance optimizations</li>
-				<li>Extended hardware compatibility</li>
+				<li>{m.release_notes_improvement_1()}</li>
+                <li>{m.release_notes_improvement_2()}</li>
+                <li>{m.release_notes_improvement_3()}</li>
+				<li>{m.release_notes_improvement_4()}</li>
+				<li>{m.release_notes_improvement_5()}</li>
+				<li>{m.release_notes_improvement_6()}</li>
 			</ul>
 		</div>
 
@@ -235,7 +235,7 @@
 		<div class="back-button">
 			<Button href="/">
 				<ArrowLeft class="w-4 h-4" />
-				Back to Home
+				{m.release_notes_back()}
 			</Button>
 		</div>
 	</div>

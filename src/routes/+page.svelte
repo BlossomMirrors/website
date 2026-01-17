@@ -5,13 +5,14 @@
 	import logo from "$lib/assets/logo.svg";
 	import { Share } from '@lucide/svelte';
 	import { onMount } from 'svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	const downloadLink = "https://blossomos.org/download"; // Placeholder link
 	let isMobile = false;
 
 	function shareLink() {
 		navigator.share?.({
-            title: 'Download BlossomOS',
+            title: m.modal_title(),
             text: 'Get BlossomOS from this link:',
             url: downloadLink
         }) || navigator.clipboard.writeText(downloadLink);
@@ -71,23 +72,23 @@
     <div class="mb-8 fade-in">
         <img src={logo} alt="BlossomOS Logo" class="w-32 h-32 mx-auto" />
     </div>
-    <h1 class="text-4xl font-bold mb-4 font-serif fade-in-delayed">Welcome to BlossomOS</h1>
+    <h1 class="text-4xl font-bold mb-4 font-serif fade-in-delayed">{m.home_title()}</h1>
     <p class="text-lg text-white/80 mb-6 fade-in-delayed-more">
-        Your journey to beautiful experiences starts here.
+        {m.home_subtitle()}
     </p>
     <div class="fade-in-delayed-more-more">
         {#if isMobile}
             <Modal.Root>
                 <Modal.Trigger>
                     <Button size="3xl">
-                        Download ISO
+                        {m.home_download()}
                     </Button>
                 </Modal.Trigger>
                 <Modal.Content class="px-8">
                     <Modal.Header>
-                        <Modal.Title class="text-white font-serif mt-8 text-2xl">Download BlossomOS</Modal.Title>
+                        <Modal.Title class="text-white font-serif mt-8 text-2xl">{m.modal_title()}</Modal.Title>
                         <Modal.Description>
-                            Share this link with your friends or devices
+                            {m.modal_subtitle()}
                         </Modal.Description>
                     </Modal.Header>
                     <div class="flex flex-col gap-4 py-4">
@@ -107,17 +108,17 @@
             </Modal.Root>
         {:else}
             <Button href={downloadLink} size="3xl">
-                Download ISO
+                {m.home_download()}
             </Button>
         {/if}
     </div>
     <div class="text-sm text-white/60 mt-8 fade-in-delayed-more-more">
         <div class="flex justify-center gap-8 items-center">
-            <span>Version 0.1 Alpha</span>
-            <a href="/release-notes" class="underline hover:text-white/80">Release notes</a>
+            <span>{m.home_version()}</span>
+            <a href="/release-notes" class="underline hover:text-white/80">{m.home_release_notes()}</a>
         </div>
         <div class="my-4 text-xs wrap-anywhere">
-            <code>SHA256: abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567890ab</code>
+            <code>{m.home_sha256()}</code>
         </div>
     </div>
 </div>
