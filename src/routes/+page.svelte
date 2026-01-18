@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Button from "$lib/components/ui/button/button.svelte";
 	import * as Modal from '$lib/components/ui/modal';
 	import { Input } from '$lib/components/ui/input';
@@ -23,7 +23,7 @@
 		const mediaQuery = window.matchMedia('(max-width: 768px)');
 		isMobile = mediaQuery.matches;
 		
-		const handleChange = (e) => {
+		const handleChange = (e: MediaQueryListEvent) => {
 			isMobile = e.matches;
 		};
 		
@@ -33,6 +33,7 @@
 
 </script>
 
+<!-- svelte-ignore css_unused_selector -->
 <style>
 	@keyframes fadeInBlur {
 		from {

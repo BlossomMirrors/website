@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     let sha256 = "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567890ab";
     let isCopied = false;
     
@@ -10,7 +10,7 @@
         }, 1000);
     }
     
-    function handleKeyDown(e) {
+    function handleKeyDown(e: KeyboardEvent) {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             copy();
