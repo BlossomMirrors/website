@@ -74,9 +74,9 @@
         <img src={logo} alt="BlossomOS Logo" class="w-32 h-32 mx-auto" />
     </div>
     <h1 class="text-4xl font-bold mb-4 font-serif fade-in-delayed">{m.home_title()}</h1>
-    <p class="text-lg text-white/80 mb-6 fade-in-delayed-more">
+    <!--<p class="text-lg text-white/80 mb-6 fade-in-delayed-more">
         {m.home_subtitle()}
-    </p>
+    </p>-->
     <div class="fade-in-delayed-more-more">
         {#if isMobile}
             <Modal.Root>
