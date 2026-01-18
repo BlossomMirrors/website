@@ -18,7 +18,7 @@
 	<title>BlossomOS</title>
 </svelte:head>
 
-<div class="p-8 mt-24">
+<div class="flex flex-col min-h-screen justify-center items-center">
 	<div class="flex justify-between items-center mb-8">
 		{@render children()}
 	</div>

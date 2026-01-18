@@ -168,75 +168,77 @@
 	}
 </style>
 
-<div class="paper-container">
-	<div class="paper">
-		<div class="paper-texture"></div>
-		
-		<h1>{m.release_notes_title()}</h1>
-		<p class="subtitle">{m.release_notes_version()}</p>
-		
-		<div class="divider"></div>
-		
-		<div class="release-item">
-			<h3>{m.release_notes_welcome_title()}</h3>
-			<p>
-				{m.release_notes_welcome_text()}
-			</p>
-		</div>
+<div class="p-8 mt-24 mb-8">
+	<div class="paper-container">
+		<div class="paper">
+			<div class="paper-texture"></div>
+			
+			<h1>{m.release_notes_title()}</h1>
+			<p class="subtitle">{m.release_notes_version()}</p>
+			
+			<div class="divider"></div>
+			
+			<div class="release-item">
+				<h3>{m.release_notes_welcome_title()}</h3>
+				<p>
+					{m.release_notes_welcome_text()}
+				</p>
+			</div>
 
-		<div class="release-item">
-			<h3>{m.release_notes_features_title()}</h3>
-			<ul>
-				<li>{m.release_notes_feature_1()}</li>
-				<li>{m.release_notes_feature_2()}</li>
-				<li>{m.release_notes_feature_3()}</li>
-				<li>{m.release_notes_feature_4()}</li>
-				<li>{m.release_notes_feature_5()}</li>
-                <li>{m.release_notes_feature_6()}</li>
-			</ul>
-		</div>
+			<div class="release-item">
+				<h3>{m.release_notes_features_title()}</h3>
+				<ul>
+					<li>{m.release_notes_feature_1()}</li>
+					<li>{m.release_notes_feature_2()}</li>
+					<li>{m.release_notes_feature_3()}</li>
+					<li>{m.release_notes_feature_4()}</li>
+					<li>{m.release_notes_feature_5()}</li>
+					<li>{m.release_notes_feature_6()}</li>
+				</ul>
+			</div>
 
-		<div class="divider"></div>
+			<div class="divider"></div>
 
-		<div class="release-item">
-			<h3>{m.release_notes_issues_title()}</h3>
-			<ul>
-				<li>{m.release_notes_issue_1()}</li>
-                <li>{m.release_notes_issue_2()}</li>
-                <li>{m.release_notes_issue_3()}</li>
-                <li>{m.release_notes_issue_4()}</li>
-                <li>{m.release_notes_issue_5()}</li>
-			</ul>
-		</div>
+			<div class="release-item">
+				<h3>{m.release_notes_issues_title()}</h3>
+				<ul>
+					<li>{m.release_notes_issue_1()}</li>
+					<li>{m.release_notes_issue_2()}</li>
+					<li>{m.release_notes_issue_3()}</li>
+					<li>{m.release_notes_issue_4()}</li>
+					<li>{m.release_notes_issue_5()}</li>
+				</ul>
+			</div>
 
-		<div class="release-item">
-			<h3>{m.release_notes_improvements_title()}</h3>
-			<ul>
-				<li>{m.release_notes_improvement_1()}</li>
-                <li>{m.release_notes_improvement_2()}</li>
-                <li>{m.release_notes_improvement_3()}</li>
-				<li>{m.release_notes_improvement_4()}</li>
-				<li>{m.release_notes_improvement_5()}</li>
-				<li>{m.release_notes_improvement_6()}</li>
-			</ul>
-		</div>
+			<div class="release-item">
+				<h3>{m.release_notes_improvements_title()}</h3>
+				<ul>
+					<li>{m.release_notes_improvement_1()}</li>
+					<li>{m.release_notes_improvement_2()}</li>
+					<li>{m.release_notes_improvement_3()}</li>
+					<li>{m.release_notes_improvement_4()}</li>
+					<li>{m.release_notes_improvement_5()}</li>
+					<li>{m.release_notes_improvement_6()}</li>
+				</ul>
+			</div>
 
-        <!--
-            <div class="divider"></div>
-            <div class="release-item">
-                <h3>📝 Installation & Support</h3>
-                <p>
-                    Please refer to our documentation for installation instructions. 
-                    If you encounter any issues, please report them on our community forum.
-                </p>
-            </div>
-        -->
+			<!--
+				<div class="divider"></div>
+				<div class="release-item">
+					<h3>📝 Installation & Support</h3>
+					<p>
+						Please refer to our documentation for installation instructions. 
+						If you encounter any issues, please report them on our community forum.
+					</p>
+				</div>
+			-->
 
-		<div class="back-button">
-			<Button href="/">
-				<ArrowLeft class="w-4 h-4" />
-				{m.release_notes_back()}
-			</Button>
+			<div class="back-button">
+				<Button href="/">
+					<ArrowLeft class="w-4 h-4" />
+					{m.release_notes_back()}
+				</Button>
+			</div>
 		</div>
 	</div>
 </div>
