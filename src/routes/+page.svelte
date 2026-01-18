@@ -6,6 +6,7 @@
 	import { Share } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
+	import Sha256 from "$lib/components/ui/sha256.svelte";
 
 	const downloadLink = "https://blossomos.org/download"; // Placeholder link
 	let isMobile = false;
@@ -117,8 +118,6 @@
             <span>{m.home_version()}</span>
             <a href="/release-notes" class="underline hover:text-white/80">{m.home_release_notes()}</a>
         </div>
-        <div class="my-4 text-xs wrap-anywhere">
-            <code>{m.home_sha256()}</code>
-        </div>
+        <Sha256 />
     </div>
 </div>
