@@ -77,7 +77,7 @@
     <!--<p class="text-lg text-white/80 mb-6 fade-in-delayed-more">
         {m.home_subtitle()}
     </p>-->
-    <div class="fade-in-delayed-more-more">
+    <div class="mt-6 fade-in-delayed-more-more">
         {#if isMobile}
             <Modal.Root>
                 <Modal.Trigger>
