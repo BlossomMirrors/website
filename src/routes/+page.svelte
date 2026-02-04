@@ -8,8 +8,10 @@
 	import * as m from '$lib/paraglide/messages';
 	import Sha256 from "$lib/components/ui/sha256.svelte";
 
-	const downloadLink = "https://blossomos.org/download"; // Placeholder link
+	let downloadLink = "";
+	let isoData: { name: string; sha256: string } | null = null;
 	let isMobile = false;
+	let isWindows = false;
 
 	function shareLink() {
 		navigator.share?.({
@@ -19,17 +21,38 @@
         }) || navigator.clipboard.writeText(downloadLink);
 	}
 
-	onMount(() => {
-		const mediaQuery = window.matchMedia('(max-width: 768px)');
-		isMobile = mediaQuery.matches;
-		
-		const handleChange = (e: MediaQueryListEvent) => {
-			isMobile = e.matches;
-		};
-		
-		mediaQuery.addEventListener('change', handleChange);
-		return () => mediaQuery.removeEventListener('change', handleChange);
-	});
+    onMount(() => {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        isMobile = mediaQuery.matches;
+        
+        const handleChange = (e: MediaQueryListEvent) => {
+            isMobile = e.matches;
+        };
+        
+        mediaQuery.addEventListener('change', handleChange);
+
+        // Detect if browser is Windows
+        isWindows = navigator.platform.indexOf('Win') > -1;
+
+        // Fetch ISO data
+        (async () => {
+            try {
+                const response = await fetch('https://cdn.blossomos.org/iso/isodata.json');
+                isoData = await response.json();
+                if (isoData) {
+                    if (isWindows) {
+                        downloadLink = "https://cdn.blossomos.org/iso/preptool.exe";
+                    } else {
+                        downloadLink = `https://cdn.blossomos.org/iso/${isoData.name}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch ISO data:', error);
+            }
+        })();
+
+        return () => mediaQuery.removeEventListener('change', handleChange);
+    });
 
 </script>
 
@@ -119,6 +142,8 @@
             <span>{m.home_version()}</span>
             <a href="/release-notes" class="underline hover:text-white/80">{m.home_release_notes()}</a>
         </div>
-        <Sha256 />
+        {#if !isWindows}
+            <Sha256 sha256={isoData?.sha256 || ""} />
+        {/if}
     </div>
 </div>

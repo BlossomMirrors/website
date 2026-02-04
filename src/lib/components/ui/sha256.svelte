@@ -1,5 +1,5 @@
 <script lang="ts">
-    let sha256 = "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567890ab";
+    export let sha256 = "";
     let isCopied = false;
     
     function copy() {

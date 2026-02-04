@@ -3,7 +3,7 @@
 	"hello_world": "Hello, {name} from en!",
 	"home_title": "Welcome to BlossomOS",
 	"home_subtitle": "The operating system you always wanted.",
-	"home_download": "Download ISO",
+	"home_download": "Download image",
 	"home_version": "Version 0.1 Alpha",
 	"home_release_notes": "Release notes",
 	"modal_title": "Download BlossomOS",
