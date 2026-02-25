@@ -97,8 +97,10 @@
 			<Button href={downloadLink} size="3xl">
 				{#if isWindows}
 					<WindowsIcon />
+					{m.home_download_windows()}
+				{:else}
+					{m.home_download()}
 				{/if}
-				{m.home_download_windows()}
 			</Button>
 		{/if}
 	</div>
