@@ -4,6 +4,8 @@
 	"home_title": "Welcome to BlossomOS",
 	"home_subtitle": "The operating system you always wanted.",
 	"home_download": "Download image",
+	"home_download_windows": "Download installer",
+	"iso_instead": "Download image file instead",
 	"home_version": "Version 0.1 Alpha",
 	"home_release_notes": "Release notes",
 	"modal_title": "Download BlossomOS",
