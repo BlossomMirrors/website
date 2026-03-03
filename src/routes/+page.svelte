@@ -42,7 +42,7 @@
 		// Fetch ISO data
 		(async () => {
 			try {
-				const response = await fetch('https://cdn.blossomos.org/iso/isodata.json');
+				const response = await fetch('https://cdn.blossomos.org/iso/isodata.json?' + Date.now());
 				isoData = await response.json();
 				if (isoData) {
 					if (isWindows) {
