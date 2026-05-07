@@ -3,7 +3,7 @@
 	import * as Modal from '$lib/components/ui/modal';
 	import { Input } from '$lib/components/ui/input';
 	import logo from '$lib/assets/logo.svg';
-	import { Grid2x2, Share } from '@lucide/svelte';
+	import { Share } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
 	import Sha256 from '$lib/components/ui/sha256.svelte';
@@ -16,15 +16,19 @@
 	let animationPlayed = false;
 
 	function shareLink() {
-		navigator.share?.({
-			title: m.modal_title(),
-			text: 'Get BlossomOS from this link:',
-			url: downloadLink
-		}) || navigator.clipboard.writeText(downloadLink);
+		void (
+			navigator.share?.({
+				title: m.modal_title(),
+				text: 'Get BlossomOS from this link:',
+				url: downloadLink
+			}) || navigator.clipboard.writeText(downloadLink)
+		);
 	}
 
 	function downloadISO() {
-		location.href = `https://cdn.blossomos.org/iso/${isoData.name}`;
+		if (isoData) {
+			location.href = `https://cdn.blossomos.org/iso/${isoData.name}`;
+		}
 	}
 
 	onMount(() => {
@@ -37,8 +41,8 @@
 
 		mediaQuery.addEventListener('change', handleChange);
 
-		// Detect if browser is Windows
-		isWindows = navigator.platform.indexOf('Win') > -1;
+		// Detect if browser is Windows (temporarily disabled)
+		// isWindows = navigator.platform.indexOf('Win') > -1;
 
 		// Check if animation has already been played in this session
 		animationPlayed = sessionStorage.getItem('blurfadeAnimationPlayed') === 'true';
@@ -164,7 +168,6 @@
 	</div>
 </div>
 
-<!-- svelte-ignore css_unused_selector -->
 <style>
 	@keyframes fadeInBlur {
 		from {
