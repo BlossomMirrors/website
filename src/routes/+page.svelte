@@ -10,10 +10,50 @@
 	import WindowsIcon from '$lib/components/windows-icon.svelte';
 
 	let downloadLink = '';
-	let isoData: { name: string; sha256: string } | null = null;
+	let isoDataAmd: { name: string; sha256: string } | null = null;
+	let isoDataNvidia: { name: string; sha256: string } | null = null;
 	let isMobile = false;
 	let isWindows = false;
 	let animationPlayed = false;
+	let gpuVendor: 'amd' | 'nvidia' | 'unknown' = 'unknown';
+	let selectedGPU: 'amd' | 'nvidia' = 'amd';
+
+	function detectGPU(): 'amd' | 'nvidia' | 'unknown' {
+		try {
+			const canvas = document.createElement('canvas');
+			const gl =
+				(canvas.getContext('webgl') as WebGLRenderingContext | null) ||
+				(canvas.getContext('experimental-webgl') as WebGLRenderingContext | null);
+			if (!gl) return 'unknown';
+			const ext = gl.getExtension('WEBGL_debug_renderer_info');
+			if (!ext) return 'unknown';
+			const renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) as string;
+			if (/nvidia/i.test(renderer)) return 'nvidia';
+			if (/amd|radeon|ati/i.test(renderer)) return 'amd';
+			return 'unknown';
+		} catch {
+			return 'unknown';
+		}
+	}
+
+	function getActiveIsoData() {
+		return selectedGPU === 'nvidia' ? isoDataNvidia : isoDataAmd;
+	}
+
+	function updateDownloadLink() {
+		const isoData = getActiveIsoData();
+		if (isoData) {
+			if (isWindows) {
+				downloadLink = 'https://cdn.blossomos.org/iso/preptool.exe';
+			} else {
+				downloadLink = `https://cdn.blossomos.org/iso/${isoData.name}`;
+			}
+		}
+	}
+
+	function onGPUChange() {
+		updateDownloadLink();
+	}
 
 	function shareLink() {
 		void (
@@ -26,6 +66,7 @@
 	}
 
 	function downloadISO() {
+		const isoData = getActiveIsoData();
 		if (isoData) {
 			location.href = `https://cdn.blossomos.org/iso/${isoData.name}`;
 		}
@@ -47,18 +88,23 @@
 		// Check if animation has already been played in this session
 		animationPlayed = sessionStorage.getItem('blurfadeAnimationPlayed') === 'true';
 
-		// Fetch ISO data
+		// Detect GPU vendor and auto-select
+		gpuVendor = detectGPU();
+		if (gpuVendor !== 'unknown') {
+			selectedGPU = gpuVendor;
+		}
+
+		// Fetch ISO data for both AMD and NVIDIA
 		(async () => {
 			try {
-				const response = await fetch('https://cdn.blossomos.org/iso/isodata.json?' + Date.now());
-				isoData = await response.json();
-				if (isoData) {
-					if (isWindows) {
-						downloadLink = 'https://cdn.blossomos.org/iso/preptool.exe';
-					} else {
-						downloadLink = `https://cdn.blossomos.org/iso/${isoData.name}`;
-					}
-				}
+				const ts = Date.now();
+				const [amdRes, nvidiaRes] = await Promise.all([
+					fetch(`https://cdn.blossomos.org/iso/isodata.json?${ts}`),
+					fetch(`https://cdn.blossomos.org/iso/isodata-nvidia.json?${ts}`)
+				]);
+				if (amdRes.ok) isoDataAmd = await amdRes.json();
+				if (nvidiaRes.ok) isoDataNvidia = await nvidiaRes.json();
+				updateDownloadLink();
 			} catch (error) {
 				console.error('Failed to fetch ISO data:', error);
 			}
@@ -139,6 +185,33 @@
 				</div>
 			</div>
 		{/if}
+
+		<!-- GPU selection radio buttons -->
+		<div class="gpu-selector mt-6 flex items-center justify-center gap-6">
+			<span class="text-sm text-white/60">{m.gpu_select()}:</span>
+			<label class="gpu-label">
+				<input
+					type="radio"
+					name="gpu"
+					value="amd"
+					bind:group={selectedGPU}
+					on:change={onGPUChange}
+					class="gpu-radio"
+				/>
+				<span class:auto-detected={gpuVendor === 'amd'}>{m.gpu_amd()}</span>
+			</label>
+			<label class="gpu-label">
+				<input
+					type="radio"
+					name="gpu"
+					value="nvidia"
+					bind:group={selectedGPU}
+					on:change={onGPUChange}
+					class="gpu-radio"
+				/>
+				<span class:auto-detected={gpuVendor === 'nvidia'}>{m.gpu_nvidia()}</span>
+			</label>
+		</div>
 	</div>
 	<div
 		class="{animationPlayed
@@ -163,7 +236,7 @@
 			<!-- <a href="/release-notes" class="underline hover:text-white/80">{m.home_release_notes()}</a> -->
 		</div>
 		{#if !isWindows}
-			<Sha256 sha256={isoData?.sha256 || ''} />
+			<Sha256 sha256={getActiveIsoData()?.sha256 || ''} />
 		{/if}
 	</div>
 </div>
@@ -222,5 +295,39 @@
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 		white-space: nowrap;
 		z-index: 10;
+	}
+
+	.gpu-selector {
+		font-size: 0.875rem;
+	}
+
+	.gpu-label {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		cursor: pointer;
+		color: rgba(255, 255, 255, 0.7);
+		transition: color 0.15s;
+	}
+
+	.gpu-label:hover {
+		color: rgba(255, 255, 255, 0.95);
+	}
+
+	.gpu-radio {
+		accent-color: #5c64ff;
+		width: 1rem;
+		height: 1rem;
+		cursor: pointer;
+	}
+
+	.auto-detected {
+		color: #5c64ff;
+		font-weight: 600;
+	}
+
+	.auto-detected::after {
+		content: ' ✓';
+		font-size: 0.75rem;
 	}
 </style>

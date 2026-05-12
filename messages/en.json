@@ -9,5 +9,8 @@
 	"home_version": "Version 0.1 Alpha",
 	"modal_title": "Download BlossomOS",
 	"modal_subtitle": "Share this link with your friends or devices",
-	"in_development": "In Development"
+	"in_development": "In Development",
+	"gpu_select": "GPU vendor",
+	"gpu_amd": "AMD",
+	"gpu_nvidia": "NVIDIA"
 }

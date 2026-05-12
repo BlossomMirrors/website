@@ -9,5 +9,8 @@
 	"home_version": "Version 0.1 Alpha",
 	"modal_title": "BlossomOS herunterladen",
 	"modal_subtitle": "Teile diesen Link mit deinen Freunden oder anderen Geräten",
-	"in_development": "In Entwicklung"
+	"in_development": "In Entwicklung",
+	"gpu_select": "GPU-Hersteller",
+	"gpu_amd": "AMD",
+	"gpu_nvidia": "NVIDIA"
 }
