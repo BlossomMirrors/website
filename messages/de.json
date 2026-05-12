@@ -2,7 +2,7 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"hello_world": "Hello, {name} from de!",
 	"home_title": "Willkommen bei BlossomOS",
-	"home_subtitle": "Die PC-Plattform für echte digitale Unabhängigkeit. Jede Software per Klick, keine Kompromisse.",
+	"home_subtitle": "Die Desktop-Plattform für digitale Unabhängigkeit, endlich alltagstauglich. Jede Software mit einem Klick, keine Kompromisse.",
 	"home_download": "Abbild herunterladen",
 	"home_download_windows": "Installer herunterladen",
 	"iso_instead": "Stattdessen das Abbild herunterladen",
