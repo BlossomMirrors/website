@@ -232,7 +232,7 @@
 			<br />
 		{/if}
 		<div class="flex items-center justify-center gap-8">
-			<!-- <span>{m.home_version()}</span> -->
+			<span>{m.home_version()}</span>
 			<!-- <a href="/release-notes" class="underline hover:text-white/80">{m.home_release_notes()}</a> -->
 		</div>
 		{#if !isWindows}
