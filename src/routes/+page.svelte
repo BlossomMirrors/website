@@ -17,6 +17,7 @@
 	let animationPlayed = false;
 	let gpuVendor: 'amd' | 'nvidia' | 'unknown' = 'unknown';
 	let selectedGPU: 'amd' | 'nvidia' = 'amd';
+	let ISOsha256 = '';
 
 	function detectGPU(): 'amd' | 'nvidia' | 'unknown' {
 		try {
@@ -37,17 +38,18 @@
 	}
 
 	function getActiveIsoData() {
-		return selectedGPU === 'nvidia' ? isoDataNvidia : isoDataAmd;
+		if (selectedGPU) {
+			return selectedGPU === 'nvidia' ? isoDataNvidia : isoDataAmd;
+		} else {
+			return detectGPU() === 'nvidia' ? isoDataNvidia : isoDataAmd;
+		}
 	}
 
 	function updateDownloadLink() {
 		const isoData = getActiveIsoData();
 		if (isoData) {
-			if (isWindows) {
-				downloadLink = 'https://cdn.blossomos.org/iso/preptool.exe';
-			} else {
-				downloadLink = `https://cdn.blossomos.org/iso/${isoData.name}`;
-			}
+			ISOsha256 = isoData.sha256;
+			downloadLink = `https://cdn.blossomos.org/iso/${isoData.name}`;
 		}
 	}
 
@@ -249,9 +251,7 @@
 			<span>{m.home_version()}</span>
 			<!-- <a href="/release-notes" class="underline hover:text-white/80">{m.home_release_notes()}</a> -->
 		</div>
-		{#if !isWindows}
-			<Sha256 sha256={getActiveIsoData()?.sha256 || ''} />
-		{/if}
+		<Sha256 sha256={ISOsha256 || ''} />
 	</div>
 </div>
 
