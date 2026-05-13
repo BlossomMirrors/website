@@ -11,13 +11,14 @@ COPY . .
 ENV NODE_ENV=production
 RUN bun run build
 
-FROM oven/bun:latest AS runner
-WORKDIR /app
+FROM nginx:alpine AS runner
+WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /app /app
+RUN rm -rf ./*
 
-ENV NODE_ENV=production
-ENV PORT=3000
-EXPOSE 3000
+COPY --from=builder /app/build .
 
-CMD ["bun", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3000"]
+ENV PORT=80
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
