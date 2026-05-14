@@ -161,7 +161,7 @@
 			<div class="relative inline-block">
 				<Modal.Root>
 					<Modal.Trigger>
-						<Button size="3xl" data-umami-event="Download ISO">
+						<Button size="3xl">
 							{m.home_download()}
 						</Button>
 					</Modal.Trigger>
