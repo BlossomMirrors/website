@@ -102,7 +102,7 @@
 				const ts = Date.now();
 				const [amdRes, nvidiaRes] = await Promise.all([
 					fetch(`https://cdn.blossomos.org/iso/isodata.json?${ts}`),
-					fetch(`https://cdn.blossomos.org/iso/isodata-nvidia.json?${ts}`)
+					fetch(`https://cdn.blossomos.org/iso/isodata-nvidia-open.json?${ts}`)
 				]);
 				if (amdRes.ok) isoDataAmd = await amdRes.json();
 				if (nvidiaRes.ok) isoDataNvidia = await nvidiaRes.json();
