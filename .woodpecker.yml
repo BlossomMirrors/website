@@ -5,9 +5,13 @@ when:
   - event: manual
 
 variables:
+  - &storage_zone blossomos-website
   - &ftp_env
     FTP_PASSWORD:
       from_secret: ftp_password
+    BUNNY_API_KEY:
+      from_secret: bunny_api_key
+    STORAGE_ZONE: *storage_zone
 
 steps:
   - name: build
@@ -21,6 +25,30 @@ steps:
     environment:
       <<: *ftp_env
     commands:
-      - apk add --no-cache lftp
-      - lftp -c "open -u blossomos-website:$FTP_PASSWORD ftp://storage.bunnycdn.com; mirror -R --delete --verbose build/ /"
+      - apk add --no-cache jq curl
+      - |
+        ftp_delete() {
+          local path="${1:-/}"
+          curl -s --user "$STORAGE_ZONE:$FTP_PASSWORD" "ftp://storage.bunnycdn.com${path}" | while IFS= read -r line; do
+            name=$(printf '%s' "$line" | awk '{print $NF}')
+            case "$name" in ""|.|..) continue ;; esac
+            if printf '%s' "$line" | grep -q '^d'; then
+              ftp_delete "${path}${name}/"
+              curl -s --user "$STORAGE_ZONE:$FTP_PASSWORD" "ftp://storage.bunnycdn.com${path}" -Q "RMD ${path}${name}" >/dev/null
+            else
+              curl -s --user "$STORAGE_ZONE:$FTP_PASSWORD" "ftp://storage.bunnycdn.com${path}" -Q "DELE ${path}${name}" >/dev/null
+            fi
+          done
+        }
+        ftp_delete /
+        find dist/ -type f | while read f; do
+          curl -fsST "$f" "ftp://storage.bunnycdn.com/${f#dist/}" --user "$STORAGE_ZONE:$FTP_PASSWORD" --ftp-create-dirs
+        done
+        PULLZONE_ID=$(curl -fsS --url https://api.bunny.net/pullzone \
+          --header "AccessKey: $BUNNY_API_KEY" \
+          | jq -r ".[] | select(.Name == \"$STORAGE_ZONE\") | .Id")
+        curl -fsS --request POST \
+          --url "https://api.bunny.net/pullzone/$PULLZONE_ID/purgeCache" \
+          --header "AccessKey: $BUNNY_API_KEY" \
+          --header 'Content-Type: application/json'
     depends_on: [build]
