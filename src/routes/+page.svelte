@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Taskbar from '$lib/components/hero/taskbar.svelte';
 	import WallpaperReveal from '$lib/components/hero/wallpaper-reveal.svelte';
+	import Widgets from '$lib/components/hero/widgets.svelte';
 	import * as m from '$lib/paraglide/messages';
 </script>
 
@@ -12,6 +13,7 @@
 		<div class="pointer-events-none absolute inset-0 bg-white/50 dark:hidden"></div>
 		<div class="pointer-events-none absolute inset-0 z-50 animate-screen-on bg-black"></div>
 		<WallpaperReveal />
+		<Widgets />
 		<Taskbar />
 	</div>
 

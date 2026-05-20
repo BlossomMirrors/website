@@ -123,7 +123,7 @@
 			showTimer = setTimeout(() => { targetOpacity = 1; }, 300);
 		}
 
-		function handleMove(e: MouseEvent) {
+		function handleMove(e: PointerEvent) {
 			const rect = parent.getBoundingClientRect();
 			targetX = e.clientX - rect.left;
 			targetY = e.clientY - rect.top;
@@ -135,7 +135,7 @@
 		}
 
 		parent.addEventListener('mouseenter', handleEnter);
-		parent.addEventListener('mousemove', handleMove);
+		window.addEventListener('pointermove', handleMove);
 		parent.addEventListener('mouseleave', handleLeave);
 
 		function loop() {
@@ -153,7 +153,7 @@
 			ro.disconnect();
 			themeObserver.disconnect();
 			parent.removeEventListener('mouseenter', handleEnter);
-			parent.removeEventListener('mousemove', handleMove);
+			window.removeEventListener('pointermove', handleMove);
 			parent.removeEventListener('mouseleave', handleLeave);
 		};
 	});
