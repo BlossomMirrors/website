@@ -37,6 +37,22 @@
 			x: PAD + Math.random() * (cW - SIZES[item.id].w - PAD * 2),
 			y: PAD + Math.random() * (cH - SIZES[item.id].h - TASKBAR_H - PAD),
 		}));
+
+		const ro = new ResizeObserver(() => {
+			if (!containerEl) return;
+			const { width, height } = containerEl.getBoundingClientRect();
+			const scaleX = width / (cW || width);
+			const scaleY = height / (cH || height);
+			cW = width;
+			cH = height;
+			items = items.map((item) => ({
+				...item,
+				x: Math.max(0, Math.min(item.x * scaleX, cW - SIZES[item.id].w)),
+				y: Math.max(0, Math.min(item.y * scaleY, cH - SIZES[item.id].h - TASKBAR_H)),
+			}));
+		});
+		ro.observe(containerEl);
+		return () => ro.disconnect();
 	});
 
 	function down(e: PointerEvent, idx: number) {

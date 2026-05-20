@@ -28,7 +28,7 @@
 <ModeWatcher />
 
 <div class="flex items-center justify-between">
-	<div class="mx-auto mt-2 max-w-7xl *:px-4 md:w-full">
+	<div class="mx-auto mt-2 w-full max-w-7xl *:px-4">
 		<Header />
 		<main>{@render children()}</main>
 	</div>

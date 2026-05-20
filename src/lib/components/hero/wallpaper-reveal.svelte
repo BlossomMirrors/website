@@ -10,11 +10,10 @@
 	let targetOpacity = 0;
 	let currentOpacity = 0;
 	let rafId: number;
-	let showTimer: ReturnType<typeof setTimeout>;
 	let img: HTMLImageElement | null = null;
 
-	const RADIUS = 160;
-	const EDGE = 22; // width of the grainy transition zone
+	const RADIUS = 80;
+	const EDGE = 18;
 	const LAG = 0.07;
 
 	// Stable per-pixel hash, no flickering grain
@@ -115,12 +114,13 @@
 		});
 		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-		function handleEnter(e: MouseEvent) {
+		function handleDown(e: PointerEvent) {
+			if (e.button !== 0) return;
+			if (e.target !== parent) return;
 			const rect = parent.getBoundingClientRect();
-			targetX = displayX = e.clientX - rect.left;
-			targetY = displayY = e.clientY - rect.top;
-			clearTimeout(showTimer);
-			showTimer = setTimeout(() => { targetOpacity = 1; }, 300);
+			displayX = targetX = e.clientX - rect.left;
+			displayY = targetY = e.clientY - rect.top;
+			targetOpacity = 1;
 		}
 
 		function handleMove(e: PointerEvent) {
@@ -129,14 +129,13 @@
 			targetY = e.clientY - rect.top;
 		}
 
-		function handleLeave() {
-			clearTimeout(showTimer);
+		function handleUp() {
 			targetOpacity = 0;
 		}
 
-		parent.addEventListener('mouseenter', handleEnter);
+		parent.addEventListener('pointerdown', handleDown);
 		window.addEventListener('pointermove', handleMove);
-		parent.addEventListener('mouseleave', handleLeave);
+		window.addEventListener('pointerup', handleUp);
 
 		function loop() {
 			displayX += (targetX - displayX) * LAG;
@@ -149,12 +148,11 @@
 
 		return () => {
 			cancelAnimationFrame(rafId);
-			clearTimeout(showTimer);
 			ro.disconnect();
 			themeObserver.disconnect();
-			parent.removeEventListener('mouseenter', handleEnter);
+			parent.removeEventListener('pointerdown', handleDown);
 			window.removeEventListener('pointermove', handleMove);
-			parent.removeEventListener('mouseleave', handleLeave);
+			window.removeEventListener('pointerup', handleUp);
 		};
 	});
 </script>

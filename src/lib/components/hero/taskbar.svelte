@@ -2,6 +2,8 @@
 	import { onMount, onDestroy } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
 
+	let { onIconClick }: { onIconClick?: (label: string) => void } = $props();
+
 	const icons = [
 		{ src: '/taskbar/dolphin.png', label: 'Dolphin', subtitle: m.dolphin_tooltip() },
 		{ src: '/taskbar/helium.png', label: 'Helium', subtitle: m.helium_tooltip() },
@@ -14,6 +16,11 @@
 			src: '/taskbar/steam.png',
 			label: 'Steam',
 			subtitle: m.steam_tooltip()
+		},
+		{
+			src: '/taskbar/kamoso.png',
+			label: 'Kamoso',
+			subtitle: m.kamoso_tooltip()
 		}
 	];
 
@@ -50,7 +57,7 @@
 
 {#if tooltip}
 	<div
-		class="pointer-events-none absolute z-50 max-w-75 -translate-x-1/2 rounded-xl border dark:border-white/15 border-black/10 dark:bg-black/30 bg-white/60 px-5 py-5 shadow-xl backdrop-blur-md"
+		class="pointer-events-none absolute z-50 max-w-75 -translate-x-1/2 rounded-xl border border-black/10 bg-white/60 px-5 py-5 shadow-xl backdrop-blur-md dark:border-white/15 dark:bg-black/30"
 		style="left: {tooltip.x}px; bottom: {tooltip.bottom + 4}px;"
 	>
 		<div class="text-md text-foreground">{tooltip.label}</div>
@@ -60,35 +67,46 @@
 
 <div
 	bind:this={taskbarEl}
-	class="absolute right-6 bottom-6 left-6 flex items-center justify-between rounded-2xl border dark:border-white/15 border-black/10 dark:bg-black/30 bg-white/40 px-3 py-1.5 shadow-xl backdrop-blur-md select-none taskbar-slide-up"
+	class="taskbar-slide-up absolute right-3 bottom-3 left-3 flex items-center justify-between rounded-2xl border border-black/10 bg-white/40 px-2 py-1 shadow-xl backdrop-blur-md select-none sm:right-6 sm:bottom-6 sm:left-6 sm:px-3 sm:py-1.5 dark:border-white/15 dark:bg-black/30"
 >
-	<div class="flex items-center gap-6">
-		<img src="/taskbar/logo.svg" class="pointer-events-none h-8 w-8 dark:invert-0 invert" alt="Logo" />
+	<div class="flex items-center gap-1.5 sm:gap-6">
+		<img
+			src="/taskbar/logo.svg"
+			class="pointer-events-none h-6 w-6 shrink-0 invert sm:h-8 sm:w-8 dark:invert-0"
+			alt="Logo"
+		/>
 		{#each icons as icon (icon.label)}
 			<button
-				class="cursor-custom h-10 w-10 rounded-xl p-1 transition-transform duration-150 hover:brightness-130"
+				class="cursor-custom h-7 w-7 shrink-0 rounded-xl p-0.5 transition-transform duration-150 hover:brightness-130 sm:h-10 sm:w-10 sm:p-1"
 				onmouseenter={(e) => showTooltip(icon, e.currentTarget)}
 				onmouseleave={() => (tooltip = null)}
+				onclick={() => onIconClick?.(icon.label)}
 			>
 				<img src={icon.src} class="pointer-events-none h-full w-full" alt={icon.label} />
 			</button>
 		{/each}
 	</div>
 
-	<div class="text-right leading-tight text-foreground">
+	<div class="hidden text-right leading-tight text-foreground sm:block">
 		<div class="text-sm font-semibold">{timeStr}</div>
 		<div class="text-xs text-foreground/60">{dateStr}</div>
 	</div>
 </div>
 
 <style>
-@keyframes taskbar-in {
-	from { transform: translateY(calc(100% + 1.5rem)); opacity: 0; }
-	to { transform: translateY(0); opacity: 1; }
-}
-.taskbar-slide-up {
-	animation: taskbar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-	animation-delay: 1s;
-	opacity: 0;
-}
+	@keyframes taskbar-in {
+		from {
+			transform: translateY(calc(100% + 1.5rem));
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+	.taskbar-slide-up {
+		animation: taskbar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+		animation-delay: 1s;
+		opacity: 0;
+	}
 </style>
