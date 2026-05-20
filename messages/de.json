@@ -12,5 +12,13 @@
 	"in_development": "In Entwicklung",
 	"gpu_select": "GPU-Hersteller",
 	"gpu_amd": "AMD",
-	"gpu_nvidia": "NVIDIA"
+	"gpu_nvidia": "NVIDIA",
+	"steam_tooltip": "Anwendung zum Verwalten und Spielen von Spielen auf Steam",
+	"dolphin_tooltip": "Dateimanager",
+	"helium_tooltip": "Webbrowser",
+	"thunderbird_tooltip": "E-Mail-Client",
+	"arc_tooltip": "Software-Store",
+	"discord_tooltip": "Internet Messenger",
+	"obsidian_tooltip": "Notizen",
+	"libreoffice_tooltip": "Office-Suite"
 }

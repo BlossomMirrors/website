@@ -1,15 +1,20 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	const icons = [
-		{ src: '/taskbar/dolphin.png', label: 'Dolphin', subtitle: 'File Manager' },
-		{ src: '/taskbar/helium.png', label: 'Helium', subtitle: 'Browser' },
-		{ src: '/taskbar/thunderbird.png', label: 'Thunderbird', subtitle: 'Email Client' },
-		{ src: '/taskbar/arc.png', label: 'Arc Software', subtitle: 'Software Store' },
-		{ src: '/taskbar/discord.png', label: 'Discord', subtitle: 'Messaging' },
-		{ src: '/taskbar/obsidian.png', label: 'Obsidian', subtitle: 'Note Taking' },
-		{ src: '/taskbar/libreoffice.png', label: 'LibreOffice', subtitle: 'Office Suite' },
-		{ src: '/taskbar/steam.png', label: 'Steam', subtitle: 'Game Launcher' }
+		{ src: '/taskbar/dolphin.png', label: 'Dolphin', subtitle: m.dolphin_tooltip() },
+		{ src: '/taskbar/helium.png', label: 'Helium', subtitle: m.helium_tooltip() },
+		{ src: '/taskbar/thunderbird.png', label: 'Thunderbird', subtitle: m.thunderbird_tooltip() },
+		{ src: '/taskbar/arc.png', label: 'Arc Software', subtitle: m.arc_tooltip() },
+		{ src: '/taskbar/discord.png', label: 'Discord', subtitle: m.discord_tooltip() },
+		{ src: '/taskbar/obsidian.png', label: 'Obsidian', subtitle: m.obsidian_tooltip() },
+		{ src: '/taskbar/libreoffice.png', label: 'LibreOffice', subtitle: m.libreoffice_tooltip() },
+		{
+			src: '/taskbar/steam.png',
+			label: 'Steam',
+			subtitle: m.steam_tooltip()
+		}
 	];
 
 	let time = $state(new Date());
@@ -45,11 +50,11 @@
 
 {#if tooltip}
 	<div
-		class="pointer-events-none absolute z-50 -translate-x-1/2 rounded-xl border border-white/12 bg-background/50 px-5 py-5 whitespace-nowrap shadow-xl backdrop-blur-md"
-		style="left: {tooltip.x}px; bottom: {tooltip.bottom + 10}px;"
+		class="pointer-events-none absolute z-50 max-w-75 -translate-x-1/2 rounded-xl border border-white/12 bg-background/50 px-5 py-5 shadow-xl backdrop-blur-md"
+		style="left: {tooltip.x}px; bottom: {tooltip.bottom + 4}px;"
 	>
-		<div class="text-sm font-semibold text-white">{tooltip.label}</div>
-		<div class="text-xs text-white/60">{tooltip.subtitle}</div>
+		<div class="text-md text-white">{tooltip.label}</div>
+		<div class="mt-0.5 text-xs text-white/60">{tooltip.subtitle}</div>
 	</div>
 {/if}
 
