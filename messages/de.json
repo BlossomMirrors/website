@@ -1,6 +1,12 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"home_subtitle": "Die Desktop-Plattform für digitale Unabhängigkeit, endlich alltagstauglich. Jede Software mit einem Klick, keine Kompromisse.",
+	"download_title": "BlossomOS herunterladen",
+	"download_subtitle": "Wähle die richtige Edition für deine Hardware.",
+	"download_button": "Herunterladen",
+	"recommended": "Empfohlen",
+	"iso_standard_desc": "Für AMD- und Intel-GPUs. Die Standardwahl für die meisten Nutzer.",
+	"iso_nvidia_desc": "Enthält Open-Source-NVIDIA-Treiber für das beste Out-of-the-Box-Erlebnis.",
 	"steam_tooltip": "Anwendung zum Verwalten und Spielen von Spielen auf Steam",
 	"dolphin_tooltip": "Dateimanager",
 	"helium_tooltip": "Webbrowser",

@@ -50,20 +50,20 @@
 
 {#if tooltip}
 	<div
-		class="pointer-events-none absolute z-50 max-w-75 -translate-x-1/2 rounded-xl border border-white/12 bg-background/50 px-5 py-5 shadow-xl backdrop-blur-md"
+		class="pointer-events-none absolute z-50 max-w-75 -translate-x-1/2 rounded-xl border dark:border-white/15 border-black/10 dark:bg-black/30 bg-white/60 px-5 py-5 shadow-xl backdrop-blur-md"
 		style="left: {tooltip.x}px; bottom: {tooltip.bottom + 4}px;"
 	>
-		<div class="text-md text-white">{tooltip.label}</div>
-		<div class="mt-0.5 text-xs text-white/60">{tooltip.subtitle}</div>
+		<div class="text-md text-foreground">{tooltip.label}</div>
+		<div class="mt-0.5 text-xs text-muted-foreground">{tooltip.subtitle}</div>
 	</div>
 {/if}
 
 <div
 	bind:this={taskbarEl}
-	class="absolute right-6 bottom-6 left-6 flex items-center justify-between rounded-2xl border border-white/12 bg-background/50 px-3 py-1.5 shadow-xl backdrop-blur-md select-none"
+	class="absolute right-6 bottom-6 left-6 flex items-center justify-between rounded-2xl border dark:border-white/15 border-black/10 dark:bg-black/30 bg-white/40 px-3 py-1.5 shadow-xl backdrop-blur-md select-none"
 >
 	<div class="flex items-center gap-6">
-		<img src="/taskbar/logo.svg" class="pointer-events-none h-8 w-8" alt="Logo" />
+		<img src="/taskbar/logo.svg" class="pointer-events-none h-8 w-8 dark:invert-0 invert" alt="Logo" />
 		{#each icons as icon (icon.label)}
 			<button
 				class="cursor-custom h-10 w-10 rounded-xl p-1 transition-transform duration-150 hover:brightness-130"
@@ -75,8 +75,8 @@
 		{/each}
 	</div>
 
-	<div class="text-right leading-tight text-white">
+	<div class="text-right leading-tight text-foreground">
 		<div class="text-sm font-semibold">{timeStr}</div>
-		<div class="text-xs opacity-70">{dateStr}</div>
+		<div class="text-xs text-foreground/60">{dateStr}</div>
 	</div>
 </div>
