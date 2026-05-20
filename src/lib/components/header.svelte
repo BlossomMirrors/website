@@ -12,6 +12,7 @@
 	import { MatrixIcon } from '$lib/components/icons/matrix/index.svelte';
 	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
 	import * as m from '$lib/paraglide/messages';
+	import { onMount } from 'svelte';
 
 	const nav: NavItem[] = [
 		{
@@ -65,6 +66,13 @@
 	];
 
 	let mobileOpen = $state(false);
+	let isHomePage = $state(false);
+
+	onMount(() => {
+		window.setInterval(() => {
+			isHomePage = window.location.pathname === '/';
+		}, 0);
+	});
 </script>
 
 <header class="relative flex w-full items-center px-4 py-4 md:px-8">
@@ -72,7 +80,13 @@
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
 		<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
 			<Logo size={32} />
-			<span class="font-serif text-xl">Blossom</span>
+			<span class="font-serif text-xl">
+				{#if isHomePage}
+					BlossomOS
+				{:else}
+					Blossom
+				{/if}
+			</span>
 		</a>
 		<div class="hidden md:block">
 			<Navbar items={nav} />
@@ -98,7 +112,9 @@
 	</div>
 
 	{#if mobileOpen}
-		<div class="absolute top-full right-0 left-0 z-50 border-b border-border bg-background px-4 pb-4 md:hidden">
+		<div
+			class="absolute top-full right-0 left-0 z-50 border-b border-border bg-background px-4 pb-4 md:hidden"
+		>
 			{#each nav as item (item.label)}
 				{#if item.type === 'link'}
 					<a
@@ -109,7 +125,9 @@
 						{item.label}
 					</a>
 				{:else}
-					<p class="mt-3 mb-1 px-3 text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
+					<p
+						class="mt-3 mb-1 px-3 text-[10px] font-semibold tracking-widest text-muted-foreground uppercase"
+					>
 						{item.label}
 					</p>
 					{#each item.items as sub (sub.href)}
@@ -125,7 +143,9 @@
 							{/if}
 							{sub.label}
 							{#if sub.badge}
-								<span class="ml-auto rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">{sub.badge}</span>
+								<span class="ml-auto rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary"
+									>{sub.badge}</span
+								>
 							{/if}
 						</a>
 					{/each}
