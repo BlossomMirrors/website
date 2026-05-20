@@ -15,13 +15,11 @@
 	let video = $state<HTMLVideoElement | null>(null);
 	let stream: MediaStream | null = null;
 
-	onMount(async () => {
-		try {
-			stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+	onMount(() => {
+		navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then((s) => {
+			stream = s;
 			if (video) video.srcObject = stream;
-		} catch {
-			// camera unavailable or denied
-		}
+		}).catch(() => {});
 	});
 
 	onDestroy(() => {
