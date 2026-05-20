@@ -44,8 +44,8 @@ steps:
         ftp_delete / | xargs -P 10 -I{} curl -s \
           --user "$STORAGE_ZONE:$FTP_PASSWORD" "ftp://storage.bunnycdn.com/" \
           -Q "DELE {}" >/dev/null
-        find dist/ -type f | xargs -P 10 -I{} sh -c \
-          'curl -fsST "$1" "ftp://storage.bunnycdn.com/${1#dist/}" --user "$STORAGE_ZONE:$FTP_PASSWORD" --ftp-create-dirs' \
+        find build/ -type f | xargs -P 10 -I{} sh -c \
+          'curl -fsST "$1" "ftp://storage.bunnycdn.com/${1#build/}" --user "$STORAGE_ZONE:$FTP_PASSWORD" --ftp-create-dirs' \
           -- {}
         PULLZONE_ID=$(curl -fsS --url https://api.bunny.net/pullzone \
           --header "AccessKey: $BUNNY_API_KEY" \
