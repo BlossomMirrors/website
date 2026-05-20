@@ -10,6 +10,7 @@
 		class="cursor-custom relative aspect-video overflow-hidden rounded-2xl"
 	>
 		<div class="pointer-events-none absolute inset-0 bg-white/50 dark:hidden"></div>
+		<div class="pointer-events-none absolute inset-0 z-50 animate-screen-on bg-black"></div>
 		<WallpaperReveal />
 		<Taskbar />
 	</div>
@@ -27,5 +28,15 @@
 		cursor:
 			url('/cursor/left_ptr.svg') 0 0,
 			auto;
+	}
+
+	@keyframes screen-on {
+		0%   { opacity: 1; }
+		60%  { opacity: 1; }
+		100% { opacity: 0; pointer-events: none; }
+	}
+
+	:global(.animate-screen-on) {
+		animation: screen-on 1.4s ease-out forwards;
 	}
 </style>

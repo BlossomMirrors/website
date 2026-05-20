@@ -60,7 +60,7 @@
 
 <div
 	bind:this={taskbarEl}
-	class="absolute right-6 bottom-6 left-6 flex items-center justify-between rounded-2xl border dark:border-white/15 border-black/10 dark:bg-black/30 bg-white/40 px-3 py-1.5 shadow-xl backdrop-blur-md select-none"
+	class="absolute right-6 bottom-6 left-6 flex items-center justify-between rounded-2xl border dark:border-white/15 border-black/10 dark:bg-black/30 bg-white/40 px-3 py-1.5 shadow-xl backdrop-blur-md select-none taskbar-slide-up"
 >
 	<div class="flex items-center gap-6">
 		<img src="/taskbar/logo.svg" class="pointer-events-none h-8 w-8 dark:invert-0 invert" alt="Logo" />
@@ -80,3 +80,15 @@
 		<div class="text-xs text-foreground/60">{dateStr}</div>
 	</div>
 </div>
+
+<style>
+@keyframes taskbar-in {
+	from { transform: translateY(calc(100% + 1.5rem)); opacity: 0; }
+	to { transform: translateY(0); opacity: 1; }
+}
+.taskbar-slide-up {
+	animation: taskbar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+	animation-delay: 1s;
+	opacity: 0;
+}
+</style>
