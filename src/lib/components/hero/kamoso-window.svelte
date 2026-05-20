@@ -85,3 +85,9 @@
 		</div>
 	</div>
 </Window>
+
+<style>
+	video {
+		transform: scaleX(-1);
+	}
+</style>
