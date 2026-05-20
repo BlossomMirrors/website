@@ -1,11 +1,10 @@
 <script lang="ts" module>
-	import type { Component } from 'svelte';
-
 	export type NavDropdownItem = {
 		label: string;
 		href: string;
 		description?: string;
-		icon?: Component;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		icon?: any;
 		badge?: string;
 	};
 
@@ -48,6 +47,7 @@
 	<li>
 		<NavigationMenu.Link>
 			{#snippet child()}
+				<!-- eslint-disable svelte/no-navigation-without-resolve -->
 				<a
 					href={resolve(item.href)}
 					class={cn(
@@ -101,7 +101,7 @@
 						<NavigationMenu.Trigger>{item.label}</NavigationMenu.Trigger>
 						<NavigationMenu.Content>
 							{#if item.featured}
-								<ul class="grid gap-2 p-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+								<ul class="grid gap-2 p-2 md:w-100 lg:w-125 lg:grid-cols-[.75fr_1fr]">
 									<li style="grid-row: span {item.items.length} / span {item.items.length}">
 										<NavigationMenu.Link
 											class="flex h-full w-full flex-col justify-start rounded-md bg-linear-to-b from-muted/50 to-muted p-4 no-underline outline-hidden select-none focus:shadow-md"
@@ -122,10 +122,7 @@
 								</ul>
 							{:else}
 								<ul
-									class={cn(
-										'grid gap-2 p-2',
-										item.items.length > 4 ? 'w-[500px] grid-cols-2' : 'w-[300px]'
-									)}
+									class={cn('grid gap-2 p-2', item.items.length > 4 ? 'w-125 grid-cols-2' : 'w-75')}
 								>
 									{#each item.items as di (di.href)}
 										{@render DropdownItem(di)}

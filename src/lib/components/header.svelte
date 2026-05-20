@@ -3,7 +3,6 @@
 	import type { NavItem } from '$lib/components/navbar.svelte';
 	import ModeToggle from '$lib/components/ui/mode-toggle.svelte';
 	import UsersIcon from '@lucide/svelte/icons/users';
-	import { localizeHref } from '$lib/paraglide/runtime';
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import { Building2Icon, ShoppingBagIcon, UserIcon } from 'lucide-svelte';
 	import Logo from '$lib/components/logo.svelte';
@@ -66,7 +65,8 @@
 
 <header class="flex w-full items-center px-8 py-4">
 	<div class="flex items-center gap-1">
-		<a href={localizeHref('/')} class="mr-4 flex shrink-0 items-center gap-3">
+		<!-- eslint-disable svelte/no-navigation-without-resolve -->
+		<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
 			<Logo size={32} />
 			<span class="font-serif text-xl">Blossom</span>
 		</a>
@@ -74,7 +74,7 @@
 	</div>
 
 	<div class="ml-auto flex shrink-0 items-center gap-2">
-		<a href="https://auth.blossomos.org" target="_blank">
+		<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer">
 			<Button><UserIcon strokeWidth={1.5} />{m.account()}</Button>
 		</a>
 		<ModeToggle />

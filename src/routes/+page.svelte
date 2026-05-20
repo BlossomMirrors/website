@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Taskbar from '$lib/components/hero/taskbar.svelte';
+	import WallpaperReveal from '$lib/components/hero/wallpaper-reveal.svelte';
 	import * as m from '$lib/paraglide/messages';
 </script>
 
@@ -9,6 +10,7 @@
 		class="cursor-custom relative aspect-video overflow-hidden rounded-2xl"
 	>
 		<div class="pointer-events-none absolute inset-0 bg-white/50 dark:hidden"></div>
+		<WallpaperReveal />
 		<Taskbar />
 	</div>
 
