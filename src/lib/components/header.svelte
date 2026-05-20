@@ -10,50 +10,55 @@
 	import { Button } from '$lib/components/ui/button';
 	import { MatrixIcon } from '$lib/components/icons/matrix/index.svelte';
 	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	const nav: NavItem[] = [
 		{
 			type: 'dropdown',
-			label: 'Products',
+			label: m.products(),
 			items: [
 				{
 					label: 'BlossomOS',
 					href: '/',
-					description: 'The desktop OS that just works.',
+					description: m.blossomos_tooltip(),
 					icon: MonitorIcon
 				},
 				{
 					label: 'Arc Software',
 					href: '/arc',
-					description: 'Making your apps work with one click.',
+					description: m.arc_header_tooltip(),
 					icon: ShoppingBagIcon
 				},
 				{
 					label: 'Blossom Hub',
 					href: '/hub',
-					description: 'All company resources in one place.',
-					badge: 'Coming soon',
+					description: m.hub_tooltip(),
+					badge: m.coming_soon(),
 					icon: Building2Icon
 				}
 			]
 		},
 		{
 			type: 'link',
-			label: 'About',
+			label: m.about(),
 			href: '/about'
 		},
 		{
 			type: 'link',
-			label: 'Downloads',
+			label: m.downloads(),
 			href: '/downloads'
 		},
 		{
 			type: 'dropdown',
-			label: 'Community',
+			label: m.community(),
 			items: [
-				{ label: 'Community Forums', href: 'https://community.blossomos.org', icon: UsersIcon },
-				{ label: 'Discord', href: 'https://discord.gg/dTqsBdxvNr', icon: DiscordIcon },
-				{ label: 'Matrix', href: 'https://matrix.to/#/#blossomos:blossomos.org', icon: MatrixIcon }
+				{ label: m.community_forums(), href: 'https://community.blossomos.org', icon: UsersIcon },
+				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr', icon: DiscordIcon },
+				{
+					label: m.matrix(),
+					href: 'https://matrix.to/#/#blossomos:blossomos.org',
+					icon: MatrixIcon
+				}
 			]
 		}
 	];
@@ -70,7 +75,7 @@
 
 	<div class="ml-auto flex shrink-0 items-center gap-2">
 		<a href="https://auth.blossomos.org" target="_blank">
-			<Button><UserIcon strokeWidth={1.5} />Account</Button>
+			<Button><UserIcon strokeWidth={1.5} />{m.account()}</Button>
 		</a>
 		<ModeToggle />
 	</div>
