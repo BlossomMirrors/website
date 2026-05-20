@@ -75,9 +75,9 @@
 	{onFocus}
 	{zIndex}
 	minW={750}
-	minH={500}
+	minH={536}
 	defaultW={750}
-	defaultH={500}
+	defaultH={536}
 >
 	<!-- Toolbar -->
 	<div class="flex shrink-0 items-center gap-1 px-2 select-none" style="height:38px">
@@ -118,7 +118,7 @@
 			</p>
 			{#each places as p (p.label)}
 				<button
-					class="flex w-full cursor-default items-center gap-2.5 rounded px-2 py-1 text-left text-xs {p.label ===
+					class="flex w-full cursor-default items-center gap-2.5 rounded-sidebar-item px-2 py-1 text-left text-xs {p.label ===
 					'Home'
 						? 'bg-primary/20 font-semibold text-primary'
 						: 'text-foreground/70'}"
