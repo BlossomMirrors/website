@@ -1,5 +1,14 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import ClipboardIcon from '@lucide/svelte/icons/clipboard';
+	import BluetoothIcon from '@lucide/svelte/icons/bluetooth';
+	import ZapIcon from '@lucide/svelte/icons/zap';
+	import SunIcon from '@lucide/svelte/icons/sun';
+	import SmartphoneIcon from '@lucide/svelte/icons/smartphone';
+	import Volume2Icon from '@lucide/svelte/icons/volume-2';
+	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up';
+	import CableIcon from '@lucide/svelte/icons/cable';
+
 	import * as m from '$lib/paraglide/messages';
 
 	let { onIconClick }: { onIconClick?: (label: string) => void } = $props();
@@ -87,9 +96,21 @@
 		{/each}
 	</div>
 
-	<div class="hidden text-right leading-tight text-foreground sm:block">
-		<div class="text-sm font-semibold">{timeStr}</div>
-		<div class="text-xs text-foreground/60">{dateStr}</div>
+	<div class="hidden items-center gap-3 sm:flex">
+		<div class="flex items-center gap-3 text-foreground">
+			<ClipboardIcon size={18} class="hover:brightness-150" />
+			<BluetoothIcon size={18} class="hover:brightness-150" />
+			<ZapIcon size={18} class="hover:brightness-150" />
+			<SunIcon size={18} class="hover:brightness-150" />
+			<SmartphoneIcon size={18} class="hover:brightness-150" />
+			<Volume2Icon size={18} class="hover:brightness-150" />
+			<CableIcon size={18} class="hover:brightness-150" />
+			<ChevronUpIcon size={18} class="hover:brightness-150" />
+		</div>
+		<div class="text-right leading-tight text-foreground">
+			<div class="text-sm font-semibold">{timeStr}</div>
+			<div class="text-xs text-foreground/60">{dateStr}</div>
+		</div>
 	</div>
 </div>
 

@@ -35,14 +35,17 @@
 		return name.match(/BlossomOS(?:-nvidia-open)?-(.+?)-x86_64/)?.[1] ?? '';
 	}
 
-	onMount(async () => {
+	onMount(() => {
 		gpu = detectGPU();
 		rafId = requestAnimationFrame(loop);
-		[standard, nvidiaOpen] = await Promise.all([
+		Promise.all([
 			fetch(`${CDN}/isodata.json`).then((r) => r.json()),
 			fetch(`${CDN}/isodata-nvidia-open.json`).then((r) => r.json())
-		]);
-		loading = false;
+		]).then(([std, nvidia]) => {
+			standard = std;
+			nvidiaOpen = nvidia;
+			loading = false;
+		});
 		return () => cancelAnimationFrame(rafId);
 	});
 

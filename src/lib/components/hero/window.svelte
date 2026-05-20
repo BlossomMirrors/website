@@ -27,8 +27,8 @@
 
 	const TASKBAR_H = 76;
 
-	let w = $state(defaultW);
-	let h = $state(defaultH);
+	let w = $state(0);
+	let h = $state(0);
 	let x = $state(0);
 	let y = $state(0);
 	let el = $state<HTMLDivElement | null>(null);
@@ -62,6 +62,8 @@
 		pW = width;
 		pH = height;
 		isMobile = window.innerWidth < 768;
+		w = defaultW;
+		h = defaultH;
 		x = Math.max(0, (pW - w) / 2);
 		y = Math.max(0, (pH - h) / 2 - 24);
 
@@ -134,6 +136,9 @@
 
 <div
 	bind:this={el}
+	role="dialog"
+	aria-label={title}
+	tabindex="-1"
 	class="win absolute flex flex-col overflow-hidden border border-border bg-card shadow-2xl"
 	class:closing
 	class:rounded-none={isMobile}
