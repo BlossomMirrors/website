@@ -299,9 +299,15 @@
 
 @layer base {
 	* {
-		@apply border-border outline-ring/50;
+		@apply border-border outline-0 outline-ring/50;
 	}
 	body {
 		@apply bg-background text-foreground;
 	}
+}
+
+.cursor-custom {
+	cursor:
+		url('/cursor/left_ptr.svg') 0 0,
+		auto;
 }

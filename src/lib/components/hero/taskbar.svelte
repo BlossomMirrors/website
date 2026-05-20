@@ -1,0 +1,77 @@
+<script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
+
+	const icons = [
+		{ src: '/taskbar/dolphin.png', label: 'Dolphin', subtitle: 'File Manager' },
+		{ src: '/taskbar/helium.png', label: 'Helium', subtitle: 'Browser' },
+		{ src: '/taskbar/thunderbird.png', label: 'Thunderbird', subtitle: 'Email Client' },
+		{ src: '/taskbar/arc.png', label: 'Arc Software', subtitle: 'Software Store' },
+		{ src: '/taskbar/discord.png', label: 'Discord', subtitle: 'Messaging' },
+		{ src: '/taskbar/obsidian.png', label: 'Obsidian', subtitle: 'Note Taking' },
+		{ src: '/taskbar/libreoffice.png', label: 'LibreOffice', subtitle: 'Office Suite' },
+		{ src: '/taskbar/steam.png', label: 'Steam', subtitle: 'Game Launcher' }
+	];
+
+	let time = $state(new Date());
+	let interval: ReturnType<typeof setInterval>;
+
+	onMount(() => {
+		interval = setInterval(() => {
+			time = new Date();
+		}, 1000);
+	});
+
+	onDestroy(() => clearInterval(interval));
+
+	const timeStr = $derived(time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+	const dateStr = $derived(
+		time.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })
+	);
+
+	let tooltip = $state<{ label: string; subtitle: string; x: number; bottom: number } | null>(null);
+	let taskbarEl = $state<HTMLDivElement | null>(null);
+
+	function showTooltip(icon: (typeof icons)[0], btn: HTMLButtonElement) {
+		const btnRect = btn.getBoundingClientRect();
+		const parentRect = taskbarEl!.parentElement!.getBoundingClientRect();
+		tooltip = {
+			label: icon.label,
+			subtitle: icon.subtitle,
+			x: btnRect.left + btnRect.width / 2 - parentRect.left,
+			bottom: parentRect.bottom - btnRect.top
+		};
+	}
+</script>
+
+{#if tooltip}
+	<div
+		class="pointer-events-none absolute z-50 -translate-x-1/2 rounded-xl border border-white/12 bg-background/50 px-5 py-5 whitespace-nowrap shadow-xl backdrop-blur-md"
+		style="left: {tooltip.x}px; bottom: {tooltip.bottom + 10}px;"
+	>
+		<div class="text-sm font-semibold text-white">{tooltip.label}</div>
+		<div class="text-xs text-white/60">{tooltip.subtitle}</div>
+	</div>
+{/if}
+
+<div
+	bind:this={taskbarEl}
+	class="absolute right-6 bottom-6 left-6 flex items-center justify-between rounded-2xl border border-white/12 bg-background/50 px-3 py-1.5 shadow-xl backdrop-blur-md select-none"
+>
+	<div class="flex items-center gap-6">
+		<img src="/taskbar/logo.svg" class="pointer-events-none h-8 w-8" alt="Logo" />
+		{#each icons as icon (icon.label)}
+			<button
+				class="cursor-custom h-10 w-10 rounded-xl p-1 transition-transform duration-150 hover:brightness-130"
+				onmouseenter={(e) => showTooltip(icon, e.currentTarget)}
+				onmouseleave={() => (tooltip = null)}
+			>
+				<img src={icon.src} class="pointer-events-none h-full w-full" alt={icon.label} />
+			</button>
+		{/each}
+	</div>
+
+	<div class="text-right leading-tight text-white">
+		<div class="text-sm font-semibold">{timeStr}</div>
+		<div class="text-xs opacity-70">{dateStr}</div>
+	</div>
+</div>
