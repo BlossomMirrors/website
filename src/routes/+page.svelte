@@ -5,7 +5,7 @@
 
 <div class="mb-8">
 	<div
-		style="background: url('/noise.png') center center / cover no-repeat;"
+		style="background: url('/noise.png') center center / cover no-repeat;z-index: -1;"
 		class="cursor-custom relative mb-4 aspect-video overflow-hidden rounded-2xl"
 	>
 		<Taskbar />
