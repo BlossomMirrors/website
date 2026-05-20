@@ -5,6 +5,7 @@
 	import logo from '$lib/assets/logo.svg';
 	import { onMount } from 'svelte';
 	import { initLocale } from '$lib/i18n/locale';
+	import { ModeWatcher } from 'mode-watcher';
 
 	let { children } = $props();
 
@@ -23,10 +24,10 @@
 	></script>
 </svelte:head>
 
-<div class="flex min-h-screen flex-col items-center justify-center">
-	<div class="mb-8 flex items-center justify-between">
-		{@render children()}
-	</div>
+<ModeWatcher />
+
+<div class="flex items-center justify-between">
+	{@render children()}
 </div>
 
 <!-- eslint-disable -->
