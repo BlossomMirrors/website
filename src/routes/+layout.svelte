@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import { initLocale } from '$lib/i18n/locale';
 	import { ModeWatcher } from 'mode-watcher';
+	import Header from '$lib/components/header.svelte';
 
 	let { children } = $props();
 
@@ -27,7 +28,10 @@
 <ModeWatcher />
 
 <div class="flex items-center justify-between">
-	{@render children()}
+	<div class="mx-auto mt-2 max-w-screen-xl *:px-4 md:w-full">
+		<Header />
+		<main>{@render children()}</main>
+	</div>
 </div>
 
 <!-- eslint-disable -->
