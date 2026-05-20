@@ -27,7 +27,8 @@
 	import HardDriveIcon from '@lucide/svelte/icons/hard-drive';
 	import { ArrowLeftIcon, ArrowRightIcon } from '@lucide/svelte';
 
-	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } = $props();
+	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } =
+		$props();
 
 	let selectedFile = $state<string | null>(null);
 
@@ -86,7 +87,9 @@
 		<ToolbarButton size="sm" muted class="opacity-40">
 			<ArrowRightIcon size={15} />
 		</ToolbarButton>
-		<div class="flex h-7 items-center gap-0.5 rounded px-1.5 text-muted-foreground hover:bg-foreground/10">
+		<div
+			class="flex h-7 items-center gap-0.5 rounded px-1.5 text-muted-foreground hover:bg-foreground/10"
+		>
 			<LayoutGridIcon size={13} />
 			<ChevronDownIcon size={11} />
 		</div>
@@ -108,33 +111,60 @@
 	<div class="flex min-h-0 flex-1">
 		<!-- Sidebar -->
 		<div class="hidden w-48 shrink-0 overflow-y-auto px-2 py-2 sm:block">
-			<p class="mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase">Places</p>
+			<p
+				class="mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
+			>
+				Places
+			</p>
 			{#each places as p (p.label)}
-				<button class="flex w-full cursor-default items-center gap-2.5 rounded px-2 py-1 text-left text-xs {p.label === 'Home' ? 'bg-primary/20 font-semibold text-primary' : 'text-foreground/70'}">
+				<button
+					class="flex w-full cursor-default items-center gap-2.5 rounded px-2 py-1 text-left text-xs {p.label ===
+					'Home'
+						? 'bg-primary/20 font-semibold text-primary'
+						: 'text-foreground/70'}"
+				>
 					<p.icon size={14} class="shrink-0" />
 					{p.label}
 				</button>
 			{/each}
 
-			<p class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase">Remote</p>
+			<p
+				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
+			>
+				Remote
+			</p>
 			{#each remote as r (r.label)}
-				<button class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70">
+				<button
+					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
+				>
 					<r.icon size={14} class="shrink-0" />
 					{r.label}
 				</button>
 			{/each}
 
-			<p class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase">Recent</p>
+			<p
+				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
+			>
+				Recent
+			</p>
 			{#each recent as r (r.label)}
-				<button class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70">
+				<button
+					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
+				>
 					<r.icon size={14} class="shrink-0" />
 					{r.label}
 				</button>
 			{/each}
 
-			<p class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase">Devices</p>
+			<p
+				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
+			>
+				Devices
+			</p>
 			{#each devices as d (d.label)}
-				<button class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70">
+				<button
+					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
+				>
 					<d.icon size={14} class="shrink-0" />
 					<span class="truncate">{d.label}</span>
 				</button>
@@ -146,13 +176,18 @@
 			<div class="relative h-full rounded-xl border border-border bg-muted/40 p-3">
 				<div class="grid grid-cols-3 gap-2 sm:grid-cols-4">
 					{#each files as file (file.name)}
-						{@const Icon = file.icon as any}
+						{@const Icon = file.icon as ConstructorOfATypedSvelteComponent | null | undefined}
 						<button
-							class="cursor-default flex flex-col items-center gap-2 rounded-lg p-3 text-center transition-colors {selectedFile === file.name ? 'bg-primary/12 ring-1 ring-primary/40' : 'hover:bg-foreground/6'}"
+							class="flex cursor-default flex-col items-center gap-2 rounded-lg p-3 text-center transition-colors {selectedFile ===
+							file.name
+								? 'bg-primary/12 ring-1 ring-primary/40'
+								: 'hover:bg-foreground/6'}"
 							onclick={() => (selectedFile = file.name)}
 						>
 							<Icon size={40} class="shrink-0 text-foreground/70" strokeWidth={1.2} />
-							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground">{file.name}</span>
+							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground"
+								>{file.name}</span
+							>
 						</button>
 					{/each}
 				</div>
