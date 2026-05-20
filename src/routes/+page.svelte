@@ -8,7 +8,7 @@
 <div class="mb-8">
 	<div
 		style="background: url('/noise.png') center center / cover no-repeat;"
-		class="cursor-custom relative aspect-video overflow-hidden rounded-2xl"
+		class="cursor-custom relative z-0 aspect-video overflow-hidden rounded-2xl"
 	>
 		<div class="pointer-events-none absolute inset-0 bg-white/50 dark:hidden"></div>
 		<div class="pointer-events-none absolute inset-0 z-50 animate-screen-on bg-black"></div>

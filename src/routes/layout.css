@@ -306,6 +306,12 @@
 	}
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 0.3s;
+	animation-timing-function: ease;
+}
+
 .cursor-custom {
 	cursor:
 		url('/cursor/left_ptr.svg') 0 0,

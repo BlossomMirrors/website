@@ -4,9 +4,14 @@
 
  import { toggleMode } from "mode-watcher";
  import { Button } from "$lib/components/ui/button/index.js";
+
+ function handleToggle() {
+  if (!document.startViewTransition) { toggleMode(); return; }
+  document.startViewTransition(toggleMode);
+ }
 </script>
 
-<Button onclick={toggleMode} size="icon">
+<Button onclick={handleToggle} size="icon">
  <SunIcon
   class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
  />
