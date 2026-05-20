@@ -21,7 +21,7 @@
 			items: [
 				{
 					label: 'BlossomOS',
-					href: '/',
+					href: '/os',
 					description: m.blossomos_tooltip(),
 					icon: MonitorIcon
 				},
@@ -66,11 +66,16 @@
 	];
 
 	let mobileOpen = $state(false);
-	let isHomePage = $state(false);
+	let isOSPage = $state(false);
 
 	onMount(() => {
 		window.setInterval(() => {
-			isHomePage = window.location.pathname === '/';
+			isOSPage = window.location.pathname.startsWith('/os');
+			if (isOSPage) {
+				document.title = 'BlossomOS';
+			} else {
+				document.title = 'Blossom';
+			}
 		}, 0);
 	});
 </script>
@@ -81,7 +86,7 @@
 		<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
 			<Logo size={32} />
 			<span class="font-serif text-xl">
-				{#if isHomePage}
+				{#if isOSPage}
 					BlossomOS
 				{:else}
 					Blossom

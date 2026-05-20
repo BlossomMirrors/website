@@ -17,7 +17,7 @@
 
 <svelte:head>
 	<link rel="icon" href={logo} />
-	<title>BlossomOS</title>
+	<title>Blossom</title>
 	<script
 		defer
 		src="https://stats.blossomos.org/script.js"
