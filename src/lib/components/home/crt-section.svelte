@@ -70,6 +70,12 @@
 					class="pointer-events-none absolute inset-0 h-full w-full"
 					style="object-fit: fill"
 				/>
+				<!-- Green power LED: coords (2119,1971)→(2152,1978) in a 2445×2312 image -->
+				<div
+					class="crt-led pointer-events-none absolute rounded-sm"
+					class:lit
+					style="left: 86.67%; top: 85.26%; width: 1.35%; height: 0.3%"
+				></div>
 			</div>
 		</div>
 	</div>
@@ -120,5 +126,19 @@
 	}
 	.crt-overlay.lit {
 		animation: crt-on 1.8s ease-out forwards;
+	}
+
+	.crt-led {
+		background: #1a3a1a;
+		box-shadow: none;
+		transition:
+			background 0.3s ease 1.6s,
+			box-shadow 0.3s ease 1.6s;
+	}
+	.crt-led.lit {
+		background: #00e040;
+		box-shadow:
+			0 0 2px 1px #00e040,
+			0 0 6px 2px #00ff6033;
 	}
 </style>
