@@ -18,7 +18,7 @@
 	});
 </script>
 
-<section class="py-10 md:py-16">
+<section class="my-16 py-10 md:py-16">
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-20">
 		<div use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">

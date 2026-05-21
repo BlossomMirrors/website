@@ -13,7 +13,7 @@
 	];
 </script>
 
-<section class="py-10 md:py-16">
+<section class="my-16 py-10 md:py-16">
 	<div class="mb-12" use:reveal>
 		<h2 class="font-serif text-5xl leading-tight md:text-7xl">
 			{m.less()}

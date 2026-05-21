@@ -1,6 +1,27 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
+	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
+
+	let videoEl = $state<HTMLVideoElement | null>(null);
+	let canvasEl = $state<HTMLCanvasElement | null>(null);
+
+	onMount(() => {
+		const video = videoEl!;
+		const canvas = canvasEl!;
+		const ctx = canvas.getContext('2d')!;
+		let raf: number;
+
+		function draw() {
+			if (video.readyState >= 2) {
+				ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+			}
+			raf = requestAnimationFrame(draw);
+		}
+
+		draw();
+		return () => cancelAnimationFrame(raf);
+	});
 
 	const highlights = [
 		{ label: m.gaming_steam(), icon: '/taskbar/steam.png' },
@@ -10,7 +31,7 @@
 	];
 </script>
 
-<section class="py-10 md:py-16">
+<section class="my-16 py-10 md:py-16">
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
 		<div use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
@@ -37,16 +58,26 @@
 			</div>
 		</div>
 
-		<div class="overflow-hidden rounded-2xl" use:reveal={120}>
-			<video
-				src="/gaming.mp4"
-				autoplay
-				loop
-				muted
-				playsinline
-				class="w-full object-cover"
-				style="aspect-ratio: 16/9"
-			></video>
+		<div class="relative" use:reveal={120}>
+			<canvas
+				bind:this={canvasEl}
+				width="64"
+				height="36"
+				class="pointer-events-none absolute -inset-10"
+				style="width: calc(100% + 5rem); height: calc(100% + 5rem); border-radius: 2rem; filter: blur(60px) saturate(1.2); opacity: 0.45"
+			></canvas>
+			<div class="relative overflow-hidden rounded-2xl" style="z-index: 1">
+				<video
+					bind:this={videoEl}
+					src="/gaming.mp4"
+					autoplay
+					loop
+					muted
+					playsinline
+					class="w-full object-cover"
+					style="aspect-ratio: 16/9"
+				></video>
+			</div>
 		</div>
 	</div>
 </section>
