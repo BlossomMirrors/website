@@ -12,7 +12,11 @@
 	const requirements = [
 		{ Icon: CpuIcon, label: m.downloads_req_cpu(), value: m.downloads_req_cpu_value() },
 		{ Icon: MemoryStickIcon, label: m.downloads_req_ram(), value: m.downloads_req_ram_value() },
-		{ Icon: HardDriveIcon, label: m.downloads_req_storage(), value: m.downloads_req_storage_value() },
+		{
+			Icon: HardDriveIcon,
+			label: m.downloads_req_storage(),
+			value: m.downloads_req_storage_value()
+		},
 		{ Icon: MonitorIcon, label: m.downloads_req_display(), value: m.downloads_req_display_value() }
 	];
 </script>
@@ -23,8 +27,10 @@
 
 <div class="py-16 md:py-24">
 	<!-- Header -->
-	<div class="mb-12" use:reveal>
-		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.downloads_subheader()}</p>
+	<div class="mb-12">
+		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+			{m.downloads_subheader()}
+		</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">{m.downloads_h1()}</h1>
 		<p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
 			{m.downloads_subtitle()}
@@ -32,12 +38,12 @@
 	</div>
 
 	<!-- Download card -->
-	<div class="max-w-xl" use:reveal={80}>
+	<div class="max-w-xl">
 		<DownloadCard />
 	</div>
 
 	<!-- Installation note -->
-	<p class="mt-4 max-w-xl text-sm text-muted-foreground" use:reveal={120}>
+	<p class="mt-4 max-w-xl text-sm text-muted-foreground">
 		{m.downloads_install_note()}
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
 		<a
@@ -48,14 +54,11 @@
 	</p>
 
 	<!-- System requirements -->
-	<div class="mt-20" use:reveal>
+	<div class="mt-20">
 		<h2 class="font-serif text-3xl leading-tight md:text-4xl">{m.downloads_requirements_h2()}</h2>
 		<div class="mt-6 grid gap-4 sm:grid-cols-2">
 			{#each requirements as r, i (r.label)}
-				<div
-					class="flex items-start gap-4 rounded-2xl border border-border bg-card p-5"
-					use:reveal={i * 60}
-				>
+				<div class="flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
 					<div
 						class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
 					>
@@ -72,7 +75,7 @@
 	</div>
 
 	<!-- Press kit & branding -->
-	<div class="mt-20" use:reveal>
+	<div class="mt-20">
 		<h2 class="font-serif text-3xl leading-tight md:text-4xl">{m.downloads_presskit_h2()}</h2>
 		<p class="mt-3 max-w-xl text-muted-foreground">
 			{m.downloads_presskit_body()}
