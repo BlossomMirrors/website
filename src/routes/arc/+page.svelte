@@ -7,25 +7,14 @@
 	import LayersIcon from '@lucide/svelte/icons/layers';
 	import ZapIcon from '@lucide/svelte/icons/zap';
 	import ShieldCheckIcon from '@lucide/svelte/icons/shield-check';
+	import * as m from '$lib/paraglide/messages';
 
 	const formats = ['Flatpak', 'AppImage', '.deb', '.rpm', 'Arch Linux'];
 
 	const unifyFeatures = [
-		{
-			Icon: LayersIcon,
-			title: 'Any format',
-			body: 'Flatpak, AppImage, Arch Linux, deb, rpm. Arc Unify handles them all through one consistent interface.'
-		},
-		{
-			Icon: ZapIcon,
-			title: 'One click',
-			body: 'No terminal. No manual dependency hunting. Click install, watch it work.'
-		},
-		{
-			Icon: ShieldCheckIcon,
-			title: 'Sandboxed by default',
-			body: 'Apps run in isolated containers. They only get access to what they need.'
-		}
+		{ Icon: LayersIcon, title: m.arc_unify_feature1_title(), body: m.arc_unify_feature1_body() },
+		{ Icon: ZapIcon, title: m.arc_unify_feature2_title(), body: m.arc_unify_feature2_body() },
+		{ Icon: ShieldCheckIcon, title: m.arc_unify_feature3_title(), body: m.arc_unify_feature3_body() }
 	];
 </script>
 
@@ -38,19 +27,18 @@
 	<div class="mx-auto max-w-3xl text-center" use:reveal>
 		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Arc Software</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">
-			Any software.<br />One click.
+			{m.arc_header1()}.<br />{m.arc_header2()}.
 		</h1>
 		<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-			Arc is the software store built for BlossomOS. Every package format unified. Windows apps
-			included. No terminal required.
+			{m.arc_page_subtitle()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a href="/os">
-				<Button variant="primary">Get BlossomOS</Button>
+				<Button variant="primary">{m.cta_download()}</Button>
 			</a>
 			<a href="https://git.blossomos.org/Blossom" target="_blank" rel="noreferrer">
-				<Button>View source</Button>
+				<Button>{m.home_view_source()}</Button>
 			</a>
 		</div>
 	</div>
@@ -58,14 +46,12 @@
 	<!-- Arc Unify -->
 	<div class="mt-24 grid items-center gap-12 md:grid-cols-2 md:gap-20">
 		<div use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Arc Unify</p>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.arc_unify_subheader()}</p>
 			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
-				Every package format.<br />One store.
+				{m.arc_unify_h2_1()}<br />{m.arc_unify_h2_2()}
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
-				The Linux software ecosystem is fragmented. Flatpak here, AppImage there, deb packages
-				somewhere else. Arc Unify brings them all together so you never have to think about formats
-				again.
+				{m.arc_unify_body()}
 			</p>
 			<div class="mt-8 grid gap-4">
 				{#each unifyFeatures as f, i (f.title)}
@@ -86,7 +72,7 @@
 
 		<div use:reveal={120}>
 			<div class="rounded-2xl border border-border bg-card p-8">
-				<p class="mb-5 text-sm font-medium text-muted-foreground">Supported formats</p>
+				<p class="mb-5 text-sm font-medium text-muted-foreground">{m.arc_unify_formats_label()}</p>
 				<div class="flex flex-wrap gap-3">
 					{#each formats as fmt (fmt)}
 						<div
@@ -98,11 +84,11 @@
 					{/each}
 				</div>
 				<div class="mt-6 rounded-xl bg-muted/50 p-4 font-mono text-sm">
-					<p class="text-muted-foreground"># No more of this</p>
+					<p class="text-muted-foreground">{m.arc_unify_terminal_comment()}</p>
 					<p class="mt-1 line-through opacity-50">
 						sudo apt install libsomething-dev && chmod +x App.AppImage && ./App.AppImage
 					</p>
-					<p class="mt-3 text-primary">✓ Just click Install</p>
+					<p class="mt-3 text-primary">&#10003; {m.arc_unify_terminal_cta()}</p>
 				</div>
 			</div>
 		</div>
@@ -118,8 +104,8 @@
 					>
 						<WindowsIcon />
 					</div>
-					<p class="font-semibold">Windows apps</p>
-					<p class="mt-2 text-sm text-muted-foreground">Running natively on BlossomOS</p>
+					<p class="font-semibold">{m.arc_winapps_label()}</p>
+					<p class="mt-2 text-sm text-muted-foreground">{m.arc_winapps_running()}</p>
 					<div class="mt-4 flex justify-center gap-2">
 						{#each ['Affinity Photo', 'FL Studio', 'Foobar 2000'] as app (app)}
 							<span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
@@ -132,17 +118,15 @@
 		</div>
 
 		<div class="order-1 md:order-2" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Arc Winapps</p>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.arc_winapps_subheader()}</p>
 			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
-				Windows apps.<br />On BlossomOS.
+				{m.arc_winapps_h2_1()}<br />{m.arc_winapps_h2_2()}
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
-				Some software only exists on Windows. Arc Winapps brings those apps to BlossomOS through
-				Wine. They appear in your app store, launch like native apps, and integrate with your
-				desktop.
+				{m.arc_winapps_body1()}
 			</p>
 			<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-				No dual-boot. No VM management. Just your apps.
+				{m.arc_winapps_body2()}
 			</p>
 		</div>
 	</div>
@@ -150,9 +134,9 @@
 	<!-- Interactive demo -->
 	<div class="mt-32">
 		<div class="text-center" use:reveal>
-			<h2 class="font-serif text-4xl leading-tight md:text-5xl">See it in action.</h2>
+			<h2 class="font-serif text-4xl leading-tight md:text-5xl">{m.arc_demo_h2()}</h2>
 			<p class="text-lg text-muted-foreground">
-				The store you would expect, for the OS you deserve.
+				{m.arc_demo_body()}
 			</p>
 		</div>
 		<ArcSection />

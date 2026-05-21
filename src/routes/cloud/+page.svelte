@@ -9,39 +9,20 @@
 	import LockIcon from '@lucide/svelte/icons/lock';
 	import ServerIcon from '@lucide/svelte/icons/server';
 	import EyeOffIcon from '@lucide/svelte/icons/eye-off';
+	import * as m from '$lib/paraglide/messages';
 
 	const features = [
-		{
-			Icon: FolderSyncIcon,
-			title: 'File sync',
-			body: 'Your files are available on every device, automatically. Edit on one machine, pick up on another.',
-			done: true
-		},
-		{
-			Icon: VideoIcon,
-			title: 'Video calls',
-			body: 'Built-in video calling with no third-party accounts. Works out of the box with the rest of BlossomOS.',
-			done: true
-		},
-		{
-			Icon: ServerIcon,
-			title: 'EU datacenters',
-			body: 'All data lives in EU-based servers under strict European privacy law. Your data stays in Europe.',
-			done: true
-		},
-		{
-			Icon: SettingsIcon,
-			title: 'Settings sync',
-			body: 'Your desktop preferences, wallpaper, and app settings follow you across every BlossomOS install.',
-			done: false
-		}
+		{ Icon: FolderSyncIcon, title: m.cloud_feature_file_sync_title(), body: m.cloud_file_sync_body(), done: true },
+		{ Icon: VideoIcon, title: m.cloud_feature_video_title(), body: m.cloud_video_body(), done: true },
+		{ Icon: ServerIcon, title: m.cloud_feature_eu_title(), body: m.cloud_eu_body(), done: true },
+		{ Icon: SettingsIcon, title: m.cloud_feature_settings_title(), body: m.cloud_settings_body(), done: false }
 	];
 
 	const privacy = [
-		{ Icon: LockIcon, label: 'End-to-end encrypted' },
-		{ Icon: EyeOffIcon, label: 'Zero-knowledge storage' },
-		{ Icon: ShieldIcon, label: 'GDPR compliant' },
-		{ Icon: ServerIcon, label: 'EU-hosted only' }
+		{ Icon: LockIcon, label: m.cloud_privacy_e2e() },
+		{ Icon: EyeOffIcon, label: m.cloud_privacy_zero_knowledge() },
+		{ Icon: ShieldIcon, label: m.cloud_privacy_gdpr() },
+		{ Icon: ServerIcon, label: m.cloud_privacy_eu_hosted() }
 	];
 </script>
 
@@ -59,18 +40,18 @@
 		</div>
 		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Blossom Cloud</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">
-			Your files.<br />Private. Everywhere.
+			{m.cloud_page_h1_1()}<br />{m.cloud_page_h1_2()}
 		</h1>
 		<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-			Cloud storage and collaboration built for BlossomOS. EU-based, end-to-end encrypted, and
-			designed to integrate seamlessly with your desktop.
+			{m.cloud_page_subtitle()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
 			<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer">
-				<Button variant="primary">Get started free</Button>
+				<Button variant="primary">{m.cloud_get_started()}</Button>
 			</a>
+			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a href="/os">
-				<Button>Get BlossomOS</Button>
+				<Button>{m.cloud_get_blossomos()}</Button>
 			</a>
 		</div>
 	</div>
@@ -78,8 +59,8 @@
 	<!-- Features -->
 	<div class="mt-24">
 		<div class="mb-14" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">What's included</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">Everything you need.</h2>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.cloud_features_subheader()}</p>
+			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.cloud_features_h2()}</h2>
 		</div>
 
 		<div class="grid gap-6 sm:grid-cols-2">
@@ -100,7 +81,7 @@
 						{#if !f.done}
 							<span
 								class="rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wide text-muted-foreground uppercase"
-							>Coming soon</span>
+							>{m.coming_soon()}</span>
 						{/if}
 					</div>
 					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
@@ -124,18 +105,16 @@
 		<div class="relative grid items-center gap-12 md:grid-cols-2">
 			<div>
 				<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-					Privacy by design
+					{m.cloud_privacy_subheader()}
 				</p>
 				<h2 class="font-serif text-4xl leading-tight md:text-5xl">
-					We cannot read<br />your files.
+					{m.cloud_privacy_h2_1()}<br />{m.cloud_privacy_h2_2()}
 				</h2>
 				<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
-					Blossom Cloud uses zero-knowledge encryption. Your files are encrypted on your device
-					before they ever leave it. We store ciphertext. Only you hold the key.
+					{m.cloud_privacy_body1()}
 				</p>
 				<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-					All servers are located in the European Union, subject to GDPR, the world's strongest
-					data protection framework.
+					{m.cloud_privacy_body2()}
 				</p>
 			</div>
 
@@ -159,13 +138,13 @@
 
 	<!-- CTA -->
 	<div class="mt-24 text-center" use:reveal>
-		<h2 class="font-serif text-4xl leading-tight md:text-5xl">Ready to switch?</h2>
+		<h2 class="font-serif text-4xl leading-tight md:text-5xl">{m.cloud_cta_h2()}</h2>
 		<p class="mt-4 text-lg text-muted-foreground">
-			Blossom Cloud is free to start. No credit card required.
+			{m.cloud_cta_body()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
 			<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer">
-				<Button variant="primary">Create an account</Button>
+				<Button variant="primary">{m.cloud_create_account()}</Button>
 			</a>
 		</div>
 	</div>

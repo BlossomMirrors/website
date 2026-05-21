@@ -4,6 +4,7 @@
 	import GitForkIcon from '@lucide/svelte/icons/git-fork';
 	import HeartIcon from '@lucide/svelte/icons/heart';
 	import { BlueskyIcon } from '$lib/components/icons/bluesky/index.svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	const year = new Date().getFullYear();
 
@@ -14,9 +15,9 @@
 		{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', Icon: BlueskyIcon }
 	];
 
-	const columns = [
+	const columns = $derived([
 		{
-			heading: 'Products',
+			heading: m.products(),
 			links: [
 				{ label: 'BlossomOS', href: '/os' },
 				{ label: 'Arc Software', href: '/arc' },
@@ -24,22 +25,22 @@
 			]
 		},
 		{
-			heading: 'Resources',
+			heading: m.footer_resources(),
 			links: [
-				{ label: 'Downloads', href: '/downloads' },
-				{ label: 'Documentation', href: '/docs' },
-				{ label: 'Release Notes', href: '/releases' }
+				{ label: m.downloads(), href: '/downloads' },
+				{ label: m.footer_link_docs(), href: '/docs' },
+				{ label: m.footer_link_releases(), href: '/releases' }
 			]
 		},
 		{
-			heading: 'Community',
+			heading: m.community(),
 			links: [
-				{ label: 'Forum', href: 'https://community.blossomos.org' },
-				{ label: 'Discord', href: 'https://discord.gg/dTqsBdxvNr' },
-				{ label: 'Report an Issue', href: 'https://git.blossomos.org/Blossom/blossomos/issues' }
+				{ label: m.footer_link_forum(), href: 'https://community.blossomos.org' },
+				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr' },
+				{ label: m.footer_link_report(), href: 'https://git.blossomos.org/Blossom/blossomos/issues' }
 			]
 		}
-	];
+	]);
 </script>
 
 <footer class="relative overflow-hidden border-t border-border bg-card">
@@ -54,7 +55,7 @@
 		<div class="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
 			<!-- Social column -->
 			<div>
-				<p class="mb-4 text-sm font-semibold">Follow Us</p>
+				<p class="mb-4 text-sm font-semibold">{m.footer_follow_us()}</p>
 				<div class="flex gap-3">
 					{#each socials as s (s.label)}
 						<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -92,11 +93,11 @@
 
 		<!-- Bottom bar -->
 		<div class="mt-14 flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
-			<span>Made with</span>
+			<span>{m.footer_made_with()}</span>
 			<HeartIcon size={14} class="text-destructive" fill="currentColor" />
-			<span>by Blossom</span>
+			<span>{m.footer_made_by()}</span>
 		</div>
-		<p class="mt-3 text-sm text-muted-foreground">© {year} Blossom Labs. All rights reserved.</p>
+		<p class="mt-3 text-sm text-muted-foreground">{m.footer_copyright({ year })}</p>
 	</div>
 </footer>
 

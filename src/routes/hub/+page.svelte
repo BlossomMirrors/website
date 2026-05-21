@@ -10,63 +10,23 @@
 	import ScrollTextIcon from '@lucide/svelte/icons/scroll-text';
 	import MonitorSmartphoneIcon from '@lucide/svelte/icons/monitor-smartphone';
 	import GlobeIcon from '@lucide/svelte/icons/globe';
+	import * as m from '$lib/paraglide/messages';
 
 	const features = [
-		{
-			Icon: LayoutDashboardIcon,
-			title: 'Company dashboard',
-			body: 'See every managed device, user, and deployment status in one place. No more guessing what is running where.'
-		},
-		{
-			Icon: UsersIcon,
-			title: 'Team management',
-			body: 'Organise users into groups, assign roles, and control who has access to what across your entire organisation.'
-		},
-		{
-			Icon: PackageIcon,
-			title: 'Software deployment',
-			body: 'Push apps to devices silently or on a schedule. Define approved software lists and keep everything up to date automatically.'
-		},
-		{
-			Icon: ShieldCheckIcon,
-			title: 'Policy enforcement',
-			body: 'Set security baselines, enforce disk encryption, control peripheral access, and ensure every machine meets your standards.'
-		},
-		{
-			Icon: KeyIcon,
-			title: 'Single sign-on',
-			body: 'Integrate with your existing identity provider. One login for BlossomOS, Blossom Cloud, and every managed app.'
-		},
-		{
-			Icon: ScrollTextIcon,
-			title: 'Audit logs',
-			body: 'Full activity history for every device and user. Know exactly what changed, when, and who made the change.'
-		},
-		{
-			Icon: MonitorSmartphoneIcon,
-			title: 'Remote management',
-			body: 'Enrol new devices, wipe lost machines, and push configurations remotely without touching the hardware.'
-		},
-		{
-			Icon: GlobeIcon,
-			title: 'Multi-site support',
-			body: 'Manage offices across multiple locations from a single Hub instance. Separate policies per site or share them globally.'
-		}
+		{ Icon: LayoutDashboardIcon, title: m.hub_feature1_title(), body: m.hub_feature1_body() },
+		{ Icon: UsersIcon, title: m.hub_feature2_title(), body: m.hub_feature2_body() },
+		{ Icon: PackageIcon, title: m.hub_feature3_title(), body: m.hub_feature3_body() },
+		{ Icon: ShieldCheckIcon, title: m.hub_feature4_title(), body: m.hub_feature4_body() },
+		{ Icon: KeyIcon, title: m.hub_feature5_title(), body: m.hub_feature5_body() },
+		{ Icon: ScrollTextIcon, title: m.hub_feature6_title(), body: m.hub_feature6_body() },
+		{ Icon: MonitorSmartphoneIcon, title: m.hub_feature7_title(), body: m.hub_feature7_body() },
+		{ Icon: GlobeIcon, title: m.hub_feature8_title(), body: m.hub_feature8_body() }
 	];
 
 	const audiences = [
-		{
-			title: 'IT teams',
-			body: 'Stop wrestling with disparate tools. Hub gives your IT department one place to manage every BlossomOS device in the company.'
-		},
-		{
-			title: 'Schools',
-			body: 'Roll out and lock down student devices in minutes. Manage software, block distractions, and keep the fleet up to date without touching each machine.'
-		},
-		{
-			title: 'Small businesses',
-			body: 'Enterprise device management without the enterprise price tag. Get started with a handful of machines and scale as you grow.'
-		}
+		{ title: m.hub_audience1_title(), body: m.hub_audience1_body() },
+		{ title: m.hub_audience2_title(), body: m.hub_audience2_body() },
+		{ title: m.hub_audience3_title(), body: m.hub_audience3_body() }
 	];
 </script>
 
@@ -83,18 +43,17 @@
 			<Building2Icon size={32} strokeWidth={1.5} />
 		</div>
 		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Blossom Hub</p>
-		<h1 class="font-serif text-5xl leading-tight md:text-7xl">Coming soon.</h1>
+		<h1 class="font-serif text-5xl leading-tight md:text-7xl">{m.hub_h1()}</h1>
 		<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-			Blossom Hub is the central management platform for organisations running BlossomOS. Devices,
-			users, policies, and software deployment. All in one place, with no vendor lock-in.
+			{m.hub_hero_body()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
 			<a href="https://discord.gg/dTqsBdxvNr" target="_blank" rel="noreferrer">
-				<Button variant="primary">Get notified when it launches</Button>
+				<Button variant="primary">{m.hub_notify()}</Button>
 			</a>
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a href="/about">
-				<Button>Learn about Blossom</Button>
+				<Button>{m.home_product_learn_more()}</Button>
 			</a>
 		</div>
 	</div>
@@ -103,9 +62,9 @@
 	<div class="mt-24">
 		<div class="mb-14" use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-				What to expect
+				{m.hub_features_subheader()}
 			</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">Everything IT needs.</h2>
+			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.hub_features_h2()}</h2>
 		</div>
 
 		<div class="grid gap-4 sm:grid-cols-2 md:gap-6">
@@ -126,8 +85,8 @@
 	<!-- Who it's for -->
 	<div class="mt-24">
 		<div class="mb-12" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Who it's for</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">Built for organisations.</h2>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.hub_audience_subheader()}</p>
+			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.hub_audience_h2()}</h2>
 		</div>
 
 		<div class="grid gap-4 md:grid-cols-3">
@@ -149,16 +108,16 @@
 			class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary/8 blur-3xl"
 		></div>
 		<div class="relative max-w-xl">
-			<h2 class="font-serif text-4xl leading-tight md:text-5xl">Interested in early access?</h2>
+			<h2 class="font-serif text-4xl leading-tight md:text-5xl">{m.hub_cta_h2()}</h2>
 			<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-				Join the community and be the first to hear when Blossom Hub is available for testing.
+				{m.hub_cta_body()}
 			</p>
 			<div class="mt-8 flex flex-wrap gap-3">
 				<a href="https://discord.gg/dTqsBdxvNr" target="_blank" rel="noreferrer">
-					<Button variant="primary">Join on Discord</Button>
+					<Button variant="primary">{m.hub_join_discord()}</Button>
 				</a>
 				<a href="https://community.blossomos.org" target="_blank" rel="noreferrer">
-					<Button>Community forum</Button>
+					<Button>{m.community_forums()}</Button>
 				</a>
 			</div>
 		</div>

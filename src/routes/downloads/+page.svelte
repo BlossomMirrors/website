@@ -7,12 +7,13 @@
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import PackageIcon from '@lucide/svelte/icons/package';
 	import ArrowDownToLineIcon from '@lucide/svelte/icons/arrow-down-to-line';
+	import * as m from '$lib/paraglide/messages';
 
 	const requirements = [
-		{ Icon: CpuIcon, label: 'Processor', value: '64-bit x86 CPU (2012 or newer)' },
-		{ Icon: MemoryStickIcon, label: 'Memory', value: '4 GB RAM minimum, 8 GB recommended' },
-		{ Icon: HardDriveIcon, label: 'Storage', value: '20 GB free disk space' },
-		{ Icon: MonitorIcon, label: 'Display', value: '1280x720 minimum resolution' }
+		{ Icon: CpuIcon, label: m.downloads_req_cpu(), value: m.downloads_req_cpu_value() },
+		{ Icon: MemoryStickIcon, label: m.downloads_req_ram(), value: m.downloads_req_ram_value() },
+		{ Icon: HardDriveIcon, label: m.downloads_req_storage(), value: m.downloads_req_storage_value() },
+		{ Icon: MonitorIcon, label: m.downloads_req_display(), value: m.downloads_req_display_value() }
 	];
 </script>
 
@@ -23,10 +24,10 @@
 <div class="py-16 md:py-24">
 	<!-- Header -->
 	<div class="mb-12" use:reveal>
-		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Downloads</p>
-		<h1 class="font-serif text-5xl leading-tight md:text-7xl">Get BlossomOS.</h1>
+		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.downloads_subheader()}</p>
+		<h1 class="font-serif text-5xl leading-tight md:text-7xl">{m.downloads_h1()}</h1>
 		<p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
-			Free, open source, and ready to install. Choose the edition that matches your hardware below.
+			{m.downloads_subtitle()}
 		</p>
 	</div>
 
@@ -37,18 +38,18 @@
 
 	<!-- Installation note -->
 	<p class="mt-4 max-w-xl text-sm text-muted-foreground" use:reveal={120}>
-		Need help installing?
+		{m.downloads_install_note()}
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
 		<a
 			href="https://docs.blossomos.org/en/docs/user/installation"
 			class="text-primary hover:underline"
-			target="_blank">Read the installation guide.</a
+			target="_blank">{m.downloads_install_link()}</a
 		>
 	</p>
 
 	<!-- System requirements -->
 	<div class="mt-20" use:reveal>
-		<h2 class="font-serif text-3xl leading-tight md:text-4xl">System requirements.</h2>
+		<h2 class="font-serif text-3xl leading-tight md:text-4xl">{m.downloads_requirements_h2()}</h2>
 		<div class="mt-6 grid gap-4 sm:grid-cols-2">
 			{#each requirements as r, i (r.label)}
 				<div
@@ -67,17 +68,14 @@
 				</div>
 			{/each}
 		</div>
-		<p class="mt-4 text-sm text-muted-foreground">
-			NVIDIA GPU? Use the NVIDIA Open edition above for the best out-of-the-box experience.
-		</p>
+		<p class="mt-4 text-sm text-muted-foreground">{m.downloads_req_nvidia_note()}</p>
 	</div>
 
 	<!-- Press kit & branding -->
 	<div class="mt-20" use:reveal>
-		<h2 class="font-serif text-3xl leading-tight md:text-4xl">Press kit &amp; branding.</h2>
+		<h2 class="font-serif text-3xl leading-tight md:text-4xl">{m.downloads_presskit_h2()}</h2>
 		<p class="mt-3 max-w-xl text-muted-foreground">
-			Writing about Blossom? Download our official logos, screenshots, wordmarks, and brand
-			guidelines.
+			{m.downloads_presskit_body()}
 		</p>
 		<div class="mt-6 flex flex-wrap gap-3">
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -86,7 +84,7 @@
 					class="flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium transition-colors hover:border-primary/30 hover:bg-primary/5"
 				>
 					<PackageIcon size={16} class="text-primary" />
-					Icon (SVG)
+					{m.downloads_presskit_icon()}
 					<ArrowDownToLineIcon size={14} class="text-muted-foreground" />
 				</button>
 			</a>
@@ -95,11 +93,11 @@
 					class="flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium transition-colors hover:border-primary/30 hover:bg-primary/5"
 				>
 					<PackageIcon size={16} class="text-primary" />
-					Full press kit
+					{m.downloads_presskit_full()}
 					<ArrowDownToLineIcon size={14} class="text-muted-foreground" />
 				</button>
 			</a>
 		</div>
-		<p class="mt-3 text-xs text-muted-foreground">Please review our brand guidelines before use.</p>
+		<p class="mt-3 text-xs text-muted-foreground">{m.downloads_presskit_note()}</p>
 	</div>
 </div>

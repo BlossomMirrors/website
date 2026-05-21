@@ -5,6 +5,7 @@
 	import TagIcon from '@lucide/svelte/icons/tag';
 	import DownloadIcon from '@lucide/svelte/icons/download';
 	import CalendarIcon from '@lucide/svelte/icons/calendar';
+	import * as m from '$lib/paraglide/messages';
 
 	const CDN = 'https://cdn.blossomos.org/iso';
 
@@ -52,11 +53,11 @@
 	<div use:reveal>
 		<div class="flex items-center gap-3">
 			<TagIcon size={20} class="text-primary" strokeWidth={1.5} />
-			<p class="text-xs font-semibold tracking-widest text-primary uppercase">Release Notes</p>
+			<p class="text-xs font-semibold tracking-widest text-primary uppercase">{m.releases_subheader()}</p>
 		</div>
-		<h1 class="mt-3 font-serif text-5xl leading-tight md:text-7xl">What's new.</h1>
+		<h1 class="mt-3 font-serif text-5xl leading-tight md:text-7xl">{m.releases_h1()}</h1>
 		<p class="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-			BlossomOS is in active development. Here is what has shipped so far and what is coming next.
+			{m.releases_subtitle()}
 		</p>
 	</div>
 
@@ -71,7 +72,7 @@
 							{#if release.tag === 'latest'}
 								<span
 									class="rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary"
-								>Latest</span>
+								>{m.releases_latest_badge()}</span>
 							{/if}
 						</div>
 						<p class="mt-1 text-lg text-muted-foreground italic">"{release.codename}"</p>
@@ -84,15 +85,16 @@
 							{/if}
 						</div>
 					</div>
+					<!-- eslint-disable svelte/no-navigation-without-resolve -->
 					<a href="/downloads">
 						<Button variant="primary" size="sm">
 							<DownloadIcon size={14} />
-							Download
+							{m.releases_download()}
 						</Button>
 					</a>
 				</div>
 				<div class="p-6 md:p-8">
-					<p class="mb-4 text-sm font-semibold">Release highlights</p>
+					<p class="mb-4 text-sm font-semibold">{m.releases_highlights()}</p>
 					<ul class="space-y-2.5">
 						{#each release.highlights as item (item)}
 							<li class="flex items-start gap-3 text-sm text-muted-foreground">
@@ -108,8 +110,8 @@
 
 	<!-- Roadmap -->
 	<div class="mt-20" use:reveal>
-		<h2 class="font-serif text-4xl leading-tight">Coming up.</h2>
-		<p class="mt-3 text-muted-foreground">Planned for upcoming releases. Subject to change.</p>
+		<h2 class="font-serif text-4xl leading-tight">{m.releases_roadmap_h2()}</h2>
+		<p class="mt-3 text-muted-foreground">{m.releases_roadmap_body()}</p>
 	</div>
 
 	<div class="mt-8 grid gap-6 sm:grid-cols-2">
@@ -129,14 +131,14 @@
 	</div>
 
 	<p class="mt-12 text-center text-sm text-muted-foreground" use:reveal>
-		Full changelog on
+		{m.releases_footer()}
 		<a
 			href="https://git.blossomos.org/Blossom"
 			target="_blank"
 			rel="noreferrer"
 			class="text-primary hover:underline"
 		>
-			Blossom Git
+			{m.releases_git_link()}
 		</a>
 	</p>
 </div>

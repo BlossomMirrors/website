@@ -8,42 +8,43 @@
 	import CodeIcon from '@lucide/svelte/icons/code';
 	import BookOpenIcon from '@lucide/svelte/icons/book-open';
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
+	import * as m from '$lib/paraglide/messages';
 
 	const categories = [
 		{
 			Icon: RocketIcon,
-			title: 'Getting started',
-			description: 'Install BlossomOS, set up your account, and get familiar with the desktop.',
+			title: m.docs_cat1_title(),
+			description: m.docs_cat1_body(),
 			links: ['Installation guide', 'First boot walkthrough', 'Migrating from Windows', 'Migrating from macOS']
 		},
 		{
 			Icon: PackageIcon,
-			title: 'Apps & software',
-			description: 'Installing, managing, and removing applications with Arc Software.',
+			title: m.docs_cat2_title(),
+			description: m.docs_cat2_body(),
 			links: ['Using Arc Software', 'Installing Flatpaks', 'Arc Winapps setup', 'Command line tools']
 		},
 		{
 			Icon: MonitorIcon,
-			title: 'Desktop & customization',
-			description: 'Themes, extensions, keyboard shortcuts, and making BlossomOS yours.',
+			title: m.docs_cat3_title(),
+			description: m.docs_cat3_body(),
 			links: ['Changing the wallpaper', 'KDE Plasma basics', 'Keyboard shortcuts', 'Accessibility']
 		},
 		{
 			Icon: CpuIcon,
-			title: 'Hardware',
-			description: 'Drivers, peripherals, and getting the most from your specific hardware.',
+			title: m.docs_cat4_title(),
+			description: m.docs_cat4_body(),
 			links: ['GPU setup', 'Printer support', 'Bluetooth & audio', 'Dual boot']
 		},
 		{
 			Icon: ShieldIcon,
-			title: 'Privacy & security',
-			description: 'Encryption, firewall, updates, and understanding the security model.',
+			title: m.docs_cat5_title(),
+			description: m.docs_cat5_body(),
 			links: ['Full disk encryption', 'Firewall basics', 'Automatic updates', 'Reporting vulnerabilities']
 		},
 		{
 			Icon: CodeIcon,
-			title: 'Contributing',
-			description: 'Build, test, and submit changes to BlossomOS and its components.',
+			title: m.docs_cat6_title(),
+			description: m.docs_cat6_body(),
 			links: ['Setting up a dev environment', 'Submitting a patch', 'Translating BlossomOS', 'Writing documentation']
 		}
 	];
@@ -58,19 +59,19 @@
 	<div use:reveal>
 		<div class="flex items-center gap-3">
 			<BookOpenIcon size={20} class="text-primary" strokeWidth={1.5} />
-			<p class="text-xs font-semibold tracking-widest text-primary uppercase">Documentation</p>
+			<p class="text-xs font-semibold tracking-widest text-primary uppercase">{m.docs_subheader()}</p>
 		</div>
 		<h1 class="mt-3 font-serif text-5xl leading-tight md:text-7xl">
-			How to use<br />BlossomOS.
+			{m.docs_h1_1()}<br />{m.docs_h1_2()}
 		</h1>
 		<p class="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-			Guides, references, and everything you need to get the most out of BlossomOS.
+			{m.docs_subtitle()}
 		</p>
 	</div>
 
 	<!-- Quick start -->
 	<a
-		href="https://git.blossomos.org/Blossom"
+		href="https://docs.blossomos.org"
 		target="_blank"
 		rel="noreferrer"
 		class="mt-12 flex items-center justify-between rounded-2xl border border-primary/30 bg-primary/5 p-6 transition-colors hover:bg-primary/10"
@@ -83,8 +84,8 @@
 				<RocketIcon size={20} strokeWidth={1.5} />
 			</div>
 			<div>
-				<p class="font-semibold">Quick start</p>
-				<p class="text-sm text-muted-foreground">New to BlossomOS? Start here.</p>
+				<p class="font-semibold">{m.docs_quickstart_title()}</p>
+				<p class="text-sm text-muted-foreground">{m.docs_quickstart_body()}</p>
 			</div>
 		</div>
 		<ArrowRightIcon size={18} class="text-primary" />
@@ -105,7 +106,7 @@
 					{#each cat.links as link (link)}
 						<li>
 							<a
-								href="https://git.blossomos.org/Blossom"
+								href="https://docs.blossomos.org"
 								target="_blank"
 								rel="noreferrer"
 								class="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -122,14 +123,14 @@
 
 	<!-- Footer note -->
 	<p class="mt-16 text-center text-sm text-muted-foreground" use:reveal>
-		Documentation is community-maintained.
+		{m.docs_footer()}
 		<a
 			href="https://git.blossomos.org/Blossom"
 			target="_blank"
 			rel="noreferrer"
 			class="text-primary hover:underline"
 		>
-			Help us improve it.
+			{m.docs_footer_link()}
 		</a>
 	</p>
 </div>

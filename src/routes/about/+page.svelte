@@ -8,38 +8,15 @@
 	import CodeIcon from '@lucide/svelte/icons/code';
 	import GlobeIcon from '@lucide/svelte/icons/globe';
 	import LightbulbIcon from '@lucide/svelte/icons/lightbulb';
+	import * as m from '$lib/paraglide/messages';
 
 	const values = [
-		{
-			Icon: ShieldIcon,
-			title: 'Privacy first',
-			body: 'We build software that respects you by default. No telemetry you did not ask for, no data sold to anyone.'
-		},
-		{
-			Icon: CodeIcon,
-			title: 'Open source',
-			body: 'Every line of Blossom code is public. Scrutinize it, fork it, improve it. Trust is earned, not assumed.'
-		},
-		{
-			Icon: UsersIcon,
-			title: 'Community driven',
-			body: 'No corporate agenda. Decisions are made in the open with contributors and users who actually use the software.'
-		},
-		{
-			Icon: GlobeIcon,
-			title: 'Built to last',
-			body: 'We focus on stability and longevity. Software that works today should still work tomorrow.'
-		},
-		{
-			Icon: LightbulbIcon,
-			title: 'Genuinely useful',
-			body: 'Features are added because users need them, not because a roadmap said so. Quality over quantity, always.'
-		},
-		{
-			Icon: HeartIcon,
-			title: 'Made with care',
-			body: 'We sweat the details. From the window buttons to the boot experience, everything is thought through.'
-		}
+		{ Icon: ShieldIcon, title: m.about_value_privacy_title(), body: m.about_value_privacy_body() },
+		{ Icon: CodeIcon, title: m.about_value_opensource_title(), body: m.about_value_opensource_body() },
+		{ Icon: UsersIcon, title: m.about_value_community_title(), body: m.about_value_community_body() },
+		{ Icon: GlobeIcon, title: m.about_value_lasting_title(), body: m.about_value_lasting_body() },
+		{ Icon: LightbulbIcon, title: m.about_value_useful_title(), body: m.about_value_useful_body() },
+		{ Icon: HeartIcon, title: m.about_value_care_title(), body: m.about_value_care_body() }
 	];
 
 	let onlineCount = $state<number | null>(null);
@@ -60,31 +37,27 @@
 <div class="py-16 md:py-24">
 	<!-- Hero -->
 	<div class="mx-auto max-w-3xl text-center" use:reveal>
-		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">About Blossom</p>
+		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.about_tagline()}</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">
-			Computing the way<br />it should be.
+			{m.about_hero_h1_1()}<br />{m.about_hero_h1_2()}
 		</h1>
 		<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-			Blossom is an open source project building the desktop platform for people who want a computer
-			that works for them, not against them.
+			{m.about_hero_body()}
 		</p>
 	</div>
 
 	<!-- Mission -->
 	<div class="mt-24 grid items-center gap-12 md:grid-cols-2 md:gap-20">
 		<div use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Our mission</p>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.about_mission_subheader()}</p>
 			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
-				Digital independence<br />for everyone.
+				{m.about_mission_h2_1()}<br />{m.about_mission_h2_2()}
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
-				Modern operating systems have drifted away from users. Forced updates, dark patterns, data
-				collection baked in, and software you never asked for. We started Blossom because we believed
-				it did not have to be this way.
+				{m.about_mission_body1()}
 			</p>
 			<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-				BlossomOS is our answer: a desktop OS that is powerful enough for developers, approachable
-				enough for anyone, and honest enough to earn your trust.
+				{m.about_mission_body2()}
 			</p>
 		</div>
 
@@ -101,8 +74,8 @@
 	<!-- Values -->
 	<div class="mt-24">
 		<div class="mb-14" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">What we stand for</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">Our values.</h2>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.about_values_subheader()}</p>
+			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.about_values_header()}</h2>
 		</div>
 
 		<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
@@ -130,11 +103,10 @@
 		></div>
 		<div class="relative max-w-xl">
 			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
-				Built by people like you.
+				{m.about_community_h2()}
 			</h2>
 			<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-				BlossomOS is made in the open by volunteers, designers, and everyday users. No corporation
-				calling the shots. Join us.
+				{m.about_community_body()}
 			</p>
 			{#if onlineCount !== null}
 				<p class="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
@@ -149,10 +121,10 @@
 			{/if}
 			<div class="mt-8 flex flex-wrap gap-3">
 				<a href="https://community.blossomos.org" target="_blank" rel="noreferrer">
-					<Button variant="primary">Join the community</Button>
+					<Button variant="primary">{m.community()}</Button>
 				</a>
 				<a href="https://git.blossomos.org/Blossom" target="_blank" rel="noreferrer">
-					<Button>Contribute on Blossom Git</Button>
+					<Button>{m.home_view_source()}</Button>
 				</a>
 			</div>
 		</div>
