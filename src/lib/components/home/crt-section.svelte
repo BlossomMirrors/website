@@ -35,12 +35,13 @@
 <section class="my-16 py-10 md:my-32 md:py-16">
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-20">
 		<div use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+			<p class="mb-3 text-xs font-semibold tracking-widest text-green-500 uppercase">
 				{m.crt_subheader()}
 			</p>
 			<h2 class="font-serif text-5xl leading-tight md:text-6xl">
-				{m.crt_header1()}<br />
+				{m.crt_header1()}
 				{m.crt_header2()}
+				<img src="/recycling.svg" alt="Recycling" class="sticker inline animate-spin" />
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
 				{m.crt_description()}
@@ -140,5 +141,10 @@
 		box-shadow:
 			0 0 2px 1px #00e040,
 			0 0 6px 2px #00ff6033;
+	}
+	.sticker {
+		height: 24px;
+		margin-left: -6px;
+		margin-top: 24px;
 	}
 </style>

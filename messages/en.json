@@ -93,7 +93,7 @@
 	"security_built_in": "State-of-the-art offline encryption and hardware-assisted security features, baked into the foundation from the start. Not bolted on as an afterthought.",
 	"crt_subheader": "Don't throw it away",
 	"crt_header1": "Your old computer?",
-	"crt_header2": "Still good enough.",
+	"crt_header2": "Still good enough",
 	"crt_description": "Clever optimizations mean BlossomOS runs beautifully even on the laptop from your school days. Good for your wallet. Good for the planet.",
 	"cloud_description": "Sync your files, collaborate on documents, and jump on a video call. All on EU-based servers with strong encryption. A reinstall shouldn't be a big deal.",
 	"file_sync": "File sync",
