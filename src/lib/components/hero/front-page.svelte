@@ -28,7 +28,3 @@
 		</a>
 	</div>
 </div>
-
-<div class="overflow-hidden rounded-2xl" use:reveal={80}>
-	<video src="/office.mp4" autoplay loop muted playsinline class="w-full object-cover"></video>
-</div>
