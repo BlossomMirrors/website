@@ -16,7 +16,7 @@
 
 <section class="mt-48 mb-32">
 	<div
-		class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-10 md:p-16"
+		class="relative overflow-hidden rounded-3xl bg-linear-to-br from-primary/10 via-primary/5 to-transparent p-10 md:p-16"
 		use:reveal
 	>
 		<div
@@ -41,7 +41,7 @@
 			</div>
 
 			<div class="grid grid-cols-2 gap-3">
-				{#each features as f, i}
+				{#each features as f, i (i)}
 					<div
 						class="flex items-center gap-3 rounded-xl border border-border bg-card/80 px-4 py-4"
 						use:reveal={i * 60}

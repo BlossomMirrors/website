@@ -57,6 +57,7 @@
 				<p class="mb-4 text-sm font-semibold">Follow Us</p>
 				<div class="flex gap-3">
 					{#each socials as s (s.label)}
+						<!-- eslint-disable svelte/no-navigation-without-resolve -->
 						<a
 							href={s.href}
 							target="_blank"
