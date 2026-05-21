@@ -16,6 +16,7 @@
 			{m.cta_description()}
 		</p>
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a href="/downloads">
 				<Button variant="primary" size="lg">
 					<DownloadIcon size={18} />
