@@ -16,8 +16,6 @@
 	import LessMoreSection from '$lib/components/home/less-more-section.svelte';
 	import CommunitySection from '$lib/components/home/community-section.svelte';
 	import DownloadCta from '$lib/components/home/download-cta.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import DownloadIcon from '@lucide/svelte/icons/download';
 	import * as m from '$lib/paraglide/messages';
 	import DownloadCard from '$lib/components/home/download-card.svelte';
 

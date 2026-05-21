@@ -4,15 +4,9 @@
 	import UsersRoundIcon from '@lucide/svelte/icons/users-round';
 	import { Button } from '$lib/components/ui/button';
 	import * as m from '$lib/paraglide/messages';
+	import Stats from '$lib/components/community/stats.svelte';
 
 	let onlineCount = $state<number | null>(null);
-
-	let stats = [
-		{ value: '100+', label: m.contributors() },
-		{ value: '5k+', label: m.community_members() },
-		{ value: m.free(), label: m.forever() },
-		{ value: '100%', label: m.open_source() }
-	];
 
 	onMount(() => {
 		fetch('https://discord.com/api/invites/dTqsBdxvNr?with_counts=true')
@@ -61,13 +55,6 @@
 			{/if}
 		</div>
 
-		<div class="grid grid-cols-2 gap-4" use:reveal={120}>
-			{#each stats as stat, i (stat.label)}
-				<div class="rounded-2xl border border-border bg-card p-6" use:reveal={i * 80}>
-					<p class="font-serif text-4xl">{stat.value}</p>
-					<p class="mt-1 text-sm text-muted-foreground">{stat.label}</p>
-				</div>
-			{/each}
-		</div>
+		<Stats />
 	</div>
 </section>

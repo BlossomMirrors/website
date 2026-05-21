@@ -9,11 +9,20 @@
 	import GlobeIcon from '@lucide/svelte/icons/globe';
 	import LightbulbIcon from '@lucide/svelte/icons/lightbulb';
 	import * as m from '$lib/paraglide/messages';
+	import Stats from '$lib/components/community/stats.svelte';
 
 	const values = [
 		{ Icon: ShieldIcon, title: m.about_value_privacy_title(), body: m.about_value_privacy_body() },
-		{ Icon: CodeIcon, title: m.about_value_opensource_title(), body: m.about_value_opensource_body() },
-		{ Icon: UsersIcon, title: m.about_value_community_title(), body: m.about_value_community_body() },
+		{
+			Icon: CodeIcon,
+			title: m.about_value_opensource_title(),
+			body: m.about_value_opensource_body()
+		},
+		{
+			Icon: UsersIcon,
+			title: m.about_value_community_title(),
+			body: m.about_value_community_body()
+		},
 		{ Icon: GlobeIcon, title: m.about_value_lasting_title(), body: m.about_value_lasting_body() },
 		{ Icon: LightbulbIcon, title: m.about_value_useful_title(), body: m.about_value_useful_body() },
 		{ Icon: HeartIcon, title: m.about_value_care_title(), body: m.about_value_care_body() }
@@ -37,7 +46,9 @@
 <div class="py-16 md:py-24">
 	<!-- Hero -->
 	<div class="mx-auto max-w-3xl text-center" use:reveal>
-		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.about_tagline()}</p>
+		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+			{m.about_tagline()}
+		</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">
 			{m.about_hero_h1_1()}<br />{m.about_hero_h1_2()}
 		</h1>
@@ -49,7 +60,9 @@
 	<!-- Mission -->
 	<div class="mt-24 grid items-center gap-12 md:grid-cols-2 md:gap-20">
 		<div use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.about_mission_subheader()}</p>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+				{m.about_mission_subheader()}
+			</p>
 			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
 				{m.about_mission_h2_1()}<br />{m.about_mission_h2_2()}
 			</h2>
@@ -61,20 +74,15 @@
 			</p>
 		</div>
 
-		<div class="grid grid-cols-2 gap-3" use:reveal={120}>
-			{#each [{ value: '100+', label: 'Contributors' }, { value: '5k+', label: 'Community members' }, { value: 'Free', label: 'Forever' }, { value: '100%', label: 'Open source' }] as stat, i (stat.label)}
-				<div class="rounded-2xl border border-border bg-card p-6" use:reveal={i * 70}>
-					<p class="font-serif text-4xl">{stat.value}</p>
-					<p class="mt-1 text-sm text-muted-foreground">{stat.label}</p>
-				</div>
-			{/each}
-		</div>
+		<Stats />
 	</div>
 
 	<!-- Values -->
 	<div class="mt-24">
 		<div class="mb-14" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.about_values_subheader()}</p>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+				{m.about_values_subheader()}
+			</p>
 			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.about_values_header()}</h2>
 		</div>
 
@@ -116,7 +124,8 @@
 						></span>
 						<span class="relative inline-flex size-2 rounded-full bg-green-500"></span>
 					</span>
-					{onlineCount.toLocaleString()} people online on Discord right now
+					{onlineCount.toLocaleString()}
+					{m.discord_online()}
 				</p>
 			{/if}
 			<div class="mt-8 flex flex-wrap gap-3">
