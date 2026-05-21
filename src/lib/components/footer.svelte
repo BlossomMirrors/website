@@ -28,7 +28,7 @@
 			heading: m.footer_resources(),
 			links: [
 				{ label: m.downloads(), href: '/downloads' },
-				{ label: m.footer_link_docs(), href: '/docs' },
+				{ label: m.footer_link_docs(), href: 'https://docs.blossomos.org' },
 				{ label: m.footer_link_releases(), href: '/releases' }
 			]
 		},
@@ -39,7 +39,7 @@
 				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr' },
 				{
 					label: m.footer_link_report(),
-					href: 'https://git.blossomos.org/Blossom/blossomos/issues'
+					href: 'https://git.blossomos.org/Blossom'
 				}
 			]
 		}
@@ -84,6 +84,9 @@
 								<a
 									href={link.href}
 									class="text-sm text-muted-foreground transition-colors hover:text-foreground"
+									target={link.href.startsWith('http') && link.href.includes('://')
+										? '_blank'
+										: undefined}
 								>
 									{link.label}
 								</a>
