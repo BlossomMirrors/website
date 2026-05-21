@@ -91,8 +91,6 @@
 	function installUrl(id: string) {
 		return isLinux ? `appstream://${id}` : '/downloads';
 	}
-
-	const activeCount = $derived(Object.values(progress).filter((p) => p < 100).length);
 </script>
 
 <section class="py-24 md:py-36">
@@ -165,10 +163,6 @@
 								Check for Updates
 							</button>
 						</div>
-
-						{#if activeCount > 0}
-							<p class="mb-3 text-xs text-white/40">Active ({activeCount})</p>
-						{/if}
 
 						<div class="flex flex-col gap-2">
 							{#each demoApps as app (app.name)}

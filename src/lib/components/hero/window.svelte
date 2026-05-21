@@ -67,7 +67,10 @@
 		const themeObserver = new MutationObserver(() => {
 			isDark = document.documentElement.classList.contains('dark');
 		});
-		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+		themeObserver.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ['class']
+		});
 
 		if (embedded) return () => themeObserver.disconnect();
 
@@ -112,21 +115,35 @@
 		const dy = e.clientY - resize.sy;
 		const { handle, sw, sh, sxw, syw } = resize;
 
-		let nw = sw, nh = sh, nx = sxw, ny = syw;
+		let nw = sw,
+			nh = sh,
+			nx = sxw,
+			ny = syw;
 		if (handle.includes('e')) nw = sw + dx;
 		if (handle.includes('s')) nh = sh + dy;
-		if (handle.includes('w')) { nw = sw - dx; nx = sxw + sw - nw; }
-		if (handle.includes('n')) { nh = sh - dy; ny = syw + sh - nh; }
+		if (handle.includes('w')) {
+			nw = sw - dx;
+			nx = sxw + sw - nw;
+		}
+		if (handle.includes('n')) {
+			nh = sh - dy;
+			ny = syw + sh - nh;
+		}
 
 		nw = Math.max(minW, Math.min(nw, pW - nx));
 		nh = Math.max(minH, Math.min(nh, pH - TASKBAR_H - ny));
 		nx = Math.max(0, nx);
 		ny = Math.max(0, ny);
 
-		w = nw; h = nh; x = nx; y = ny;
+		w = nw;
+		h = nh;
+		x = nx;
+		y = ny;
 	}
 
-	function endResize() { resize = null; }
+	function endResize() {
+		resize = null;
+	}
 
 	function titleDown(e: PointerEvent) {
 		drag = { ox: e.clientX - x, oy: e.clientY - y };
@@ -138,9 +155,13 @@
 		x = Math.max(0, Math.min(e.clientX - drag.ox, pW - w));
 		y = Math.max(0, Math.min(e.clientY - drag.oy, pH - h - TASKBAR_H));
 	}
-	function titleUp() { drag = null; }
+	function titleUp() {
+		drag = null;
+	}
 
-	function stopDrag(e: PointerEvent) { e.stopPropagation(); }
+	function stopDrag(e: PointerEvent) {
+		e.stopPropagation();
+	}
 </script>
 
 <div
@@ -156,24 +177,29 @@
 	class:rounded-none={!embedded && isMobile}
 	style="{embedded
 		? 'border-radius:14px;'
-		: (isMobile ? 'inset:0;border-radius:0;' : `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:14px;`)
-	}z-index:{zIndex}"
+		: isMobile
+			? 'inset:0;border-radius:0;'
+			: `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:14px;`}z-index:{zIndex}"
 	onpointerdown={embedded ? undefined : () => onFocus?.()}
 >
 	<!-- Title bar -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		class="flex touch-none shrink-0 items-center justify-between px-3 select-none"
-		style="height:36px;cursor:{(embedded || isMobile) ? 'default' : (drag ? "url('/cursor/grabbing.svg') 10 10, grabbing" : "url('/cursor/hand1.svg') 8 2, pointer")}"
-		onpointerdown={(!embedded && !isMobile) ? titleDown : undefined}
-		onpointermove={(!embedded && !isMobile) ? titleMove : undefined}
-		onpointerup={(!embedded && !isMobile) ? titleUp : undefined}
+		class="flex shrink-0 touch-none items-center justify-between px-3 select-none"
+		style="height:36px;cursor:{embedded || isMobile
+			? 'default'
+			: drag
+				? "url('/cursor/grabbing.svg') 10 10, grabbing"
+				: "url('/cursor/hand1.svg') 8 2, pointer"}"
+		onpointerdown={!embedded && !isMobile ? titleDown : undefined}
+		onpointermove={!embedded && !isMobile ? titleMove : undefined}
+		onpointerup={!embedded && !isMobile ? titleUp : undefined}
 	>
 		<div class="flex items-center gap-2">
 			{#if icon}
 				<img src={icon} class="pointer-events-none h-4 w-4" alt="" />
 			{/if}
-			<span class="text-xs text-foreground">{title}</span>
+			<span class={`text-xs ${embedded ? 'text-white/80' : 'text-foreground'}`}>{title}</span>
 		</div>
 		<div class="cursor-custom flex items-center gap-2">
 			<button
@@ -244,33 +270,93 @@
 
 	<!-- Resize handles (desktop, non-embedded only) -->
 	{#if !isMobile && !embedded}
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute inset-x-0 top-0 h-1" style="cursor:url('/cursor/top_side.svg') 10 0,n-resize" onpointerdown={(e) => startResize(e, 'n')} onpointermove={doResize} onpointerup={endResize}></div>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute inset-x-0 bottom-0 h-1" style="cursor:url('/cursor/bottom_side.svg') 10 19,s-resize" onpointerdown={(e) => startResize(e, 's')} onpointermove={doResize} onpointerup={endResize}></div>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute inset-y-0 left-0 w-1" style="cursor:url('/cursor/left_side.svg') 0 10,w-resize" onpointerdown={(e) => startResize(e, 'w')} onpointermove={doResize} onpointerup={endResize}></div>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute inset-y-0 right-0 w-1" style="cursor:url('/cursor/right_side.svg') 19 10,e-resize" onpointerdown={(e) => startResize(e, 'e')} onpointermove={doResize} onpointerup={endResize}></div>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute top-0 left-0 h-3 w-3" style="cursor:url('/cursor/top_left_corner.svg') 0 0,nw-resize" onpointerdown={(e) => startResize(e, 'nw')} onpointermove={doResize} onpointerup={endResize}></div>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute top-0 right-0 h-3 w-3" style="cursor:url('/cursor/top_right_corner.svg') 19 0,ne-resize" onpointerdown={(e) => startResize(e, 'ne')} onpointermove={doResize} onpointerup={endResize}></div>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute bottom-0 left-0 h-3 w-3" style="cursor:url('/cursor/bottom_left_corner.svg') 0 19,sw-resize" onpointerdown={(e) => startResize(e, 'sw')} onpointermove={doResize} onpointerup={endResize}></div>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="absolute right-0 bottom-0 h-3 w-3" style="cursor:url('/cursor/bottom_right_corner.svg') 19 19,se-resize" onpointerdown={(e) => startResize(e, 'se')} onpointermove={doResize} onpointerup={endResize}></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute inset-x-0 top-0 h-1"
+			style="cursor:url('/cursor/top_side.svg') 10 0,n-resize"
+			onpointerdown={(e) => startResize(e, 'n')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute inset-x-0 bottom-0 h-1"
+			style="cursor:url('/cursor/bottom_side.svg') 10 19,s-resize"
+			onpointerdown={(e) => startResize(e, 's')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute inset-y-0 left-0 w-1"
+			style="cursor:url('/cursor/left_side.svg') 0 10,w-resize"
+			onpointerdown={(e) => startResize(e, 'w')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute inset-y-0 right-0 w-1"
+			style="cursor:url('/cursor/right_side.svg') 19 10,e-resize"
+			onpointerdown={(e) => startResize(e, 'e')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute top-0 left-0 h-3 w-3"
+			style="cursor:url('/cursor/top_left_corner.svg') 0 0,nw-resize"
+			onpointerdown={(e) => startResize(e, 'nw')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute top-0 right-0 h-3 w-3"
+			style="cursor:url('/cursor/top_right_corner.svg') 19 0,ne-resize"
+			onpointerdown={(e) => startResize(e, 'ne')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute bottom-0 left-0 h-3 w-3"
+			style="cursor:url('/cursor/bottom_left_corner.svg') 0 19,sw-resize"
+			onpointerdown={(e) => startResize(e, 'sw')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="absolute right-0 bottom-0 h-3 w-3"
+			style="cursor:url('/cursor/bottom_right_corner.svg') 19 19,se-resize"
+			onpointerdown={(e) => startResize(e, 'se')}
+			onpointermove={doResize}
+			onpointerup={endResize}
+		></div>
 	{/if}
 </div>
 
 <style>
 	@keyframes win-open {
-		from { opacity: 0; transform: scale(0.95); }
-		to   { opacity: 1; transform: scale(1); }
+		from {
+			opacity: 0;
+			transform: scale(0.95);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
 	}
 	@keyframes win-close {
-		from { opacity: 1; transform: scale(1); }
-		to   { opacity: 0; transform: scale(0.95); }
+		from {
+			opacity: 1;
+			transform: scale(1);
+		}
+		to {
+			opacity: 0;
+			transform: scale(0.95);
+		}
 	}
 	.win {
 		animation: win-open 150ms ease-out forwards;
