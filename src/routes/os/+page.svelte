@@ -7,9 +7,12 @@
 	import KamosoWindow from '$lib/components/hero/kamoso-window.svelte';
 	import FreedomSection from '$lib/components/home/freedom-section.svelte';
 	import ArcSection from '$lib/components/home/arc-section.svelte';
+	import GamingSection from '$lib/components/home/gaming-section.svelte';
 	import FoundationSection from '$lib/components/home/foundation-section.svelte';
+	import DesignSection from '$lib/components/home/design-section.svelte';
 	import CrtSection from '$lib/components/home/crt-section.svelte';
 	import CloudSection from '$lib/components/home/cloud-section.svelte';
+	import BusinessSection from '$lib/components/home/business-section.svelte';
 	import LessMoreSection from '$lib/components/home/less-more-section.svelte';
 	import CommunitySection from '$lib/components/home/community-section.svelte';
 	import DownloadCta from '$lib/components/home/download-cta.svelte';
@@ -96,9 +99,12 @@
 
 <FreedomSection />
 <ArcSection />
+<GamingSection />
 <FoundationSection />
+<DesignSection />
 <CrtSection />
 <CloudSection />
+<BusinessSection />
 <LessMoreSection />
 <CommunitySection />
 <DownloadCta />
