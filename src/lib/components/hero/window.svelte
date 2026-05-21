@@ -147,6 +147,7 @@
 
 	function titleDown(e: PointerEvent) {
 		drag = { ox: e.clientX - x, oy: e.clientY - y };
+		document.documentElement.dataset.windowDrag = '';
 		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 		e.preventDefault();
 	}
@@ -157,6 +158,7 @@
 	}
 	function titleUp() {
 		drag = null;
+		delete document.documentElement.dataset.windowDrag;
 	}
 
 	function stopDrag(e: PointerEvent) {

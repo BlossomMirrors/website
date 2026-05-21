@@ -129,20 +129,20 @@
 						class="flex flex-1 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2.5 py-1.5"
 					>
 						<SearchIcon size={13} class="text-white/30" />
-						<span class="text-xs text-white/30">Search for applications…</span>
+						<span class="text-xs text-white/30">{m.arc_search_placeholder()}</span>
 					</div>
-					<div class="flex items-center rounded-md border border-white/10 text-xs">
+					<div class="flex items-center overflow-hidden rounded-md border border-white/10 text-xs">
 						<button
 							class="px-3 py-1.5 transition-colors {activeTab === 'installed'
 								? 'bg-white/15 text-white'
 								: 'text-white/40 hover:text-white/60'}"
-							onclick={() => (activeTab = 'installed')}>Installed</button
+							onclick={() => (activeTab = 'installed')}>{m.arc_tab_installed()}</button
 						>
 						<button
 							class="px-3 py-1.5 transition-colors {activeTab === 'downloads'
 								? 'bg-white/15 text-white'
 								: 'text-white/40 hover:text-white/60'}"
-							onclick={() => (activeTab = 'downloads')}>Downloads &amp; Updates</button
+							onclick={() => (activeTab = 'downloads')}>{m.arc_tab_downloads()}</button
 						>
 					</div>
 					<button
@@ -156,11 +156,11 @@
 				{#if activeTab === 'downloads'}
 					<div class="p-4">
 						<div class="mb-3 flex items-center justify-between">
-							<span class="text-sm font-bold text-white">Downloads</span>
+							<span class="text-sm font-bold text-white">{m.arc_tab_downloads()}</span>
 							<button
 								class="rounded-md border border-white/15 px-3 py-1 text-xs text-white/60 hover:bg-white/8"
 							>
-								Check for Updates
+								{m.arc_check_updates()}
 							</button>
 						</div>
 
@@ -176,7 +176,7 @@
 											<span class="text-sm font-medium text-white">{app.name}</span>
 											<div class="flex items-center gap-2">
 												<span class="text-xs text-white/40">
-													{pct < 100 ? 'Installing' : 'Installed'}
+													{pct < 100 ? m.arc_installing() : m.arc_installed_status()}
 												</span>
 												<span class="text-xs font-semibold text-primary">{pct}%</span>
 											</div>
@@ -192,7 +192,7 @@
 										<button
 											class="shrink-0 rounded-md bg-destructive px-2.5 py-1 text-xs font-semibold text-white"
 										>
-											Cancel
+											{m.arc_cancel()}
 										</button>
 									{/if}
 								</div>
@@ -201,7 +201,7 @@
 					</div>
 				{:else}
 					<div class="p-4">
-						<p class="mb-3 text-xs text-white/40">Installed apps</p>
+						<p class="mb-3 text-xs text-white/40">{m.arc_installed_apps()}</p>
 						<div class="flex flex-col gap-1">
 							{#each browseApps as app (app.appstreamId)}
 								<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -211,7 +211,7 @@
 								>
 									<img src={app.img} alt={app.name} class="h-8 w-8 rounded-lg object-contain" />
 									<span class="flex-1 text-sm text-white/80">{app.name}</span>
-									<span class="text-xs text-primary">{isLinux ? 'Open in Arc' : 'Install'}</span>
+									<span class="text-xs text-primary">{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span>
 								</a>
 							{/each}
 						</div>

@@ -124,7 +124,7 @@
 
 		function handleDown(e: PointerEvent) {
 			if (e.button !== 0) return;
-			if (e.target !== parent) return;
+			if ('windowDrag' in document.documentElement.dataset) return;
 			const rect = parent.getBoundingClientRect();
 			displayX = targetX = e.clientX - rect.left;
 			displayY = targetY = e.clientY - rect.top;
@@ -132,6 +132,10 @@
 		}
 
 		function handleMove(e: PointerEvent) {
+			if ('windowDrag' in document.documentElement.dataset) {
+				targetOpacity = 0;
+				return;
+			}
 			const rect = parent.getBoundingClientRect();
 			targetX = e.clientX - rect.left;
 			targetY = e.clientY - rect.top;

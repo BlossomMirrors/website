@@ -26,46 +26,47 @@
 	import MapPinIcon from '@lucide/svelte/icons/map-pin';
 	import HardDriveIcon from '@lucide/svelte/icons/hard-drive';
 	import { ArrowLeftIcon, ArrowRightIcon } from '@lucide/svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } =
 		$props();
 
 	let selectedFile = $state<string | null>(null);
 
-	const places = [
-		{ label: 'Home', icon: HomeIcon },
-		{ label: 'Desktop', icon: MonitorIcon },
-		{ label: 'Documents', icon: FileTextIcon },
-		{ label: 'Downloads', icon: DownloadIcon },
-		{ label: 'Music', icon: MusicIcon },
-		{ label: 'Pictures', icon: ImageIcon },
-		{ label: 'Videos', icon: VideoIcon },
-		{ label: 'Trash', icon: Trash2Icon }
-	];
-	const remote = [{ label: 'Network', icon: NetworkIcon }];
-	const recent = [
-		{ label: 'Recent Files', icon: ClockIcon },
-		{ label: 'Recent Locations', icon: MapPinIcon }
-	];
-	const devices = [
-		{ label: 'BlossomOS', icon: HardDriveIcon },
-		{ label: 'Backups', icon: HardDriveIcon }
-	];
+	const places = $derived([
+		{ id: 'home', label: m.dolphin_home(), icon: HomeIcon },
+		{ id: 'desktop', label: m.dolphin_desktop(), icon: MonitorIcon },
+		{ id: 'documents', label: m.dolphin_documents(), icon: FileTextIcon },
+		{ id: 'downloads', label: m.dolphin_downloads(), icon: DownloadIcon },
+		{ id: 'music', label: m.dolphin_music(), icon: MusicIcon },
+		{ id: 'pictures', label: m.dolphin_pictures(), icon: ImageIcon },
+		{ id: 'videos', label: m.dolphin_videos(), icon: VideoIcon },
+		{ id: 'trash', label: m.dolphin_trash(), icon: Trash2Icon }
+	]);
+	const remote = $derived([{ id: 'network', label: m.dolphin_network(), icon: NetworkIcon }]);
+	const recent = $derived([
+		{ id: 'recent-files', label: m.dolphin_recent_files(), icon: ClockIcon },
+		{ id: 'recent-locations', label: m.dolphin_recent_locations(), icon: MapPinIcon }
+	]);
+	const devices = $derived([
+		{ id: 'blossomos', label: 'BlossomOS', icon: HardDriveIcon },
+		{ id: 'backups', label: m.dolphin_backups(), icon: HardDriveIcon }
+	]);
 
-	const files: { name: string; icon: unknown }[] = [
-		{ name: 'Desktop', icon: MonitorIcon },
-		{ name: 'Documents', icon: FileTextIcon },
-		{ name: 'Downloads', icon: DownloadIcon },
-		{ name: 'Music', icon: Music2Icon },
-		{ name: 'Pictures', icon: ImageIcon },
-		{ name: 'Videos', icon: VideoIcon },
-		{ name: 'Public', icon: UsersIcon },
-		{ name: 'Templates', icon: CopyIcon },
-		{ name: 'Projects', icon: CodeIcon },
-		{ name: 'Games', icon: GamepadIcon },
-		{ name: 'Blossom Cloud', icon: CloudIcon },
-		{ name: 'AppImages', icon: PackageIcon }
-	];
+	const files = $derived<{ id: string; name: string; icon: unknown }[]>([
+		{ id: 'desktop', name: m.dolphin_desktop(), icon: MonitorIcon },
+		{ id: 'documents', name: m.dolphin_documents(), icon: FileTextIcon },
+		{ id: 'downloads', name: m.dolphin_downloads(), icon: DownloadIcon },
+		{ id: 'music', name: m.dolphin_music(), icon: Music2Icon },
+		{ id: 'pictures', name: m.dolphin_pictures(), icon: ImageIcon },
+		{ id: 'videos', name: m.dolphin_videos(), icon: VideoIcon },
+		{ id: 'public', name: m.dolphin_public(), icon: UsersIcon },
+		{ id: 'templates', name: m.dolphin_templates(), icon: CopyIcon },
+		{ id: 'projects', name: m.dolphin_projects(), icon: CodeIcon },
+		{ id: 'games', name: m.dolphin_games(), icon: GamepadIcon },
+		{ id: 'cloud', name: 'Blossom Cloud', icon: CloudIcon },
+		{ id: 'appimages', name: 'AppImages', icon: PackageIcon }
+	]);
 </script>
 
 <Window
@@ -97,10 +98,12 @@
 			</div>
 		</div>
 		<!-- Address bar — aligns with file view card -->
-		<div class="flex flex-1 items-center gap-1 px-2 sm:pl-3 sm:pr-2">
-			<div class="flex flex-1 items-center rounded-md border border-foreground/6 px-1.5 py-2 text-sm">
+		<div class="flex flex-1 items-center gap-1 px-2 sm:pr-2 sm:pl-3">
+			<div
+				class="flex flex-1 items-center rounded-md border border-foreground/6 px-1.5 py-2 text-sm"
+			>
 				<ChevronRightIcon size={16} class="mr-1 shrink-0 text-foreground" />
-				<span class="text-xs font-semibold text-foreground">Home</span>
+				<span class="text-xs font-semibold text-foreground">{m.dolphin_home()}</span>
 			</div>
 			<div class="flex items-center gap-0.5">
 				<ToolbarButton size="sm" muted>
@@ -120,54 +123,54 @@
 			<p
 				class="mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
 			>
-				Places
+				{m.dolphin_places()}
 			</p>
-			{#each places as p (p.label)}
+			{#each places as p (p.id)}
 				<button
-					class="flex w-full cursor-default items-center gap-2.5 rounded-sidebar-item px-2 py-1 text-left text-xs {p.label ===
-					'Home'
+					class="flex w-full cursor-default items-center gap-2.5 rounded-sidebar-item px-2 py-1 text-left text-xs {p.id ===
+					'home'
 						? 'bg-primary/20 font-semibold text-primary'
 						: 'text-foreground/70'}"
 				>
 					<p.icon size={14} class="shrink-0" />
-					{p.label}
+					<span class="truncate">{p.label}</span>
 				</button>
 			{/each}
 
 			<p
 				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
 			>
-				Remote
+				{m.dolphin_remote()}
 			</p>
-			{#each remote as r (r.label)}
+			{#each remote as r (r.id)}
 				<button
 					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
 				>
 					<r.icon size={14} class="shrink-0" />
-					{r.label}
+					<span class="truncate">{r.label}</span>
 				</button>
 			{/each}
 
 			<p
 				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
 			>
-				Recent
+				{m.dolphin_recent()}
 			</p>
-			{#each recent as r (r.label)}
+			{#each recent as r (r.id)}
 				<button
 					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
 				>
 					<r.icon size={14} class="shrink-0" />
-					{r.label}
+					<span class="truncate">{r.label}</span>
 				</button>
 			{/each}
 
 			<p
 				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
 			>
-				Devices
+				{m.dolphin_devices()}
 			</p>
-			{#each devices as d (d.label)}
+			{#each devices as d (d.id)}
 				<button
 					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
 				>
@@ -181,14 +184,14 @@
 		<div class="flex-1 overflow-y-auto p-3">
 			<div class="relative h-full rounded-xl border border-border bg-muted/40 p-3">
 				<div class="grid grid-cols-3 gap-2 sm:grid-cols-4">
-					{#each files as file (file.name)}
+					{#each files as file (file.id)}
 						{@const Icon = file.icon as ConstructorOfATypedSvelteComponent | null | undefined}
 						<button
 							class="flex cursor-default flex-col items-center gap-2 rounded-lg p-3 text-center transition-colors {selectedFile ===
-							file.name
+							file.id
 								? 'bg-primary/12 ring-1 ring-primary/40'
 								: 'hover:bg-foreground/6'}"
-							onclick={() => (selectedFile = file.name)}
+							onclick={() => (selectedFile = file.id)}
 						>
 							<Icon size={40} class="shrink-0 text-foreground/70" strokeWidth={1.2} />
 							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground"
@@ -196,12 +199,6 @@
 							>
 						</button>
 					{/each}
-				</div>
-				<div
-					class="pointer-events-none absolute right-0 bottom-0 left-0 flex items-end justify-start rounded-b-xl px-3 pt-8 pb-2"
-					style="background:linear-gradient(to top, color-mix(in srgb, var(--color-muted) 60%, transparent), transparent)"
-				>
-					<span class="text-[11px] text-muted-foreground select-none">12 folders, 0 files</span>
 				</div>
 			</div>
 		</div>
