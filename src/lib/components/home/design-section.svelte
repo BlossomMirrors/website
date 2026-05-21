@@ -35,16 +35,13 @@
 		<div class="flex flex-col gap-4" use:reveal={120}>
 			<!-- Mock window chrome at 1:1 -->
 			<div class="overflow-hidden rounded-2xl border border-border">
-				<div
-					class="flex items-center justify-between bg-card px-3 select-none"
-					style="height:36px"
-				>
+				<div class="flex items-center justify-between bg-card px-3 select-none" style="height:36px">
 					<div class="flex items-center gap-2">
 						<div class="h-4 w-4 rounded bg-muted"></div>
 						<span class="text-xs text-foreground">BlossomOS</span>
 					</div>
 					<div class="flex items-center gap-2">
-						{#each buttons as btn}
+						{#each buttons as btn (btn)}
 							<button
 								class="relative flex h-5 w-5 items-center justify-center"
 								onmouseenter={() => (hoveredBtn = btn)}
@@ -79,7 +76,7 @@
 			<div
 				class="flex items-center justify-center gap-10 rounded-2xl border border-border bg-card/50 py-10"
 			>
-				{#each buttons as btn}
+				{#each buttons as btn (btn)}
 					<button
 						class="relative flex h-16 w-16 items-center justify-center transition-transform duration-150 hover:scale-110"
 						onmouseenter={() => (hoveredBtn = btn)}
