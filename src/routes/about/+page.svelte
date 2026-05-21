@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
-	import { Button } from '$lib/components/ui/button';
 	import { onMount } from 'svelte';
 	import HeartIcon from '@lucide/svelte/icons/heart';
 	import ShieldIcon from '@lucide/svelte/icons/shield';
@@ -10,6 +9,7 @@
 	import LightbulbIcon from '@lucide/svelte/icons/lightbulb';
 	import * as m from '$lib/paraglide/messages';
 	import Stats from '$lib/components/community/stats.svelte';
+	import CommunitySection from '$lib/components/home/community-section.svelte';
 
 	const values = [
 		{ Icon: ShieldIcon, title: m.about_value_privacy_title(), body: m.about_value_privacy_body() },
@@ -101,41 +101,5 @@
 		</div>
 	</div>
 
-	<!-- Community CTA -->
-	<div
-		class="relative mt-24 overflow-hidden rounded-3xl bg-linear-to-br from-primary/10 via-primary/5 to-transparent p-10 md:p-16"
-		use:reveal
-	>
-		<div
-			class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary/8 blur-3xl"
-		></div>
-		<div class="relative max-w-xl">
-			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
-				{m.about_community_h2()}
-			</h2>
-			<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-				{m.about_community_body()}
-			</p>
-			{#if onlineCount !== null}
-				<p class="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-					<span class="relative flex size-2">
-						<span
-							class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"
-						></span>
-						<span class="relative inline-flex size-2 rounded-full bg-green-500"></span>
-					</span>
-					{onlineCount.toLocaleString()}
-					{m.discord_online()}
-				</p>
-			{/if}
-			<div class="mt-8 flex flex-wrap gap-3">
-				<a href="https://community.blossomos.org" target="_blank" rel="noreferrer">
-					<Button variant="primary">{m.community()}</Button>
-				</a>
-				<a href="https://git.blossomos.org/Blossom" target="_blank" rel="noreferrer">
-					<Button>{m.home_view_source()}</Button>
-				</a>
-			</div>
-		</div>
-	</div>
+	<CommunitySection />
 </div>
