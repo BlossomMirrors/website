@@ -5,6 +5,7 @@
 	import LockKeyholeIcon from '@lucide/svelte/icons/lock-keyhole';
 	import { PackageIcon } from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages';
+	import Features from '$lib/components/ui/features.svelte';
 
 	const pillars = [
 		{
@@ -40,17 +41,5 @@
 		</h2>
 	</div>
 
-	<div class="grid gap-4 sm:grid-cols-2 md:gap-6">
-		{#each pillars as p, i (p.title)}
-			<div class="rounded-2xl border border-border bg-card p-7 md:p-9" use:reveal={i * 80}>
-				<div
-					class="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
-				>
-					<p.Icon size={20} strokeWidth={1.5} />
-				</div>
-				<h3 class="mb-2 font-semibold">{p.title}</h3>
-				<p class="text-sm leading-relaxed text-muted-foreground">{p.body}</p>
-			</div>
-		{/each}
-	</div>
+	<Features features={pillars} />
 </section>

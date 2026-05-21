@@ -10,12 +10,28 @@
 	import ServerIcon from '@lucide/svelte/icons/server';
 	import EyeOffIcon from '@lucide/svelte/icons/eye-off';
 	import * as m from '$lib/paraglide/messages';
+	import Features from '$lib/components/ui/features.svelte';
 
 	const features = [
-		{ Icon: FolderSyncIcon, title: m.cloud_feature_file_sync_title(), body: m.cloud_file_sync_body(), done: true },
-		{ Icon: VideoIcon, title: m.cloud_feature_video_title(), body: m.cloud_video_body(), done: true },
+		{
+			Icon: FolderSyncIcon,
+			title: m.cloud_feature_file_sync_title(),
+			body: m.cloud_file_sync_body(),
+			done: true
+		},
+		{
+			Icon: VideoIcon,
+			title: m.cloud_feature_video_title(),
+			body: m.cloud_video_body(),
+			done: true
+		},
 		{ Icon: ServerIcon, title: m.cloud_feature_eu_title(), body: m.cloud_eu_body(), done: true },
-		{ Icon: SettingsIcon, title: m.cloud_feature_settings_title(), body: m.cloud_settings_body(), done: false }
+		{
+			Icon: SettingsIcon,
+			title: m.cloud_feature_settings_title(),
+			body: m.cloud_settings_body(),
+			done: false
+		}
 	];
 
 	const privacy = [
@@ -31,7 +47,6 @@
 </svelte:head>
 
 <div class="py-16 md:py-24">
-	<!-- Hero -->
 	<div class="mx-auto max-w-3xl text-center" use:reveal>
 		<div
 			class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary"
@@ -56,41 +71,10 @@
 		</div>
 	</div>
 
-	<!-- Features -->
 	<div class="mt-24">
-		<div class="mb-14" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.cloud_features_subheader()}</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.cloud_features_h2()}</h2>
-		</div>
-
-		<div class="grid gap-6 sm:grid-cols-2">
-			{#each features as f, i (f.title)}
-				<div
-					class="rounded-2xl border border-border bg-card p-8"
-					use:reveal={i * 80}
-				>
-					<div
-						class="mb-5 flex h-10 w-10 items-center justify-center rounded-xl {f.done
-							? 'bg-primary/10 text-primary'
-							: 'bg-muted text-muted-foreground'}"
-					>
-						<f.Icon size={20} strokeWidth={1.5} />
-					</div>
-					<div class="flex items-center gap-2">
-						<h3 class="font-semibold">{f.title}</h3>
-						{#if !f.done}
-							<span
-								class="rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wide text-muted-foreground uppercase"
-							>{m.coming_soon()}</span>
-						{/if}
-					</div>
-					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-				</div>
-			{/each}
-		</div>
+		<Features {features} />
 	</div>
 
-	<!-- Privacy section -->
 	<div
 		class="relative mt-24 overflow-hidden rounded-3xl bg-linear-to-br from-primary/10 via-primary/5 to-transparent p-10 md:p-16"
 		use:reveal
@@ -136,7 +120,6 @@
 		</div>
 	</div>
 
-	<!-- CTA -->
 	<div class="mt-24 text-center" use:reveal>
 		<h2 class="font-serif text-4xl leading-tight md:text-5xl">{m.cloud_cta_h2()}</h2>
 		<p class="mt-4 text-lg text-muted-foreground">
