@@ -13,7 +13,6 @@
 	import * as m from '$lib/paraglide/messages';
 	import Features from '$lib/components/ui/features.svelte';
 	import CtaArea from '$lib/components/ui/cta-area.svelte';
-	import { hub_cta_h2 } from '$lib/paraglide/messages/de';
 
 	const features = [
 		{ Icon: LayoutDashboardIcon, title: m.hub_feature1_title(), body: m.hub_feature1_body() },
