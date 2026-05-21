@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { reveal } from '$lib/actions/reveal';
 	import DownloadCard from '$lib/components/home/download-card.svelte';
 	import CpuIcon from '@lucide/svelte/icons/cpu';
 	import MemoryStickIcon from '@lucide/svelte/icons/memory-stick';
@@ -57,7 +56,7 @@
 	<div class="mt-20">
 		<h2 class="font-serif text-3xl leading-tight md:text-4xl">{m.downloads_requirements_h2()}</h2>
 		<div class="mt-6 grid gap-4 sm:grid-cols-2">
-			{#each requirements as r, i (r.label)}
+			{#each requirements as r (r.label)}
 				<div class="flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
 					<div
 						class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
