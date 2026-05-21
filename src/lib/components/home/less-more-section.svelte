@@ -15,16 +15,8 @@
 <section class="py-10 md:py-16">
 	<div class="mb-12" use:reveal>
 		<h2 class="font-serif text-5xl leading-tight md:text-7xl">
-			Less <LottieEmoji
-				src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f62d/lottie.json"
-				size={64}
-				class="align-middle"
-			/>
-			more <LottieEmoji
-				src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f60a/lottie.json"
-				size={64}
-				class="align-middle"
-			/>
+			Less <LottieEmoji src="/lottie/1f62d.json" size={64} class="align-middle" />
+			more <LottieEmoji src="/lottie/1f60a.json" size={64} class="align-middle" />
 		</h2>
 	</div>
 
