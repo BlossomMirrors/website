@@ -4,27 +4,28 @@
 	import EyeIcon from '@lucide/svelte/icons/eye';
 	import LockKeyholeIcon from '@lucide/svelte/icons/lock-keyhole';
 	import { PackageIcon } from '@lucide/svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	const pillars = [
 		{
 			Icon: ShieldCheckIcon,
-			title: 'Built on KDE Plasma',
-			body: 'A mature, open-source desktop. Stable, powerful and accountable to no one but its community.'
+			title: m.foundation_kde_header(),
+			body: m.foundation_kde()
 		},
 		{
 			Icon: PackageIcon,
-			title: 'Immutable Core',
-			body: 'The system core is unchangeable. It stays clean, predictable, and stable. More stable than your first feature phone. You install software exactly as you always have.'
+			title: m.immutable_core_header(),
+			body: m.immutable_core()
 		},
 		{
 			Icon: EyeIcon,
-			title: 'Open Source',
-			body: "Every line of code is open for inspection. Security researchers, users, and hardware partners can verify for themselves that it's secure and private."
+			title: m.open_source_header(),
+			body: m.open_source_description()
 		},
 		{
 			Icon: LockKeyholeIcon,
-			title: 'Security Built In',
-			body: 'State-of-the-art offline encryption and hardware-assisted security features, baked into the foundation from the start. Not bolted on as an afterthought.'
+			title: m.security_built_in_header(),
+			body: m.security_built_in()
 		}
 	];
 </script>
@@ -32,10 +33,10 @@
 <section class="py-10 md:py-16">
 	<div class="mb-14" use:reveal>
 		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-			Built on a stable foundation
+			{m.foundation_subheader()}
 		</p>
 		<h2 class="font-serif text-5xl leading-tight md:text-6xl">
-			Solid, secure,<br />built to last.
+			{m.foundation_header1()}<br />{m.foundation_header2()}
 		</h2>
 	</div>
 

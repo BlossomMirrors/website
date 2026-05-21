@@ -10,10 +10,6 @@
 	import Footer from '$lib/components/footer.svelte';
 
 	let { children } = $props();
-
-	onMount(() => {
-		initLocale();
-	});
 </script>
 
 <svelte:head>

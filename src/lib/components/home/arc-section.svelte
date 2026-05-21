@@ -5,6 +5,7 @@
 	import HomeIcon from '@lucide/svelte/icons/house';
 	import SearchIcon from '@lucide/svelte/icons/search';
 	import SlidersHorizontalIcon from '@lucide/svelte/icons/sliders-horizontal';
+	import * as m from '$lib/paraglide/messages';
 
 	type InstallApp = {
 		name: string;
@@ -98,14 +99,15 @@
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
 		<div use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Arc Software</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">Any software.<br />One click.</h2>
+			<h2 class="font-serif text-5xl leading-tight md:text-6xl">
+				{m.arc_header1()}.<br />{m.arc_header2()}.
+			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
-				Everything you know, in one place. Arc Unify makes every package format work on BlossomOS
-				with no terminal and no workarounds. Arc Winapps even brings Windows-only apps to the store.
+				{m.arc_description()}
 			</p>
 			{#if isLinux}
 				<p class="mt-4 text-sm text-primary">
-					You're on Linux. The links open directly in your software store.
+					{m.arc_linux()}
 				</p>
 			{/if}
 		</div>

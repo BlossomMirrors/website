@@ -94,8 +94,9 @@
 		<div class="mt-14 flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
 			<span>Made with</span>
 			<HeartIcon size={14} class="text-destructive" fill="currentColor" />
-			<span>by Blossom Labs · © {year}</span>
+			<span>by Blossom</span>
 		</div>
+		<p class="mt-3 text-sm text-muted-foreground">© {year} Blossom Labs. All rights reserved.</p>
 	</div>
 </footer>
 

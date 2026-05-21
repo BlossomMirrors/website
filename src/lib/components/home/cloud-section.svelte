@@ -5,12 +5,13 @@
 	import VideoIcon from '@lucide/svelte/icons/video';
 	import ShieldIcon from '@lucide/svelte/icons/shield';
 	import SettingsIcon from '@lucide/svelte/icons/settings';
+	import * as m from '$lib/paraglide/messages';
 
 	const features = [
-		{ Icon: FolderSyncIcon, label: 'File sync', done: true },
-		{ Icon: VideoIcon, label: 'Video calls', done: true },
-		{ Icon: ShieldIcon, label: 'EU data centers', done: true },
-		{ Icon: SettingsIcon, label: 'Settings sync', done: false }
+		{ Icon: FolderSyncIcon, label: m.file_sync(), done: true },
+		{ Icon: VideoIcon, label: m.video_calls(), done: true },
+		{ Icon: ShieldIcon, label: m.eu_datacenters(), done: true },
+		{ Icon: SettingsIcon, label: m.settings_sync(), done: false }
 	];
 </script>
 
@@ -35,8 +36,7 @@
 				</div>
 				<h2 class="font-serif text-4xl leading-tight md:text-5xl">Blossom Cloud</h2>
 				<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-					Sync your files, collaborate on documents, and jump on a video call. All on EU-based
-					servers with strong encryption. A reinstall shouldn't be a big deal.
+					{m.cloud_description()}
 				</p>
 			</div>
 
@@ -57,7 +57,7 @@
 							<p class="text-sm font-medium">{f.label}</p>
 							{#if !f.done}
 								<p class="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">
-									Soon
+									{m.coming_soon()}
 								</p>
 							{/if}
 						</div>

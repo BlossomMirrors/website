@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
 	import { onMount } from 'svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	let isDark = $state(false);
 	let crtEl = $state<HTMLDivElement | null>(null);
@@ -35,14 +36,14 @@
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-20">
 		<div use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-				Don't throw it away
+				{m.crt_subheader()}
 			</p>
 			<h2 class="font-serif text-5xl leading-tight md:text-6xl">
-				Your old computer?<br />Still good enough.
+				{m.crt_header1()}<br />
+				{m.crt_header2()}
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
-				Clever optimizations mean BlossomOS runs beautifully even on the laptop from your school
-				days. Good for your wallet. Good for the planet.
+				{m.crt_description()}
 			</p>
 		</div>
 

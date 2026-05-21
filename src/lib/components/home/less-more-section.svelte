@@ -1,22 +1,25 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
 	import LottieEmoji from './lottie-emoji.svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	const items = [
-		{ less: 'Reinstalling your OS', more: 'Updates that actually work' },
-		{ less: 'Driver hell', more: 'Hardware that just works' },
-		{ less: "Wondering who's watching", more: 'Knowing nobody is' },
-		{ less: 'Bloat you never asked for', more: 'Only what you need' },
-		{ less: 'Crashing at the worst moment', more: 'A system you can rely on' },
-		{ less: 'Being locked in', more: 'Real freedom to switch' }
+		{ less: m.less1(), more: m.more1() },
+		{ less: m.less2(), more: m.more2() },
+		{ less: m.less3(), more: m.more3() },
+		{ less: m.less4(), more: m.more4() },
+		{ less: m.less5(), more: m.more5() },
+		{ less: m.less6(), more: m.more6() }
 	];
 </script>
 
 <section class="py-10 md:py-16">
 	<div class="mb-12" use:reveal>
 		<h2 class="font-serif text-5xl leading-tight md:text-7xl">
-			Less <LottieEmoji src="/lottie/1f62d.json" size={64} class="align-middle" />
-			more <LottieEmoji src="/lottie/1f60a.json" size={64} class="align-middle" />
+			{m.less()}
+			<LottieEmoji src="/lottie/1f62d.json" size={64} class="align-middle" />
+			{m.more()}
+			<LottieEmoji src="/lottie/1f60a.json" size={64} class="align-middle" />
 		</h2>
 	</div>
 
@@ -28,14 +31,16 @@
 			<div class="flex gap-6 bg-background p-6 md:p-8">
 				<div class="flex-1">
 					<p class="mb-1 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-						Less
+						{m.less()}
 					</p>
 					<p class="font-serif text-xl leading-snug line-through decoration-destructive/60">
 						{item.less}
 					</p>
 				</div>
 				<div class="flex-1">
-					<p class="mb-1 text-xs font-semibold tracking-widest text-primary uppercase">More</p>
+					<p class="mb-1 text-xs font-semibold tracking-widest text-primary uppercase">
+						{m.more()}
+					</p>
 					<p class="font-serif text-xl leading-snug">{item.more}</p>
 				</div>
 			</div>
