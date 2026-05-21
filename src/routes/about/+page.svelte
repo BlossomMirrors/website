@@ -28,6 +28,7 @@
 		{ Icon: HeartIcon, title: m.about_value_care_title(), body: m.about_value_care_body() }
 	];
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	let onlineCount = $state<number | null>(null);
 	onMount(() => {
 		fetch('https://discord.com/api/invites/dTqsBdxvNr?with_counts=true')
