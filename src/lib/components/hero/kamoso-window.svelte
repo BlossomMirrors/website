@@ -16,10 +16,13 @@
 	let stream: MediaStream | null = null;
 
 	onMount(() => {
-		navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then((s) => {
-			stream = s;
-			if (video) video.srcObject = stream;
-		}).catch(() => {});
+		navigator.mediaDevices
+			.getUserMedia({ video: true, audio: false })
+			.then((s) => {
+				stream = s;
+				if (video) video.srcObject = stream;
+			})
+			.catch(() => {});
 	});
 
 	onDestroy(() => {
@@ -48,7 +51,7 @@
 	minW={420}
 	minH={300}
 	defaultW={800}
-	defaultH={544}
+	defaultH={528}
 >
 	<!-- Toolbar -->
 	<div class="flex shrink-0 items-center gap-1 px-3 select-none" style="height:44px">
