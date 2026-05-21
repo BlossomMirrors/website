@@ -98,7 +98,7 @@
 		<div class="min-w-0 flex-1">
 			<p class="font-semibold">BlossomOS</p>
 			{#if version}
-				<p class="text-xs text-muted-foreground">Version {version} · x86_64</p>
+				<p class="text-xs text-muted-foreground">Version {version} · Alpha 1</p>
 			{:else}
 				<div class="mt-1.5 h-3 w-28 animate-pulse rounded bg-muted"></div>
 			{/if}
