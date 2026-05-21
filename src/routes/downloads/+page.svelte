@@ -7,6 +7,7 @@
 	import PackageIcon from '@lucide/svelte/icons/package';
 	import ArrowDownToLineIcon from '@lucide/svelte/icons/arrow-down-to-line';
 	import * as m from '$lib/paraglide/messages';
+	import { Download } from '@lucide/svelte';
 
 	const requirements = [
 		{ Icon: CpuIcon, label: m.downloads_req_cpu(), value: m.downloads_req_cpu_value() },
@@ -25,32 +26,29 @@
 </svelte:head>
 
 <div class="py-16 md:py-24">
-	<!-- Header -->
-	<div class="mb-12">
-		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+	<div class="mb-12 flex flex-col items-center">
+		<p class="mb-3 text-center text-xs font-semibold tracking-widest text-primary uppercase">
 			{m.downloads_subheader()}
 		</p>
-		<h1 class="font-serif text-5xl leading-tight md:text-7xl">{m.downloads_h1()}</h1>
-		<p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
+		<h1 class="text-center font-serif text-5xl leading-tight md:text-7xl">
+			{m.downloads_h1()}
+		</h1>
+		<p class="mt-4 max-w-xl text-center text-lg leading-relaxed text-muted-foreground">
 			{m.downloads_subtitle()}
 		</p>
+		<div class="mt-8">
+			<DownloadCard />
+		</div>
+		<p class="mt-4 max-w-xl text-sm text-muted-foreground">
+			{m.downloads_install_note()}
+			<!-- eslint-disable svelte/no-navigation-without-resolve -->
+			<a
+				href="https://docs.blossomos.org/en/docs/user/installation"
+				class="text-primary hover:underline"
+				target="_blank">{m.downloads_install_link()}</a
+			>
+		</p>
 	</div>
-
-	<!-- Download card -->
-	<div class="max-w-xl">
-		<DownloadCard />
-	</div>
-
-	<!-- Installation note -->
-	<p class="mt-4 max-w-xl text-sm text-muted-foreground">
-		{m.downloads_install_note()}
-		<!-- eslint-disable svelte/no-navigation-without-resolve -->
-		<a
-			href="https://docs.blossomos.org/en/docs/user/installation"
-			class="text-primary hover:underline"
-			target="_blank">{m.downloads_install_link()}</a
-		>
-	</p>
 
 	<!-- System requirements -->
 	<div class="mt-20">

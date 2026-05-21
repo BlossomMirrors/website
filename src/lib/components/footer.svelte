@@ -51,7 +51,7 @@
 		src="/logo.svg"
 		alt=""
 		aria-hidden="true"
-		class="logo-spin pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 opacity-10 md:h-96 md:w-96"
+		class="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 opacity-10 md:h-96 md:w-96"
 	/>
 	<div class="mx-auto max-w-7xl px-4 py-16 md:py-20">
 		<!-- Link columns -->
@@ -116,15 +116,3 @@
 		</div>
 	</div>
 </footer>
-
-<style>
-	@keyframes slow-spin {
-		to {
-			transform: rotate(360deg);
-		}
-	}
-	.logo-spin {
-		animation: slow-spin 20s linear infinite;
-		transform-origin: center;
-	}
-</style>

@@ -98,14 +98,13 @@
 
 	<div class="hidden items-center gap-3 sm:flex">
 		<div class="flex items-center gap-3 text-foreground">
-			<ClipboardIcon size={18} class="hover:brightness-150" />
+			<ChevronUpIcon size={18} class="hover:brightness-150" />
 			<BluetoothIcon size={18} class="hover:brightness-150" />
 			<ZapIcon size={18} class="hover:brightness-150" />
 			<SunIcon size={18} class="hover:brightness-150" />
 			<SmartphoneIcon size={18} class="hover:brightness-150" />
 			<Volume2Icon size={18} class="hover:brightness-150" />
 			<CableIcon size={18} class="hover:brightness-150" />
-			<ChevronUpIcon size={18} class="hover:brightness-150" />
 		</div>
 		<div class="text-right leading-tight text-foreground">
 			<div class="text-sm font-semibold">{timeStr}</div>
