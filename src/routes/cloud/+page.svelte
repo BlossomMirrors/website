@@ -11,6 +11,7 @@
 	import EyeOffIcon from '@lucide/svelte/icons/eye-off';
 	import * as m from '$lib/paraglide/messages';
 	import Features from '$lib/components/ui/features.svelte';
+	import FeatureItem from '$lib/components/ui/feature-item.svelte';
 
 	const features = [
 		{
@@ -104,17 +105,7 @@
 
 			<div class="grid grid-cols-2 gap-3">
 				{#each privacy as p, i (p.label)}
-					<div
-						class="flex items-center gap-3 rounded-xl border border-border bg-card/80 px-4 py-4"
-						use:reveal={i * 60}
-					>
-						<div
-							class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
-						>
-							<p.Icon size={16} strokeWidth={1.5} />
-						</div>
-						<p class="text-sm font-medium">{p.label}</p>
-					</div>
+					<FeatureItem Icon={p.Icon} label={p.label} delay={i * 60} />
 				{/each}
 			</div>
 		</div>

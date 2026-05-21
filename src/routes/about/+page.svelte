@@ -10,6 +10,7 @@
 	import * as m from '$lib/paraglide/messages';
 	import Stats from '$lib/components/community/stats.svelte';
 	import CommunitySection from '$lib/components/home/community-section.svelte';
+	import SectionHeader from '$lib/components/ui/section-header.svelte';
 
 	const values = [
 		{ Icon: ShieldIcon, title: m.about_value_privacy_title(), body: m.about_value_privacy_body() },
@@ -80,12 +81,9 @@
 
 	<!-- Values -->
 	<div class="mt-24">
-		<div class="mb-14" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-				{m.about_values_subheader()}
-			</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.about_values_header()}</h2>
-		</div>
+		<SectionHeader subheader={m.about_values_subheader()} class="mb-14">
+			{m.about_values_header()}
+		</SectionHeader>
 
 		<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
 			{#each values as v, i (v.title)}

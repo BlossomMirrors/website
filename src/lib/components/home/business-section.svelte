@@ -5,6 +5,7 @@
 	import RocketIcon from '@lucide/svelte/icons/rocket';
 	import UsersIcon from '@lucide/svelte/icons/users';
 	import * as m from '$lib/paraglide/messages';
+	import FeatureItem from '$lib/components/ui/feature-item.svelte';
 
 	const features = [
 		{ img: '/taskbar/libreoffice.png', label: m.business_office() },
@@ -43,21 +44,13 @@
 
 			<div class="grid grid-cols-2 gap-3">
 				{#each features as f, i (i)}
-					<div
-						class="flex items-center gap-3 rounded-xl border border-border bg-card/80 px-4 py-4"
-						use:reveal={i * 60}
-					>
-						<div
-							class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400"
-						>
-							{#if 'img' in f}
-								<img src={f.img} alt="" class="h-5 w-5 object-contain" />
-							{:else}
-								<f.Icon size={16} strokeWidth={1.5} />
-							{/if}
-						</div>
-						<p class="text-sm font-medium">{f.label}</p>
-					</div>
+					<FeatureItem
+						Icon={'Icon' in f ? f.Icon : undefined}
+						img={'img' in f ? f.img : undefined}
+						label={f.label}
+						delay={i * 60}
+						color="amber"
+					/>
 				{/each}
 			</div>
 		</div>

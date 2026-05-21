@@ -8,6 +8,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import Header from '$lib/components/header.svelte';
 	import Footer from '$lib/components/footer.svelte';
+	import ScrollToTop from '$lib/components/ui/scroll-to-top.svelte';
 
 	let { children } = $props();
 </script>
@@ -31,6 +32,7 @@
 	</div>
 </div>
 <Footer />
+<ScrollToTop />
 
 <!-- eslint-disable -->
 <div style="display:none">

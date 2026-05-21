@@ -6,6 +6,7 @@
 	import ShieldIcon from '@lucide/svelte/icons/shield';
 	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import * as m from '$lib/paraglide/messages';
+	import FeatureItem from '$lib/components/ui/feature-item.svelte';
 
 	const features = [
 		{ Icon: FolderSyncIcon, label: m.file_sync(), done: true },
@@ -42,26 +43,7 @@
 
 			<div class="grid grid-cols-2 gap-3">
 				{#each features as f, i (i)}
-					<div
-						class="flex items-center gap-3 rounded-xl border border-border bg-card/80 px-4 py-4"
-						use:reveal={i * 60}
-					>
-						<div
-							class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg {f.done
-								? 'bg-primary/10 text-primary'
-								: 'bg-muted text-muted-foreground'}"
-						>
-							<f.Icon size={16} strokeWidth={1.5} />
-						</div>
-						<div>
-							<p class="text-sm font-medium">{f.label}</p>
-							{#if !f.done}
-								<p class="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">
-									{m.coming_soon()}
-								</p>
-							{/if}
-						</div>
-					</div>
+					<FeatureItem Icon={f.Icon} label={f.label} done={f.done} delay={i * 60} />
 				{/each}
 			</div>
 		</div>

@@ -13,6 +13,7 @@
 	import * as m from '$lib/paraglide/messages';
 	import Features from '$lib/components/ui/features.svelte';
 	import CtaArea from '$lib/components/ui/cta-area.svelte';
+	import SectionHeader from '$lib/components/ui/section-header.svelte';
 
 	const features = [
 		{ Icon: LayoutDashboardIcon, title: m.hub_feature1_title(), body: m.hub_feature1_body() },
@@ -62,24 +63,18 @@
 
 	<!-- Planned features -->
 	<div class="mt-24">
-		<div class="mb-14" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-				{m.hub_features_subheader()}
-			</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.hub_features_h2()}</h2>
-		</div>
+		<SectionHeader subheader={m.hub_features_subheader()} class="mb-14">
+			{m.hub_features_h2()}
+		</SectionHeader>
 
 		<Features {features} />
 	</div>
 
 	<!-- Who it's for -->
 	<div class="mt-24">
-		<div class="mb-12" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-				{m.hub_audience_subheader()}
-			</p>
-			<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.hub_audience_h2()}</h2>
-		</div>
+		<SectionHeader subheader={m.hub_audience_subheader()} class="mb-12">
+			{m.hub_audience_h2()}
+		</SectionHeader>
 
 		<div class="grid gap-4 md:grid-cols-3">
 			{#each audiences as a, i (a.title)}

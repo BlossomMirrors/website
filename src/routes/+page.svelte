@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { reveal } from '$lib/actions/reveal';
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import ShoppingBagIcon from '@lucide/svelte/icons/shopping-bag';
 	import CloudIcon from '@lucide/svelte/icons/cloud';
@@ -8,6 +7,7 @@
 	import FrontPage from '$lib/components/hero/front-page.svelte';
 	import Features from '$lib/components/ui/features.svelte';
 	import CtaArea from '$lib/components/ui/cta-area.svelte';
+	import SectionHeader from '$lib/components/ui/section-header.svelte';
 
 	const products = [
 		{
@@ -49,12 +49,9 @@
 <FrontPage />
 
 <div class="mt-24 md:mt-32">
-	<div class="mb-12" use:reveal>
-		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-			{m.home_products_subheader()}
-		</p>
-		<h2 class="font-serif text-5xl leading-tight md:text-6xl">{m.home_products_header()}</h2>
-	</div>
+	<SectionHeader subheader={m.home_products_subheader()} class="mb-12">
+		{m.home_products_header()}
+	</SectionHeader>
 	<Features features={products} />
 </div>
 
