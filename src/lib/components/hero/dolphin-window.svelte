@@ -80,30 +80,36 @@
 	defaultH={536}
 >
 	<!-- Toolbar -->
-	<div class="flex shrink-0 items-center gap-1 px-2 select-none" style="height:38px">
-		<ToolbarButton size="sm" muted>
-			<ArrowLeftIcon size={15} />
-		</ToolbarButton>
-		<ToolbarButton size="sm" muted class="opacity-40">
-			<ArrowRightIcon size={15} />
-		</ToolbarButton>
-		<div
-			class="flex h-7 items-center gap-0.5 rounded px-1.5 text-muted-foreground hover:bg-foreground/10"
-		>
-			<LayoutGridIcon size={13} />
-			<ChevronDownIcon size={11} />
-		</div>
-		<div class="flex flex-1 items-center rounded-md border border-foreground/6 px-1.5 py-2 text-sm">
-			<ChevronRightIcon size={16} class="mr-1 shrink-0 text-foreground" />
-			<span class="text-xs font-semibold text-foreground">Home</span>
-		</div>
-		<div class="ml-1 flex items-center gap-0.5">
+	<div class="flex shrink-0 select-none" style="height:38px">
+		<!-- Nav buttons — same width as sidebar -->
+		<div class="flex shrink-0 items-center gap-1 px-2 sm:w-48">
 			<ToolbarButton size="sm" muted>
-				<SearchIcon size={14} />
+				<ArrowLeftIcon size={15} />
 			</ToolbarButton>
-			<ToolbarButton size="sm" muted>
-				<MoreHorizontalIcon size={14} />
+			<ToolbarButton size="sm" muted class="opacity-40">
+				<ArrowRightIcon size={15} />
 			</ToolbarButton>
+			<div
+				class="flex h-7 items-center gap-0.5 rounded px-1.5 text-muted-foreground hover:bg-foreground/10"
+			>
+				<LayoutGridIcon size={13} />
+				<ChevronDownIcon size={11} />
+			</div>
+		</div>
+		<!-- Address bar — aligns with file view card -->
+		<div class="flex flex-1 items-center gap-1 px-2 sm:pl-3 sm:pr-2">
+			<div class="flex flex-1 items-center rounded-md border border-foreground/6 px-1.5 py-2 text-sm">
+				<ChevronRightIcon size={16} class="mr-1 shrink-0 text-foreground" />
+				<span class="text-xs font-semibold text-foreground">Home</span>
+			</div>
+			<div class="flex items-center gap-0.5">
+				<ToolbarButton size="sm" muted>
+					<SearchIcon size={14} />
+				</ToolbarButton>
+				<ToolbarButton size="sm" muted>
+					<MoreHorizontalIcon size={14} />
+				</ToolbarButton>
+			</div>
 		</div>
 	</div>
 
