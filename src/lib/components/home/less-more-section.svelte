@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
+	import LottieEmoji from './lottie-emoji.svelte';
 
 	const items = [
 		{ less: 'Reinstalling your OS', more: 'Updates that actually work' },
@@ -14,7 +15,16 @@
 <section class="py-10 md:py-16">
 	<div class="mb-12" use:reveal>
 		<h2 class="font-serif text-5xl leading-tight md:text-7xl">
-			Less<span class="ml-12"> 😭 <br />More 😊</span>
+			Less <LottieEmoji
+				src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f62d/lottie.json"
+				size={64}
+				class="align-middle"
+			/>
+			more <LottieEmoji
+				src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f60a/lottie.json"
+				size={64}
+				class="align-middle"
+			/>
 		</h2>
 	</div>
 

@@ -304,7 +304,7 @@
 		@apply border-border outline-0 outline-ring/50;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply overflow-x-hidden bg-background text-foreground;
 		font-family: var(--default-font-family);
 	}
 }

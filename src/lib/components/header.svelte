@@ -6,7 +6,7 @@
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import XIcon from '@lucide/svelte/icons/x';
-	import { Building2Icon, ShoppingBagIcon, UserIcon } from 'lucide-svelte';
+	import { Building2Icon, CloudIcon, ShoppingBagIcon, UserIcon } from 'lucide-svelte';
 	import Logo from '$lib/components/logo.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { MatrixIcon } from '$lib/components/icons/matrix/index.svelte';
@@ -30,6 +30,12 @@
 					href: '/arc',
 					description: m.arc_header_tooltip(),
 					icon: ShoppingBagIcon
+				},
+				{
+					label: 'Blossom Cloud',
+					href: '/cloud',
+					description: m.cloud_tooltip(),
+					icon: CloudIcon
 				},
 				{
 					label: 'Blossom Hub',
