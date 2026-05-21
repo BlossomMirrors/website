@@ -20,28 +20,49 @@
 			.catch(() => {});
 	});
 
-	const releases = [
+	const releases = $derived([
 		{
 			version: 'Alpha 1',
-			codename: 'First light',
-			date: '2025',
+			codename: 'Sakura',
+			date: '2026',
 			tag: 'latest',
 			highlights: [
-				'Initial public release based on KDE Plasma',
-				'Arc Software store with Flatpak and AppImage support',
-				'Immutable system core with atomic updates',
-				'Blossom Cloud file sync (beta)',
-				'Custom window chrome and desktop theme',
-				'Full disk encryption out of the box',
-				'Steam and gaming support pre-configured'
+				m.releases_a1_h1(),
+				m.releases_a1_h2(),
+				m.releases_a1_h3(),
+				m.releases_a1_h4(),
+				m.releases_a1_h5(),
+				m.releases_a1_h6()
 			]
 		}
-	];
+	]);
 
-	const roadmap = [
-		{ version: 'Alpha 2', items: ['Arc Winapps (Windows app support)', 'Settings sync via Blossom Cloud', 'Improved hardware compatibility', 'Arc Unify expanded format support'] },
-		{ version: 'Beta 1', items: ['Blossom Hub enterprise features', 'Polished first-run experience', 'Expanded driver support', 'Performance improvements'] }
-	];
+	const roadmap = $derived([
+		{
+			version: 'Alpha 2',
+			items: [
+				m.releases_a2_item1(),
+				m.releases_a2_item2(),
+				m.releases_a2_item3(),
+				m.releases_a2_item4(),
+				m.releases_a2_item5()
+			]
+		},
+		{
+			version: 'Alpha 3',
+			items: [
+				m.releases_a3_item1(),
+				m.releases_a3_item2(),
+				m.releases_a3_item3(),
+				m.releases_a3_item4(),
+				m.releases_a3_item5()
+			]
+		},
+		{
+			version: 'Beta 1',
+			items: [m.releases_b1_item1(), m.releases_b1_item2()]
+		}
+	]);
 </script>
 
 <svelte:head>
@@ -53,7 +74,9 @@
 	<div use:reveal>
 		<div class="flex items-center gap-3">
 			<TagIcon size={20} class="text-primary" strokeWidth={1.5} />
-			<p class="text-xs font-semibold tracking-widest text-primary uppercase">{m.releases_subheader()}</p>
+			<p class="text-xs font-semibold tracking-widest text-primary uppercase">
+				{m.releases_subheader()}
+			</p>
 		</div>
 		<h1 class="mt-3 font-serif text-5xl leading-tight md:text-7xl">{m.releases_h1()}</h1>
 		<p class="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
@@ -65,14 +88,17 @@
 	<div class="mt-16 space-y-6">
 		{#each releases as release (release.version)}
 			<div class="rounded-2xl border border-border bg-card" use:reveal={80}>
-				<div class="flex flex-wrap items-start justify-between gap-4 border-b border-border p-6 md:p-8">
+				<div
+					class="flex flex-wrap items-start justify-between gap-4 border-b border-border p-6 md:p-8"
+				>
 					<div>
 						<div class="flex flex-wrap items-center gap-2">
 							<h2 class="font-serif text-3xl">{release.version}</h2>
 							{#if release.tag === 'latest'}
 								<span
 									class="rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary"
-								>{m.releases_latest_badge()}</span>
+									>{m.releases_latest_badge()}</span
+								>
 							{/if}
 						</div>
 						<p class="mt-1 text-lg text-muted-foreground italic">"{release.codename}"</p>

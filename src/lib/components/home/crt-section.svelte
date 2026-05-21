@@ -140,7 +140,9 @@
 		background: #00e040;
 		box-shadow:
 			0 0 2px 1px #00e040,
-			0 0 6px 2px #00ff6033;
+			0 0 8px 3px #00e040cc,
+			0 0 18px 6px #00ff6066,
+			0 0 36px 10px #00ff6033;
 	}
 	.sticker {
 		height: 24px;
