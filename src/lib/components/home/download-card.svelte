@@ -51,7 +51,6 @@
 
 	const version = $derived(standard ? extractVersion(standard.name) : '');
 
-	// deg/ms: 0.72 = ~2 rotations/sec
 	const speed = tweened(0, { duration: 1200, easing: cubicInOut });
 	let rotation = $state(0);
 	let rafId: number;
@@ -69,7 +68,6 @@
 		speed.set(0.72);
 		spinTimer = setTimeout(() => speed.set(0), 3000);
 	}
-
 
 	const isos = $derived([
 		{
@@ -89,48 +87,46 @@
 	]);
 </script>
 
-<div class="rounded-2xl border border-border bg-card p-6 shadow-sm">
+<div class="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
 	<!-- Header -->
-	<div class="mb-6 flex items-center gap-3">
-		<Disc3 class="h-10 w-10 shrink-0 text-muted-foreground" style="transform: rotate({rotation}deg)" />
-		<div>
-			<p class="font-semibold leading-tight">BlossomOS</p>
+	<div class="flex items-center gap-4 border-b border-border px-6 py-5">
+		<div
+			class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
+		>
+			<Disc3 class="h-6 w-6" style="transform: rotate({rotation}deg)" />
+		</div>
+		<div class="min-w-0 flex-1">
+			<p class="font-semibold">BlossomOS</p>
 			{#if version}
-				<p class="text-xs text-muted-foreground">v{version} · x86_64</p>
+				<p class="text-xs text-muted-foreground">Version {version} · x86_64</p>
 			{:else}
-				<div class="mt-1 h-3 w-24 animate-pulse rounded bg-muted"></div>
+				<div class="mt-1.5 h-3 w-28 animate-pulse rounded bg-muted"></div>
 			{/if}
 		</div>
 	</div>
 
 	<!-- ISO options -->
-	<div class="flex flex-col gap-2">
+	<div class="flex flex-col divide-y divide-border">
 		{#each isos as iso (iso.label)}
-			<div
-				class="flex items-center justify-between gap-4 rounded-xl border px-4 py-3 transition-colors {iso.recommended
-					? 'border-green-500/30 bg-green-500/5'
-					: 'border-border'}"
-			>
-				<div class="min-w-0">
-					<div class="flex items-center gap-2">
+			<div class="flex items-center gap-4 px-6 py-4 {iso.recommended ? 'bg-primary/3' : ''}">
+				<div class="min-w-0 flex-1">
+					<div class="flex flex-wrap items-center gap-2">
 						<span class="text-sm font-medium">{iso.label}</span>
-						<span class="rounded-md bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
+						<span class="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
 							>{iso.gpu}</span
 						>
 						{#if iso.recommended}
-							<span
-								class="rounded-full bg-green-500/15 px-2 py-0.5 text-xs font-medium text-green-500"
-							>
+							<span class="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary">
 								{m.recommended()}
 							</span>
 						{/if}
 					</div>
 					{#if iso.data}
-						<details class="mt-0.5">
+						<details class="mt-1">
 							<summary class="cursor-pointer text-xs text-muted-foreground hover:text-foreground"
 								>SHA256</summary
 							>
-							<p class="mt-1 break-all font-mono text-xs text-muted-foreground">
+							<p class="mt-1 font-mono text-xs break-all text-muted-foreground">
 								{iso.data.sha256}
 							</p>
 						</details>
@@ -138,11 +134,11 @@
 				</div>
 
 				{#if loading || !iso.data}
-					<div class="h-8 w-28 shrink-0 animate-pulse rounded-lg bg-muted"></div>
+					<div class="h-9 w-28 shrink-0 animate-pulse rounded-lg bg-muted"></div>
 				{:else}
 					<a href="{CDN}/{iso.data.name}" download class="shrink-0" onclick={startSpin}>
 						<Button variant={iso.recommended ? 'primary' : 'default'} size="sm">
-							<Download />
+							<Download class="h-4 w-4" />
 							{m.download_button()}
 						</Button>
 					</a>

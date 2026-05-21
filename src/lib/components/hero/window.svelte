@@ -11,17 +11,23 @@
 		minH = 300,
 		defaultW = 620,
 		defaultH = 400,
+		embedded = false,
+		closable = true,
+		bgClass = 'bg-card',
 		children
 	}: {
 		title: string;
 		icon?: string;
-		onClose: () => void;
+		onClose?: () => void;
 		onFocus?: () => void;
 		zIndex?: number;
 		minW?: number;
 		minH?: number;
 		defaultW?: number;
 		defaultH?: number;
+		embedded?: boolean;
+		closable?: boolean;
+		bgClass?: string;
 		children: Snippet;
 	} = $props();
 
@@ -51,12 +57,20 @@
 	let isMobile = $state(false);
 
 	function handleClose() {
-		if (closing) return;
+		if (!closable || !onClose || closing) return;
 		closing = true;
 		setTimeout(onClose, 140);
 	}
 
 	onMount(() => {
+		isDark = document.documentElement.classList.contains('dark');
+		const themeObserver = new MutationObserver(() => {
+			isDark = document.documentElement.classList.contains('dark');
+		});
+		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+		if (embedded) return () => themeObserver.disconnect();
+
 		const parent = el!.parentElement!;
 		const { width, height } = parent.getBoundingClientRect();
 		pW = width;
@@ -79,11 +93,6 @@
 		});
 		ro.observe(parent);
 
-		isDark = document.documentElement.classList.contains('dark');
-		const themeObserver = new MutationObserver(() => {
-			isDark = document.documentElement.classList.contains('dark');
-		});
-		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 		return () => {
 			ro.disconnect();
 			themeObserver.disconnect();
@@ -139,20 +148,26 @@
 	role="dialog"
 	aria-label={title}
 	tabindex="-1"
-	class="win absolute flex flex-col overflow-hidden border border-border bg-card shadow-2xl"
+	class="win flex flex-col overflow-hidden border border-border shadow-2xl {bgClass}"
+	class:absolute={!embedded}
+	class:relative={embedded}
+	class:w-full={embedded}
 	class:closing
-	class:rounded-none={isMobile}
-	style="{isMobile ? 'inset:0;border-radius:0;' : `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:14px;`}z-index:{zIndex}"
-	onpointerdown={() => onFocus?.()}
+	class:rounded-none={!embedded && isMobile}
+	style="{embedded
+		? 'border-radius:14px;'
+		: (isMobile ? 'inset:0;border-radius:0;' : `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:14px;`)
+	}z-index:{zIndex}"
+	onpointerdown={embedded ? undefined : () => onFocus?.()}
 >
 	<!-- Title bar -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		class="flex touch-none shrink-0 items-center justify-between px-3 select-none"
-		style="height:36px;cursor:{isMobile ? 'default' : (drag ? "url('/cursor/grabbing.svg') 10 10, grabbing" : "url('/cursor/hand1.svg') 8 2, pointer")}"
-		onpointerdown={isMobile ? undefined : titleDown}
-		onpointermove={isMobile ? undefined : titleMove}
-		onpointerup={isMobile ? undefined : titleUp}
+		style="height:36px;cursor:{(embedded || isMobile) ? 'default' : (drag ? "url('/cursor/grabbing.svg') 10 10, grabbing" : "url('/cursor/hand1.svg') 8 2, pointer")}"
+		onpointerdown={(!embedded && !isMobile) ? titleDown : undefined}
+		onpointermove={(!embedded && !isMobile) ? titleMove : undefined}
+		onpointerup={(!embedded && !isMobile) ? titleUp : undefined}
 	>
 		<div class="flex items-center gap-2">
 			{#if icon}
@@ -227,8 +242,8 @@
 		{@render children()}
 	</div>
 
-	<!-- Resize handles (desktop only) -->
-	{#if !isMobile}
+	<!-- Resize handles (desktop, non-embedded only) -->
+	{#if !isMobile && !embedded}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div class="absolute inset-x-0 top-0 h-1" style="cursor:url('/cursor/top_side.svg') 10 0,n-resize" onpointerdown={(e) => startResize(e, 'n')} onpointermove={doResize} onpointerup={endResize}></div>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->

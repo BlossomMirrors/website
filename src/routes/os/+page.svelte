@@ -5,7 +5,18 @@
 	import Widgets from '$lib/components/hero/widgets.svelte';
 	import DolphinWindow from '$lib/components/hero/dolphin-window.svelte';
 	import KamosoWindow from '$lib/components/hero/kamoso-window.svelte';
+	import FreedomSection from '$lib/components/home/freedom-section.svelte';
+	import ArcSection from '$lib/components/home/arc-section.svelte';
+	import FoundationSection from '$lib/components/home/foundation-section.svelte';
+	import CrtSection from '$lib/components/home/crt-section.svelte';
+	import CloudSection from '$lib/components/home/cloud-section.svelte';
+	import LessMoreSection from '$lib/components/home/less-more-section.svelte';
+	import CommunitySection from '$lib/components/home/community-section.svelte';
+	import DownloadCta from '$lib/components/home/download-cta.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import DownloadIcon from '@lucide/svelte/icons/download';
 	import * as m from '$lib/paraglide/messages';
+	import DownloadCard from '$lib/components/home/download-card.svelte';
 
 	let dolphinOpen = $state(false);
 	let kamosoOpen = $state(false);
@@ -43,7 +54,7 @@
 	}
 </script>
 
-<div class="mb-8">
+<div class="mb-4">
 	<div
 		bind:this={heroEl}
 		style="background: url('/noise.png') center center / cover no-repeat;"
@@ -70,13 +81,27 @@
 		<Taskbar onIconClick={handleIconClick} />
 	</div>
 
-	<div class="my-4 grid grid-cols-1 items-center gap-4 md:grid-cols-2 md:gap-12">
+	<div class="mt-8 grid grid-cols-1 items-end gap-6 md:grid-cols-2 md:gap-12">
 		<div>
-			<h1 class="font-serif text-5xl sm:text-7xl md:text-8xl">BlossomOS</h1>
-			<p class="mt-2 text-muted-foreground">{m.home_subtitle()}</p>
+			<h1 class="font-serif text-5xl leading-none sm:text-7xl md:text-8xl">BlossomOS</h1>
+			<p class="mt-3 text-lg leading-relaxed text-muted-foreground md:text-xl">
+				{m.home_subtitle()}
+			</p>
+		</div>
+		<div>
+			<DownloadCard />
 		</div>
 	</div>
 </div>
+
+<FreedomSection />
+<ArcSection />
+<FoundationSection />
+<CrtSection />
+<CloudSection />
+<LessMoreSection />
+<CommunitySection />
+<DownloadCta />
 
 <style>
 	.cursor-custom {
