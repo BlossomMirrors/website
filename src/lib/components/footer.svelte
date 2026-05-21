@@ -37,7 +37,10 @@
 			links: [
 				{ label: m.footer_link_forum(), href: 'https://community.blossomos.org' },
 				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr' },
-				{ label: m.footer_link_report(), href: 'https://git.blossomos.org/Blossom/blossomos/issues' }
+				{
+					label: m.footer_link_report(),
+					href: 'https://git.blossomos.org/Blossom/blossomos/issues'
+				}
 			]
 		}
 	]);
@@ -92,12 +95,22 @@
 		</div>
 
 		<!-- Bottom bar -->
-		<div class="mt-14 flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
-			<span>{m.footer_made_with()}</span>
-			<HeartIcon size={14} class="text-destructive" fill="currentColor" />
-			<span>{m.footer_made_by()}</span>
+		<div class="mt-14 flex flex-wrap items-center justify-between gap-4">
+			<div class="flex flex-col gap-2">
+				<div class="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+					<span>{m.footer_made_with()}</span>
+					<HeartIcon size={14} class="text-destructive" fill="currentColor" />
+					<span>{m.footer_made_by()}</span>
+				</div>
+				<p class="text-sm text-muted-foreground">{m.footer_copyright({ year })}</p>
+			</div>
+			<!-- Will be enabled soon
+			<div class="flex gap-4 text-sm text-muted-foreground">
+				<a href="/imprint" class="transition-colors hover:text-foreground">{m.footer_imprint()}</a>
+				<a href="/privacy" class="transition-colors hover:text-foreground">{m.footer_privacy()}</a>
+			</div>
+			-->
 		</div>
-		<p class="mt-3 text-sm text-muted-foreground">{m.footer_copyright({ year })}</p>
 	</div>
 </footer>
 

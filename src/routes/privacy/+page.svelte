@@ -1,0 +1,37 @@
+<script lang="ts">
+	import { reveal } from '$lib/actions/reveal';
+	import * as m from '$lib/paraglide/messages';
+
+	const sections = [
+		{ h2: m.privacy_controller_h2(), body: m.privacy_controller_body() },
+		{ h2: m.privacy_hosting_h2(), body: m.privacy_hosting_body() },
+		{ h2: m.privacy_cloud_h2(), body: m.privacy_cloud_body() },
+		{ h2: m.privacy_analytics_h2(), body: m.privacy_analytics_body() },
+		{ h2: m.privacy_rights_h2(), body: m.privacy_rights_body() },
+		{ h2: m.privacy_changes_h2(), body: m.privacy_changes_body() }
+	];
+</script>
+
+<svelte:head>
+	<title>Privacy Policy - Blossom</title>
+</svelte:head>
+
+<div class="py-16 md:py-24">
+	<div class="mx-auto max-w-2xl">
+		<div use:reveal>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.privacy_tagline()}</p>
+			<h1 class="font-serif text-5xl leading-tight md:text-7xl">{m.privacy_h1()}</h1>
+			<p class="mt-4 text-sm text-muted-foreground">{m.privacy_updated()}</p>
+			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">{m.privacy_intro()}</p>
+		</div>
+
+		<div class="mt-16 flex flex-col gap-10">
+			{#each sections as s, i (s.h2)}
+				<div use:reveal={i * 60}>
+					<h2 class="mb-3 font-semibold">{s.h2}</h2>
+					<p class="text-muted-foreground leading-relaxed">{s.body}</p>
+				</div>
+			{/each}
+		</div>
+	</div>
+</div>
