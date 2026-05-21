@@ -167,7 +167,7 @@
 	"home_product_soon_badge": "Soon",
 	"home_mission_h2_1": "Built in the open.",
 	"home_mission_h2_2": "Owned by no one.",
-	"home_mission_body": "Every line of Blossom code is public. No investors to answer to, no users to monetise. Just software made by people who wanted something better.",
+	"home_mission_body": "Every line of Blossom code is public. No users to monetise. Just software made by people who wanted something better.",
 	"home_mission_about": "About Blossom",
 	"home_view_source": "View source",
 	"about_tagline": "About Blossom",
@@ -344,5 +344,9 @@
 	"downloads_presskit_body": "Writing about Blossom? Download our official logos, screenshots, wordmarks, and brand guidelines.",
 	"downloads_presskit_icon": "Icon (SVG)",
 	"downloads_presskit_full": "Full press kit",
-	"downloads_presskit_note": "Please review our brand guidelines before use."
+	"downloads_presskit_note": "Please review our brand guidelines before use.",
+	"donate_subheader": "Support the project",
+	"donate_header": "Support Blossom today.",
+	"donate_body": "Our funding comes from the support of our community and partners rather than from ads. This means we can keep building Blossom for the long haul without having to compromise on the product or your privacy.",
+	"donate_cta": "Donate on Liberapay"
 }

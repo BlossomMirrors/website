@@ -168,7 +168,7 @@
 	"home_product_soon_badge": "Bald",
 	"home_mission_h2_1": "Im Offenen gebaut.",
 	"home_mission_h2_2": "Niemandem gehörend.",
-	"home_mission_body": "Jede Zeile Blossom-Code ist öffentlich. Keine Investoren, denen wir Rechenschaft schulden, keine Nutzer, die wir vermarkten. Nur Software, die von Menschen gebaut wurde, die etwas Besseres wollten.",
+	"home_mission_body": "Jede Zeile Blossom-Code ist öffentlich. Keine Nutzer, die wir vermarkten. Nur Software, die von Menschen gebaut wurde, die etwas Besseres wollten.",
 	"home_mission_about": "Über Blossom",
 	"home_view_source": "Quellcode ansehen",
 	"about_tagline": "Über Blossom",
@@ -345,5 +345,9 @@
 	"downloads_presskit_body": "Schreibst du über Blossom? Lade unsere offiziellen Logos, Screenshots, Wortmarken und Markenrichtlinien herunter.",
 	"downloads_presskit_icon": "Icon (SVG)",
 	"downloads_presskit_full": "Vollständige Pressemappe",
-	"downloads_presskit_note": "Bitte lies unsere Markenrichtlinien, bevor du sie verwendest."
+	"downloads_presskit_note": "Bitte lies unsere Markenrichtlinien, bevor du sie verwendest.",
+	"donate_subheader": "Projekt unterstützen",
+	"donate_header": "Unterstütze Blossom noch heute.",
+	"donate_body": "Unsere Finanzierung basiert auf Support aus der Community und von Unternehmen statt auf Werbung. So können wir Blossom langfristig weiterentwickeln, ohne Kompromisse bei Produkt oder Privatsphäre einzugehen.",
+	"donate_cta": "Auf Liberapay spenden"
 }

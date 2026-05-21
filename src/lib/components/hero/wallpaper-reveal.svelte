@@ -104,15 +104,23 @@
 		const ro = new ResizeObserver(resize);
 		ro.observe(canvas);
 
-		// Fire-and-forget async image load — keeps onMount synchronous so it can return cleanup
-		loadImage(wallpaperSrc()).then((loaded) => { img = loaded; });
+		// Fire-and-forget async image load
+		// Keeps onMount synchronous so it can return cleanup
+		loadImage(wallpaperSrc()).then((loaded) => {
+			img = loaded;
+		});
 
 		const parent = canvas.parentElement!;
 
 		const themeObserver = new MutationObserver(() => {
-			loadImage(wallpaperSrc()).then((loaded) => { img = loaded; });
+			loadImage(wallpaperSrc()).then((loaded) => {
+				img = loaded;
+			});
 		});
-		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+		themeObserver.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ['class']
+		});
 
 		function handleDown(e: PointerEvent) {
 			if (e.button !== 0) return;

@@ -4,6 +4,7 @@
 	import GitForkIcon from '@lucide/svelte/icons/git-fork';
 	import HeartIcon from '@lucide/svelte/icons/heart';
 	import { BlueskyIcon } from '$lib/components/icons/bluesky/index.svelte';
+	import { LiberapayIcon } from '$lib/components/icons/liberapay/index.svelte';
 	import * as m from '$lib/paraglide/messages';
 
 	const year = new Date().getFullYear();
@@ -12,7 +13,8 @@
 		{ label: 'Discord', href: 'https://discord.gg/dTqsBdxvNr', Icon: DiscordIcon },
 		{ label: 'Matrix', href: 'https://matrix.to/#/#blossomos:blossomos.org', Icon: MatrixIcon },
 		{ label: 'Git', href: 'https://git.blossomos.org/Blossom', Icon: GitForkIcon },
-		{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', Icon: BlueskyIcon }
+		{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', Icon: BlueskyIcon },
+		{ label: 'Liberapay', href: 'https://liberapay.com/blossomos', Icon: LiberapayIcon }
 	];
 
 	const columns = $derived([

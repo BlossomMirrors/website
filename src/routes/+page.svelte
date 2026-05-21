@@ -8,6 +8,7 @@
 	import Features from '$lib/components/ui/features.svelte';
 	import CtaArea from '$lib/components/ui/cta-area.svelte';
 	import SectionHeader from '$lib/components/ui/section-header.svelte';
+	import DonateBanner from '$lib/components/ui/donate-banner.svelte';
 
 	const products = [
 		{
@@ -64,5 +65,7 @@
 	button1Href="/about"
 	button2Href="https://git.blossomos.org/Blossom"
 />
+
+<DonateBanner />
 
 <div class="mb-16"></div>

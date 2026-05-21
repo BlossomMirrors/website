@@ -11,6 +11,7 @@
 	import Stats from '$lib/components/community/stats.svelte';
 	import CommunitySection from '$lib/components/home/community-section.svelte';
 	import SectionHeader from '$lib/components/ui/section-header.svelte';
+	import DonateBanner from '$lib/components/ui/donate-banner.svelte';
 
 	const values = [
 		{ Icon: ShieldIcon, title: m.about_value_privacy_title(), body: m.about_value_privacy_body() },
@@ -99,6 +100,8 @@
 			{/each}
 		</div>
 	</div>
+
+	<DonateBanner />
 
 	<CommunitySection />
 </div>
