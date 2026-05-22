@@ -9,8 +9,8 @@
 	};
 
 	let stats: Stat[] = [
-		{ value: '100+', label: m.contributors() },
-		{ value: '5k+', label: m.community_members() },
+		/*{ value: '3', label: m.contributors() },*/
+		/*{ value: '15', label: m.community_members() },*/
 		{ value: m.free(), label: m.forever() },
 		{ value: '100%', label: m.open_source() }
 	];
