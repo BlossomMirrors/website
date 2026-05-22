@@ -3,6 +3,7 @@ FROM oven/bun:latest AS builder
 WORKDIR /app
 
 COPY package.json bun.lockb* ./
+COPY vite.config.ts ./
 
 RUN bun install --frozen-lockfile
 
