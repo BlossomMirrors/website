@@ -49,42 +49,58 @@
 
 	let isLinux = $state(false);
 	let progress = $state<Record<string, number>>({
-		WhatsApp: 100,
-		Netflix: 23,
+		WhatsApp: 0,
+		Netflix: 0,
 		Spotify: 0
 	});
 	let activeTab = $state<'installed' | 'downloads'>('downloads');
+	let sectionEl = $state<HTMLElement | null>(null);
 
 	onMount(() => {
 		isLinux = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
 
-		const WhatsApp = setInterval(() => {
-			if (progress['WhatsApp'] >= 100) {
-				clearInterval(WhatsApp);
-				return;
-			}
-			progress['WhatsApp'] = Math.min(100, progress['WhatsApp'] + 1);
-		}, 120);
+		let whatsappTimer: ReturnType<typeof setInterval>;
+		let netflixTimer: ReturnType<typeof setInterval>;
+		let spotifyTimer: ReturnType<typeof setInterval>;
+		let started = false;
 
-		const Netflix = setInterval(() => {
-			if (progress['Netflix'] >= 100) {
-				clearInterval(Netflix);
-				return;
-			}
-			progress['Netflix'] = Math.min(100, progress['Netflix'] + 1);
-		}, 200);
+		function startAnimations() {
+			if (started) return;
+			started = true;
 
-		const Spotify = setInterval(() => {
-			if (progress['Spotify'] >= 100) {
-				clearInterval(Spotify);
-				return;
-			}
-			progress['Spotify'] = Math.min(100, progress['Spotify'] + 1);
-		}, 200);
+			whatsappTimer = setInterval(() => {
+				if (progress['WhatsApp'] >= 100) { clearInterval(whatsappTimer); return; }
+				progress['WhatsApp'] = Math.min(100, progress['WhatsApp'] + 3);
+			}, 30);
+
+			netflixTimer = setInterval(() => {
+				if (progress['Netflix'] >= 100) { clearInterval(netflixTimer); return; }
+				progress['Netflix'] = Math.min(100, progress['Netflix'] + 2);
+			}, 30);
+
+			spotifyTimer = setInterval(() => {
+				if (progress['Spotify'] >= 100) { clearInterval(spotifyTimer); return; }
+				progress['Spotify'] = Math.min(100, progress['Spotify'] + 1);
+			}, 30);
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					startAnimations();
+					observer.disconnect();
+				}
+			},
+			{ threshold: 0.4 }
+		);
+
+		if (sectionEl) observer.observe(sectionEl);
 
 		return () => {
-			clearInterval(WhatsApp);
-			clearInterval(Netflix);
+			observer.disconnect();
+			clearInterval(whatsappTimer);
+			clearInterval(netflixTimer);
+			clearInterval(spotifyTimer);
 		};
 	});
 
@@ -93,7 +109,7 @@
 	}
 </script>
 
-<section class="py-24 md:py-36">
+<section class="py-24 md:py-36" bind:this={sectionEl}>
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
 		<div use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Arc Software</p>
