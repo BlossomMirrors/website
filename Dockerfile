@@ -27,4 +27,4 @@ RUN bun install --production --frozen-lockfile
 
 EXPOSE 4173
 
-CMD ["bun", "run", "start"]
+CMD ["bun", "run", "start", "--host", "0.0.0.0", "--port", "4173"]
