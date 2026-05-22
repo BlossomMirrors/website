@@ -21,7 +21,7 @@
 			items: [
 				{
 					label: 'BlossomOS',
-					href: '/os',
+					href: '/',
 					description: m.blossomos_tooltip(),
 					icon: MonitorIcon
 				},
@@ -57,6 +57,16 @@
 			href: '/downloads'
 		},
 		{
+			type: 'link',
+			label: m.events(),
+			href: '/events'
+		},
+		{
+			type: 'link',
+			label: m.press(),
+			href: '/press'
+		},
+		{
 			type: 'dropdown',
 			label: m.community(),
 			items: [
@@ -73,14 +83,15 @@
 
 	let mobileOpen = $state(false);
 	let isOSPage = $state(false);
+	let title = $state('Blossom');
 
 	onMount(() => {
 		window.setInterval(() => {
-			isOSPage = window.location.pathname.startsWith('/os');
+			isOSPage = window.location.pathname == '/';
 			if (isOSPage) {
-				document.title = 'BlossomOS';
+				title = 'BlossomOS';
 			} else {
-				document.title = 'Blossom';
+				title = 'Blossom';
 			}
 		}, 0);
 	});
@@ -92,11 +103,7 @@
 		<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
 			<Logo size={32} />
 			<span class="font-serif text-xl">
-				{#if isOSPage}
-					BlossomOS
-				{:else}
-					Blossom
-				{/if}
+				{title}
 			</span>
 		</a>
 		<div class="hidden md:block">

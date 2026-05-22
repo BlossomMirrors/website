@@ -5,6 +5,29 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
+export function getDiscord() {
+	return 'https://discord.gg/dTqsBdxvNr';
+}
+
+export function getEmail() {
+	return 'hello@blossomos.org';
+}
+
+export function getTitle(page?: string): string {
+	let title = 'Blossom';
+
+	if (page) {
+		if (page === 'BlossomOS') {
+			title = page;
+		} else {
+			title = page + ' – Blossom';
+		}
+	} else {
+		title = 'Blossom';
+	}
+	return title;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type WithoutChild<T> = T extends { child?: any } ? Omit<T, 'child'> : T;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

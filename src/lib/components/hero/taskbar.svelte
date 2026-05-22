@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import BluetoothIcon from '@lucide/svelte/icons/bluetooth';
-	import ZapIcon from '@lucide/svelte/icons/zap';
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import SmartphoneIcon from '@lucide/svelte/icons/smartphone';
 	import Volume2Icon from '@lucide/svelte/icons/volume-2';
@@ -9,6 +7,7 @@
 
 	import * as m from '$lib/paraglide/messages';
 	import { LanIcon } from '$lib/components/icons/lan/index.svelte';
+	import LogoMono from '../icons/logo-mono.svelte';
 
 	let { onIconClick }: { onIconClick?: (label: string) => void } = $props();
 
@@ -78,11 +77,7 @@
 	class="taskbar-slide-up absolute right-3 bottom-3 left-3 flex items-center justify-between rounded-2xl border border-black/10 bg-white/40 px-2 py-1 shadow-xl backdrop-blur-md select-none sm:right-6 sm:bottom-6 sm:left-6 sm:px-3 sm:py-1.5 dark:border-white/15 dark:bg-black/30"
 >
 	<div class="flex items-center gap-1.5 sm:gap-6">
-		<img
-			src="/taskbar/logo.svg"
-			class="pointer-events-none h-6 w-6 shrink-0 invert sm:h-8 sm:w-8 dark:invert-0"
-			alt="Logo"
-		/>
+		<LogoMono class="pointer-events-none h-6 w-6 shrink-0 text-foreground sm:h-8 sm:w-8" />
 		{#each icons as icon (icon.label)}
 			<button
 				class="cursor-custom h-7 w-7 shrink-0 rounded-xl p-0.5 transition-transform duration-150 hover:brightness-130 sm:h-10 sm:w-10 sm:p-1"
@@ -98,14 +93,12 @@
 	<div class="hidden items-center gap-3 sm:flex">
 		<div class="flex items-center gap-3 text-foreground">
 			<ChevronUpIcon size={18} class="hover:brightness-150" />
-			<BluetoothIcon size={18} class="hover:brightness-150" />
-			<ZapIcon size={18} class="hover:brightness-150" />
 			<SunIcon size={18} class="hover:brightness-150" />
 			<SmartphoneIcon size={18} class="hover:brightness-150" />
 			<Volume2Icon size={18} class="hover:brightness-150" />
 			<LanIcon size={18} class="hover:brightness-150" />
 		</div>
-		<div class="text-right leading-tight text-foreground">
+		<div class="ml-1 text-right leading-tight text-foreground">
 			<div class="text-sm font-semibold">{timeStr}</div>
 			<div class="text-xs text-foreground/60">{dateStr}</div>
 		</div>

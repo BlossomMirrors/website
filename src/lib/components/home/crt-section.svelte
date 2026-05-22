@@ -49,7 +49,10 @@
 		</div>
 
 		<div class="relative md:-my-16 md:-mr-8" use:reveal={120} bind:this={crtEl}>
-			<div class="relative mx-auto max-w-lg md:max-w-none" style="aspect-ratio: 2445/2312">
+			<div
+				class="relative mx-auto max-w-lg overflow-hidden md:max-w-none"
+				style="aspect-ratio: 2445/2312"
+			>
 				<img
 					src={isDark ? '/wallpaper-dark.png' : '/wallpaper-light.png'}
 					alt="BlossomOS desktop"

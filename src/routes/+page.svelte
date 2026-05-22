@@ -1,71 +1,136 @@
 <script lang="ts">
-	import MonitorIcon from '@lucide/svelte/icons/monitor';
-	import ShoppingBagIcon from '@lucide/svelte/icons/shopping-bag';
-	import CloudIcon from '@lucide/svelte/icons/cloud';
-	import Building2Icon from '@lucide/svelte/icons/building-2';
+	import { onMount } from 'svelte';
+	import Taskbar from '$lib/components/hero/taskbar.svelte';
+	import WallpaperReveal from '$lib/components/hero/wallpaper-reveal.svelte';
+	import Widgets from '$lib/components/hero/widgets.svelte';
+	import DolphinWindow from '$lib/components/hero/dolphin-window.svelte';
+	import KamosoWindow from '$lib/components/hero/kamoso-window.svelte';
+	import FreedomSection from '$lib/components/home/freedom-section.svelte';
+	import ArcSection from '$lib/components/home/arc-section.svelte';
+	import GamingSection from '$lib/components/home/gaming-section.svelte';
+	import FoundationSection from '$lib/components/home/foundation-section.svelte';
+	import DesignSection from '$lib/components/home/design-section.svelte';
+	import CrtSection from '$lib/components/home/crt-section.svelte';
+	import CloudSection from '$lib/components/home/cloud-section.svelte';
+	import BusinessSection from '$lib/components/home/business-section.svelte';
+	import LessMoreSection from '$lib/components/home/less-more-section.svelte';
+	import CommunitySection from '$lib/components/home/community-section.svelte';
+	import DownloadCta from '$lib/components/home/download-cta.svelte';
 	import * as m from '$lib/paraglide/messages';
-	import FrontPage from '$lib/components/hero/front-page.svelte';
-	import Features from '$lib/components/ui/features.svelte';
-	import CtaArea from '$lib/components/ui/cta-area.svelte';
-	import SectionHeader from '$lib/components/ui/section-header.svelte';
-	import DonateBanner from '$lib/components/ui/donate-banner.svelte';
+	import DownloadCard from '$lib/components/home/download-card.svelte';
+	import { getDiscord, getEmail, getTitle } from '$lib/utils';
 
-	const products = [
-		{
-			Icon: MonitorIcon,
-			title: 'BlossomOS',
-			body: m.home_product_os_tagline(),
-			href: '/os',
-			cta: m.home_product_learn_more()
-		},
-		{
-			Icon: ShoppingBagIcon,
-			title: 'Arc Software',
-			body: m.home_product_arc_tagline(),
-			href: '/arc',
-			cta: m.home_product_learn_more()
-		},
-		{
-			Icon: CloudIcon,
-			title: 'Blossom Cloud',
-			body: m.home_product_cloud_tagline(),
-			href: '/cloud',
-			cta: m.home_product_learn_more()
-		},
-		{
-			Icon: Building2Icon,
-			title: 'Blossom Hub',
-			body: m.home_product_hub_tagline(),
-			href: '/hub',
-			cta: m.coming_soon(),
-			soon: true
+	let dolphinOpen = $state(false);
+	let kamosoOpen = $state(false);
+	let isMobile = $state(false);
+	let heroEl = $state<HTMLDivElement | null>(null);
+
+	let nextZ = 30;
+	let dolphinZ = $state(30);
+	let kamosoZ = $state(30);
+
+	onMount(() => {
+		const ro = new ResizeObserver(([entry]) => {
+			isMobile = entry.contentRect.width < 768;
+		});
+		if (heroEl) ro.observe(heroEl);
+		return () => ro.disconnect();
+	});
+
+	function handleIconClick(label: string) {
+		if (label === 'Dolphin' && !isMobile) {
+			dolphinOpen = true;
+			dolphinZ = ++nextZ;
 		}
-	];
+		if (label === 'Kamoso' && !isMobile) {
+			kamosoOpen = true;
+			kamosoZ = ++nextZ;
+		}
+		if (label === 'Thunderbird') window.open('mailto:' + getEmail(), '_blank');
+		if (label === 'Arc Software') location.href = '/arc';
+		if (label === 'Discord') window.open(getDiscord(), '_blank');
+	}
 </script>
 
 <svelte:head>
-	<title>Blossom</title>
+	<meta name="description" content={m.home_subtitle()} />
+	<meta property="og:description" content={m.home_subtitle()} />
+	<meta property="twitter:description" content={m.home_subtitle()} />
+	<title>{getTitle('BlossomOS')}</title>
 </svelte:head>
 
-<FrontPage />
+<div class="mb-4 flex flex-col">
+	<div
+		bind:this={heroEl}
+		style="background: url('/noise.png') center center / cover no-repeat;"
+		class="cursor-custom relative z-0 aspect-video overflow-hidden rounded-2xl md:max-h-148"
+	>
+		<div class="animate-screen-on pointer-events-none absolute inset-0 z-50 bg-black"></div>
+		<WallpaperReveal />
+		<Widgets />
+		{#if dolphinOpen}
+			<DolphinWindow
+				onClose={() => (dolphinOpen = false)}
+				zIndex={dolphinZ}
+				onFocus={() => (dolphinZ = ++nextZ)}
+			/>
+		{/if}
+		{#if kamosoOpen && !isMobile}
+			<KamosoWindow
+				onClose={() => (kamosoOpen = false)}
+				zIndex={kamosoZ}
+				onFocus={() => (kamosoZ = ++nextZ)}
+			/>
+		{/if}
+		<Taskbar onIconClick={handleIconClick} />
+	</div>
 
-<div class="mt-24 md:mt-32">
-	<SectionHeader subheader={m.home_products_subheader()} class="mb-12">
-		{m.home_products_header()}
-	</SectionHeader>
-	<Features features={products} />
+	<div class="mt-8 grid grid-cols-1 items-end gap-6 md:grid-cols-2 md:gap-12">
+		<div>
+			<h1 class="font-serif text-5xl leading-none sm:text-7xl md:text-8xl">BlossomOS</h1>
+			<p class="mt-3 text-lg leading-relaxed text-muted-foreground md:text-xl">
+				{m.home_subtitle()}
+			</p>
+		</div>
+		<div>
+			<DownloadCard />
+		</div>
+	</div>
 </div>
 
-<CtaArea
-	title1={m.home_mission_h2_1()}
-	title2={m.home_mission_h2_2()}
-	body={m.home_mission_body()}
-	button1Text={m.home_mission_about()}
-	button2Text={m.home_view_source()}
-	button1Href="/about"
-	button2Href="https://git.blossomos.org/Blossom"
-/>
+<FreedomSection />
+<ArcSection />
+<DesignSection />
+<CrtSection />
+<FoundationSection />
+<GamingSection />
+<CloudSection />
+<BusinessSection />
+<LessMoreSection />
+<CommunitySection />
+<DownloadCta />
 
-<DonateBanner />
+<style>
+	.cursor-custom {
+		cursor:
+			url('/cursor/left_ptr.svg') 0 0,
+			auto;
+	}
 
-<div class="mb-16"></div>
+	@keyframes screen-on {
+		0% {
+			opacity: 1;
+		}
+		60% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	:global(.animate-screen-on) {
+		animation: screen-on 1.4s ease-out forwards;
+	}
+</style>

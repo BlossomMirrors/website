@@ -57,16 +57,15 @@
 				{/each}
 			</div>
 		</div>
-
 		<div class="relative" use:reveal={120}>
 			<canvas
 				bind:this={canvasEl}
 				width="64"
 				height="36"
-				class="pointer-events-none absolute -inset-10"
+				class="pointer-events-none absolute -inset-10 hidden sm:block"
 				style="width: calc(100% + 5rem); height: calc(100% + 5rem); border-radius: 2rem; filter: blur(60px) saturate(1.2); opacity: 0.45"
 			></canvas>
-			<div class="relative overflow-hidden rounded-2xl" style="z-index: 1">
+			<div class="overflow-hidden rounded-2xl md:justify-center lg:relative" style="z-index: 1">
 				<video
 					bind:this={videoEl}
 					src="/gaming.mp4"
@@ -74,8 +73,7 @@
 					loop
 					muted
 					playsinline
-					class="w-full object-cover"
-					style="aspect-ratio: 16/9"
+					class="aspect-video w-full object-cover"
 				></video>
 			</div>
 		</div>

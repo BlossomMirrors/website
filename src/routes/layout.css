@@ -352,3 +352,7 @@
 .prose ul {
 	margin: 12px 0;
 }
+
+@theme {
+	--animate-spin-slow: spin 16s linear infinite;
+}

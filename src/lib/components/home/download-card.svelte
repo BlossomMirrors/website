@@ -35,7 +35,15 @@
 		return name.match(/BlossomOS(?:-nvidia-open)?-(.+?)-x86_64/)?.[1] ?? '';
 	}
 
+	let isAltPressed = $state(false);
+
 	onMount(() => {
+		document.addEventListener('keydown', (e) => {
+			if (e.altKey) isAltPressed = true;
+		});
+		document.addEventListener('keyup', (e) => {
+			if (e.altKey) isAltPressed = false;
+		});
 		gpu = detectGPU();
 		rafId = requestAnimationFrame(loop);
 		Promise.all([
@@ -63,10 +71,15 @@
 		rafId = requestAnimationFrame(loop);
 	}
 
-	function startSpin() {
+	function downloadClick(label: string) {
 		clearTimeout(spinTimer);
 		speed.set(0.72);
 		spinTimer = setTimeout(() => speed.set(0), 3000);
+		if (label == 'NVIDIA Open' && isAltPressed) {
+			let novideo = document.getElementById('novideo') as HTMLAudioElement;
+			novideo.currentTime = 0;
+			novideo.play();
+		}
 	}
 
 	const isos = $derived([
@@ -87,6 +100,8 @@
 	]);
 </script>
 
+<audio id="novideo" src="/novideo.mp3"></audio>
+
 <div class="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
 	<!-- Header -->
 	<div class="flex items-center gap-4 border-b border-border px-6 py-5">
@@ -98,7 +113,12 @@
 		<div class="min-w-0 flex-1">
 			<p class="font-semibold">BlossomOS</p>
 			{#if version}
-				<p class="text-xs text-muted-foreground">Version {version} · Alpha 1</p>
+				<p class="text-xs text-muted-foreground">
+					Version {version}
+					· Alpha 1 ·
+					<!-- eslint-disable svelte/no-navigation-without-resolve -->
+					<a href="/releases">{m.footer_link_releases()}</a>
+				</p>
 			{:else}
 				<div class="mt-1.5 h-3 w-28 animate-pulse rounded bg-muted"></div>
 			{/if}
@@ -136,7 +156,14 @@
 				{#if loading || !iso.data}
 					<div class="h-9 w-28 shrink-0 animate-pulse rounded-lg bg-muted"></div>
 				{:else}
-					<a href="{CDN}/{iso.data.name}" download class="shrink-0" onclick={startSpin}>
+					<a
+						href="{CDN}/{iso.data.name}"
+						download
+						class="shrink-0"
+						onclick={downloadClick(iso.label)}
+						data-umami-event="download"
+						data-umami-event-label={iso.label}
+					>
 						<Button variant={iso.recommended ? 'primary' : 'default'} size="sm">
 							<Download class="h-4 w-4" />
 							{m.download_button()}

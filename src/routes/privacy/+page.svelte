@@ -1,27 +1,31 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
+	import { getEmail, getTitle } from '$lib/utils';
 	import { marked } from 'marked';
 
 	marked.setOptions({ breaks: true });
 
 	const sections = [
-		{ h2: m.privacy_controller_h2(), body: m.privacy_controller_body() },
-		{ h2: m.privacy_hosting_h2(), body: m.privacy_hosting_body() },
-		{ h2: m.privacy_cdn_h2(), body: m.privacy_cdn_body() },
-		{ h2: m.privacy_cloud_h2(), body: m.privacy_cloud_body() },
-		{ h2: m.privacy_sso_h2(), body: m.privacy_sso_body() },
-		{ h2: m.privacy_matrix_h2(), body: m.privacy_matrix_body() },
-		{ h2: m.privacy_forums_h2(), body: m.privacy_forums_body() },
-		{ h2: m.privacy_analytics_h2(), body: m.privacy_analytics_body() },
-		{ h2: m.privacy_cookies_h2(), body: m.privacy_cookies_body() },
-		{ h2: m.privacy_rights_h2(), body: m.privacy_rights_body() },
-		{ h2: m.privacy_contact_h2(), body: m.privacy_contact_body() },
-		{ h2: m.privacy_changes_h2(), body: m.privacy_changes_body() }
+		{ h2: m.privacy_controller_h2(), body: m.privacy_controller_body({ email: getEmail() }) },
+		{ h2: m.privacy_hosting_h2(), body: m.privacy_hosting_body({ email: getEmail() }) },
+		{ h2: m.privacy_cdn_h2(), body: m.privacy_cdn_body({ email: getEmail() }) },
+		{ h2: m.privacy_cloud_h2(), body: m.privacy_cloud_body({ email: getEmail() }) },
+		{ h2: m.privacy_sso_h2(), body: m.privacy_sso_body({ email: getEmail() }) },
+		{ h2: m.privacy_matrix_h2(), body: m.privacy_matrix_body({ email: getEmail() }) },
+		{ h2: m.privacy_forums_h2(), body: m.privacy_forums_body({ email: getEmail() }) },
+		{ h2: m.privacy_analytics_h2(), body: m.privacy_analytics_body({ email: getEmail() }) },
+		{ h2: m.privacy_cookies_h2(), body: m.privacy_cookies_body({ email: getEmail() }) },
+		{ h2: m.privacy_rights_h2(), body: m.privacy_rights_body({ email: getEmail() }) },
+		{ h2: m.privacy_contact_h2(), body: m.privacy_contact_body({ email: getEmail() }) },
+		{ h2: m.privacy_changes_h2(), body: m.privacy_changes_body({ email: getEmail() }) }
 	];
 </script>
 
 <svelte:head>
-	<title>Privacy Policy - Blossom</title>
+	<meta name="description" content={m.privacy_intro()} />
+	<meta property="og:description" content={m.privacy_intro()} />
+	<meta property="twitter:description" content={m.privacy_intro()} />
+	<title>{getTitle(m.privacy_h1())}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">

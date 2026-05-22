@@ -1,13 +1,12 @@
 <script lang="ts">
 	import DownloadCard from '$lib/components/home/download-card.svelte';
+	import PressKit from '$lib/components/press/press-kit.svelte';
 	import CpuIcon from '@lucide/svelte/icons/cpu';
 	import MemoryStickIcon from '@lucide/svelte/icons/memory-stick';
 	import HardDriveIcon from '@lucide/svelte/icons/hard-drive';
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
-	import PackageIcon from '@lucide/svelte/icons/package';
-	import ArrowDownToLineIcon from '@lucide/svelte/icons/arrow-down-to-line';
 	import * as m from '$lib/paraglide/messages';
-	import { Download } from '@lucide/svelte';
+	import { getTitle } from '$lib/utils';
 
 	const requirements = [
 		{ Icon: CpuIcon, label: m.downloads_req_cpu(), value: m.downloads_req_cpu_value() },
@@ -22,7 +21,10 @@
 </script>
 
 <svelte:head>
-	<title>Downloads - Blossom</title>
+	<meta name="description" content={m.downloads_subtitle()} />
+	<meta property="og:description" content={m.downloads_subtitle()} />
+	<meta property="twitter:description" content={m.downloads_subtitle()} />
+	<title>{getTitle(m.downloads_subheader())}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">
@@ -73,31 +75,7 @@
 
 	<!-- Press kit & branding -->
 	<div class="mt-20">
-		<h2 class="font-serif text-3xl leading-tight md:text-4xl">{m.downloads_presskit_h2()}</h2>
-		<p class="mt-3 max-w-xl text-muted-foreground">
-			{m.downloads_presskit_body()}
-		</p>
-		<div class="mt-6 flex flex-wrap gap-3">
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/logo.svg" download="blossom-logo.svg">
-				<button
-					class="flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium transition-colors hover:border-primary/30 hover:bg-primary/5"
-				>
-					<PackageIcon size={16} class="text-primary" />
-					{m.downloads_presskit_icon()}
-					<ArrowDownToLineIcon size={14} class="text-muted-foreground" />
-				</button>
-			</a>
-			<a href="/press-kit.zip" rel="noreferrer">
-				<button
-					class="flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium transition-colors hover:border-primary/30 hover:bg-primary/5"
-				>
-					<PackageIcon size={16} class="text-primary" />
-					{m.downloads_presskit_full()}
-					<ArrowDownToLineIcon size={14} class="text-muted-foreground" />
-				</button>
-			</a>
-		</div>
-		<p class="mt-3 text-xs text-muted-foreground">{m.downloads_presskit_note()}</p>
+		<h2 class="mb-10 font-serif text-3xl leading-tight md:text-4xl">{m.downloads_presskit_h2()}</h2>
+		<PressKit />
 	</div>
 </div>

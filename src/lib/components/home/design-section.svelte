@@ -33,7 +33,7 @@
 		</div>
 
 		<div class="flex flex-col gap-4" use:reveal={120}>
-			<!-- Mock window chrome at 1:1 -->
+			<!-- Mock window -->
 			<div class="overflow-hidden rounded-2xl border border-border">
 				<div class="flex items-center justify-between bg-card px-3 select-none" style="height:36px">
 					<div class="flex items-center gap-2">

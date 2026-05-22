@@ -12,6 +12,7 @@
 	import * as m from '$lib/paraglide/messages';
 	import Features from '$lib/components/ui/features.svelte';
 	import FeatureItem from '$lib/components/ui/feature-item.svelte';
+	import { getTitle } from '$lib/utils';
 
 	const features = [
 		{
@@ -44,7 +45,10 @@
 </script>
 
 <svelte:head>
-	<title>Blossom Cloud - Blossom</title>
+	<meta name="description" content={m.cloud_page_subtitle()} />
+	<meta property="og:description" content={m.cloud_page_subtitle()} />
+	<meta property="twitter:description" content={m.cloud_page_subtitle()} />
+	<title>{getTitle('Blossom Cloud')}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">
@@ -66,7 +70,7 @@
 				<Button variant="primary">{m.cloud_get_started()}</Button>
 			</a>
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/os">
+			<a href="/">
 				<Button>{m.cloud_get_blossomos()}</Button>
 			</a>
 		</div>

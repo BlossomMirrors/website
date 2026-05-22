@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
+	import { getEmail, getTitle } from '$lib/utils';
 	import { marked } from 'marked';
 
 	marked.setOptions({ breaks: true });
@@ -11,14 +12,17 @@
 	];
 
 	const sections = [
-		{ h2: m.imprint_contact_h2(), body: m.imprint_contact_body() },
-		{ h2: m.imprint_content_h2(), body: m.imprint_content_body() },
-		{ h2: m.imprint_dispute_h2(), body: m.imprint_dispute_body() }
+		{ h2: m.imprint_contact_h2(), body: m.imprint_contact_body({ email: getEmail() }) },
+		{ h2: m.imprint_content_h2(), body: m.imprint_content_body({ email: getEmail() }) },
+		{ h2: m.imprint_dispute_h2(), body: m.imprint_dispute_body({ email: getEmail() }) }
 	];
 </script>
 
 <svelte:head>
-	<title>Imprint - Blossom</title>
+	<meta name="description" content={m.imprint_h1()} />
+	<meta property="og:description" content={m.imprint_h1()} />
+	<meta property="twitter:description" content={m.imprint_h1()} />
+	<title>{getTitle(m.imprint_h1())}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">
@@ -36,7 +40,9 @@
 				<h2 class="mb-3 font-semibold">{m.imprint_operator_h2()}</h2>
 				<div class="flex flex-col gap-4">
 					{#each operatorBlocks as block, i (i)}
-						<div class="prose prose-sm prose-neutral dark:prose-invert max-w-none text-muted-foreground [&>p]:leading-relaxed">
+						<div
+							class="prose prose-sm prose-neutral dark:prose-invert max-w-none text-muted-foreground [&>p]:leading-relaxed"
+						>
 							<!-- eslint-disable svelte/no-at-html-tags -->
 							{@html marked(block)}
 						</div>
@@ -47,7 +53,9 @@
 			{#each sections as s (s.h2)}
 				<div>
 					<h2 class="mb-3 font-semibold">{s.h2}</h2>
-					<div class="prose prose-sm prose-neutral dark:prose-invert max-w-none text-muted-foreground [&>p]:leading-relaxed [&>ul]:mt-2">
+					<div
+						class="prose prose-sm prose-neutral dark:prose-invert max-w-none text-muted-foreground [&>p]:leading-relaxed [&>ul]:mt-2"
+					>
 						<!-- eslint-disable svelte/no-at-html-tags -->
 						{@html marked(s.body)}
 					</div>

@@ -31,7 +31,9 @@
 
 		<div class="relative grid items-center gap-10 md:grid-cols-2">
 			<div>
-				<p class="mb-3 text-xs font-semibold tracking-widest text-amber-600 dark:text-amber-400 uppercase">
+				<p
+					class="mb-3 text-xs font-semibold tracking-widest text-amber-600 uppercase dark:text-amber-400"
+				>
 					{m.business_subheader()}
 				</p>
 				<h2 class="font-serif text-4xl leading-tight md:text-5xl">
@@ -42,7 +44,7 @@
 				</p>
 			</div>
 
-			<div class="grid grid-cols-2 gap-3">
+			<div class="grid-rows grid gap-3 md:grid-cols-2">
 				{#each features as f, i (i)}
 					<FeatureItem
 						Icon={'Icon' in f ? f.Icon : undefined}

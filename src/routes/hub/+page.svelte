@@ -14,6 +14,7 @@
 	import Features from '$lib/components/ui/features.svelte';
 	import CtaArea from '$lib/components/ui/cta-area.svelte';
 	import SectionHeader from '$lib/components/ui/section-header.svelte';
+	import { getTitle } from '$lib/utils';
 
 	const features = [
 		{ Icon: LayoutDashboardIcon, title: m.hub_feature1_title(), body: m.hub_feature1_body() },
@@ -34,7 +35,10 @@
 </script>
 
 <svelte:head>
-	<title>Blossom Hub - Blossom</title>
+	<meta name="description" content={m.hub_hero_body()} />
+	<meta property="og:description" content={m.hub_hero_body()} />
+	<meta property="twitter:description" content={m.hub_hero_body()} />
+	<title>{getTitle('Blossom Hub')}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">

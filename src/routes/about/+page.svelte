@@ -12,6 +12,7 @@
 	import CommunitySection from '$lib/components/home/community-section.svelte';
 	import SectionHeader from '$lib/components/ui/section-header.svelte';
 	import DonateBanner from '$lib/components/ui/donate-banner.svelte';
+	import { getTitle } from '$lib/utils';
 
 	const values = [
 		{ Icon: ShieldIcon, title: m.about_value_privacy_title(), body: m.about_value_privacy_body() },
@@ -43,7 +44,10 @@
 </script>
 
 <svelte:head>
-	<title>About - Blossom</title>
+	<meta name="description" content={m.about_hero_body()} />
+	<meta property="og:description" content={m.about_hero_body()} />
+	<meta property="twitter:description" content={m.about_hero_body()} />
+	<title>{getTitle(m.about_tagline())}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">

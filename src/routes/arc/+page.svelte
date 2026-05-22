@@ -8,18 +8,26 @@
 	import ZapIcon from '@lucide/svelte/icons/zap';
 	import ShieldCheckIcon from '@lucide/svelte/icons/shield-check';
 	import * as m from '$lib/paraglide/messages';
+	import { getTitle } from '$lib/utils';
 
 	const formats = ['Flatpak', 'AppImage', '.deb', '.rpm', 'Arch Linux'];
 
 	const unifyFeatures = [
 		{ Icon: LayersIcon, title: m.arc_unify_feature1_title(), body: m.arc_unify_feature1_body() },
 		{ Icon: ZapIcon, title: m.arc_unify_feature2_title(), body: m.arc_unify_feature2_body() },
-		{ Icon: ShieldCheckIcon, title: m.arc_unify_feature3_title(), body: m.arc_unify_feature3_body() }
+		{
+			Icon: ShieldCheckIcon,
+			title: m.arc_unify_feature3_title(),
+			body: m.arc_unify_feature3_body()
+		}
 	];
 </script>
 
 <svelte:head>
-	<title>Arc Software - Blossom</title>
+	<meta name="description" content={m.arc_page_subtitle()} />
+	<meta property="og:description" content={m.arc_page_subtitle()} />
+	<meta property="twitter:description" content={m.arc_page_subtitle()} />
+	<title>{getTitle('Arc Software')}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">
@@ -34,7 +42,7 @@
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/os">
+			<a href="/">
 				<Button variant="primary">{m.cta_download()}</Button>
 			</a>
 			<a href="https://git.blossomos.org/Blossom" target="_blank" rel="noreferrer">
@@ -46,7 +54,9 @@
 	<!-- Arc Unify -->
 	<div class="mt-24 grid items-center gap-12 md:grid-cols-2 md:gap-20">
 		<div use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.arc_unify_subheader()}</p>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+				{m.arc_unify_subheader()}
+			</p>
 			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
 				{m.arc_unify_h2_1()}<br />{m.arc_unify_h2_2()}
 			</h2>
@@ -118,7 +128,9 @@
 		</div>
 
 		<div class="order-1 md:order-2" use:reveal>
-			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">{m.arc_winapps_subheader()}</p>
+			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
+				{m.arc_winapps_subheader()}
+			</p>
 			<h2 class="font-serif text-4xl leading-tight md:text-5xl">
 				{m.arc_winapps_h2_1()}<br />{m.arc_winapps_h2_2()}
 			</h2>

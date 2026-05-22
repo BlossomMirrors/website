@@ -17,7 +17,7 @@
 	</p>
 	<div class="mt-8 flex gap-3">
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
-		<a href="/os">
+		<a href="/">
 			<Button variant="primary">
 				{m.cta_download()}
 				<ArrowRightIcon size={16} />

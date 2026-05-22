@@ -1,18 +1,17 @@
 <script lang="ts">
-	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
 	import { MatrixIcon } from '$lib/components/icons/matrix/index.svelte';
-	import GitForkIcon from '@lucide/svelte/icons/git-fork';
 	import HeartIcon from '@lucide/svelte/icons/heart';
 	import { BlueskyIcon } from '$lib/components/icons/bluesky/index.svelte';
 	import { LiberapayIcon } from '$lib/components/icons/liberapay/index.svelte';
 	import * as m from '$lib/paraglide/messages';
+	import LogoMono from './icons/logo-mono.svelte';
+	import { YouTubeIcon } from '$lib/components/icons/youtube/index.svelte';
 
 	const year = new Date().getFullYear();
 
 	const socials = [
-		{ label: 'Discord', href: 'https://discord.gg/dTqsBdxvNr', Icon: DiscordIcon },
+		{ label: 'YouTube', href: 'https://www.youtube.com/@blossomlabstv', Icon: YouTubeIcon },
 		{ label: 'Matrix', href: 'https://matrix.to/#/#blossomos:blossomos.org', Icon: MatrixIcon },
-		{ label: 'Git', href: 'https://git.blossomos.org/Blossom', Icon: GitForkIcon },
 		{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', Icon: BlueskyIcon },
 		{ label: 'Liberapay', href: 'https://liberapay.com/blossomos', Icon: LiberapayIcon }
 	];
@@ -21,7 +20,7 @@
 		{
 			heading: m.products(),
 			links: [
-				{ label: 'BlossomOS', href: '/os' },
+				{ label: 'BlossomOS', href: '/' },
 				{ label: 'Arc Software', href: '/arc' },
 				{ label: 'Blossom Cloud', href: '/cloud' }
 			]
@@ -40,7 +39,7 @@
 				{ label: m.footer_link_forum(), href: 'https://community.blossomos.org' },
 				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr' },
 				{
-					label: m.footer_link_report(),
+					label: m.footer_link_git(),
 					href: 'https://git.blossomos.org/Blossom'
 				}
 			]
@@ -49,11 +48,8 @@
 </script>
 
 <footer class="relative overflow-hidden border-t border-border bg-card">
-	<img
-		src="/logo.svg"
-		alt=""
-		aria-hidden="true"
-		class="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 opacity-10 md:h-96 md:w-96"
+	<LogoMono
+		class="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 animate-spin-slow text-foreground opacity-50 md:h-96 md:w-96"
 	/>
 	<div class="mx-auto max-w-7xl px-4 py-16 md:py-20">
 		<!-- Link columns -->

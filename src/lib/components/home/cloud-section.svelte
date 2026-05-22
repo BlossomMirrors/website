@@ -41,7 +41,7 @@
 				</p>
 			</div>
 
-			<div class="grid grid-cols-2 gap-3">
+			<div class="grid-rows grid gap-3 md:grid-cols-2">
 				{#each features as f, i (i)}
 					<FeatureItem Icon={f.Icon} label={f.label} done={f.done} delay={i * 60} />
 				{/each}

@@ -6,6 +6,7 @@
 	import DownloadIcon from '@lucide/svelte/icons/download';
 	import CalendarIcon from '@lucide/svelte/icons/calendar';
 	import * as m from '$lib/paraglide/messages';
+	import { getTitle } from '$lib/utils';
 
 	const CDN = 'https://cdn.blossomos.org/iso';
 
@@ -57,16 +58,19 @@
 				m.releases_a3_item4(),
 				m.releases_a3_item5()
 			]
-		},
+		} /*,
 		{
 			version: 'Beta 1',
 			items: [m.releases_b1_item1(), m.releases_b1_item2()]
-		}
+			} */
 	]);
 </script>
 
 <svelte:head>
-	<title>Release Notes - Blossom</title>
+	<meta name="description" content={m.releases_subtitle()} />
+	<meta property="og:description" content={m.releases_subtitle()} />
+	<meta property="twitter:description" content={m.releases_subtitle()} />
+	<title>{getTitle(m.releases_subheader())}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">

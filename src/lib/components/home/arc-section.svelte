@@ -49,58 +49,42 @@
 
 	let isLinux = $state(false);
 	let progress = $state<Record<string, number>>({
-		WhatsApp: 0,
-		Netflix: 0,
+		WhatsApp: 100,
+		Netflix: 23,
 		Spotify: 0
 	});
 	let activeTab = $state<'installed' | 'downloads'>('downloads');
-	let sectionEl = $state<HTMLElement | null>(null);
 
 	onMount(() => {
 		isLinux = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
 
-		let whatsappTimer: ReturnType<typeof setInterval>;
-		let netflixTimer: ReturnType<typeof setInterval>;
-		let spotifyTimer: ReturnType<typeof setInterval>;
-		let started = false;
+		const WhatsApp = setInterval(() => {
+			if (progress['WhatsApp'] >= 100) {
+				clearInterval(WhatsApp);
+				return;
+			}
+			progress['WhatsApp'] = Math.min(100, progress['WhatsApp'] + 1);
+		}, 120);
 
-		function startAnimations() {
-			if (started) return;
-			started = true;
+		const Netflix = setInterval(() => {
+			if (progress['Netflix'] >= 100) {
+				clearInterval(Netflix);
+				return;
+			}
+			progress['Netflix'] = Math.min(100, progress['Netflix'] + 1);
+		}, 200);
 
-			whatsappTimer = setInterval(() => {
-				if (progress['WhatsApp'] >= 100) { clearInterval(whatsappTimer); return; }
-				progress['WhatsApp'] = Math.min(100, progress['WhatsApp'] + 3);
-			}, 30);
-
-			netflixTimer = setInterval(() => {
-				if (progress['Netflix'] >= 100) { clearInterval(netflixTimer); return; }
-				progress['Netflix'] = Math.min(100, progress['Netflix'] + 2);
-			}, 30);
-
-			spotifyTimer = setInterval(() => {
-				if (progress['Spotify'] >= 100) { clearInterval(spotifyTimer); return; }
-				progress['Spotify'] = Math.min(100, progress['Spotify'] + 1);
-			}, 30);
-		}
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				if (entries[0].isIntersecting) {
-					startAnimations();
-					observer.disconnect();
-				}
-			},
-			{ threshold: 0.4 }
-		);
-
-		if (sectionEl) observer.observe(sectionEl);
+		const Spotify = setInterval(() => {
+			if (progress['Spotify'] >= 100) {
+				clearInterval(Spotify);
+				return;
+			}
+			progress['Spotify'] = Math.min(100, progress['Spotify'] + 1);
+		}, 200);
 
 		return () => {
-			observer.disconnect();
-			clearInterval(whatsappTimer);
-			clearInterval(netflixTimer);
-			clearInterval(spotifyTimer);
+			clearInterval(WhatsApp);
+			clearInterval(Netflix);
 		};
 	});
 
@@ -109,7 +93,7 @@
 	}
 </script>
 
-<section class="py-24 md:py-36" bind:this={sectionEl}>
+<section class="py-24 md:py-36">
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
 		<div use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Arc Software</p>
@@ -135,7 +119,7 @@
 				bgClass="bg-neutral-900"
 			>
 				<!-- Toolbar -->
-				<div class="flex items-center gap-2 border-b border-white/8 px-3 py-2">
+				<div class="hidden items-center gap-2 border-b border-white/8 px-3 py-2 sm:flex">
 					<button
 						class="flex h-7 w-7 items-center justify-center rounded-md text-white/40 hover:bg-white/8"
 					>
@@ -227,7 +211,9 @@
 								>
 									<img src={app.img} alt={app.name} class="h-8 w-8 rounded-lg object-contain" />
 									<span class="flex-1 text-sm text-white/80">{app.name}</span>
-									<span class="text-xs text-primary">{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span>
+									<span class="text-xs text-primary"
+										>{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span
+									>
 								</a>
 							{/each}
 						</div>
