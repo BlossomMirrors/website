@@ -39,11 +39,7 @@
 			rel="noreferrer"
 			class="mt-8 inline-block"
 		>
-			<Button
-				variant="primary"
-				size="lg"
-				class="border-red-600 bg-red-500 text-white hover:border-red-600/80 hover:bg-red-500/80"
-			>
+			<Button variant="destructive" size="lg">
 				<LiberapayIcon size={16} />
 				{m.donate_cta()}
 			</Button>
