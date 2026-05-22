@@ -7,44 +7,34 @@
 	import SlidersHorizontalIcon from '@lucide/svelte/icons/sliders-horizontal';
 	import * as m from '$lib/paraglide/messages';
 
+	import whatsappPng from '$lib/assets/proprietary/whatsapp.png?enhanced';
+	import netflixPng from '$lib/assets/proprietary/netflix.png?enhanced';
+	import spotifyPng from '$lib/assets/proprietary/spotify.png?enhanced';
+	import arcPng from '$lib/assets/taskbar/arc.png';
+	import steamPng from '$lib/assets/taskbar/steam.png?enhanced';
+	import discordPng from '$lib/assets/taskbar/discord.png?enhanced';
+	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png?enhanced';
+	import libreofficePng from '$lib/assets/taskbar/libreoffice.png?enhanced';
+	import obsidianPng from '$lib/assets/taskbar/obsidian.png?enhanced';
+
 	type InstallApp = {
 		name: string;
 		appstreamId: string;
-		image: string;
+		image: typeof whatsappPng;
 	};
 
 	const demoApps: InstallApp[] = [
-		{
-			name: 'WhatsApp',
-			appstreamId: 'io.opencode.OpenCode',
-			image: '/proprietary/whatsapp.png'
-		},
-		{
-			name: 'Netflix',
-			appstreamId: 'com.netflix.Netflix',
-			image: '/proprietary/netflix.png'
-		},
-		{
-			name: 'Spotify',
-			appstreamId: 'com.spotify.Client',
-			image: '/proprietary/spotify.png'
-		}
+		{ name: 'WhatsApp', appstreamId: 'io.opencode.OpenCode', image: whatsappPng },
+		{ name: 'Netflix', appstreamId: 'com.netflix.Netflix', image: netflixPng },
+		{ name: 'Spotify', appstreamId: 'com.spotify.Client', image: spotifyPng }
 	];
 
 	const browseApps = [
-		{ name: 'Steam', img: '/taskbar/steam.png', appstreamId: 'com.valvesoftware.Steam' },
-		{ name: 'Discord', img: '/taskbar/discord.png', appstreamId: 'com.discordapp.Discord' },
-		{
-			name: 'Thunderbird',
-			img: '/taskbar/thunderbird.png',
-			appstreamId: 'org.mozilla.Thunderbird'
-		},
-		{
-			name: 'LibreOffice',
-			img: '/taskbar/libreoffice.png',
-			appstreamId: 'org.libreoffice.LibreOffice'
-		},
-		{ name: 'Obsidian', img: '/taskbar/obsidian.png', appstreamId: 'md.obsidian.Obsidian' }
+		{ name: 'Steam', img: steamPng, appstreamId: 'com.valvesoftware.Steam' },
+		{ name: 'Discord', img: discordPng, appstreamId: 'com.discordapp.Discord' },
+		{ name: 'Thunderbird', img: thunderbirdPng, appstreamId: 'org.mozilla.Thunderbird' },
+		{ name: 'LibreOffice', img: libreofficePng, appstreamId: 'org.libreoffice.LibreOffice' },
+		{ name: 'Obsidian', img: obsidianPng, appstreamId: 'md.obsidian.Obsidian' }
 	];
 
 	let isLinux = $state(false);
@@ -113,7 +103,7 @@
 		<div use:reveal={120}>
 			<Window
 				title="Arc Software"
-				icon="/taskbar/arc.png"
+				icon={arcPng}
 				embedded
 				closable={false}
 				bgClass="bg-neutral-900"
@@ -169,7 +159,7 @@
 								{@const pct = progress[app.name] ?? 0}
 								<div class="flex items-center gap-3 rounded-xl bg-white/5 px-3 py-3">
 									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
-										<img src={app.image} alt={app.name} class="h-8 w-8" />
+										<enhanced:img src={app.image} alt={app.name} sizes="32px" class="h-8 w-8" />
 									</div>
 									<div class="min-w-0 flex-1">
 										<div class="mb-1 flex items-center justify-between">
@@ -209,7 +199,7 @@
 									href={installUrl(app.appstreamId)}
 									class="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-white/8"
 								>
-									<img src={app.img} alt={app.name} class="h-8 w-8 rounded-lg object-contain" />
+									<enhanced:img src={app.img} alt={app.name} sizes="32px" class="h-8 w-8 rounded-lg object-contain" />
 									<span class="flex-1 text-sm text-white/80">{app.name}</span>
 									<span class="text-xs text-primary"
 										>{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span

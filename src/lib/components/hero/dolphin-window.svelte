@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Window from './window.svelte';
+	import dolphinPng from '$lib/assets/taskbar/dolphin.png';
 	import ToolbarButton from './toolbar-button.svelte';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
@@ -146,7 +147,7 @@
 
 <Window
 	title={`${m.dolphin_home()} — Dolphin`}
-	icon="/taskbar/dolphin.png"
+	icon={dolphinPng}
 	{onClose}
 	{onFocus}
 	{zIndex}

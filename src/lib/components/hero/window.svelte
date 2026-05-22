@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, type Snippet } from 'svelte';
+	import { mode } from 'mode-watcher';
 
 	let {
 		title,
@@ -52,7 +53,7 @@
 	let pH = 0;
 
 	let hoveredBtn = $state<'min' | 'max' | 'close' | null>(null);
-	let isDark = $state(false);
+	const isDark = $derived(mode.current === 'dark');
 	let closing = $state(false);
 	let isMobile = $state(false);
 
@@ -63,16 +64,7 @@
 	}
 
 	onMount(() => {
-		isDark = document.documentElement.classList.contains('dark');
-		const themeObserver = new MutationObserver(() => {
-			isDark = document.documentElement.classList.contains('dark');
-		});
-		themeObserver.observe(document.documentElement, {
-			attributes: true,
-			attributeFilter: ['class']
-		});
-
-		if (embedded) return () => themeObserver.disconnect();
+		if (embedded) return;
 
 		const parent = el!.parentElement!;
 		const { width, height } = parent.getBoundingClientRect();
@@ -96,10 +88,7 @@
 		});
 		ro.observe(parent);
 
-		return () => {
-			ro.disconnect();
-			themeObserver.disconnect();
-		};
+		return () => ro.disconnect();
 	});
 
 	function startResize(e: PointerEvent, handle: string) {

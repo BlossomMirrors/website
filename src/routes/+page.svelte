@@ -1,10 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import Taskbar from '$lib/components/hero/taskbar.svelte';
-	import WallpaperReveal from '$lib/components/hero/wallpaper-reveal.svelte';
-	import Widgets from '$lib/components/hero/widgets.svelte';
-	import DolphinWindow from '$lib/components/hero/dolphin-window.svelte';
-	import KamosoWindow from '$lib/components/hero/kamoso-window.svelte';
+	import Desktop from '$lib/components/hero/desktop.svelte';
 	import FreedomSection from '$lib/components/home/freedom-section.svelte';
 	import ArcSection from '$lib/components/home/arc-section.svelte';
 	import GamingSection from '$lib/components/home/gaming-section.svelte';
@@ -18,38 +13,7 @@
 	import DownloadCta from '$lib/components/home/download-cta.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import DownloadCard from '$lib/components/home/download-card.svelte';
-	import { getDiscord, getEmail, getTitle } from '$lib/utils';
-
-	let dolphinOpen = $state(false);
-	let kamosoOpen = $state(false);
-	let isMobile = $state(false);
-	let heroEl = $state<HTMLDivElement | null>(null);
-
-	let nextZ = 30;
-	let dolphinZ = $state(30);
-	let kamosoZ = $state(30);
-
-	onMount(() => {
-		const ro = new ResizeObserver(([entry]) => {
-			isMobile = entry.contentRect.width < 768;
-		});
-		if (heroEl) ro.observe(heroEl);
-		return () => ro.disconnect();
-	});
-
-	function handleIconClick(label: string) {
-		if (label === 'Dolphin' && !isMobile) {
-			dolphinOpen = true;
-			dolphinZ = ++nextZ;
-		}
-		if (label === 'Kamoso' && !isMobile) {
-			kamosoOpen = true;
-			kamosoZ = ++nextZ;
-		}
-		if (label === 'Thunderbird') window.open('mailto:' + getEmail(), '_blank');
-		if (label === 'Arc Software') location.href = '/arc';
-		if (label === 'Discord') window.open(getDiscord(), '_blank');
-	}
+	import { getTitle } from '$lib/utils';
 </script>
 
 <svelte:head>
@@ -60,30 +24,7 @@
 </svelte:head>
 
 <div class="mb-4 flex flex-col">
-	<div
-		bind:this={heroEl}
-		style="background: url('/noise.png') center center / cover no-repeat;"
-		class="cursor-custom relative z-0 aspect-video overflow-hidden rounded-2xl md:max-h-148"
-	>
-		<div class="animate-screen-on pointer-events-none absolute inset-0 z-50 bg-black"></div>
-		<WallpaperReveal />
-		<Widgets />
-		{#if dolphinOpen}
-			<DolphinWindow
-				onClose={() => (dolphinOpen = false)}
-				zIndex={dolphinZ}
-				onFocus={() => (dolphinZ = ++nextZ)}
-			/>
-		{/if}
-		{#if kamosoOpen && !isMobile}
-			<KamosoWindow
-				onClose={() => (kamosoOpen = false)}
-				zIndex={kamosoZ}
-				onFocus={() => (kamosoZ = ++nextZ)}
-			/>
-		{/if}
-		<Taskbar onIconClick={handleIconClick} />
-	</div>
+	<Desktop />
 
 	<div class="mt-8 grid grid-cols-1 items-end gap-6 md:grid-cols-2 md:gap-12">
 		<div>
@@ -111,12 +52,6 @@
 <DownloadCta />
 
 <style>
-	.cursor-custom {
-		cursor:
-			url('/cursor/left_ptr.svg') 0 0,
-			auto;
-	}
-
 	@keyframes screen-on {
 		0% {
 			opacity: 1;

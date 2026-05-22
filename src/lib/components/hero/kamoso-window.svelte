@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import Window from './window.svelte';
+	import kamosoPng from '$lib/assets/taskbar/kamoso.png';
 	import ToolbarButton from './toolbar-button.svelte';
 	import CameraIcon from '@lucide/svelte/icons/camera';
 	import VideoIcon from '@lucide/svelte/icons/video';
@@ -44,7 +45,7 @@
 
 <Window
 	title="Kamoso"
-	icon="/taskbar/kamoso.png"
+	icon={kamosoPng}
 	{onClose}
 	{onFocus}
 	{zIndex}

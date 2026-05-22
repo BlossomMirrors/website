@@ -6,10 +6,12 @@
 	import UsersIcon from '@lucide/svelte/icons/users';
 	import * as m from '$lib/paraglide/messages';
 	import FeatureItem from '$lib/components/ui/feature-item.svelte';
+	import libreofficePng from '$lib/assets/taskbar/libreoffice.png?enhanced';
+	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png?enhanced';
 
 	const features = [
-		{ img: '/taskbar/libreoffice.png', label: m.business_office() },
-		{ img: '/taskbar/thunderbird.png', label: m.business_email() },
+		{ img: libreofficePng, label: m.business_office() },
+		{ img: thunderbirdPng, label: m.business_email() },
 		{ Icon: ShieldCheckIcon, label: m.business_security() },
 		{ Icon: LockIcon, label: m.business_privacy() },
 		{ Icon: RocketIcon, label: m.business_deployment() },

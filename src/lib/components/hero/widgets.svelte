@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import gameboyJpg from '$lib/assets/flyout/gameboy.jpg?enhanced';
+	import polaroidJpg from '$lib/assets/flyout/polaroid.jpg?enhanced';
+	import amigaJpg from '$lib/assets/flyout/amiga.jpg?enhanced';
 
 	type W = { id: string; x: number; y: number; delay: number; tilt: number };
 
@@ -34,24 +37,9 @@
 
 	// Photos fanning out of the folder
 	const folderPhotos = [
-		{
-			src: '/flyout/gameboy.jpg',
-			tx: 18,
-			ty: -68,
-			rot: 18
-		},
-		{
-			src: '/flyout/polaroid.jpg',
-			tx: 0,
-			ty: -80,
-			rot: -4
-		},
-		{
-			src: '/flyout/amiga.jpg',
-			tx: -18,
-			ty: -70,
-			rot: -22
-		}
+		{ src: gameboyJpg, tx: 18, ty: -68, rot: 18 },
+		{ src: polaroidJpg, tx: 0, ty: -80, rot: -4 },
+		{ src: amigaJpg, tx: -18, ty: -70, rot: -22 }
 	];
 
 	onMount(() => {
@@ -192,7 +180,7 @@
 								: '0.22s ease-in'} {folderOpen ? pi * 55 : (2 - pi) * 40}ms;
 							"
 						>
-							<img src={photo.src} class="h-full w-full object-cover" alt="" draggable="false" />
+							<enhanced:img src={photo.src} class="h-full w-full object-cover" sizes="100px" alt="" />
 						</div>
 					{/each}
 

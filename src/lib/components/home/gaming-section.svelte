@@ -2,6 +2,7 @@
 	import { reveal } from '$lib/actions/reveal';
 	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
+	import steamPng from '$lib/assets/taskbar/steam.png?enhanced';
 
 	let videoEl = $state<HTMLVideoElement | null>(null);
 	let canvasEl = $state<HTMLCanvasElement | null>(null);
@@ -24,7 +25,7 @@
 	});
 
 	const highlights = [
-		{ label: m.gaming_steam(), icon: '/taskbar/steam.png' },
+		{ label: m.gaming_steam(), icon: steamPng },
 		{ label: m.gaming_proton() },
 		{ label: m.gaming_native() },
 		{ label: m.gaming_performance() }
@@ -50,7 +51,7 @@
 						use:reveal={100 + i * 60}
 					>
 						{#if h.icon}
-							<img src={h.icon} alt="" class="h-4 w-4 object-contain" />
+							<enhanced:img src={h.icon} alt="" sizes="16px" class="h-4 w-4 object-contain" />
 						{/if}
 						{h.label}
 					</div>

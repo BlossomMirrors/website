@@ -2,6 +2,7 @@
 	import Navbar from '$lib/components/navbar.svelte';
 	import type { NavItem } from '$lib/components/navbar.svelte';
 	import ModeToggle from '$lib/components/ui/mode-toggle.svelte';
+	import LanguageSwitcher from '$lib/components/ui/language-switcher.svelte';
 	import UsersIcon from '@lucide/svelte/icons/users';
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import MenuIcon from '@lucide/svelte/icons/menu';
@@ -56,7 +57,7 @@
 			label: m.downloads(),
 			href: '/downloads'
 		},
-		{
+		/*{
 			type: 'link',
 			label: m.events(),
 			href: '/events'
@@ -65,7 +66,7 @@
 			type: 'link',
 			label: m.press(),
 			href: '/press'
-		},
+			},*/
 		{
 			type: 'dropdown',
 			label: m.community(),
@@ -115,6 +116,7 @@
 		<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer" class="hidden sm:block">
 			<Button><UserIcon strokeWidth={1.5} />{m.account()}</Button>
 		</a>
+		<LanguageSwitcher />
 		<ModeToggle />
 		<button
 			class="flex h-9 w-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/8 md:hidden"

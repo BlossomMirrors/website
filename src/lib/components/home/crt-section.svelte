@@ -2,18 +2,16 @@
 	import { reveal } from '$lib/actions/reveal';
 	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
+	import { mode } from 'mode-watcher';
+	import crtPng from '$lib/assets/crt.png';
+	import wallpaperDark from '$lib/assets/wallpaper-dark.png';
+	import wallpaperLight from '$lib/assets/wallpaper-light.png';
 
-	let isDark = $state(false);
+	const isDark = $derived(mode.current === 'dark');
 	let crtEl = $state<HTMLDivElement | null>(null);
 	let lit = $state(false);
 
 	onMount(() => {
-		isDark = document.documentElement.classList.contains('dark');
-		const mo = new MutationObserver(() => {
-			isDark = document.documentElement.classList.contains('dark');
-		});
-		mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
 		const io = new IntersectionObserver(
 			([e]) => {
 				if (e.isIntersecting) {
@@ -25,10 +23,7 @@
 		);
 		if (crtEl) io.observe(crtEl);
 
-		return () => {
-			mo.disconnect();
-			io.disconnect();
-		};
+		return () => io.disconnect();
 	});
 </script>
 
@@ -53,12 +48,21 @@
 				class="relative mx-auto max-w-lg overflow-hidden md:max-w-none"
 				style="aspect-ratio: 2445/2312"
 			>
-				<img
-					src={isDark ? '/wallpaper-dark.png' : '/wallpaper-light.png'}
-					alt="BlossomOS desktop"
-					class="absolute inset-0 h-full w-full object-cover"
-					style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
-				/>
+				{#if isDark}
+					<enhanced:img
+						src={wallpaperDark}
+						alt="BlossomOS desktop"
+						class="absolute inset-0 h-full w-full object-cover"
+						style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
+					/>
+				{:else}
+					<enhanced:img
+						src={wallpaperLight}
+						alt="BlossomOS desktop"
+						class="absolute inset-0 h-full w-full object-cover"
+						style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
+					/>
+				{/if}
 				<div
 					class="pointer-events-none absolute"
 					style="inset: 11% 13.5% 27% 13.5%; background: repeating-linear-gradient(transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px)"
@@ -68,8 +72,8 @@
 					class:lit
 					style="clip-path: inset(9% 12% 25% 12% round 4px); background: black; transform: scale(1.14); transform-origin: center center"
 				></div>
-				<img
-					src="/crt.png"
+				<enhanced:img
+					src={crtPng}
 					alt="CRT monitor"
 					class="pointer-events-none absolute inset-0 h-full w-full"
 					style="object-fit: fill"

@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { mode } from 'mode-watcher';
+	import wallpaperDarkUrl from '$lib/assets/wallpaper-dark.png';
+	import wallpaperLightUrl from '$lib/assets/wallpaper-light.png';
 
 	let canvas: HTMLCanvasElement;
 
@@ -23,9 +26,7 @@
 	}
 
 	function wallpaperSrc(): string {
-		return document.documentElement.classList.contains('dark')
-			? '/wallpaper-dark.png'
-			: '/wallpaper-light.png';
+		return mode.current === 'dark' ? wallpaperDarkUrl : wallpaperLightUrl;
 	}
 
 	function loadImage(src: string): Promise<HTMLImageElement> {
@@ -94,6 +95,13 @@
 		ctx.putImageData(imageData, x0, y0);
 	}
 
+	$effect(() => {
+		mode.current;
+		loadImage(wallpaperSrc()).then((loaded) => {
+			img = loaded;
+		});
+	});
+
 	onMount(() => {
 		function resize() {
 			const rect = canvas.getBoundingClientRect();
@@ -104,23 +112,7 @@
 		const ro = new ResizeObserver(resize);
 		ro.observe(canvas);
 
-		// Fire-and-forget async image load
-		// Keeps onMount synchronous so it can return cleanup
-		loadImage(wallpaperSrc()).then((loaded) => {
-			img = loaded;
-		});
-
 		const parent = canvas.parentElement!;
-
-		const themeObserver = new MutationObserver(() => {
-			loadImage(wallpaperSrc()).then((loaded) => {
-				img = loaded;
-			});
-		});
-		themeObserver.observe(document.documentElement, {
-			attributes: true,
-			attributeFilter: ['class']
-		});
 
 		function handleDown(e: PointerEvent) {
 			if (e.button !== 0) return;
@@ -161,7 +153,6 @@
 		return () => {
 			cancelAnimationFrame(rafId);
 			ro.disconnect();
-			themeObserver.disconnect();
 			parent.removeEventListener('pointerdown', handleDown);
 			window.removeEventListener('pointermove', handleMove);
 			window.removeEventListener('pointerup', handleUp);

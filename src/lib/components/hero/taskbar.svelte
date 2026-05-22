@@ -9,26 +9,28 @@
 	import { LanIcon } from '$lib/components/icons/lan/index.svelte';
 	import LogoMono from '../icons/logo-mono.svelte';
 
+	import dolphinPng from '$lib/assets/taskbar/dolphin.png?enhanced';
+	import heliumPng from '$lib/assets/taskbar/helium.png?enhanced';
+	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png?enhanced';
+	import arcPng from '$lib/assets/taskbar/arc.png?enhanced';
+	import discordPng from '$lib/assets/taskbar/discord.png?enhanced';
+	import obsidianPng from '$lib/assets/taskbar/obsidian.png?enhanced';
+	import libreofficePng from '$lib/assets/taskbar/libreoffice.png?enhanced';
+	import steamPng from '$lib/assets/taskbar/steam.png?enhanced';
+	import kamosoPng from '$lib/assets/taskbar/kamoso.png?enhanced';
+
 	let { onIconClick }: { onIconClick?: (label: string) => void } = $props();
 
 	const icons = [
-		{ src: '/taskbar/dolphin.png', label: 'Dolphin', subtitle: m.dolphin_tooltip() },
-		{ src: '/taskbar/helium.png', label: 'Helium', subtitle: m.helium_tooltip() },
-		{ src: '/taskbar/thunderbird.png', label: 'Thunderbird', subtitle: m.thunderbird_tooltip() },
-		{ src: '/taskbar/arc.png', label: 'Arc Software', subtitle: m.arc_tooltip() },
-		{ src: '/taskbar/discord.png', label: 'Discord', subtitle: m.discord_tooltip() },
-		{ src: '/taskbar/obsidian.png', label: 'Obsidian', subtitle: m.obsidian_tooltip() },
-		{ src: '/taskbar/libreoffice.png', label: 'LibreOffice', subtitle: m.libreoffice_tooltip() },
-		{
-			src: '/taskbar/steam.png',
-			label: 'Steam',
-			subtitle: m.steam_tooltip()
-		},
-		{
-			src: '/taskbar/kamoso.png',
-			label: 'Kamoso',
-			subtitle: m.kamoso_tooltip()
-		}
+		{ src: dolphinPng, label: 'Dolphin', subtitle: m.dolphin_tooltip() },
+		{ src: heliumPng, label: 'Helium', subtitle: m.helium_tooltip() },
+		{ src: thunderbirdPng, label: 'Thunderbird', subtitle: m.thunderbird_tooltip() },
+		{ src: arcPng, label: 'Arc Software', subtitle: m.arc_tooltip() },
+		{ src: discordPng, label: 'Discord', subtitle: m.discord_tooltip() },
+		{ src: obsidianPng, label: 'Obsidian', subtitle: m.obsidian_tooltip() },
+		{ src: libreofficePng, label: 'LibreOffice', subtitle: m.libreoffice_tooltip() },
+		{ src: steamPng, label: 'Steam', subtitle: m.steam_tooltip() },
+		{ src: kamosoPng, label: 'Kamoso', subtitle: m.kamoso_tooltip() }
 	];
 
 	let time = $state(new Date());
@@ -85,7 +87,7 @@
 				onmouseleave={() => (tooltip = null)}
 				onclick={() => onIconClick?.(icon.label)}
 			>
-				<img src={icon.src} class="pointer-events-none h-full w-full" alt={icon.label} />
+				<enhanced:img src={icon.src} class="pointer-events-none h-full w-full" sizes="40px" alt={icon.label} />
 			</button>
 		{/each}
 	</div>

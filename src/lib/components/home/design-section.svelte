@@ -1,21 +1,14 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
-	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
+	import { mode } from 'mode-watcher';
+	import wallpaperDark from '$lib/assets/wallpaper-dark.png';
+	import wallpaperLight from '$lib/assets/wallpaper-light.png';
 
-	let isDark = $state(false);
+	const isDark = $derived(mode.current === 'dark');
 	let hoveredBtn = $state<'minimize' | 'maximize' | 'close' | null>(null);
 
 	const buttons = ['minimize', 'maximize', 'close'] as const;
-
-	onMount(() => {
-		isDark = document.documentElement.classList.contains('dark');
-		const mo = new MutationObserver(() => {
-			isDark = document.documentElement.classList.contains('dark');
-		});
-		mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-		return () => mo.disconnect();
-	});
 </script>
 
 <section class="my-16 py-10 md:py-16">
@@ -64,11 +57,11 @@
 					</div>
 				</div>
 				<div class="h-32 overflow-hidden">
-					<img
-						src={isDark ? '/wallpaper-dark.png' : '/wallpaper-light.png'}
-						alt="BlossomOS desktop"
-						class="h-full w-full object-cover object-top"
-					/>
+					{#if isDark}
+						<enhanced:img src={wallpaperDark} alt="BlossomOS desktop" class="h-full w-full object-cover object-top" />
+					{:else}
+						<enhanced:img src={wallpaperLight} alt="BlossomOS desktop" class="h-full w-full object-cover object-top" />
+					{/if}
 				</div>
 			</div>
 
