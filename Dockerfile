@@ -21,6 +21,7 @@ ENV PORT=4173
 
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/package.json ./
+COPY --from=builder /app/vite.config.ts ./
 COPY --from=builder /app/bun.lockb* ./
 
 RUN bun install --production --frozen-lockfile
