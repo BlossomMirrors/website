@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DownloadCard from '$lib/components/home/download-card.svelte';
-	import PressKit from '$lib/components/press/press-kit.svelte';
+	// import PressKit from '$lib/components/press/press-kit.svelte';
 	import CpuIcon from '@lucide/svelte/icons/cpu';
 	import MemoryStickIcon from '@lucide/svelte/icons/memory-stick';
 	import HardDriveIcon from '@lucide/svelte/icons/hard-drive';
@@ -74,8 +74,10 @@
 	</div>
 
 	<!-- Press kit & branding -->
+	<!--
 	<div class="mt-20">
 		<h2 class="mb-10 font-serif text-3xl leading-tight md:text-4xl">{m.downloads_presskit_h2()}</h2>
 		<PressKit />
 	</div>
+	-->
 </div>

@@ -3,7 +3,7 @@
 	import PageHero from '$lib/components/ui/page-hero.svelte';
 	import SectionHeader from '$lib/components/ui/section-header.svelte';
 	import PostGrid from '$lib/components/press/post-grid.svelte';
-	import PressKit from '$lib/components/press/press-kit.svelte';
+	// import PressKit from '$lib/components/press/press-kit.svelte';
 	import Interviews from '$lib/components/press/interviews.svelte';
 	import { getTitle } from '$lib/utils.js';
 
@@ -29,12 +29,14 @@
 		<PostGrid posts={data.posts} />
 	</div>
 
+	<!--
 	<div class="mt-24">
 		<SectionHeader subheader={m.press_kit_subheader()} class="mb-10">
 			{m.press_kit_subheader()}
 		</SectionHeader>
 		<PressKit />
 	</div>
+	-->
 
 	<div class="mt-24">
 		<SectionHeader subheader={m.press_interviews_subheader()} class="mb-10">
