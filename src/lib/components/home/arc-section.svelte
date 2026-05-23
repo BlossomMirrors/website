@@ -158,6 +158,7 @@
 				</div>
 
 				<!-- Content -->
+				<div class="h-80 overflow-hidden">
 				{#if activeTab === 'downloads'}
 					<div class="p-4">
 						<div class="mb-3 flex items-center justify-between">
@@ -224,6 +225,7 @@
 						</div>
 					</div>
 				{/if}
+				</div>
 			</Window>
 		</div>
 	</div>
