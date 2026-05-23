@@ -4,11 +4,12 @@
 	import { mode } from 'mode-watcher';
 	import wallpaperDark from '$lib/assets/wallpaper-dark.png';
 	import wallpaperLight from '$lib/assets/wallpaper-light.png';
+	import WindowControl from '$lib/components/hero/window-control.svelte';
 
 	const isDark = $derived(mode.current === 'dark');
-	let hoveredBtn = $state<'minimize' | 'maximize' | 'close' | null>(null);
-
 	const buttons = ['minimize', 'maximize', 'close'] as const;
+	type BtnType = (typeof buttons)[number];
+	let hoveredBtn = $state<BtnType | null>(null);
 </script>
 
 <section class="my-16 py-10 md:py-16">
@@ -35,24 +36,10 @@
 					</div>
 					<div class="flex items-center gap-2">
 						{#each buttons as btn (btn)}
-							<button
-								class="relative flex h-5 w-5 items-center justify-center"
+							<WindowControl type={btn} {isDark} hovered={hoveredBtn === btn}
 								onmouseenter={() => (hoveredBtn = btn)}
 								onmouseleave={() => (hoveredBtn = null)}
-							>
-								<img
-									src="/windows/{isDark ? 'normal' : 'normal_light'}/{btn}.svg"
-									class="absolute h-full w-full transition-opacity duration-150"
-									style="opacity:{hoveredBtn === btn ? 0 : 1}"
-									alt={btn}
-								/>
-								<img
-									src="/windows/{isDark ? 'hover' : 'hover_light'}/{btn}.svg"
-									class="absolute h-full w-full transition-opacity duration-150"
-									style="opacity:{hoveredBtn === btn ? 1 : 0}"
-									alt=""
-								/>
-							</button>
+							/>
 						{/each}
 					</div>
 				</div>
@@ -66,28 +53,13 @@
 			</div>
 
 			<!-- Zoomed button showcase -->
-			<div
-				class="flex items-center justify-center gap-10 rounded-2xl border border-border bg-card/50 py-10"
-			>
+			<div class="flex items-center justify-center gap-10 rounded-2xl border border-border bg-card/50 py-10">
 				{#each buttons as btn (btn)}
-					<button
-						class="relative flex h-16 w-16 items-center justify-center transition-transform duration-150 hover:scale-110"
+					<WindowControl type={btn} {isDark} hovered={hoveredBtn === btn}
+						class="!h-16 !w-16 transition-transform duration-150 hover:scale-110"
 						onmouseenter={() => (hoveredBtn = btn)}
 						onmouseleave={() => (hoveredBtn = null)}
-					>
-						<img
-							src="/windows/{isDark ? 'normal' : 'normal_light'}/{btn}.svg"
-							class="absolute h-full w-full transition-opacity duration-150"
-							style="opacity:{hoveredBtn === btn ? 0 : 1}"
-							alt={btn}
-						/>
-						<img
-							src="/windows/{isDark ? 'hover' : 'hover_light'}/{btn}.svg"
-							class="absolute h-full w-full transition-opacity duration-150"
-							style="opacity:{hoveredBtn === btn ? 1 : 0}"
-							alt=""
-						/>
-					</button>
+					/>
 				{/each}
 			</div>
 			<p class="text-center text-xs text-muted-foreground">{m.design_hint()}</p>

@@ -38,8 +38,8 @@
 		<p class="mt-4 max-w-xl text-center text-lg leading-relaxed text-muted-foreground">
 			{m.downloads_subtitle()}
 		</p>
-		<div class="mt-8">
-			<DownloadCard />
+		<div class="mt-8 min-h-77 w-full max-w-xl">
+			<DownloadCard class="w-full" />
 		</div>
 		<p class="mt-4 max-w-xl text-sm text-muted-foreground">
 			{m.downloads_install_note()}

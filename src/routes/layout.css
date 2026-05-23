@@ -298,6 +298,7 @@
 	--radius-4xl: calc(var(--radius) * 2.6);
 	--font-serif: 'Lora', ui-serif, Georgia, Cambria, serif;
 	--font-sans: 'Aspekta', ui-sans-serif, system-ui, sans-serif;
+	--font-mono: 'MapleMono NF', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
 	--default-font-family: var(--font-sans);
 	--color-button: var(--button);
 	--color-button-foreground: var(--button-foreground);

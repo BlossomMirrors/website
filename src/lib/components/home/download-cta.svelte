@@ -1,9 +1,16 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
 	import { Button } from '$lib/components/ui/button';
-	import DownloadIcon from '@lucide/svelte/icons/download';
-	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
+	import Download from '$lib/components/movingicons/download.svelte';
+	import ArrowRight from '$lib/components/movingicons/arrow-right.svelte';
 	import * as m from '$lib/paraglide/messages';
+
+	let dlAnimating = $state(false);
+	let communityAnimating = $state(false);
+	function triggerCommunity() {
+		communityAnimating = true;
+		setTimeout(() => (communityAnimating = false), 250);
+	}
 </script>
 
 <section class="my-16 py-10 md:my-32 md:py-16" use:reveal>
@@ -17,16 +24,16 @@
 		</p>
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/downloads">
+			<a href="/downloads" onmouseenter={() => { dlAnimating = true; setTimeout(() => (dlAnimating = false), 400); }}>
 				<Button variant="primary" size="lg">
-					<DownloadIcon size={18} />
+					<Download size={18} animate={dlAnimating} class="pointer-events-none" />
 					{m.cta_download()}
 				</Button>
 			</a>
-			<a href="https://community.blossomos.org" target="_blank" rel="noreferrer">
+			<a href="https://community.blossomos.org" target="_blank" rel="noreferrer" onmouseenter={triggerCommunity}>
 				<Button variant="ghost" size="lg">
 					{m.cta_join_community()}
-					<ArrowRightIcon size={16} />
+					<ArrowRight size={16} animate={communityAnimating} class="pointer-events-none" />
 				</Button>
 			</a>
 		</div>

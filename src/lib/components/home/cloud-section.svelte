@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
+	import { Button } from '$lib/components/ui/button';
+	import ArrowRight from '$lib/components/movingicons/arrow-right.svelte';
 	import CloudIcon from '@lucide/svelte/icons/cloud';
 	import FolderSyncIcon from '@lucide/svelte/icons/folder-sync';
 	import VideoIcon from '@lucide/svelte/icons/video';
@@ -7,6 +9,12 @@
 	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import * as m from '$lib/paraglide/messages';
 	import FeatureItem from '$lib/components/ui/feature-item.svelte';
+
+	let btnAnimating = $state(false);
+	function triggerArrow() {
+		btnAnimating = true;
+		setTimeout(() => (btnAnimating = false), 250);
+	}
 
 	const features = [
 		{ Icon: FolderSyncIcon, label: m.file_sync(), done: true },
@@ -39,6 +47,9 @@
 				<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
 					{m.cloud_description()}
 				</p>
+				<a href="/cloud" class="mt-6 inline-block" onmouseenter={triggerArrow}>
+					<Button variant="primary">{m.learn_more()}<ArrowRight size={16} animate={btnAnimating} class="pointer-events-none" /></Button>
+				</a>
 			</div>
 
 			<div class="grid-rows grid gap-3 md:grid-cols-2">

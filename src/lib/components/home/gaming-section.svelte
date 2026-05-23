@@ -69,7 +69,7 @@
 			<div class="overflow-hidden rounded-2xl md:justify-center lg:relative" style="z-index: 1">
 				<video
 					bind:this={videoEl}
-					src="/gaming.mp4"
+					src="/gaming.webm"
 					autoplay
 					loop
 					muted

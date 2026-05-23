@@ -39,10 +39,10 @@
 
 <ModeWatcher />
 
+<Header />
 <div class="flex items-center justify-between">
-	<div class="mx-auto mt-2 w-full max-w-7xl *:px-4">
-		<Header />
-		<main>{@render children()}</main>
+	<div class="mx-auto w-full max-w-7xl">
+		<main class="px-4">{@render children()}</main>
 	</div>
 </div>
 <Footer />

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, type Snippet } from 'svelte';
 	import { mode } from 'mode-watcher';
+	import WindowControl from './window-control.svelte';
 
 	let {
 		title,
@@ -52,7 +53,6 @@
 	let pW = 0;
 	let pH = 0;
 
-	let hoveredBtn = $state<'min' | 'max' | 'close' | null>(null);
 	const isDark = $derived(mode.current === 'dark');
 	let closing = $state(false);
 	let isMobile = $state(false);
@@ -193,64 +193,9 @@
 			<span class={`text-xs ${embedded ? 'text-white/80' : 'text-foreground'}`}>{title}</span>
 		</div>
 		<div class="cursor-custom flex items-center gap-2">
-			<button
-				class="cursor-custom relative flex h-5 w-5 items-center justify-center"
-				onpointerdown={stopDrag}
-				onmouseenter={() => (hoveredBtn = 'min')}
-				onmouseleave={() => (hoveredBtn = null)}
-			>
-				<img
-					src="/windows/{isDark ? 'normal' : 'normal_light'}/minimize.svg"
-					class="absolute h-full w-full transition-opacity duration-150"
-					style="opacity:{hoveredBtn === 'min' ? 0 : 1}"
-					alt="Minimize"
-				/>
-				<img
-					src="/windows/{isDark ? 'hover' : 'hover_light'}/minimize.svg"
-					class="absolute h-full w-full transition-opacity duration-150"
-					style="opacity:{hoveredBtn === 'min' ? 1 : 0}"
-					alt=""
-				/>
-			</button>
-			<button
-				class="cursor-custom relative flex h-5 w-5 items-center justify-center"
-				onpointerdown={stopDrag}
-				onmouseenter={() => (hoveredBtn = 'max')}
-				onmouseleave={() => (hoveredBtn = null)}
-			>
-				<img
-					src="/windows/{isDark ? 'normal' : 'normal_light'}/maximize.svg"
-					class="absolute h-full w-full transition-opacity duration-150"
-					style="opacity:{hoveredBtn === 'max' ? 0 : 1}"
-					alt="Maximize"
-				/>
-				<img
-					src="/windows/{isDark ? 'hover' : 'hover_light'}/maximize.svg"
-					class="absolute h-full w-full transition-opacity duration-150"
-					style="opacity:{hoveredBtn === 'max' ? 1 : 0}"
-					alt=""
-				/>
-			</button>
-			<button
-				class="cursor-custom relative flex h-5 w-5 items-center justify-center"
-				onpointerdown={stopDrag}
-				onclick={handleClose}
-				onmouseenter={() => (hoveredBtn = 'close')}
-				onmouseleave={() => (hoveredBtn = null)}
-			>
-				<img
-					src="/windows/{isDark ? 'normal' : 'normal_light'}/close.svg"
-					class="absolute h-full w-full transition-opacity duration-150"
-					style="opacity:{hoveredBtn === 'close' ? 0 : 1}"
-					alt="Close"
-				/>
-				<img
-					src="/windows/{isDark ? 'hover' : 'hover_light'}/close.svg"
-					class="absolute h-full w-full transition-opacity duration-150"
-					style="opacity:{hoveredBtn === 'close' ? 1 : 0}"
-					alt=""
-				/>
-			</button>
+			<WindowControl type="minimize" {isDark} onpointerdown={stopDrag} />
+			<WindowControl type="maximize" {isDark} onpointerdown={stopDrag} />
+			<WindowControl type="close" {isDark} onpointerdown={stopDrag} onclick={handleClose} />
 		</div>
 	</div>
 

@@ -9,8 +9,6 @@
 	import MoreHorizontalIcon from '@lucide/svelte/icons/more-horizontal';
 	import Music2Icon from '@lucide/svelte/icons/music-2';
 	import CloudIcon from '@lucide/svelte/icons/cloud';
-	import GamepadIcon from '@lucide/svelte/icons/gamepad-2';
-	import PackageIcon from '@lucide/svelte/icons/package';
 	import CodeIcon from '@lucide/svelte/icons/code-2';
 	import UsersIcon from '@lucide/svelte/icons/users';
 	import CopyIcon from '@lucide/svelte/icons/copy';
@@ -139,9 +137,7 @@
 		{ id: 'public', name: m.dolphin_public(), icon: UsersIcon },
 		{ id: 'templates', name: m.dolphin_templates(), icon: CopyIcon },
 		{ id: 'projects', name: m.dolphin_projects(), icon: CodeIcon },
-		{ id: 'games', name: m.dolphin_games(), icon: GamepadIcon },
-		{ id: 'cloud', name: 'Blossom Cloud', icon: CloudIcon },
-		{ id: 'appimages', name: 'AppImages', icon: PackageIcon }
+		{ id: 'cloud', name: 'Blossom Cloud', icon: CloudIcon }
 	]);
 </script>
 
@@ -151,8 +147,8 @@
 	{onClose}
 	{onFocus}
 	{zIndex}
-	minW={700}
-	minH={536}
+	minW={620}
+	minH={400}
 	defaultW={700}
 	defaultH={536}
 >

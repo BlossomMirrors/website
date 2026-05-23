@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { cn } from '$lib/utils.js';
 	import Navbar from '$lib/components/navbar.svelte';
 	import type { NavItem } from '$lib/components/navbar.svelte';
 	import ModeToggle from '$lib/components/ui/mode-toggle.svelte';
@@ -14,6 +15,9 @@
 	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { onMount } from 'svelte';
+	import { Tween } from 'svelte/motion';
+	import { cubicInOut } from 'svelte/easing';
+	import { IsMobile } from '$lib/components/hooks/is-mobile.svelte.js';
 
 	const nav: NavItem[] = [
 		{
@@ -82,9 +86,20 @@
 		}
 	];
 
+	let { sticky = true }: { sticky?: boolean } = $props();
+
+	const isMobile = new IsMobile();
 	let mobileOpen = $state(false);
 	let isOSPage = $state(false);
 	let title = $state('Blossom');
+
+	const translateY = new Tween(0, { duration: 250, easing: cubicInOut });
+
+	$effect(() => {
+		if (!isMobile.current || mobileOpen) {
+			translateY.set(0);
+		}
+	});
 
 	onMount(() => {
 		window.setInterval(() => {
@@ -95,10 +110,30 @@
 				title = 'Blossom';
 			}
 		}, 0);
+
+		let lastScrollY = window.scrollY;
+
+		const handleScroll = () => {
+			if (!isMobile.current || mobileOpen) return;
+			const currentScrollY = window.scrollY;
+			if (currentScrollY > lastScrollY && currentScrollY > 60) {
+				translateY.set(-100);
+			} else {
+				translateY.set(0);
+			}
+			lastScrollY = currentScrollY;
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		return () => window.removeEventListener('scroll', handleScroll);
 	});
 </script>
 
-<header class="relative flex w-full items-center px-4 py-4 md:px-8">
+<header
+	class={cn('relative w-full bg-background', sticky && 'sticky top-0 z-50')}
+	style={isMobile.current ? `transform: translateY(${translateY.current}%)` : ''}
+>
+	<div class="mx-auto flex max-w-7xl items-center px-4 py-4 md:px-8">
 	<div class="flex items-center gap-1">
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
 		<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
@@ -129,6 +164,7 @@
 				<MenuIcon size={20} />
 			{/if}
 		</button>
+	</div>
 	</div>
 
 	{#if mobileOpen}

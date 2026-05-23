@@ -90,7 +90,7 @@
 	"freedom1": "No data collection",
 	"freedom2": "No forced updates",
 	"freedom3": "No built-in ads",
-	"freedom4": "No AI you didn't ask for",
+	"freedom4": "No AI you didn't want",
 	"arc_header1": "Any software",
 	"arc_header2": "One click",
 	"arc_description": "Everything you know, in one place. Arc Unify makes every package format work on BlossomOS with no terminal and no workarounds. Arc Winapps even brings Windows-only apps to the store.",
@@ -428,5 +428,7 @@
 	"press_kit_logos": "Logo pack (SVG + PNG)",
 	"press_kit_screenshots": "Screenshots",
 	"press_kit_brand": "Brand guidelines (PDF)",
-	"press_no_interviews": "No interviews yet. Follow us on Bluesky or join the Discord to be the first to know."
+	"press_no_interviews": "No interviews yet. Follow us on Bluesky or join the Discord to be the first to know.",
+	"learn_more": "Learn more",
+	"copied": "Copied!"
 }

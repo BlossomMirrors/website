@@ -1,18 +1,35 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';
 	import { cubicInOut } from 'svelte/easing';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { Download, Disc3 } from '@lucide/svelte';
+	import { Disc3 } from '@lucide/svelte';
+	import DownloadIcon from '$lib/components/movingicons/download.svelte';
 	import * as m from '$lib/paraglide/messages';
+	import { UseClipboard } from '$lib/hooks/use-clipboard.svelte';
+	import { cn } from '$lib/utils.js';
 
 	type IsoData = { name: string; sha256: string };
+
+	let { class: className = '' }: { class?: string } = $props();
 
 	const CDN = 'https://cdn.blossomos.org/iso';
 
 	let standard = $state<IsoData | null>(null);
 	let nvidiaOpen = $state<IsoData | null>(null);
 	let gpu = $state<'nvidia' | 'other'>('other');
+	let hoveredLabel = $state<string | null>(null);
+	let copiedLabel = $state<string | null>(null);
+	function copyHash(label: string, hash: string) {
+		clipboard.copy(hash);
+		copiedLabel = label;
+		setTimeout(() => (copiedLabel = null), 1500);
+	}
+	function triggerDownload(label: string) {
+		hoveredLabel = label;
+		setTimeout(() => (hoveredLabel = null), 400);
+	}
 	let loading = $state(true);
 
 	function detectGPU(): 'nvidia' | 'other' {
@@ -35,15 +52,9 @@
 		return name.match(/BlossomOS(?:-nvidia-open)?-(.+?)-x86_64/)?.[1] ?? '';
 	}
 
-	let isAltPressed = $state(false);
+	const clipboard = new UseClipboard();
 
 	onMount(() => {
-		document.addEventListener('keydown', (e) => {
-			if (e.altKey) isAltPressed = true;
-		});
-		document.addEventListener('keyup', (e) => {
-			if (e.altKey) isAltPressed = false;
-		});
 		gpu = detectGPU();
 		rafId = requestAnimationFrame(loop);
 		Promise.all([
@@ -71,12 +82,13 @@
 		rafId = requestAnimationFrame(loop);
 	}
 
-	function downloadClick(label: string) {
+	function downloadClick(e: MouseEvent, label: string) {
+		if (e.shiftKey) e.preventDefault();
 		clearTimeout(spinTimer);
 		speed.set(0.72);
 		spinTimer = setTimeout(() => speed.set(0), 3000);
-		if (label == 'NVIDIA Open' && isAltPressed) {
-			let novideo = document.getElementById('novideo') as HTMLAudioElement;
+		if (label === 'NVIDIA Open' && e.shiftKey) {
+			const novideo = document.getElementById('novideo') as HTMLAudioElement;
 			novideo.currentTime = 0;
 			novideo.play();
 		}
@@ -102,7 +114,7 @@
 
 <audio id="novideo" src="/novideo.mp3"></audio>
 
-<div class="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+<div class={cn('overflow-hidden rounded-2xl border border-border bg-card shadow-sm', className)}>
 	<!-- Header -->
 	<div class="flex items-center gap-4 border-b border-border px-6 py-5">
 		<div
@@ -128,47 +140,63 @@
 	<!-- ISO options -->
 	<div class="flex flex-col divide-y divide-border">
 		{#each isos as iso (iso.label)}
-			<div class="flex items-center gap-4 px-6 py-4 {iso.recommended ? 'bg-primary/3' : ''}">
-				<div class="min-w-0 flex-1">
-					<div class="flex flex-wrap items-center gap-2">
-						<span class="text-sm font-medium">{iso.label}</span>
-						<span class="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
-							>{iso.gpu}</span
-						>
-						{#if iso.recommended}
-							<span class="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary">
-								{m.recommended()}
-							</span>
-						{/if}
-					</div>
-					{#if iso.data}
-						<details class="mt-1">
-							<summary class="cursor-pointer text-xs text-muted-foreground hover:text-foreground"
-								>SHA256</summary
+			<div class="px-6 py-4 {iso.recommended ? 'bg-primary/3' : ''}">
+				<div class="flex items-center gap-4">
+					<div class="min-w-0 flex-1">
+						<div class="flex flex-wrap items-center gap-2">
+							<span class="text-sm font-medium">{iso.label}</span>
+							<span class="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
+								>{iso.gpu}</span
 							>
-							<p class="mt-1 font-mono text-xs break-all text-muted-foreground">
-								{iso.data.sha256}
-							</p>
-						</details>
+							{#if iso.recommended}
+								<span
+									class="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary"
+								>
+									{m.recommended()}
+								</span>
+							{/if}
+						</div>
+					</div>
+					{#if loading || !iso.data}
+						<div class="h-9 w-28 shrink-0 animate-pulse rounded-lg bg-muted"></div>
+					{:else}
+						<a
+							href="{CDN}/{iso.data.name}"
+							download
+							class="shrink-0"
+							onclick={(e) => downloadClick(e, iso.label)}
+							onmouseenter={() => triggerDownload(iso.label)}
+							data-umami-event="download"
+							data-umami-event-label={iso.label}
+						>
+							<Button variant={iso.recommended ? 'primary' : 'default'} size="sm">
+								<DownloadIcon
+									size={16}
+									animate={hoveredLabel === iso.label}
+									class="pointer-events-none"
+								/>
+								{m.download_button()}
+							</Button>
+						</a>
 					{/if}
 				</div>
-
-				{#if loading || !iso.data}
-					<div class="h-9 w-28 shrink-0 animate-pulse rounded-lg bg-muted"></div>
-				{:else}
-					<a
-						href="{CDN}/{iso.data.name}"
-						download
-						class="shrink-0"
-						onclick={downloadClick(iso.label)}
-						data-umami-event="download"
-						data-umami-event-label={iso.label}
-					>
-						<Button variant={iso.recommended ? 'primary' : 'default'} size="sm">
-							<Download class="h-4 w-4" />
-							{m.download_button()}
-						</Button>
-					</a>
+				{#if iso.data}
+					<details class="mt-2">
+						<summary class="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
+							SHA256
+							{#if copiedLabel === iso.label}
+								<span transition:fade={{ duration: 200 }} class="ml-1 text-primary"
+									>{m.copied()}</span
+								>
+							{/if}
+						</summary>
+						<button
+							class="mt-1 block w-full cursor-pointer text-left font-mono text-xs break-all text-muted-foreground hover:text-foreground"
+							onclick={() => copyHash(iso.label, iso.data?.sha256 || '')}
+						>
+							{iso.data.sha256}
+						</button>
+					</details>
 				{/if}
 			</div>
 		{/each}

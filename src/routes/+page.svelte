@@ -26,7 +26,7 @@
 <div class="mb-4 flex flex-col">
 	<Desktop />
 
-	<div class="mt-8 grid grid-cols-1 items-end gap-6 md:grid-cols-2 md:gap-12">
+	<div class="mt-8 grid min-h-77 grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-12">
 		<div>
 			<h1 class="font-serif text-5xl leading-none sm:text-7xl md:text-8xl">BlossomOS</h1>
 			<p class="mt-3 text-lg leading-relaxed text-muted-foreground md:text-xl">

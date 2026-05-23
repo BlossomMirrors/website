@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
 	import { onMount } from 'svelte';
+	import { Button } from '$lib/components/ui/button';
+	import ArrowRight from '$lib/components/movingicons/arrow-right.svelte';
 	import Window from '$lib/components/hero/window.svelte';
 	import HomeIcon from '@lucide/svelte/icons/house';
 	import SearchIcon from '@lucide/svelte/icons/search';
@@ -36,6 +38,14 @@
 		{ name: 'LibreOffice', img: libreofficePng, appstreamId: 'org.libreoffice.LibreOffice' },
 		{ name: 'Obsidian', img: obsidianPng, appstreamId: 'md.obsidian.Obsidian' }
 	];
+
+	let { learnMore = true }: { learnMore?: boolean } = $props();
+
+	let btnAnimating = $state(false);
+	function triggerArrow() {
+		btnAnimating = true;
+		setTimeout(() => (btnAnimating = false), 250);
+	}
 
 	let isLinux = $state(false);
 	let progress = $state<Record<string, number>>({
@@ -97,6 +107,11 @@
 				<p class="mt-4 text-sm text-primary">
 					{m.arc_linux()}
 				</p>
+			{/if}
+			{#if learnMore}
+				<a href="/arc" class="mt-6 inline-block" onmouseenter={triggerArrow}>
+					<Button variant="primary">{m.learn_more()}<ArrowRight size={16} animate={btnAnimating} class="pointer-events-none" /></Button>
+				</a>
 			{/if}
 		</div>
 

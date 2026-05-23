@@ -151,6 +151,6 @@
 				{m.arc_demo_body()}
 			</p>
 		</div>
-		<ArcSection />
+		<ArcSection learnMore={false} />
 	</div>
 </div>
