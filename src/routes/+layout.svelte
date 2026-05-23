@@ -15,6 +15,7 @@
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="manifest" href="/manifest.webmanifest" />
+	<meta name="theme-color" content="#0c0c12" />
 	<script
 		defer
 		src="https://stats.blossomos.org/script.js"
@@ -26,15 +27,19 @@
 		content="open source operating system, linux distribution, blossomos, privacy os, secure linux, community driven os, custom linux iso, linux for creators, open source community"
 	/>
 
-	<!-- Open Graph / Facebook -->
+	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://blossomos.org/" />
-	<meta property="og:image" content="/cover.png" />
+	<meta property="og:site_name" content="BlossomOS" />
+	<meta property="og:url" content={page.url.href} />
+	<meta property="og:image" content="https://blossomos.org/cover.png" />
+	<meta property="og:image:width" content="2576" />
+	<meta property="og:image:height" content="1456" />
+	<meta property="og:image:type" content="image/png" />
 
 	<!-- X (Twitter) -->
-	<meta property="twitter:card" content="summary_large_image" />
-	<meta property="twitter:url" content="https://blossomos.org/" />
-	<meta property="twitter:image" content="/cover.png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:url" content={page.url.href} />
+	<meta name="twitter:image" content="https://blossomos.org/cover.png" />
 </svelte:head>
 
 <ModeWatcher />

@@ -20,8 +20,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.imprint_h1()} />
+	<meta property="og:title" content={getTitle(m.imprint_h1())} />
 	<meta property="og:description" content={m.imprint_h1()} />
-	<meta property="twitter:description" content={m.imprint_h1()} />
+	<meta name="twitter:title" content={getTitle(m.imprint_h1())} />
+	<meta name="twitter:description" content={m.imprint_h1()} />
 	<title>{getTitle(m.imprint_h1())}</title>
 </svelte:head>
 

@@ -36,8 +36,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.hub_hero_body()} />
+	<meta property="og:title" content={getTitle('Blossom Hub')} />
 	<meta property="og:description" content={m.hub_hero_body()} />
-	<meta property="twitter:description" content={m.hub_hero_body()} />
+	<meta name="twitter:title" content={getTitle('Blossom Hub')} />
+	<meta name="twitter:description" content={m.hub_hero_body()} />
 	<title>{getTitle('Blossom Hub')}</title>
 </svelte:head>
 

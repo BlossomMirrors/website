@@ -68,8 +68,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.releases_subtitle()} />
+	<meta property="og:title" content={getTitle(m.releases_subheader())} />
 	<meta property="og:description" content={m.releases_subtitle()} />
-	<meta property="twitter:description" content={m.releases_subtitle()} />
+	<meta name="twitter:title" content={getTitle(m.releases_subheader())} />
+	<meta name="twitter:description" content={m.releases_subtitle()} />
 	<title>{getTitle(m.releases_subheader())}</title>
 </svelte:head>
 

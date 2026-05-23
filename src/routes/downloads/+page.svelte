@@ -22,8 +22,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.downloads_subtitle()} />
+	<meta property="og:title" content={getTitle(m.downloads_subheader())} />
 	<meta property="og:description" content={m.downloads_subtitle()} />
-	<meta property="twitter:description" content={m.downloads_subtitle()} />
+	<meta name="twitter:title" content={getTitle(m.downloads_subheader())} />
+	<meta name="twitter:description" content={m.downloads_subtitle()} />
 	<title>{getTitle(m.downloads_subheader())}</title>
 </svelte:head>
 

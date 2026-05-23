@@ -23,8 +23,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.privacy_intro()} />
+	<meta property="og:title" content={getTitle(m.privacy_h1())} />
 	<meta property="og:description" content={m.privacy_intro()} />
-	<meta property="twitter:description" content={m.privacy_intro()} />
+	<meta name="twitter:title" content={getTitle(m.privacy_h1())} />
+	<meta name="twitter:description" content={m.privacy_intro()} />
 	<title>{getTitle(m.privacy_h1())}</title>
 </svelte:head>
 

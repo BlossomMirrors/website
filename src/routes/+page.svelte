@@ -18,8 +18,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.home_subtitle()} />
+	<meta property="og:title" content={getTitle('BlossomOS')} />
 	<meta property="og:description" content={m.home_subtitle()} />
-	<meta property="twitter:description" content={m.home_subtitle()} />
+	<meta name="twitter:title" content={getTitle('BlossomOS')} />
+	<meta name="twitter:description" content={m.home_subtitle()} />
 	<title>{getTitle('BlossomOS')}</title>
 </svelte:head>
 

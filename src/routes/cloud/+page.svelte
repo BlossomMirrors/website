@@ -46,8 +46,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.cloud_page_subtitle()} />
+	<meta property="og:title" content={getTitle('Blossom Cloud')} />
 	<meta property="og:description" content={m.cloud_page_subtitle()} />
-	<meta property="twitter:description" content={m.cloud_page_subtitle()} />
+	<meta name="twitter:title" content={getTitle('Blossom Cloud')} />
+	<meta name="twitter:description" content={m.cloud_page_subtitle()} />
 	<title>{getTitle('Blossom Cloud')}</title>
 </svelte:head>
 

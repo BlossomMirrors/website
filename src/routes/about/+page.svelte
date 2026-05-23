@@ -45,8 +45,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.about_hero_body()} />
+	<meta property="og:title" content={getTitle(m.about_tagline())} />
 	<meta property="og:description" content={m.about_hero_body()} />
-	<meta property="twitter:description" content={m.about_hero_body()} />
+	<meta name="twitter:title" content={getTitle(m.about_tagline())} />
+	<meta name="twitter:description" content={m.about_hero_body()} />
 	<title>{getTitle(m.about_tagline())}</title>
 </svelte:head>
 

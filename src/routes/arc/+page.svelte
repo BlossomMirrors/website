@@ -25,8 +25,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.arc_page_subtitle()} />
+	<meta property="og:title" content={getTitle('Arc Software')} />
 	<meta property="og:description" content={m.arc_page_subtitle()} />
-	<meta property="twitter:description" content={m.arc_page_subtitle()} />
+	<meta name="twitter:title" content={getTitle('Arc Software')} />
+	<meta name="twitter:description" content={m.arc_page_subtitle()} />
 	<title>{getTitle('Arc Software')}</title>
 </svelte:head>
 

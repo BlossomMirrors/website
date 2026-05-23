@@ -114,8 +114,10 @@
 
 <svelte:head>
 	<meta name="description" content={m.events_subtitle()} />
+	<meta property="og:title" content={getTitle(m.events())} />
 	<meta property="og:description" content={m.events_subtitle()} />
-	<meta property="twitter:description" content={m.events_subtitle()} />
+	<meta name="twitter:title" content={getTitle(m.events())} />
+	<meta name="twitter:description" content={m.events_subtitle()} />
 	<title>{getTitle(m.events())}</title>
 </svelte:head>
 
