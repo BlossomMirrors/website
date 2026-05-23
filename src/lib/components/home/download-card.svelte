@@ -58,8 +58,8 @@
 		gpu = detectGPU();
 		rafId = requestAnimationFrame(loop);
 		Promise.all([
-			fetch(`${CDN}/isodata.json`).then((r) => r.json()),
-			fetch(`${CDN}/isodata-nvidia-open.json`).then((r) => r.json())
+			fetch(`${CDN}/isodata.json?${Date.now()}`).then((r) => r.json()),
+			fetch(`${CDN}/isodata-nvidia-open.json?${Date.now()}`).then((r) => r.json())
 		]).then(([std, nvidia]) => {
 			standard = std;
 			nvidiaOpen = nvidia;

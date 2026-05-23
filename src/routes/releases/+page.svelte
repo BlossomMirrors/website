@@ -13,7 +13,7 @@
 	let currentVersion = $state<string | null>(null);
 
 	onMount(() => {
-		fetch(`${CDN}/isodata.json`)
+		fetch(`${CDN}/isodata.json?${Date.now()}`)
 			.then((r) => r.json())
 			.then((d: { name: string }) => {
 				currentVersion = d.name.match(/BlossomOS-(.+?)-x86_64/)?.[1] ?? null;
