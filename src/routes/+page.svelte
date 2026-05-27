@@ -8,12 +8,30 @@
 	import CrtSection from '$lib/components/home/crt-section.svelte';
 	import CloudSection from '$lib/components/home/cloud-section.svelte';
 	import BusinessSection from '$lib/components/home/business-section.svelte';
+	import SovereigntySection from '$lib/components/home/sovereignty-section.svelte';
 	import LessMoreSection from '$lib/components/home/less-more-section.svelte';
 	import CommunitySection from '$lib/components/home/community-section.svelte';
 	import DownloadCta from '$lib/components/home/download-cta.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import DownloadCard from '$lib/components/home/download-card.svelte';
 	import { getTitle } from '$lib/utils';
+	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import CheckCircleIcon from '@lucide/svelte/icons/check-circle';
+
+	let toast = $state<string | null>(null);
+
+	onMount(() => {
+		const params = new URLSearchParams(window.location.search);
+		const newsletter = params.get('newsletter');
+		if (newsletter === 'confirmed') {
+			toast = m.newsletter_confirmed_toast();
+			params.delete('newsletter');
+			const newUrl = window.location.pathname + (params.size ? `?${params}` : '');
+			history.replaceState(null, '', newUrl);
+			setTimeout(() => (toast = null), 5000);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -49,9 +67,20 @@
 <GamingSection />
 <CloudSection />
 <BusinessSection />
+<SovereigntySection />
 <LessMoreSection />
 <CommunitySection />
 <DownloadCta />
+
+{#if toast}
+	<div
+		transition:fly={{ y: 16, duration: 250 }}
+		class="fixed right-4 bottom-4 z-50 flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-lg"
+	>
+		<CheckCircleIcon size={16} class="shrink-0 text-primary" />
+		<span class="text-sm font-medium">{toast}</span>
+	</div>
+{/if}
 
 <style>
 	@keyframes screen-on {

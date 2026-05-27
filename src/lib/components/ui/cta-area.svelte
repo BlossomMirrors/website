@@ -3,6 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
+	import NewsletterForm from '$lib/components/ui/newsletter-form.svelte';
 
 	type Props = {
 		button1Text: string;
@@ -13,6 +14,7 @@
 		title2?: string;
 		body: string;
 		discord?: boolean;
+		newsletter?: boolean;
 	};
 
 	let onlineCount: number | null = $state(null);
@@ -57,6 +59,12 @@
 				{onlineCount?.toLocaleString()}
 				{m.discord_online()}
 			</p>
+		{/if}
+		{#if props.newsletter}
+			<div class="mt-8 max-w-sm">
+				<p class="mb-2 text-sm font-medium text-muted-foreground">{m.newsletter_label()}</p>
+				<NewsletterForm />
+			</div>
 		{/if}
 		<div class="mt-8 flex flex-wrap gap-3">
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->

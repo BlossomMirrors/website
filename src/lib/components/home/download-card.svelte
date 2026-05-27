@@ -4,8 +4,13 @@
 	import { tweened } from 'svelte/motion';
 	import { cubicInOut } from 'svelte/easing';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Disc3 } from '@lucide/svelte';
 	import DownloadIcon from '$lib/components/movingicons/download.svelte';
+	import HeartIcon from '@lucide/svelte/icons/heart';
+	import Logo from '$lib/components/logo.svelte';
+	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
+	import NewsletterForm from '$lib/components/ui/newsletter-form.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { UseClipboard } from '$lib/hooks/use-clipboard.svelte';
 	import { cn } from '$lib/utils.js';
@@ -82,6 +87,8 @@
 		rafId = requestAnimationFrame(loop);
 	}
 
+	let dialogOpen = $state(false);
+
 	function downloadClick(e: MouseEvent, label: string) {
 		if (e.shiftKey) e.preventDefault();
 		clearTimeout(spinTimer);
@@ -92,6 +99,7 @@
 			novideo.currentTime = 0;
 			novideo.play();
 		}
+		dialogOpen = true;
 	}
 
 	const isos = $derived([
@@ -113,6 +121,53 @@
 </script>
 
 <audio id="novideo" src="/novideo.mp3"></audio>
+
+<Dialog.Root bind:open={dialogOpen}>
+	<Dialog.Content class="gap-0 overflow-hidden p-0 sm:max-w-md" hideClose={false}>
+		<!-- Gradient header -->
+		<div class="relative overflow-hidden bg-linear-to-br from-primary/15 via-primary/5 to-transparent px-8 pb-6 pt-8">
+			<div class="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-primary/15 blur-2xl"></div>
+			<div class="pointer-events-none absolute bottom-0 left-1/3 h-20 w-20 rounded-full bg-primary/10 blur-xl"></div>
+			<div class="relative">
+				<Logo size={30} />
+				<h2 class="mt-4 font-serif text-3xl leading-tight">{m.download_dialog_title()}</h2>
+			</div>
+		</div>
+
+		<!-- Body -->
+		<div class="px-8 py-5">
+			<p class="text-sm leading-relaxed text-muted-foreground">{m.download_dialog_body()}</p>
+		</div>
+
+		<!-- Action buttons -->
+		<div class="grid grid-cols-2 gap-3 px-6">
+			<a
+				href="https://discord.gg/dTqsBdxvNr"
+				target="_blank"
+				rel="noreferrer"
+				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
+			>
+				<DiscordIcon size={16} />
+				{m.download_dialog_community()}
+			</a>
+			<a
+				href="https://liberapay.com/blossomos"
+				target="_blank"
+				rel="noreferrer"
+				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
+			>
+				<HeartIcon size={16} class="text-destructive" strokeWidth={0} fill="currentColor" />
+				{m.download_dialog_support()}
+			</a>
+		</div>
+
+		<!-- Newsletter -->
+		<div class="px-6 pb-6 pt-4">
+			<p class="mb-2 text-xs font-medium text-muted-foreground">{m.newsletter_label()}</p>
+			<NewsletterForm />
+		</div>
+	</Dialog.Content>
+</Dialog.Root>
 
 <div class={cn('overflow-hidden rounded-2xl border border-border bg-card shadow-sm', className)}>
 	<!-- Header -->
@@ -202,3 +257,4 @@
 		{/each}
 	</div>
 </div>
+

@@ -55,6 +55,7 @@
 		"lottie-web": "^5.13.0",
 		"lucide-svelte": "^1.0.1",
 		"marked": "^18.0.4",
-		"mode-watcher": "^1.1.0"
+		"mode-watcher": "^1.1.0",
+		"resend": "^6.12.4"
 	}
 }

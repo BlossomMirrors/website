@@ -8,6 +8,8 @@
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import XIcon from '@lucide/svelte/icons/x';
+	import ArrowRightLeftIcon from '@lucide/svelte/icons/arrow-right-left';
+	import HeartIcon from '@lucide/svelte/icons/heart';
 	import { Building2Icon, CloudIcon, ShoppingBagIcon, UserIcon } from 'lucide-svelte';
 	import Logo from '$lib/components/logo.svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -23,6 +25,7 @@
 		{
 			type: 'dropdown',
 			label: m.products(),
+			singleCol: true,
 			items: [
 				{
 					label: 'BlossomOS',
@@ -48,6 +51,13 @@
 					description: m.hub_tooltip(),
 					badge: m.coming_soon(),
 					icon: Building2Icon
+				},
+				{
+					label: 'Switch',
+					href: '/switch',
+					description: m.switch_nav_description(),
+					badge: m.coming_soon(),
+					icon: ArrowRightLeftIcon
 				}
 			]
 		},
@@ -134,37 +144,42 @@
 	style={isMobile.current ? `transform: translateY(${translateY.current}%)` : ''}
 >
 	<div class="mx-auto flex max-w-7xl items-center px-4 py-4 md:px-8">
-	<div class="flex items-center gap-1">
-		<!-- eslint-disable svelte/no-navigation-without-resolve -->
-		<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
-			<Logo size={32} />
-			<span class="font-serif text-xl">
-				{title}
-			</span>
-		</a>
-		<div class="hidden md:block">
-			<Navbar items={nav} />
+		<div class="flex items-center gap-1">
+			<!-- eslint-disable svelte/no-navigation-without-resolve -->
+			<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
+				<Logo size={32} />
+				<span class="font-serif text-xl">
+					{title}
+				</span>
+			</a>
+			<div class="hidden md:block">
+				<Navbar items={nav} />
+			</div>
 		</div>
-	</div>
 
-	<div class="ml-auto flex shrink-0 items-center gap-2">
-		<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer" class="hidden sm:block">
-			<Button><UserIcon strokeWidth={1.5} />{m.account()}</Button>
-		</a>
-		<LanguageSwitcher />
-		<ModeToggle />
-		<button
-			class="flex h-9 w-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/8 md:hidden"
-			onclick={() => (mobileOpen = !mobileOpen)}
-			aria-label="Toggle menu"
-		>
-			{#if mobileOpen}
-				<XIcon size={20} />
-			{:else}
-				<MenuIcon size={20} />
-			{/if}
-		</button>
-	</div>
+		<div class="ml-auto flex shrink-0 items-center gap-2">
+			<a href="https://liberapay.com/blossomos" target="_blank" rel="noreferrer" class="hidden sm:block">
+				<Button variant="ghost" class="text-destructive hover:bg-destructive/10 hover:text-destructive">
+					<HeartIcon size={14} strokeWidth={0} fill="currentColor" />{m.donate_nav()}
+				</Button>
+			</a>
+			<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer" class="hidden sm:block">
+				<Button><UserIcon strokeWidth={1.5} />{m.account()}</Button>
+			</a>
+			<LanguageSwitcher />
+			<ModeToggle />
+			<button
+				class="flex h-9 w-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/8 md:hidden"
+				onclick={() => (mobileOpen = !mobileOpen)}
+				aria-label="Toggle menu"
+			>
+				{#if mobileOpen}
+					<XIcon size={20} />
+				{:else}
+					<MenuIcon size={20} />
+				{/if}
+			</button>
+		</div>
 	</div>
 
 	{#if mobileOpen}
@@ -207,9 +222,14 @@
 					{/each}
 				{/if}
 			{/each}
-			<div class="mt-3 border-t border-border pt-3">
+			<div class="mt-3 flex flex-col gap-2 border-t border-border pt-3">
 				<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer">
 					<Button class="w-full"><UserIcon strokeWidth={1.5} />{m.account()}</Button>
+				</a>
+				<a href="https://liberapay.com/blossomos" target="_blank" rel="noreferrer">
+					<Button variant="ghost" class="w-full text-destructive hover:bg-destructive/10 hover:text-destructive">
+						<HeartIcon size={14} strokeWidth={0} fill="currentColor" />{m.donate_nav()}
+					</Button>
 				</a>
 			</div>
 		</div>

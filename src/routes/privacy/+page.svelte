@@ -14,6 +14,7 @@
 		{ h2: m.privacy_matrix_h2(), body: m.privacy_matrix_body({ email: getEmail() }) },
 		{ h2: m.privacy_forums_h2(), body: m.privacy_forums_body({ email: getEmail() }) },
 		{ h2: m.privacy_analytics_h2(), body: m.privacy_analytics_body({ email: getEmail() }) },
+		{ h2: m.privacy_newsletter_h2(), body: m.privacy_newsletter_body({ email: getEmail() }) },
 		{ h2: m.privacy_cookies_h2(), body: m.privacy_cookies_body({ email: getEmail() }) },
 		{ h2: m.privacy_rights_h2(), body: m.privacy_rights_body({ email: getEmail() }) },
 		{ h2: m.privacy_contact_h2(), body: m.privacy_contact_body({ email: getEmail() }) },

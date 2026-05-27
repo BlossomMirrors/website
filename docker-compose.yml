@@ -9,6 +9,9 @@ services:
     environment:
       PORT: '4173'
       NODE_ENV: 'production'
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      NEWSLETTER_SECRET: ${NEWSLETTER_SECRET:-}
+      NEWSLETTER_FROM: ${NEWSLETTER_FROM:-}
     restart: unless-stopped
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:4173/']

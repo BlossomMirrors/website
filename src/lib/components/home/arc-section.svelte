@@ -54,37 +54,47 @@
 		Spotify: 0
 	});
 	let activeTab = $state<'installed' | 'downloads'>('downloads');
+	let sectionEl = $state<HTMLElement | null>(null);
+	let visible = $state(false);
 
 	onMount(() => {
 		isLinux = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
 
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					visible = true;
+					observer.disconnect();
+				}
+			},
+			{ threshold: 0.2 }
+		);
+		if (sectionEl) observer.observe(sectionEl);
+		return () => observer.disconnect();
+	});
+
+	$effect(() => {
+		if (!visible) return;
+
 		const WhatsApp = setInterval(() => {
-			if (progress['WhatsApp'] >= 100) {
-				clearInterval(WhatsApp);
-				return;
-			}
+			if (progress['WhatsApp'] >= 100) { clearInterval(WhatsApp); return; }
 			progress['WhatsApp'] = Math.min(100, progress['WhatsApp'] + 1);
 		}, 120);
 
 		const Netflix = setInterval(() => {
-			if (progress['Netflix'] >= 100) {
-				clearInterval(Netflix);
-				return;
-			}
+			if (progress['Netflix'] >= 100) { clearInterval(Netflix); return; }
 			progress['Netflix'] = Math.min(100, progress['Netflix'] + 1);
 		}, 200);
 
 		const Spotify = setInterval(() => {
-			if (progress['Spotify'] >= 100) {
-				clearInterval(Spotify);
-				return;
-			}
+			if (progress['Spotify'] >= 100) { clearInterval(Spotify); return; }
 			progress['Spotify'] = Math.min(100, progress['Spotify'] + 1);
 		}, 200);
 
 		return () => {
 			clearInterval(WhatsApp);
 			clearInterval(Netflix);
+			clearInterval(Spotify);
 		};
 	});
 
@@ -93,7 +103,7 @@
 	}
 </script>
 
-<section class="py-24 md:py-36">
+<section class="py-24 md:py-36" bind:this={sectionEl}>
 	<div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
 		<div use:reveal>
 			<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Arc Software</p>
