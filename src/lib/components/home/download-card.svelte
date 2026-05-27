@@ -125,11 +125,16 @@
 <Dialog.Root bind:open={dialogOpen}>
 	<Dialog.Content class="gap-0 overflow-hidden p-0 sm:max-w-md" hideClose={false}>
 		<!-- Gradient header -->
-		<div class="relative overflow-hidden bg-linear-to-br from-primary/15 via-primary/5 to-transparent px-8 pb-6 pt-8">
-			<div class="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-primary/15 blur-2xl"></div>
-			<div class="pointer-events-none absolute bottom-0 left-1/3 h-20 w-20 rounded-full bg-primary/10 blur-xl"></div>
+		<div
+			class="relative overflow-hidden bg-linear-to-br from-primary/15 via-primary/5 to-transparent px-8 pt-8 pb-6"
+		>
+			<div
+				class="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-primary/15 blur-2xl"
+			></div>
+			<div
+				class="pointer-events-none absolute bottom-0 left-1/3 h-20 w-20 rounded-full bg-primary/10 blur-xl"
+			></div>
 			<div class="relative">
-				<Logo size={30} />
 				<h2 class="mt-4 font-serif text-3xl leading-tight">{m.download_dialog_title()}</h2>
 			</div>
 		</div>
@@ -142,27 +147,27 @@
 		<!-- Action buttons -->
 		<div class="grid grid-cols-2 gap-3 px-6">
 			<a
-				href="https://discord.gg/dTqsBdxvNr"
-				target="_blank"
-				rel="noreferrer"
-				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
-			>
-				<DiscordIcon size={16} />
-				{m.download_dialog_community()}
-			</a>
-			<a
 				href="https://liberapay.com/blossomos"
 				target="_blank"
 				rel="noreferrer"
-				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
+				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-xs font-medium transition-colors hover:bg-muted"
 			>
 				<HeartIcon size={16} class="text-destructive" strokeWidth={0} fill="currentColor" />
 				{m.download_dialog_support()}
 			</a>
+			<a
+				href="https://discord.gg/dTqsBdxvNr"
+				target="_blank"
+				rel="noreferrer"
+				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-xs font-medium transition-colors hover:bg-muted"
+			>
+				<DiscordIcon size={16} />
+				{m.download_dialog_community()}
+			</a>
 		</div>
 
 		<!-- Newsletter -->
-		<div class="px-6 pb-6 pt-4">
+		<div class="px-6 pt-4 pb-6">
 			<p class="mb-2 text-xs font-medium text-muted-foreground">{m.newsletter_label()}</p>
 			<NewsletterForm />
 		</div>
@@ -257,4 +262,3 @@
 		{/each}
 	</div>
 </div>
-

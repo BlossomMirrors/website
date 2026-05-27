@@ -363,7 +363,7 @@
 	"downloads_presskit_icon": "Icon (SVG)",
 	"downloads_presskit_full": "Full press kit",
 	"downloads_presskit_note": "Please review our brand guidelines before use.",
-	"donate_subheader": "Support the project",
+	"donate_subheader": "Donate",
 	"donate_header": "Support Blossom today.",
 	"donate_body": "Our funding comes from the support of our community and partners rather than from ads. This means we can keep building Blossom for the long haul without having to compromise on the product or your privacy.",
 	"donate_cta": "Donate on Liberapay",
@@ -437,7 +437,7 @@
 	"download_dialog_title": "Thanks for downloading.",
 	"download_dialog_body": "BlossomOS is built with care by a small community, and every person who tries it genuinely matters to us. We hope you love it and we'd love to hear what you think.",
 	"download_dialog_community": "Join the community",
-	"download_dialog_support": "Support the project",
+	"download_dialog_support": "Donate",
 	"newsletter_label": "Stay in the loop",
 	"newsletter_placeholder": "your@email.com",
 	"newsletter_submit": "Subscribe",
@@ -490,5 +490,5 @@
 	"switch_sov_nolock_title": "No vendor lock-in",
 	"switch_sov_nolock_body": "Open standards and open formats throughout. Your documents, data, and workflows belong to you, not to a subscription.",
 	"switch_sov_cost_title": "License-free",
-	"switch_sov_cost_body": "No per-seat fees, no forced upgrades, no surprise costs. Deploy on existing hardware and stay in full control of your IT budget."
+	"switch_sov_cost_body": "Free to use for everyone. Professional support plans are available for organisations that need them."
 }
