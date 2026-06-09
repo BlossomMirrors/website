@@ -165,7 +165,7 @@
 	<p class="mt-12 text-center text-sm text-muted-foreground" use:reveal>
 		{m.releases_footer()}
 		<a
-			href="https://git.blossomos.org/Blossom"
+			href="https://dev.blossomos.org/Blossom"
 			target="_blank"
 			rel="noreferrer"
 			class="text-primary hover:underline"

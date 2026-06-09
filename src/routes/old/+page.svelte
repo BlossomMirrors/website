@@ -69,7 +69,7 @@
 	button1Text={m.home_mission_about()}
 	button2Text={m.home_view_source()}
 	button1Href="/about"
-	button2Href="https://git.blossomos.org/Blossom"
+	button2Href="https://dev.blossomos.org/Blossom"
 />
 
 <DonateBanner />

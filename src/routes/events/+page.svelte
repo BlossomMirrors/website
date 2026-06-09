@@ -63,7 +63,7 @@
 			location: 'YouTube / Peertube',
 			online: true,
 			image: 'https://images.unsplash.com/photo-1582192730841-2a682d7375f9?w=800&fit=crop',
-			talkHref: 'https://git.blossomos.org/Blossom'
+			talkHref: 'https://dev.blossomos.org/Blossom'
 		},
 		{
 			id: 'fosdem-2026',

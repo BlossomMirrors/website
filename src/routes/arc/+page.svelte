@@ -47,7 +47,7 @@
 			<a href="/">
 				<Button variant="primary">{m.cta_download()}</Button>
 			</a>
-			<a href="https://git.blossomos.org/Blossom" target="_blank" rel="noreferrer">
+			<a href="https://dev.blossomos.org/Blossom" target="_blank" rel="noreferrer">
 				<Button>{m.home_view_source()}</Button>
 			</a>
 		</div>

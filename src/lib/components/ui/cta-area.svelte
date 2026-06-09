@@ -77,7 +77,7 @@
 				<Button variant="primary">{props.button1Text}</Button>
 			</a>
 			<a
-				href={props.button2Href ?? 'https://git.blossomos.org/Blossom'}
+				href={props.button2Href ?? 'https://dev.blossomos.org/Blossom'}
 				target={props.button2Href?.startsWith('http') && props.button2Href.includes('://')
 					? '_blank'
 					: undefined}

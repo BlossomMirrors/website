@@ -40,7 +40,7 @@
 				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr' },
 				{
 					label: m.footer_link_git(),
-					href: 'https://git.blossomos.org/Blossom'
+					href: 'https://dev.blossomos.org/Blossom'
 				}
 			]
 		}
