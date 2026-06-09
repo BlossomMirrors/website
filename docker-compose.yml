@@ -1,9 +1,6 @@
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: blossom-website:latest
+    image: registry.blossomos.org/blossom/website/main:latest
     ports:
       - '4173:4173'
     environment:
