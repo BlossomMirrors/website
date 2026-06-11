@@ -12,6 +12,7 @@
 	import LessMoreSection from '$lib/components/home/less-more-section.svelte';
 	import CommunitySection from '$lib/components/home/community-section.svelte';
 	import DownloadCta from '$lib/components/home/download-cta.svelte';
+	import GameCopyright from '$lib/components/home/game-copyright.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import DownloadCard from '$lib/components/home/download-card.svelte';
 	import { getTitle } from '$lib/utils';
@@ -71,6 +72,7 @@
 <LessMoreSection />
 <CommunitySection />
 <DownloadCta />
+<GameCopyright />
 
 {#if toast}
 	<div
