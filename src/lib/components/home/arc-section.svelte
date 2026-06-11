@@ -131,37 +131,36 @@
 				icon={arcPng}
 				embedded
 				closable={false}
-				bgClass="bg-neutral-900"
 			>
 				<!-- Toolbar -->
-				<div class="hidden items-center gap-2 border-b border-white/8 px-3 py-2 sm:flex">
+				<div class="hidden items-center gap-2 border-b border-border px-3 py-2 sm:flex">
 					<button
-						class="flex h-7 w-7 items-center justify-center rounded-md text-white/40 hover:bg-white/8"
+						class="flex h-7 w-7 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/8"
 					>
 						<HomeIcon size={14} />
 					</button>
 					<div
-						class="flex flex-1 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2.5 py-1.5"
+						class="flex flex-1 items-center gap-2 rounded-md border border-border bg-background px-2.5 py-1.5"
 					>
-						<SearchIcon size={13} class="text-white/30" />
-						<span class="text-xs text-white/30">{m.arc_search_placeholder()}</span>
+						<SearchIcon size={13} class="text-foreground/60" />
+						<span class="text-xs text-foreground/60">{m.arc_search_placeholder()}</span>
 					</div>
-					<div class="flex items-center overflow-hidden rounded-md border border-white/10 text-xs">
+					<div class="flex items-center overflow-hidden rounded-md border border-border text-xs">
 						<button
 							class="px-3 py-1.5 transition-colors {activeTab === 'installed'
-								? 'bg-white/15 text-white'
-								: 'text-white/40 hover:text-white/60'}"
+								? 'bg-foreground/15 text-foreground'
+								: 'text-foreground/60 hover:text-foreground'}"
 							onclick={() => (activeTab = 'installed')}>{m.arc_tab_installed()}</button
 						>
 						<button
 							class="px-3 py-1.5 transition-colors {activeTab === 'downloads'
-								? 'bg-white/15 text-white'
-								: 'text-white/40 hover:text-white/60'}"
+								? 'bg-foreground/15 text-foreground'
+								: 'text-foreground/60 hover:text-foreground'}"
 							onclick={() => (activeTab = 'downloads')}>{m.arc_tab_downloads()}</button
 						>
 					</div>
 					<button
-						class="flex h-7 w-7 items-center justify-center rounded-md text-white/40 hover:bg-white/8"
+						class="flex h-7 w-7 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/8"
 					>
 						<SlidersHorizontalIcon size={14} />
 					</button>
@@ -172,9 +171,9 @@
 				{#if activeTab === 'downloads'}
 					<div class="p-4">
 						<div class="mb-3 flex items-center justify-between">
-							<span class="text-sm font-bold text-white">{m.arc_tab_downloads()}</span>
+							<span class="text-sm font-bold text-foreground">{m.arc_tab_downloads()}</span>
 							<button
-								class="rounded-md border border-white/15 px-3 py-1 text-xs text-white/60 hover:bg-white/8"
+								class="rounded-md border border-border px-3 py-1 text-xs text-foreground/60 hover:bg-foreground/8"
 							>
 								{m.arc_check_updates()}
 							</button>
@@ -183,21 +182,21 @@
 						<div class="flex flex-col gap-2">
 							{#each demoApps as app (app.name)}
 								{@const pct = progress[app.name] ?? 0}
-								<div class="flex items-center gap-3 rounded-xl bg-white/5 px-3 py-3">
+								<div class="flex items-center gap-3 rounded-xl bg-muted px-3 py-3">
 									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
 										<enhanced:img src={app.image} alt={app.name} sizes="32px" class="h-8 w-8" />
 									</div>
 									<div class="min-w-0 flex-1">
 										<div class="mb-1 flex items-center justify-between">
-											<span class="text-sm font-medium text-white">{app.name}</span>
+											<span class="text-sm font-medium text-foreground">{app.name}</span>
 											<div class="flex items-center gap-2">
-												<span class="text-xs text-white/40">
+												<span class="text-xs text-foreground/60">
 													{pct < 100 ? m.arc_installing() : m.arc_installed_status()}
 												</span>
 												<span class="text-xs font-semibold text-primary">{pct}%</span>
 											</div>
 										</div>
-										<div class="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+										<div class="h-1.5 w-full overflow-hidden rounded-full bg-border">
 											<div
 												class="h-full rounded-full bg-primary transition-all duration-300"
 												style="width: {pct}%"
@@ -217,16 +216,16 @@
 					</div>
 				{:else}
 					<div class="p-4">
-						<p class="mb-3 text-xs text-white/40">{m.arc_installed_apps()}</p>
+						<p class="mb-3 text-xs text-foreground/60">{m.arc_installed_apps()}</p>
 						<div class="flex flex-col gap-1">
 							{#each browseApps as app (app.appstreamId)}
 								<!-- eslint-disable svelte/no-navigation-without-resolve -->
 								<a
 									href={installUrl(app.appstreamId)}
-									class="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-white/8"
+									class="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-foreground/8"
 								>
 									<enhanced:img src={app.img} alt={app.name} sizes="32px" class="h-8 w-8 rounded-lg object-contain" />
-									<span class="flex-1 text-sm text-white/80">{app.name}</span>
+									<span class="flex-1 text-sm text-foreground/80">{app.name}</span>
 									<span class="text-xs text-primary"
 										>{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span
 									>
