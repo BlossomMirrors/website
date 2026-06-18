@@ -47,6 +47,7 @@
 				<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
 					{m.cloud_description()}
 				</p>
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a href="/cloud" class="mt-6 inline-block" onmouseenter={triggerArrow}>
 					<Button variant="primary"
 						>{m.learn_more()}<ArrowRight

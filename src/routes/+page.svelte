@@ -23,6 +23,7 @@
 	let toast = $state<string | null>(null);
 
 	onMount(() => {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		const params = new URLSearchParams(window.location.search);
 		const newsletter = params.get('newsletter');
 		if (newsletter === 'confirmed') {

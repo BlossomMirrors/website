@@ -96,7 +96,7 @@
 	}
 
 	$effect(() => {
-		mode.current;
+		void mode.current;
 		loadImage(wallpaperSrc()).then((loaded) => {
 			img = loaded;
 		});
