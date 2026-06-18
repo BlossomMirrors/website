@@ -5,6 +5,9 @@ services:
       - '4173:3000'
     environment:
       NODE_ENV: production
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      NEWSLETTER_SECRET: ${NEWSLETTER_SECRET}
+      NEWSLETTER_FROM: ${NEWSLETTER_FROM}
     healthcheck:
       test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/']
       interval: 30s
