@@ -1,5 +1,5 @@
 services:
-  help:
+  website:
     image: registry.blossomos.org/blossom/website:latest
     ports:
       - '4173:3000'
