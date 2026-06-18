@@ -1,18 +1,14 @@
 services:
-  web:
-    image: registry.blossomos.org/blossom/website/main:latest
+  help:
+    image: registry.blossomos.org/blossom/website:latest
     ports:
-      - '4173:4173'
+      - '4173:3000'
     environment:
-      PORT: '4173'
-      NODE_ENV: 'production'
-      RESEND_API_KEY: ${RESEND_API_KEY:-}
-      NEWSLETTER_SECRET: ${NEWSLETTER_SECRET:-}
-      NEWSLETTER_FROM: ${NEWSLETTER_FROM:-}
-    restart: unless-stopped
+      NODE_ENV: production
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:4173/']
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/']
       interval: 30s
-      timeout: 10s
+      timeout: 5s
       retries: 3
       start_period: 10s
+    restart: unless-stopped
