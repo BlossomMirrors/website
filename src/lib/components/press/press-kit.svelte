@@ -18,6 +18,7 @@
 		<p class="mb-6 text-muted-foreground">{m.press_kit_description()}</p>
 		<div class="flex flex-col gap-3">
 			{#each items as item (item.label)}
+				<!-- eslint-disable svelte/no-navigation-without-resolve -->
 				<a
 					href={item.file}
 					download

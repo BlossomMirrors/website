@@ -36,7 +36,10 @@
 					</div>
 					<div class="flex items-center gap-2">
 						{#each buttons as btn (btn)}
-							<WindowControl type={btn} {isDark} hovered={hoveredBtn === btn}
+							<WindowControl
+								type={btn}
+								{isDark}
+								hovered={hoveredBtn === btn}
 								onmouseenter={() => (hoveredBtn = btn)}
 								onmouseleave={() => (hoveredBtn = null)}
 							/>
@@ -45,17 +48,30 @@
 				</div>
 				<div class="h-32 overflow-hidden">
 					{#if isDark}
-						<enhanced:img src={wallpaperDark} alt="BlossomOS desktop" class="h-full w-full object-cover object-top" />
+						<enhanced:img
+							src={wallpaperDark}
+							alt="BlossomOS desktop"
+							class="h-full w-full object-cover object-top"
+						/>
 					{:else}
-						<enhanced:img src={wallpaperLight} alt="BlossomOS desktop" class="h-full w-full object-cover object-top" />
+						<enhanced:img
+							src={wallpaperLight}
+							alt="BlossomOS desktop"
+							class="h-full w-full object-cover object-top"
+						/>
 					{/if}
 				</div>
 			</div>
 
 			<!-- Zoomed button showcase -->
-			<div class="flex items-center justify-center gap-10 rounded-2xl border border-border bg-card/50 py-10">
+			<div
+				class="flex items-center justify-center gap-10 rounded-2xl border border-border bg-card/50 py-10"
+			>
 				{#each buttons as btn (btn)}
-					<WindowControl type={btn} {isDark} hovered={hoveredBtn === btn}
+					<WindowControl
+						type={btn}
+						{isDark}
+						hovered={hoveredBtn === btn}
 						class="!h-16 !w-16 transition-transform duration-150 hover:scale-110"
 						onmouseenter={() => (hoveredBtn = btn)}
 						onmouseleave={() => (hoveredBtn = null)}

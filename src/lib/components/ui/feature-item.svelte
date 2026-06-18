@@ -2,7 +2,14 @@
 	import { reveal } from '$lib/actions/reveal';
 	import * as m from '$lib/paraglide/messages';
 	import type { Component } from 'svelte';
-	let { Icon, img, label, done = true, delay = 0, color = 'primary' }: {
+	let {
+		Icon,
+		img,
+		label,
+		done = true,
+		delay = 0,
+		color = 'primary'
+	}: {
 		Icon?: Component<{ size?: number; strokeWidth?: number }>;
 		img?: import('vite-imagetools').Picture;
 		label: string;
@@ -15,8 +22,8 @@
 		!done
 			? 'bg-muted text-muted-foreground'
 			: color === 'amber'
-			? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
-			: 'bg-primary/10 text-primary'
+				? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+				: 'bg-primary/10 text-primary'
 	);
 </script>
 

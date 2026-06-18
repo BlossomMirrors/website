@@ -123,7 +123,10 @@
 								</ul>
 							{:else}
 								<ul
-									class={cn('grid gap-2 p-2', !item.singleCol && item.items.length > 4 ? 'w-125 grid-cols-2' : 'w-75')}
+									class={cn(
+										'grid gap-2 p-2',
+										!item.singleCol && item.items.length > 4 ? 'w-125 grid-cols-2' : 'w-75'
+									)}
 								>
 									{#each item.items as di (di.href)}
 										{@render DropdownItem(di)}

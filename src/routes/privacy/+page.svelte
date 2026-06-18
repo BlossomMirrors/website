@@ -47,7 +47,7 @@
 				<div>
 					<h2 class="mb-3 font-semibold">{s.h2}</h2>
 					<div
-						class="prose-sm prose-neutral dark:prose-invert prose max-w-none text-muted-foreground [&>p]:leading-relaxed [&>ul]:mt-2"
+						class="prose prose-sm max-w-none text-muted-foreground prose-neutral dark:prose-invert [&>p]:leading-relaxed [&>ul]:mt-2"
 					>
 						<!-- eslint-disable svelte/no-at-html-tags -->
 						{@html marked(s.body)}

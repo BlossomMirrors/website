@@ -83,11 +83,17 @@
 		{#each icons as icon (icon.label)}
 			<button
 				class="cursor-custom h-7 w-7 shrink-0 rounded-xl p-0.5 transition-transform duration-150 hover:brightness-130 sm:h-10 sm:w-10 sm:p-1"
+				aria-label={icon.label}
 				onmouseenter={(e) => showTooltip(icon, e.currentTarget)}
 				onmouseleave={() => (tooltip = null)}
 				onclick={() => onIconClick?.(icon.label)}
 			>
-				<enhanced:img src={icon.src} class="pointer-events-none h-full w-full" sizes="40px" alt={icon.label} />
+				<enhanced:img
+					src={icon.src}
+					class="pointer-events-none h-full w-full"
+					sizes="40px"
+					alt={icon.label}
+				/>
 			</button>
 		{/each}
 	</div>

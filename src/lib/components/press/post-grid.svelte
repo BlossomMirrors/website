@@ -44,10 +44,11 @@
 						</span>
 						<span class="flex items-center gap-1.5">
 							<ClockIcon size={12} />
-							{post.readingTime} {m.press_min_read()}
+							{post.readingTime}
+							{m.press_min_read()}
 						</span>
 					</div>
-					<h2 class="mb-2 font-semibold leading-snug">{post.title}</h2>
+					<h2 class="mb-2 leading-snug font-semibold">{post.title}</h2>
 					<p class="text-sm leading-relaxed text-muted-foreground">{post.description}</p>
 					<p class="mt-4 text-sm font-medium text-primary">{m.press_read_more()} →</p>
 				</div>

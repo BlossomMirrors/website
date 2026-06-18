@@ -75,12 +75,12 @@
 			type: 'link',
 			label: m.events(),
 			href: '/events'
-		},
+		},*/
 		{
 			type: 'link',
 			label: m.press(),
 			href: '/press'
-			},*/
+		},
 		{
 			type: 'dropdown',
 			label: m.community(),
@@ -158,8 +158,16 @@
 		</div>
 
 		<div class="ml-auto flex shrink-0 items-center gap-2">
-			<a href="https://liberapay.com/blossomos" target="_blank" rel="noreferrer" class="hidden sm:block">
-				<Button variant="ghost" class="text-destructive hover:bg-destructive/10 hover:text-destructive">
+			<a
+				href="https://liberapay.com/blossomos"
+				target="_blank"
+				rel="noreferrer"
+				class="hidden sm:block"
+			>
+				<Button
+					variant="ghost"
+					class="text-destructive hover:bg-destructive/10 hover:text-destructive"
+				>
 					<HeartIcon size={14} strokeWidth={0} fill="currentColor" />{m.donate_nav()}
 				</Button>
 			</a>
@@ -227,7 +235,10 @@
 					<Button class="w-full"><UserIcon strokeWidth={1.5} />{m.account()}</Button>
 				</a>
 				<a href="https://liberapay.com/blossomos" target="_blank" rel="noreferrer">
-					<Button variant="ghost" class="w-full text-destructive hover:bg-destructive/10 hover:text-destructive">
+					<Button
+						variant="ghost"
+						class="w-full text-destructive hover:bg-destructive/10 hover:text-destructive"
+					>
 						<HeartIcon size={14} strokeWidth={0} fill="currentColor" />{m.donate_nav()}
 					</Button>
 				</a>

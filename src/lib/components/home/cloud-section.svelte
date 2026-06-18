@@ -48,7 +48,13 @@
 					{m.cloud_description()}
 				</p>
 				<a href="/cloud" class="mt-6 inline-block" onmouseenter={triggerArrow}>
-					<Button variant="primary">{m.learn_more()}<ArrowRight size={16} animate={btnAnimating} class="pointer-events-none" /></Button>
+					<Button variant="primary"
+						>{m.learn_more()}<ArrowRight
+							size={16}
+							animate={btnAnimating}
+							class="pointer-events-none"
+						/></Button
+					>
 				</a>
 			</div>
 

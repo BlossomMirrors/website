@@ -2,7 +2,11 @@
 	import { reveal } from '$lib/actions/reveal';
 	import type { Snippet } from 'svelte';
 
-	let { tagline, subtitle, children }: {
+	let {
+		tagline,
+		subtitle,
+		children
+	}: {
 		tagline: string;
 		subtitle: string;
 		children: Snippet;

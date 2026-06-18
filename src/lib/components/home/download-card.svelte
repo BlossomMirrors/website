@@ -8,7 +8,6 @@
 	import { Disc3 } from '@lucide/svelte';
 	import DownloadIcon from '$lib/components/movingicons/download.svelte';
 	import HeartIcon from '@lucide/svelte/icons/heart';
-	import Logo from '$lib/components/logo.svelte';
 	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
 	import NewsletterForm from '$lib/components/ui/newsletter-form.svelte';
 	import * as m from '$lib/paraglide/messages';

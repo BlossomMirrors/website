@@ -180,7 +180,12 @@
 								: '0.22s ease-in'} {folderOpen ? pi * 55 : (2 - pi) * 40}ms;
 							"
 						>
-							<enhanced:img src={photo.src} class="h-full w-full object-cover" sizes="100px" alt="" />
+							<enhanced:img
+								src={photo.src}
+								class="h-full w-full object-cover"
+								sizes="100px"
+								alt=""
+							/>
 						</div>
 					{/each}
 

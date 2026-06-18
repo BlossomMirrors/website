@@ -43,7 +43,7 @@
 				<div class="flex flex-col gap-4">
 					{#each operatorBlocks as block, i (i)}
 						<div
-							class="prose prose-sm prose-neutral dark:prose-invert max-w-none text-muted-foreground [&>p]:leading-relaxed"
+							class="prose prose-sm max-w-none text-muted-foreground prose-neutral dark:prose-invert [&>p]:leading-relaxed"
 						>
 							<!-- eslint-disable svelte/no-at-html-tags -->
 							{@html marked(block)}
@@ -56,7 +56,7 @@
 				<div>
 					<h2 class="mb-3 font-semibold">{s.h2}</h2>
 					<div
-						class="prose prose-sm prose-neutral dark:prose-invert max-w-none text-muted-foreground [&>p]:leading-relaxed [&>ul]:mt-2"
+						class="prose prose-sm max-w-none text-muted-foreground prose-neutral dark:prose-invert [&>p]:leading-relaxed [&>ul]:mt-2"
 					>
 						<!-- eslint-disable svelte/no-at-html-tags -->
 						{@html marked(s.body)}

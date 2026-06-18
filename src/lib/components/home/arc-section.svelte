@@ -77,17 +77,26 @@
 		if (!visible) return;
 
 		const WhatsApp = setInterval(() => {
-			if (progress['WhatsApp'] >= 100) { clearInterval(WhatsApp); return; }
+			if (progress['WhatsApp'] >= 100) {
+				clearInterval(WhatsApp);
+				return;
+			}
 			progress['WhatsApp'] = Math.min(100, progress['WhatsApp'] + 1);
 		}, 120);
 
 		const Netflix = setInterval(() => {
-			if (progress['Netflix'] >= 100) { clearInterval(Netflix); return; }
+			if (progress['Netflix'] >= 100) {
+				clearInterval(Netflix);
+				return;
+			}
 			progress['Netflix'] = Math.min(100, progress['Netflix'] + 1);
 		}, 200);
 
 		const Spotify = setInterval(() => {
-			if (progress['Spotify'] >= 100) { clearInterval(Spotify); return; }
+			if (progress['Spotify'] >= 100) {
+				clearInterval(Spotify);
+				return;
+			}
 			progress['Spotify'] = Math.min(100, progress['Spotify'] + 1);
 		}, 200);
 
@@ -119,19 +128,21 @@
 				</p>
 			{/if}
 			{#if learnMore}
+				<!-- eslint-disable svelte/no-navigation-without-resolve -->
 				<a href="/arc" class="mt-6 inline-block" onmouseenter={triggerArrow}>
-					<Button variant="primary">{m.learn_more()}<ArrowRight size={16} animate={btnAnimating} class="pointer-events-none" /></Button>
+					<Button variant="primary"
+						>{m.learn_more()}<ArrowRight
+							size={16}
+							animate={btnAnimating}
+							class="pointer-events-none"
+						/></Button
+					>
 				</a>
 			{/if}
 		</div>
 
 		<div use:reveal={120}>
-			<Window
-				title="Arc Software"
-				icon={arcPng}
-				embedded
-				closable={false}
-			>
+			<Window title="Arc Software" icon={arcPng} embedded closable={false}>
 				<!-- Toolbar -->
 				<div class="hidden items-center gap-2 border-b border-border px-3 py-2 sm:flex">
 					<button
@@ -168,72 +179,77 @@
 
 				<!-- Content -->
 				<div class="h-80 overflow-hidden">
-				{#if activeTab === 'downloads'}
-					<div class="p-4">
-						<div class="mb-3 flex items-center justify-between">
-							<span class="text-sm font-bold text-foreground">{m.arc_tab_downloads()}</span>
-							<button
-								class="rounded-md border border-border px-3 py-1 text-xs text-foreground/60 hover:bg-foreground/8"
-							>
-								{m.arc_check_updates()}
-							</button>
-						</div>
+					{#if activeTab === 'downloads'}
+						<div class="p-4">
+							<div class="mb-3 flex items-center justify-between">
+								<span class="text-sm font-bold text-foreground">{m.arc_tab_downloads()}</span>
+								<button
+									class="rounded-md border border-border px-3 py-1 text-xs text-foreground/60 hover:bg-foreground/8"
+								>
+									{m.arc_check_updates()}
+								</button>
+							</div>
 
-						<div class="flex flex-col gap-2">
-							{#each demoApps as app (app.name)}
-								{@const pct = progress[app.name] ?? 0}
-								<div class="flex items-center gap-3 rounded-xl bg-muted px-3 py-3">
-									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
-										<enhanced:img src={app.image} alt={app.name} sizes="32px" class="h-8 w-8" />
-									</div>
-									<div class="min-w-0 flex-1">
-										<div class="mb-1 flex items-center justify-between">
-											<span class="text-sm font-medium text-foreground">{app.name}</span>
-											<div class="flex items-center gap-2">
-												<span class="text-xs text-foreground/60">
-													{pct < 100 ? m.arc_installing() : m.arc_installed_status()}
-												</span>
-												<span class="text-xs font-semibold text-primary">{pct}%</span>
+							<div class="flex flex-col gap-2">
+								{#each demoApps as app (app.name)}
+									{@const pct = progress[app.name] ?? 0}
+									<div class="flex items-center gap-3 rounded-xl bg-muted px-3 py-3">
+										<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+											<enhanced:img src={app.image} alt={app.name} sizes="32px" class="h-8 w-8" />
+										</div>
+										<div class="min-w-0 flex-1">
+											<div class="mb-1 flex items-center justify-between">
+												<span class="text-sm font-medium text-foreground">{app.name}</span>
+												<div class="flex items-center gap-2">
+													<span class="text-xs text-foreground/60">
+														{pct < 100 ? m.arc_installing() : m.arc_installed_status()}
+													</span>
+													<span class="text-xs font-semibold text-primary">{pct}%</span>
+												</div>
+											</div>
+											<div class="h-1.5 w-full overflow-hidden rounded-full bg-border">
+												<div
+													class="h-full rounded-full bg-primary transition-all duration-300"
+													style="width: {pct}%"
+												></div>
 											</div>
 										</div>
-										<div class="h-1.5 w-full overflow-hidden rounded-full bg-border">
-											<div
-												class="h-full rounded-full bg-primary transition-all duration-300"
-												style="width: {pct}%"
-											></div>
-										</div>
+										{#if pct < 100}
+											<button
+												class="shrink-0 rounded-md bg-destructive px-2.5 py-1 text-xs font-semibold text-white"
+											>
+												{m.arc_cancel()}
+											</button>
+										{/if}
 									</div>
-									{#if pct < 100}
-										<button
-											class="shrink-0 rounded-md bg-destructive px-2.5 py-1 text-xs font-semibold text-white"
-										>
-											{m.arc_cancel()}
-										</button>
-									{/if}
-								</div>
-							{/each}
+								{/each}
+							</div>
 						</div>
-					</div>
-				{:else}
-					<div class="p-4">
-						<p class="mb-3 text-xs text-foreground/60">{m.arc_installed_apps()}</p>
-						<div class="flex flex-col gap-1">
-							{#each browseApps as app (app.appstreamId)}
-								<!-- eslint-disable svelte/no-navigation-without-resolve -->
-								<a
-									href={installUrl(app.appstreamId)}
-									class="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-foreground/8"
-								>
-									<enhanced:img src={app.img} alt={app.name} sizes="32px" class="h-8 w-8 rounded-lg object-contain" />
-									<span class="flex-1 text-sm text-foreground/80">{app.name}</span>
-									<span class="text-xs text-primary"
-										>{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span
+					{:else}
+						<div class="p-4">
+							<p class="mb-3 text-xs text-foreground/60">{m.arc_installed_apps()}</p>
+							<div class="flex flex-col gap-1">
+								{#each browseApps as app (app.appstreamId)}
+									<!-- eslint-disable svelte/no-navigation-without-resolve -->
+									<a
+										href={installUrl(app.appstreamId)}
+										class="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-foreground/8"
 									>
-								</a>
-							{/each}
+										<enhanced:img
+											src={app.img}
+											alt={app.name}
+											sizes="32px"
+											class="h-8 w-8 rounded-lg object-contain"
+										/>
+										<span class="flex-1 text-sm text-foreground/80">{app.name}</span>
+										<span class="text-xs text-primary"
+											>{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span
+										>
+									</a>
+								{/each}
+							</div>
 						</div>
-					</div>
-				{/if}
+					{/if}
 				</div>
 			</Window>
 		</div>
