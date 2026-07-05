@@ -29,8 +29,7 @@
 			heading: m.footer_resources(),
 			links: [
 				{ label: m.downloads(), href: '/downloads' },
-				{ label: m.footer_link_docs(), href: 'https://docs.blossomos.org' },
-				{ label: m.footer_link_releases(), href: '/releases' }
+				{ label: m.footer_link_docs(), href: 'https://docs.blossomos.org' }
 			]
 		},
 		{
