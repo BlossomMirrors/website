@@ -1,1 +1,16 @@
-{}
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "home_subtitle": "Nền tảng desktop cho tự do kỹ thuật số, cuối cùng đã sẵn sàng. Cài đặt bất kỳ phần mềm nào chỉ với một cú nhấp chuột, không gì hơn.",
+    "download_subtitle": "Chọn phiên bản phù hợp cho phần cứng của bạn.",
+    "download_button": "Tải về",
+    "recommended": "Khuyên dùng",
+    "iso_standard_desc": "Cho GPU của AMD và Intel. Lựa chọn phù hợp cho hầu hết người dùng.",
+    "iso_nvidia_desc": "Bao gồm driver mã nguồn mở của NVIDIA cho một trải nghiệm bắt đầu mượt mà.",
+    "dolphin_tooltip": "Trình quản lý tệp",
+    "helium_tooltip": "Trình duyệt",
+    "thunderbird_tooltip": "Trình duyệt Email",
+    "steam_tooltip": "Ứng dụng để quản lý và chơi game trên Steam",
+    "obsidian_tooltip": "Trình quản lý tệp nhớ",
+    "kamoso_take_picture": "Chụp ảnh",
+    "kamoso_start_sequence": "Bắt đầu quay video"
+}
