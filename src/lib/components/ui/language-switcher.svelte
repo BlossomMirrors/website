@@ -7,9 +7,10 @@
 
 	import enFlag from '$lib/components/icons/flags/en.svelte';
 	import deFlag from '$lib/components/icons/flags/de.svelte';
+	import viFlag from '$lib/components/icons/flags/vi.svelte';
 
-	const flags: Record<string, Component> = { en: enFlag, de: deFlag };
-	const labels: Record<string, string> = { en: 'English', de: 'Deutsch' };
+	const flags: Record<string, Component> = { en: enFlag, de: deFlag, vi: viFlag };
+	const labels: Record<string, string> = { en: 'English', de: 'Deutsch', vi: 'Tiếng Việt' };
 
 	let current = $state(getLocale());
 </script>
@@ -19,8 +20,8 @@
 	value={current}
 	onValueChange={(v) => {
 		if (v) {
-			current = v as 'de' | 'en';
-			setLocale(v as 'de' | 'en');
+			current = v as 'de' | 'en' | 'vi';
+			setLocale(v as 'de' | 'en' | 'vi');
 		}
 	}}
 >
