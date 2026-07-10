@@ -159,8 +159,8 @@
 							fill="rgba(0,0,0,0.25)"
 							transform="translate(0,2)"
 						/>
-						<rect x="0" y="14" width="80" height="54" rx="6" fill="#134ef7" />
-						<path d="M4 14 L4 9 Q4 5 8 5 L30 5 Q34 5 35.5 9 L37 14 Z" fill="#134ef7" />
+						<rect x="0" y="14" width="80" height="54" rx="6" fill="#1451ff" />
+						<path d="M4 14 L4 9 Q4 5 8 5 L30 5 Q34 5 35.5 9 L37 14 Z" fill="#1451ff" />
 					</svg>
 
 					<!-- Photos tucked inside — top edge peeks above front panel, scatter out on click -->
@@ -197,7 +197,7 @@
 						viewBox="0 0 80 68"
 						xmlns="http://www.w3.org/2000/svg"
 					>
-						<rect x="0" y="22" width="80" height="46" rx="6" fill="#134ef7" />
+						<rect x="0" y="22" width="80" height="46" rx="6" fill="#1451ff" />
 					</svg>
 				</div>
 			{/if}

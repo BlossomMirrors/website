@@ -70,7 +70,7 @@
 		style="left: {tooltip.x}px; bottom: {tooltip.bottom + 4}px;"
 	>
 		<div class="text-md text-foreground">{tooltip.label}</div>
-		<div class="mt-0.5 text-xs text-muted-foreground">{tooltip.subtitle}</div>
+		<div class="mt-0.5 text-xs text-foreground/70">{tooltip.subtitle}</div>
 	</div>
 {/if}
 

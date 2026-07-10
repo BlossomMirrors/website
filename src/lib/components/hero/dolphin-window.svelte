@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Window from './window.svelte';
+	import SvgIcon from './svg-icon.svelte';
 	import dolphinPng from '$lib/assets/taskbar/dolphin.png';
 	import ToolbarButton from './toolbar-button.svelte';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
@@ -7,11 +8,6 @@
 	import LayoutGridIcon from '@lucide/svelte/icons/layout-grid';
 	import SearchIcon from '@lucide/svelte/icons/search';
 	import MoreHorizontalIcon from '@lucide/svelte/icons/more-horizontal';
-	import Music2Icon from '@lucide/svelte/icons/music-2';
-	import CloudIcon from '@lucide/svelte/icons/cloud';
-	import CodeIcon from '@lucide/svelte/icons/code-2';
-	import UsersIcon from '@lucide/svelte/icons/users';
-	import CopyIcon from '@lucide/svelte/icons/copy';
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import HomeIcon from '@lucide/svelte/icons/house';
 	import FileTextIcon from '@lucide/svelte/icons/file-text';
@@ -27,6 +23,17 @@
 	import { ArrowLeftIcon, ArrowRightIcon } from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { SvelteMap, SvelteSet } from 'svelte/reactivity';
+
+	import desktopColor from '$lib/assets/icons/places/color/desktop.svg?raw';
+	import documentsColor from '$lib/assets/icons/places/color/documents.svg?raw';
+	import downloadsColor from '$lib/assets/icons/places/color/downloads.svg?raw';
+	import musicColor from '$lib/assets/icons/places/color/music.svg?raw';
+	import picturesColor from '$lib/assets/icons/places/color/pictures.svg?raw';
+	import videosColor from '$lib/assets/icons/places/color/videos.svg?raw';
+	import publicColor from '$lib/assets/icons/places/color/public.svg?raw';
+	import templatesColor from '$lib/assets/icons/places/color/templates.svg?raw';
+	import genericColor from '$lib/assets/icons/places/color/generic.svg?raw';
+	import cloudColor from '$lib/assets/icons/places/color/cloud.svg?raw';
 
 	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } =
 		$props();
@@ -127,17 +134,17 @@
 		{ id: 'backups', label: m.dolphin_backups(), icon: HardDriveIcon }
 	]);
 
-	const files = $derived<{ id: string; name: string; icon: unknown }[]>([
-		{ id: 'desktop', name: m.dolphin_desktop(), icon: MonitorIcon },
-		{ id: 'documents', name: m.dolphin_documents(), icon: FileTextIcon },
-		{ id: 'downloads', name: m.dolphin_downloads(), icon: DownloadIcon },
-		{ id: 'music', name: m.dolphin_music(), icon: Music2Icon },
-		{ id: 'pictures', name: m.dolphin_pictures(), icon: ImageIcon },
-		{ id: 'videos', name: m.dolphin_videos(), icon: VideoIcon },
-		{ id: 'public', name: m.dolphin_public(), icon: UsersIcon },
-		{ id: 'templates', name: m.dolphin_templates(), icon: CopyIcon },
-		{ id: 'projects', name: m.dolphin_projects(), icon: CodeIcon },
-		{ id: 'cloud', name: 'Blossom Cloud', icon: CloudIcon }
+	const files = $derived([
+		{ id: 'desktop', name: m.dolphin_desktop(), svg: desktopColor },
+		{ id: 'documents', name: m.dolphin_documents(), svg: documentsColor },
+		{ id: 'downloads', name: m.dolphin_downloads(), svg: downloadsColor },
+		{ id: 'music', name: m.dolphin_music(), svg: musicColor },
+		{ id: 'pictures', name: m.dolphin_pictures(), svg: picturesColor },
+		{ id: 'videos', name: m.dolphin_videos(), svg: videosColor },
+		{ id: 'public', name: m.dolphin_public(), svg: publicColor },
+		{ id: 'templates', name: m.dolphin_templates(), svg: templatesColor },
+		{ id: 'projects', name: m.dolphin_projects(), svg: genericColor },
+		{ id: 'cloud', name: 'Blossom Cloud', svg: cloudColor }
 	]);
 </script>
 
@@ -151,6 +158,7 @@
 	minH={400}
 	defaultW={700}
 	defaultH={536}
+	bgClass="bg-background"
 >
 	<!-- Toolbar -->
 	<div class="flex shrink-0 select-none" style="height:38px">
@@ -200,7 +208,7 @@
 				<button
 					class="my-1.5 flex w-full cursor-default items-center gap-1.5 rounded-sidebar-item px-2 py-1 text-left text-xs {p.id ===
 					'home'
-						? 'bg-primary/20 font-semibold text-primary'
+						? 'bg-primary font-semibold text-primary-foreground'
 						: 'text-foreground/70'}"
 				>
 					<p.icon size={16} class="shrink-0" />
@@ -256,14 +264,13 @@
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
 				bind:this={containerEl}
-				class="relative h-full rounded-md border border-border bg-muted/40 p-3"
+				class="relative h-full rounded-md border border-border bg-card p-3"
 				onpointerdown={gridDown}
 				onpointermove={gridMove}
 				onpointerup={gridUp}
 			>
 				<div class="grid grid-cols-3 gap-2 select-none sm:grid-cols-4">
 					{#each files as file (file.id)}
-						{@const Icon = file.icon as ConstructorOfATypedSvelteComponent | null | undefined}
 						<button
 							data-file={file.id}
 							use:registerFile={file.id}
@@ -274,7 +281,7 @@
 								: 'hover:bg-foreground/6'}"
 							onclick={() => (selectedFiles = new Set([file.id]))}
 						>
-							<Icon size={40} class="shrink-0 text-foreground/70" strokeWidth={1.2} />
+							<SvgIcon svg={file.svg} size={40} class="shrink-0" />
 							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground"
 								>{file.name}</span
 							>
@@ -285,7 +292,7 @@
 				<!-- Rubber band selection -->
 				{#if band}
 					<div
-						class="pointer-events-none absolute rounded-lg border border-blue-400/50 bg-blue-500/10"
+						class="pointer-events-none absolute rounded-lg border border-primary/50 bg-primary/10"
 						style="left:{band.x0}px;top:{band.y0}px;width:{band.x1 - band.x0}px;height:{band.y1 -
 							band.y0}px"
 					></div>

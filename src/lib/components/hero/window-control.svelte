@@ -59,9 +59,9 @@
 					width="15"
 					height="15"
 					rx="2.5"
-					fill="#FF665F"
+					fill="#DE4F4F"
 					fill-opacity={isDark ? '0.6' : '1'}
-					stroke={isDark ? '#FF665F' : '#E04A44'}
+					stroke="#DE4F4F"
 				/>
 			{:else}
 				<rect

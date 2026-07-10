@@ -1,6 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"home_subtitle": "Die Desktop-Plattform für digitale Unabhängigkeit, endlich alltagstauglich. Jede Software mit einem Klick, keine Kompromisse.",
+	"home_alpha2_badge": "Jetzt verfügbar",
+	"home_alpha2_text": "BlossomOS Alpha 2 ist da.",
+	"home_alpha2_cta": "Was ist neu",
 	"download_title": "BlossomOS herunterladen",
 	"download_subtitle": "Wähle die richtige Edition für deine Hardware.",
 	"download_button": "Herunterladen",

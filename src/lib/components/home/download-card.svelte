@@ -185,7 +185,7 @@
 			<p class="font-semibold">BlossomOS</p>
 			{#if version}
 				<p class="text-xs text-muted-foreground">
-					Version {version} · Alpha 1
+					Version {version} · Alpha 2
 				</p>
 			{:else}
 				<div class="mt-1.5 h-3 w-28 animate-pulse rounded bg-muted"></div>
