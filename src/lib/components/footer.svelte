@@ -44,10 +44,8 @@
 			]
 		},
 		{
-		    heading: m.footer_legal(),
-            links: [
-                { label: m.footer_link_privacy(), href: '/privacy' },
-            ]
+			heading: m.footer_legal(),
+			links: [{ label: m.footer_link_privacy(), href: '/privacy' }]
 		}
 	]);
 </script>
