@@ -2,6 +2,7 @@
 	import * as m from '$lib/paraglide/messages';
 	import Button from './button/button.svelte';
 	import Input from './input/input.svelte';
+	import posthog from 'posthog-js';
 
 	let { class: className = '' }: { class?: string } = $props();
 
@@ -18,7 +19,12 @@
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ email })
 			});
-			status = res.ok ? 'success' : 'error';
+			if (res.ok) {
+				status = 'success';
+				posthog.capture('newsletter_subscribed');
+			} else {
+				status = 'error';
+			}
 		} catch {
 			status = 'error';
 		}

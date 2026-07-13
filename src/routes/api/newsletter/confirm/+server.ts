@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { createHmac, timingSafeEqual } from 'crypto';
+import { getPostHogClient } from '$lib/server/posthog';
 
 function verifyToken(
 	token: string,
@@ -46,6 +47,13 @@ export const GET: RequestHandler = async ({ url }) => {
 	});
 
 	if (error) redirect(302, '/?newsletter=error');
+
+	const posthog = getPostHogClient();
+	posthog.capture({
+		distinctId: data!.contactId,
+		event: 'newsletter_confirmed'
+	});
+	await posthog.flush();
 
 	redirect(302, '/?newsletter=confirmed');
 };

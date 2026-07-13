@@ -13,6 +13,7 @@
 	import * as m from '$lib/paraglide/messages';
 	import { UseClipboard } from '$lib/hooks/use-clipboard.svelte';
 	import { cn } from '$lib/utils.js';
+	import posthog from 'posthog-js';
 
 	type IsoData = { name: string; sha256: string };
 
@@ -98,6 +99,11 @@
 			novideo.currentTime = 0;
 			novideo.play();
 		}
+		posthog.capture('download_started', {
+			iso_variant: label,
+			version: version || null,
+			detected_gpu: gpu
+		});
 		dialogOpen = true;
 	}
 

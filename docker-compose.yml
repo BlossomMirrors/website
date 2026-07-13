@@ -8,6 +8,8 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       NEWSLETTER_SECRET: ${NEWSLETTER_SECRET}
       NEWSLETTER_FROM: ${NEWSLETTER_FROM}
+      PUBLIC_POSTHOG_PROJECT_TOKEN: ${PUBLIC_POSTHOG_PROJECT_TOKEN}
+      PUBLIC_POSTHOG_HOST: ${PUBLIC_POSTHOG_HOST}
     healthcheck:
       test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/']
       interval: 30s

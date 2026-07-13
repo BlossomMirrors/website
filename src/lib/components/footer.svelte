@@ -42,6 +42,12 @@
 					href: 'https://dev.blossomos.org/Blossom'
 				}
 			]
+		},
+		{
+		    heading: m.footer_legal(),
+            links: [
+                { label: m.footer_link_privacy(), href: '/privacy' },
+            ]
 		}
 	]);
 </script>
@@ -52,7 +58,7 @@
 	/>
 	<div class="mx-auto max-w-7xl px-4 py-16 md:py-20">
 		<!-- Link columns -->
-		<div class="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
+		<div class="grid gap-10 sm:grid-cols-2 md:grid-cols-5">
 			<!-- Social column -->
 			<div>
 				<p class="mb-4 text-sm font-semibold">{m.footer_follow_us()}</p>
