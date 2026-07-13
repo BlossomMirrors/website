@@ -47,6 +47,7 @@
 	"footer_imprint": "Imprint",
 	"footer_legal": "Legal",
 	"footer_link_privacy": "Privacy Policy",
+	"privacy_updated": "Last updated: {date}",
 	"imprint_tagline": "Legal Notice",
 	"imprint_h1": "Imprint.",
 	"imprint_operator_h2": "Operator",

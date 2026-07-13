@@ -1,3 +1,19 @@
+declare module '*.md' {
+	import type { SvelteComponent } from 'svelte';
+
+	export default class Comp extends SvelteComponent {}
+
+	export const metadata: Record<string, unknown>;
+}
+
+declare module '*.svx' {
+	import type { SvelteComponent } from 'svelte';
+
+	export default class Comp extends SvelteComponent {}
+
+	export const metadata: Record<string, unknown>;
+}
+
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
@@ -9,21 +25,3 @@ declare global {
 		// interface Platform {}
 	}
 }
-
-declare module '*.md' {
-	import type { SvelteComponent } from 'svelte'
-
-	export default class Comp extends SvelteComponent{}
-
-	export const metadata: Record<string, unknown>
-}
-
-declare module '*.svx' {
-	import type { SvelteComponent } from 'svelte'
-
-	export default class Comp extends SvelteComponent{}
-
-	export const metadata: Record<string, unknown>
-}
-
-export {};
