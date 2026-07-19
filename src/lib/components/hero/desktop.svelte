@@ -53,9 +53,8 @@
 	{/if}
 	<Taskbar />
 	<!-- Keeps the custom cursor visible over the inert desktop instead of the browser default -->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		class="cursor-custom absolute inset-0 z-[100]"
+		class="cursor-custom absolute inset-0 z-100"
 		aria-hidden="true"
 		onpointerdown={(e) => e.stopPropagation()}
 		onpointermove={(e) => e.stopPropagation()}
