@@ -16,7 +16,10 @@ export type Screenshot = {
 };
 
 function stemFromPath(path: string): string {
-	return path.split('/').pop()!.replace(/\.[^.]+$/, '');
+	return path
+		.split('/')
+		.pop()!
+		.replace(/\.[^.]+$/, '');
 }
 
 export const screenshots: Screenshot[] = Object.entries(modules)

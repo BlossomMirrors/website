@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
 	import Window from './window.svelte';
 	import kamosoPng from '$lib/assets/taskbar/kamoso.png';
+	import webcamJpg from '$lib/assets/webcam.jpg';
 	import ToolbarButton from './toolbar-button.svelte';
 	import CameraIcon from '@lucide/svelte/icons/camera';
 	import VideoIcon from '@lucide/svelte/icons/video';
@@ -13,31 +13,9 @@
 	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } =
 		$props();
 
-	let video = $state<HTMLVideoElement | null>(null);
-	let stream: MediaStream | null = null;
-
-	onMount(() => {
-		navigator.mediaDevices
-			.getUserMedia({ video: true, audio: false })
-			.then((s) => {
-				stream = s;
-				if (video) video.srcObject = stream;
-			})
-			.catch(() => {});
-	});
-
-	onDestroy(() => {
-		stream?.getTracks().forEach((t) => t.stop());
-	});
-
 	function takePicture() {
-		if (!video) return;
-		const canvas = document.createElement('canvas');
-		canvas.width = video.videoWidth;
-		canvas.height = video.videoHeight;
-		canvas.getContext('2d')!.drawImage(video, 0, 0);
 		const a = document.createElement('a');
-		a.href = canvas.toDataURL('image/png');
+		a.href = webcamJpg;
 		a.download = `kamoso-${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
 		a.click();
 	}
@@ -53,6 +31,8 @@
 	minH={300}
 	defaultW={800}
 	defaultH={528}
+	offsetX={-20}
+	offsetY={20}
 >
 	<!-- Toolbar -->
 	<div class="flex shrink-0 items-center gap-1 px-3 select-none" style="height:44px">
@@ -75,21 +55,7 @@
 	</div>
 
 	<!-- Camera feed -->
-	<div class="min-h-0 flex-1 overflow-hidden p-3 pt-0">
-		<div class="relative h-full w-full overflow-hidden rounded-xl bg-black">
-			<video
-				bind:this={video}
-				autoplay
-				playsinline
-				muted
-				class="aspect-video h-full w-full object-contain"
-			></video>
-		</div>
+	<div class="relative min-h-0 flex-1 overflow-hidden bg-black">
+		<img src={webcamJpg} alt="" class="h-full w-full object-cover" />
 	</div>
 </Window>
-
-<style>
-	video {
-		transform: scaleX(-1);
-	}
-</style>

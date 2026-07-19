@@ -13,6 +13,8 @@
 		minH = 300,
 		defaultW = 620,
 		defaultH = 400,
+		offsetX = 0,
+		offsetY = 0,
 		embedded = false,
 		closable = true,
 		bgClass = 'bg-card',
@@ -27,6 +29,8 @@
 		minH?: number;
 		defaultW?: number;
 		defaultH?: number;
+		offsetX?: number;
+		offsetY?: number;
 		embedded?: boolean;
 		closable?: boolean;
 		bgClass?: string;
@@ -73,8 +77,8 @@
 		isMobile = window.innerWidth < 768;
 		w = defaultW;
 		h = defaultH;
-		x = Math.max(0, (pW - w) / 2);
-		y = Math.max(0, (pH - h) / 2 - 24);
+		x = Math.max(0, Math.min((pW - w) / 2 + offsetX, pW - w));
+		y = Math.max(0, Math.min((pH - h) / 2 - 24 + offsetY, pH - h - TASKBAR_H));
 
 		const ro = new ResizeObserver(() => {
 			const { width: nW, height: nH } = parent.getBoundingClientRect();

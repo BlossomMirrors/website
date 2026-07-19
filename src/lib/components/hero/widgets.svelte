@@ -100,7 +100,7 @@
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<div
 			role={item.id === 'folder' ? 'button' : undefined}
-			class="widget-in pointer-events-auto absolute touch-none opacity-0 select-none"
+			class="widget-in absolute touch-none opacity-0 select-none"
 			tabindex={item.id === 'folder' ? 0 : undefined}
 			style="left:{item.x}px;top:{item.y}px;z-index:{topIdx === idx
 				? 20

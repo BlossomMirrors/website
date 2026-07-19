@@ -1,20 +1,18 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Taskbar from '$lib/components/hero/taskbar.svelte';
-	import WallpaperReveal from '$lib/components/hero/wallpaper-reveal.svelte';
 	import Widgets from '$lib/components/hero/widgets.svelte';
 	import DolphinWindow from '$lib/components/hero/dolphin-window.svelte';
 	import KamosoWindow from '$lib/components/hero/kamoso-window.svelte';
-	import { getDiscord, getEmail } from '$lib/utils';
 	import noiseSrc from '$lib/assets/noise.png?enhanced';
 
-	let dolphinOpen = $state(false);
-	let kamosoOpen = $state(false);
+	let dolphinOpen = $state(true);
+	let kamosoOpen = $state(true);
 	let isMobile = $state(false);
 	let heroEl = $state<HTMLDivElement | null>(null);
 
-	let nextZ = 30;
-	let dolphinZ = $state(30);
+	let nextZ = 31;
+	let dolphinZ = $state(31);
 	let kamosoZ = $state(30);
 
 	onMount(() => {
@@ -24,25 +22,11 @@
 		if (heroEl) ro.observe(heroEl);
 		return () => ro.disconnect();
 	});
-
-	function handleIconClick(label: string) {
-		if (label === 'Dolphin' && !isMobile) {
-			dolphinOpen = true;
-			dolphinZ = ++nextZ;
-		}
-		if (label === 'Kamoso' && !isMobile) {
-			kamosoOpen = true;
-			kamosoZ = ++nextZ;
-		}
-		if (label === 'Thunderbird') window.open('mailto:' + getEmail(), '_blank');
-		if (label === 'Arc Software') location.href = '/arc';
-		if (label === 'Discord') window.open(getDiscord(), '_blank');
-	}
 </script>
 
 <div
 	bind:this={heroEl}
-	class="cursor-custom relative z-0 aspect-video overflow-hidden rounded-2xl md:max-h-100 lg:max-h-120 xl:max-h-140 2xl:max-h-full"
+	class="pointer-events-none relative z-0 aspect-video overflow-hidden rounded-2xl md:max-h-100 lg:max-h-120 xl:max-h-140 2xl:max-h-full"
 >
 	<enhanced:img
 		src={noiseSrc}
@@ -52,7 +36,6 @@
 		class="pointer-events-none absolute inset-0 h-full w-full object-cover"
 	/>
 	<div class="animate-screen-on pointer-events-none absolute inset-0 z-50 bg-black"></div>
-	<WallpaperReveal />
 	<Widgets />
 	{#if dolphinOpen}
 		<DolphinWindow
@@ -68,13 +51,14 @@
 			onFocus={() => (kamosoZ = ++nextZ)}
 		/>
 	{/if}
-	<Taskbar onIconClick={handleIconClick} />
+	<Taskbar />
+	<!-- Keeps the custom cursor visible over the inert desktop instead of the browser default -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div
+		class="cursor-custom absolute inset-0 z-[100]"
+		aria-hidden="true"
+		onpointerdown={(e) => e.stopPropagation()}
+		onpointermove={(e) => e.stopPropagation()}
+		onpointerup={(e) => e.stopPropagation()}
+	></div>
 </div>
-
-<style>
-	.cursor-custom {
-		cursor:
-			url('/cursor/left_ptr.svg') 0 0,
-			auto;
-	}
-</style>

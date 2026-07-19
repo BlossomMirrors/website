@@ -1,36 +1,45 @@
-image: oven/bun:latest
+image: denoland/deno:latest
 
 stages:
   - check
   - build
   - docker
 
+.install_node: &install_node
+  - apt-get update && apt-get install -y --no-install-recommends nodejs
+  - rm -rf /var/lib/apt/lists/*
+
 lint:
   stage: check
   script:
-    - bun install --frozen-lockfile
-    - bun run lint
+    - *install_node
+    - deno install --frozen --allow-scripts
+    - deno task lint
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
       - node_modules/
+      - /deno-dir/
 
 typecheck:
   stage: check
   script:
-    - bun install --frozen-lockfile
-    - bunx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide
-    - bun run check
+    - *install_node
+    - deno install --frozen --allow-scripts
+    - deno run -A npm:@inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide
+    - deno task check
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
       - node_modules/
+      - /deno-dir/
 
 build:
   stage: build
   script:
-    - bun install --frozen-lockfile
-    - bun run build
+    - *install_node
+    - deno install --frozen --allow-scripts
+    - deno task build
   artifacts:
     paths:
       - build/
@@ -39,6 +48,7 @@ build:
     key: $CI_COMMIT_REF_SLUG
     paths:
       - node_modules/
+      - /deno-dir/
 
 docker:
   stage: docker

@@ -1,15 +1,17 @@
-FROM oven/bun:latest AS builder
+FROM denoland/deno:latest AS builder
 WORKDIR /app
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+RUN apt-get update && apt-get install -y --no-install-recommends nodejs && rm -rf /var/lib/apt/lists/*
+COPY package.json deno.json deno.lock ./
+RUN deno install --frozen --allow-scripts
 COPY . .
-RUN bun run build
+RUN deno task build
 
-FROM oven/bun:latest AS runner
+FROM denoland/deno:latest AS runner
 WORKDIR /app
+COPY --from=builder /deno-dir /deno-dir
 COPY --from=builder /app/build ./build
-COPY package.json bun.lock ./
-RUN bun install --production --frozen-lockfile
+COPY --from=builder /app/node_modules ./node_modules
+COPY package.json deno.json deno.lock ./
 ENV NODE_ENV=production
 EXPOSE 3000
-CMD ["node", "build/index.js"]
+CMD ["deno", "run", "--allow-all", "build/index.js"]

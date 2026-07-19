@@ -156,13 +156,15 @@
 	{zIndex}
 	minW={620}
 	minH={400}
-	defaultW={700}
+	defaultW={740}
 	defaultH={536}
+	offsetX={80}
+	offsetY={-20}
 	bgClass="bg-background"
 >
 	<!-- Toolbar -->
 	<div class="flex shrink-0 select-none" style="height:38px">
-		<div class="flex shrink-0 items-center justify-center gap-1 px-2 sm:w-36">
+		<div class="flex shrink-0 items-center justify-start gap-1 pr-2 pl-4 sm:w-52">
 			<ToolbarButton size="sm" muted>
 				<ArrowLeftIcon size={15} />
 			</ToolbarButton>
@@ -198,7 +200,7 @@
 	<!-- Main content -->
 	<div class="flex min-h-0 flex-1">
 		<!-- Sidebar -->
-		<div class="hidden w-36 shrink-0 overflow-y-auto py-2 pr-2 pl-4 sm:block">
+		<div class="hidden w-52 shrink-0 overflow-y-auto py-2 pr-2 pl-4 sm:block">
 			<p
 				class="mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
 			>
@@ -208,7 +210,7 @@
 				<button
 					class="my-1.5 flex w-full cursor-default items-center gap-1.5 rounded-sidebar-item px-2 py-1 text-left text-xs {p.id ===
 					'home'
-						? 'bg-primary font-semibold text-primary-foreground'
+						? 'bg-accent/30 font-semibold text-accent'
 						: 'text-foreground/70'}"
 				>
 					<p.icon size={16} class="shrink-0" />
@@ -269,7 +271,7 @@
 				onpointermove={gridMove}
 				onpointerup={gridUp}
 			>
-				<div class="grid grid-cols-3 gap-2 select-none sm:grid-cols-4">
+				<div class="grid grid-cols-3 gap-4 select-none sm:grid-cols-4">
 					{#each files as file (file.id)}
 						<button
 							data-file={file.id}
@@ -281,7 +283,7 @@
 								: 'hover:bg-foreground/6'}"
 							onclick={() => (selectedFiles = new Set([file.id]))}
 						>
-							<SvgIcon svg={file.svg} size={40} class="shrink-0" />
+							<SvgIcon svg={file.svg} size={56} class="shrink-0" />
 							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground"
 								>{file.name}</span
 							>
