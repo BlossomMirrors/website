@@ -82,11 +82,6 @@
 			href: '/events'
 		},*/
 		{
-			type: 'link',
-			label: m.press(),
-			href: '/press'
-		},
-		{
 			type: 'dropdown',
 			label: m.community(),
 			items: [
