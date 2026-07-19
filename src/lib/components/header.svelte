@@ -71,6 +71,11 @@
 			label: m.downloads(),
 			href: '/downloads'
 		},
+		{
+			type: 'link',
+			label: m.screenshots_nav(),
+			href: '/screenshots'
+		},
 		/*{
 			type: 'link',
 			label: m.events(),

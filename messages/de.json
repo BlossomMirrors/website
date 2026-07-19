@@ -465,5 +465,15 @@
 	"switch_sov_nolock_title": "Kein Vendor-Lock-in",
 	"switch_sov_nolock_body": "Offene Standards und offene Formate durchgehend. Dokumente, Daten und Abläufe gehören der Institution, nicht einem Anbieter.",
 	"switch_sov_cost_title": "Lizenzfrei",
-	"switch_sov_cost_body": "Kostenlos für alle. Für Organisationen, die es benötigen, sind professionelle Support-Pläne verfügbar."
+	"switch_sov_cost_body": "Kostenlos für alle. Für Organisationen, die es benötigen, sind professionelle Support-Pläne verfügbar.",
+	"screenshots_nav": "Screenshots",
+	"screenshots_tagline": "Galerie",
+	"screenshots_h1_1": "BlossomOS",
+	"screenshots_h1_2": "in Aktion.",
+	"screenshots_subtitle": "Ein genauerer Blick auf den Desktop, die Apps und die Details des Alltags.",
+	"screenshots_empty": "Screenshots folgen in Kürze. Schau bald wieder vorbei.",
+	"screenshots_close": "Schließen",
+	"screenshots_credit": "Aufgenommen von {name}",
+	"screenshots_prev": "Vorheriger Screenshot",
+	"screenshots_next": "Nächster Screenshot"
 }

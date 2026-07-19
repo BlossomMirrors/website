@@ -465,5 +465,15 @@
 	"switch_sov_nolock_title": "No vendor lock-in",
 	"switch_sov_nolock_body": "Open standards and open formats throughout. Your documents, data, and workflows belong to you, not to a subscription.",
 	"switch_sov_cost_title": "License-free",
-	"switch_sov_cost_body": "Free to use for everyone. Professional support plans are available for organisations that need them."
+	"switch_sov_cost_body": "Free to use for everyone. Professional support plans are available for organisations that need them.",
+	"screenshots_nav": "Screenshots",
+	"screenshots_tagline": "Gallery",
+	"screenshots_h1_1": "See BlossomOS",
+	"screenshots_h1_2": "in action.",
+	"screenshots_subtitle": "A closer look at the desktop, apps, and details that make up the everyday experience.",
+	"screenshots_empty": "Screenshots are coming soon. Check back shortly.",
+	"screenshots_close": "Close",
+	"screenshots_credit": "Captured by {name}",
+	"screenshots_prev": "Previous screenshot",
+	"screenshots_next": "Next screenshot"
 }
