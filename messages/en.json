@@ -450,5 +450,7 @@
 	"screenshots_close": "Close",
 	"screenshots_credit": "Captured by {name}",
 	"screenshots_prev": "Previous screenshot",
-	"screenshots_next": "Next screenshot"
+	"screenshots_next": "Next screenshot",
+	"screenshots_zoom_in": "Zoom in",
+	"screenshots_zoom_out": "Zoom out"
 }

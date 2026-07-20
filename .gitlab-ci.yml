@@ -16,7 +16,9 @@ lint:
     - deno install --frozen --allow-scripts
     - deno task lint
   cache:
-    key: $CI_COMMIT_REF_SLUG
+    key:
+      files:
+        - deno.lock
     paths:
       - node_modules/
       - /deno-dir/
@@ -29,7 +31,9 @@ typecheck:
     - deno run -A npm:@inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide
     - deno task check
   cache:
-    key: $CI_COMMIT_REF_SLUG
+    key:
+      files:
+        - deno.lock
     paths:
       - node_modules/
       - /deno-dir/
@@ -45,7 +49,9 @@ build:
       - build/
     expire_in: 1 week
   cache:
-    key: $CI_COMMIT_REF_SLUG
+    key:
+      files:
+        - deno.lock
     paths:
       - node_modules/
       - /deno-dir/
