@@ -70,7 +70,7 @@
 			type: 'link',
 			label: m.downloads(),
 			href: '/downloads'
-		},/*
+		} /*
 		{
 			type: 'link',
 			label: m.screenshots_nav(),
@@ -80,7 +80,7 @@
 			type: 'link',
 			label: m.events(),
 			href: '/events'
-		},*/
+		},*/,
 		{
 			type: 'dropdown',
 			label: m.community(),
