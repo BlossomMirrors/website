@@ -18,6 +18,7 @@
     "npm:@types/node@^24.13.3": "24.13.3",
     "npm:bits-ui@^2.18.1": "2.18.1_@internationalized+date@3.12.2_svelte@5.56.5_@sveltejs+kit@2.69.3__@sveltejs+vite-plugin-svelte@6.2.4___svelte@5.56.5___vite@8.1.4____@types+node@24.13.3___@types+node@24.13.3__svelte@5.56.5__typescript@5.9.3__vite@8.1.4___@types+node@24.13.3__@types+node@24.13.3_@sveltejs+vite-plugin-svelte@6.2.4__svelte@5.56.5__vite@8.1.4___@types+node@24.13.3__@types+node@24.13.3_@types+node@24.13.3_typescript@5.9.3_vite@8.1.4__@types+node@24.13.3",
     "npm:clsx@^2.1.1": "2.1.1",
+    "npm:cookie@^2.0.1": "2.0.1",
     "npm:devalue@^5.8.1": "5.8.1",
     "npm:eslint-config-prettier@^10.1.8": "10.1.8_eslint@9.39.5",
     "npm:eslint-plugin-svelte@^3.20.0": "3.20.0_eslint@9.39.5_svelte@5.56.5",
@@ -884,7 +885,7 @@
         "@sveltejs/vite-plugin-svelte",
         "@types/cookie",
         "acorn",
-        "cookie",
+        "cookie@0.6.0",
         "devalue",
         "esm-env",
         "kleur",
@@ -1290,6 +1291,9 @@
     },
     "cookie@0.6.0": {
       "integrity": "sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw=="
+    },
+    "cookie@2.0.1": {
+      "integrity": "sha512-yuToqVvRrj6pfDXREyQAAv8SkAEk/8GS3jQRTiUMm66TVtBYmqQeoEjL2Lmq8Rpo6271vH76InTChTitEAm65w=="
     },
     "core-js@3.49.0": {
       "integrity": "sha512-es1U2+YTtzpwkxVLwAFdSpaIMyQaq0PBgm3YD1W3Qpsn1NAmO3KSgZfu+oGSWVu6NvLHoHCV/aYcsE5wiB7ALg==",
@@ -2543,6 +2547,7 @@
         "npm:@types/node@^24.13.3",
         "npm:bits-ui@^2.18.1",
         "npm:clsx@^2.1.1",
+        "npm:cookie@^2.0.1",
         "npm:devalue@^5.8.1",
         "npm:eslint-config-prettier@^10.1.8",
         "npm:eslint-plugin-svelte@^3.20.0",
