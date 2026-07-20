@@ -46,7 +46,7 @@
 			{m.downloads_install_note()}
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a
-				href="https://docs.blossomos.org/en/docs/user/installation"
+				href="https://help.blossomos.org/help/user/install-guide"
 				class="text-primary hover:underline"
 				target="_blank">{m.downloads_install_link()}</a
 			>
