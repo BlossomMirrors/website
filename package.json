@@ -60,6 +60,7 @@
 		"mode-watcher": "^1.1.0",
 		"posthog-js": "^1.399.2",
 		"posthog-node": "^5.41.0",
-		"resend": "^6.17.2"
+		"resend": "^6.17.2",
+		"set-cookie-parser": "^3.1.2"
 	}
 }
