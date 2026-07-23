@@ -30,7 +30,7 @@
 			links: [
 				{ label: m.downloads(), href: '/downloads' },
 				{ label: m.screenshots_nav(), href: '/screenshots' },
-				{ label: m.footer_link_docs(), href: 'https://docs.blossomos.org' }
+				{ label: m.footer_link_docs(), href: 'https://help.blossomos.org' }
 			]
 		},
 		{

@@ -84,7 +84,7 @@
 					>{m.download_title()} <ArrowRightIcon size={16} strokeWidth={1.5} /></Button
 				>
 			</a>
-			<a href="https://docs.blossomos.org" target="_blank" rel="noreferrer">
+			<a href="https://help.blossomos.org" target="_blank" rel="noreferrer">
 				<Button>{m.switch_cta_docs()}</Button>
 			</a>
 		</div>
