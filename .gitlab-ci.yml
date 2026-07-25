@@ -3,7 +3,6 @@ image: denoland/deno:latest
 stages:
   - check
   - build
-  - docker
 
 .install_node: &install_node
   - apt-get update && apt-get install -y --no-install-recommends nodejs
@@ -46,7 +45,7 @@ build:
     - deno task build
   artifacts:
     paths:
-      - build/
+      - .svelte-kit/cloudflare/
     expire_in: 1 week
   cache:
     key:
@@ -55,19 +54,3 @@ build:
     paths:
       - node_modules/
       - /deno-dir/
-
-docker:
-  stage: docker
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: ['']
-  script:
-    - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD | base64 -w 0)\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor
-      --context $CI_PROJECT_DIR
-      --dockerfile $CI_PROJECT_DIR/Dockerfile
-      --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-      --destination $CI_REGISTRY_IMAGE:latest
-  only:
-    - main
