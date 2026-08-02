@@ -16,12 +16,6 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="manifest" href="/manifest.webmanifest" />
 	<meta name="theme-color" content="#0c0c12" />
-	<script
-		defer
-		src="https://stats.blossomos.org/script.js"
-		data-website-id="d2b9026b-0b3e-4eac-89b3-19f06fc5bad3"
-	></script>
-
 	<meta
 		name="keywords"
 		content="open source operating system, linux distribution, blossomos, privacy os, secure linux, community driven os, custom linux iso, linux for creators, open source community"

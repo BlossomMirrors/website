@@ -1,0 +1,9 @@
+{
+    "$schema": "https://blossomos.org/schema/announcements.schema.json",
+    "announcements": [
+        {
+            "id": 1,
+            "message": "Welcome to Blossom Chat! Important announcements about it will appear here."
+        }
+    ]
+}
