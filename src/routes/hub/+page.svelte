@@ -98,7 +98,7 @@
 		newsletter
 		button1Text={m.hub_join_discord()}
 		button1Href="https://discord.gg/dTqsBdxvNr"
-		button2Text={m.community_forums()}
-		button2Href="https://community.blossomos.org"
+		button2Text={m.discord()}
+		button2Href="https://discord.gg/dTqsBdxvNr"
 	/>
 </div>

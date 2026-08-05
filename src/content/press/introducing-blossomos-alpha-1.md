@@ -36,7 +36,7 @@ BlossomOS is our answer to that frustration. It is built on free and open source
 
 Alpha 1 is just the beginning. Alpha 2 is focused on depth over breadth: Arc Software is getting single app pages for AppImages and third-party software, proper install progress tracking, KIO support, and a tighter download manager. The desktop is getting new icons, consistent button animations, and a round of UI fixes across system settings and Qt Quick.
 
-We are building this alongside a community, not ahead of one. If you try BlossomOS and find something broken, tell us. If you have an idea for something that would make it better, share it. The forums, Discord, and Matrix rooms are all open.
+We are building this alongside a community, not ahead of one. If you try BlossomOS and find something broken, tell us. If you have an idea for something that would make it better, share it. Discord is open.
 
 Thank you for believing in what we are building. Now go try it.
 

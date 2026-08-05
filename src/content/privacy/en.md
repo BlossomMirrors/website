@@ -36,26 +36,11 @@ We do not sell, share, or monetise your data in any way. You can request deletio
 
 ## Single Sign-On
 
-Blossom services (Blossom Cloud, the Community Forums, and the Matrix server) share a single sign-on system powered by authentik. When you create an account, your username and email address are stored in authentik and used to authenticate you across all Blossom services.
+Blossom services share a single sign-on system powered by authentik. When you create an account, your username and email address are stored in authentik and used to authenticate you across all Blossom services.
 
 Authentication events such as sign-ins, sign-outs, and failed attempts are logged for security purposes. These logs are retained for a limited period and are not shared with third parties.
 
-## Matrix Server
-
-Blossom operates a Matrix homeserver. When you create an account, we store your username, display name, and the messages and files you send or receive.
-
-Matrix is a federated protocol. If you join rooms hosted on other Matrix servers, your messages and profile information are shared with those servers. We have no control over how federated servers handle your data. End-to-end encryption is available and recommended for private conversations. When enabled, message content is not readable by the server.
-
-You can deactivate your account at any time, which removes your data from our server. Copies held by federated servers are outside our control.
-
-## Community Forums
-
-The Blossom Community Forums run on Discourse. When you register, we store your username, email address, posts, and preferences.
-
-Public posts and threads are visible to anyone, including search engines. Private messages are only visible to their recipients and moderators.
-
-Discourse may send email notifications for replies, mentions, and digests. You can manage notification preferences in your account settings. To request deletion of your account or posts, contact us at hello@blossomos.org.
-Analytics and Tracking
+## Analytics and Tracking
 
 We do not use any analytics, tracking, or advertising tools on this website. No third-party tracking scripts are loaded. No visitor profiles are built. We have no insight into individual visitor behaviour beyond what server logs capture for operational purposes.
 

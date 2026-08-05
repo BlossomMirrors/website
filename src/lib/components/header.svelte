@@ -4,16 +4,15 @@
 	import type { NavItem } from '$lib/components/navbar.svelte';
 	import ModeToggle from '$lib/components/ui/mode-toggle.svelte';
 	import LanguageSwitcher from '$lib/components/ui/language-switcher.svelte';
-	import UsersIcon from '@lucide/svelte/icons/users';
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import XIcon from '@lucide/svelte/icons/x';
 	import ArrowRightLeftIcon from '@lucide/svelte/icons/arrow-right-left';
 	import HeartIcon from '@lucide/svelte/icons/heart';
+	import ExternalLinkIcon from '@lucide/svelte/icons/external-link';
 	import { Building2Icon, CloudIcon, ShoppingBagIcon, UserIcon } from 'lucide-svelte';
 	import Logo from '$lib/components/logo.svelte';
 	import { Button } from '$lib/components/ui/button';
-	import { MatrixIcon } from '$lib/components/icons/matrix/index.svelte';
 	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { onMount } from 'svelte';
@@ -80,20 +79,7 @@
 			type: 'link',
 			label: m.events(),
 			href: '/events'
-		},*/,
-		{
-			type: 'dropdown',
-			label: m.community(),
-			items: [
-				{ label: m.community_forums(), href: 'https://community.blossomos.org', icon: UsersIcon },
-				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr', icon: DiscordIcon },
-				{
-					label: m.matrix(),
-					href: 'https://matrix.to/#/#blossomos:blossomos.org',
-					icon: MatrixIcon
-				}
-			]
-		}
+		},*/
 	];
 
 	let { sticky = true }: { sticky?: boolean } = $props();
@@ -155,6 +141,16 @@
 			<div class="hidden md:block">
 				<Navbar items={nav} />
 			</div>
+			<a
+				href="https://discord.gg/dTqsBdxvNr"
+				target="_blank"
+				rel="noreferrer"
+				class="hidden md:block"
+			>
+				<Button variant="ghost">
+					<DiscordIcon size={14} />{m.discord()}<ExternalLinkIcon size={12} class="opacity-60" />
+				</Button>
+			</a>
 		</div>
 
 		<div class="ml-auto flex shrink-0 items-center gap-2">
@@ -233,6 +229,11 @@
 			<div class="mt-3 flex flex-col gap-2 border-t border-border pt-3">
 				<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer">
 					<Button class="w-full"><UserIcon strokeWidth={1.5} />{m.account()}</Button>
+				</a>
+				<a href="https://discord.gg/dTqsBdxvNr" target="_blank" rel="noreferrer">
+					<Button variant="ghost" class="w-full">
+						<DiscordIcon size={14} />{m.discord()}<ExternalLinkIcon size={12} class="opacity-60" />
+					</Button>
 				</a>
 				<a href="https://liberapay.com/blossomos" target="_blank" rel="noreferrer">
 					<Button

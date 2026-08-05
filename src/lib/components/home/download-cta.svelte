@@ -37,7 +37,7 @@
 				</Button>
 			</a>
 			<a
-				href="https://community.blossomos.org"
+				href="https://discord.gg/dTqsBdxvNr"
 				target="_blank"
 				rel="noreferrer"
 				onmouseenter={triggerCommunity}

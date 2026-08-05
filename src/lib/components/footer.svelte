@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { MatrixIcon } from '$lib/components/icons/matrix/index.svelte';
 	import HeartIcon from '@lucide/svelte/icons/heart';
 	import { BlueskyIcon } from '$lib/components/icons/bluesky/index.svelte';
 	import { LiberapayIcon } from '$lib/components/icons/liberapay/index.svelte';
@@ -11,7 +10,6 @@
 
 	const socials = [
 		{ label: 'YouTube', href: 'https://www.youtube.com/@blossomlabstv', Icon: YouTubeIcon },
-		{ label: 'Matrix', href: 'https://matrix.to/#/#blossomos:blossomos.org', Icon: MatrixIcon },
 		{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', Icon: BlueskyIcon },
 		{ label: 'Liberapay', href: 'https://liberapay.com/blossomos', Icon: LiberapayIcon }
 	];
@@ -36,7 +34,6 @@
 		{
 			heading: m.community(),
 			links: [
-				{ label: m.footer_link_forum(), href: 'https://community.blossomos.org' },
 				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr' },
 				{
 					label: m.footer_link_git(),

@@ -10,6 +10,6 @@
 	body={m.community_description()}
 	button1Text={m.community_join()}
 	button2Text={m.contribute_cta()}
-	button1Href="https://community.blossomos.org"
+	button1Href="https://discord.gg/dTqsBdxvNr"
 	button2Href="https://dev.blossomos.org/Blossom"
 />

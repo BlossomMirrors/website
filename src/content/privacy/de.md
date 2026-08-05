@@ -35,25 +35,9 @@ Wir verkaufen, teilen oder vermarkten deine Daten in keiner Weise. Du kannst jed
 
 ## Single Sign-On
 
-Blossom-Dienste (Blossom Cloud, die Community-Foren und der Matrix-Server) nutzen ein gemeinsames Single-Sign-On-System auf Basis von authentik. Wenn du ein Konto erstellst, werden dein Benutzername und deine E-Mail-Adresse in authentik gespeichert und zur Authentifizierung über alle Blossom-Dienste hinweg verwendet.
+Blossom-Dienste nutzen ein gemeinsames Single-Sign-On-System auf Basis von authentik. Wenn du ein Konto erstellst, werden dein Benutzername und deine E-Mail-Adresse in authentik gespeichert und zur Authentifizierung über alle Blossom-Dienste hinweg verwendet.
 
 Authentifizierungsereignisse wie An- und Abmeldungen sowie fehlgeschlagene Versuche werden zu Sicherheitszwecken protokolliert. Diese Protokolle werden für einen begrenzten Zeitraum aufbewahrt und nicht an Dritte weitergegeben.
-
-## Matrix-Server
-
-Blossom betreibt einen Matrix-Homeserver. Wenn du ein Konto erstellst, speichern wir deinen Benutzernamen, deinen Anzeigenamen sowie die Nachrichten und Dateien, die du sendest oder empfängst.
-
-Matrix ist ein föderiertes Protokoll. Wenn du Räumen auf anderen Matrix-Servern beitrittst, werden deine Nachrichten und Profilinformationen mit diesen Servern geteilt. Wir haben keine Kontrolle darüber, wie föderierte Server mit deinen Daten umgehen. Ende-zu-Ende-Verschlüsselung ist verfügbar und wird für private Unterhaltungen empfohlen. Wenn aktiviert, sind Nachrichteninhalte für den Server nicht lesbar.
-
-Du kannst dein Konto jederzeit deaktivieren, wodurch deine Daten von unserem Server entfernt werden. Kopien auf föderierten Servern liegen außerhalb unserer Kontrolle.
-
-## Community-Foren
-
-Die Blossom Community-Foren laufen auf Discourse. Wenn du dich registrierst, speichern wir deinen Benutzernamen, deine E-Mail-Adresse, deine Beiträge und deine Einstellungen.
-
-Öffentliche Beiträge und Themen sind für jeden sichtbar, auch für Suchmaschinen. Privatnachrichten sind nur für Empfängerinnen und Empfänger sowie Moderatorinnen und Moderatoren sichtbar.
-
-Discourse kann E-Mail-Benachrichtigungen für Antworten, Erwähnungen und Digests senden. Du kannst deine Benachrichtigungseinstellungen in deinen Kontoeinstellungen verwalten. Zur Löschung deines Kontos oder deiner Beiträge kontaktiere uns unter [hello@blossomos.org](mailto:hello@blossomos.org).
 
 ## Analyse und Tracking
 
