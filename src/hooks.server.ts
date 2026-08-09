@@ -2,6 +2,38 @@ import type { Handle, HandleServerError } from '@sveltejs/kit';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { sequence } from '@sveltejs/kit/hooks';
 import { getPostHogClient } from '$lib/server/posthog';
+import { FILES } from '$lib/llms/sections';
+import { buildLlmsTxt } from '$lib/llms/llms-txt';
+
+const MARKDOWN_ROUTES: Record<string, string> = {
+	'/about': 'about.md',
+	'/arc': 'arc.md',
+	'/cloud': 'cloud.md',
+	'/hub': 'hub.md',
+	'/switch': 'switch.md'
+};
+
+const handleMarkdownNegotiation: Handle = ({ event, resolve }) => {
+	const accept = event.request.headers.get('accept') ?? '';
+	if (!accept.includes('text/markdown')) return resolve(event);
+
+	const { pathname } = event.url;
+
+	if (pathname === '/') {
+		return new Response(buildLlmsTxt(), {
+			headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+		});
+	}
+
+	const content = FILES.get(MARKDOWN_ROUTES[pathname]);
+	if (content) {
+		return new Response(content, {
+			headers: { 'Content-Type': 'text/markdown; charset=utf-8' }
+		});
+	}
+
+	return resolve(event);
+};
 
 const handleParaglide: Handle = ({ event, resolve }) =>
 	paraglideMiddleware(event.request, ({ request, locale }) => {
@@ -49,7 +81,11 @@ const handlePostHogProxy: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-export const handle: Handle = sequence(handlePostHogProxy, handleParaglide);
+export const handle: Handle = sequence(
+	handleMarkdownNegotiation,
+	handlePostHogProxy,
+	handleParaglide
+);
 
 export const handleError: HandleServerError = async ({ error, status, message }) => {
 	const posthog = getPostHogClient();

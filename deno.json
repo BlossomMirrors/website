@@ -1,5 +1,17 @@
 {
 	"nodeModulesDir": "auto",
+	"tasks": {
+		"dev": "deno run -A ./node_modules/.bin/vite dev",
+		"build": "deno run -A ./node_modules/.bin/vite build",
+		"preview": "deno run -A ./node_modules/.bin/vite preview",
+		"prepare": "deno run -A ./node_modules/.bin/svelte-kit sync || echo ''",
+		"check": "deno run -A ./node_modules/.bin/svelte-kit sync && deno run -A ./node_modules/.bin/svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "deno run -A ./node_modules/.bin/svelte-kit sync && deno run -A ./node_modules/.bin/svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "deno run -A ./node_modules/.bin/prettier --write .",
+		"lint": "deno run -A ./node_modules/.bin/prettier --check . && deno run -A ./node_modules/.bin/eslint .",
+		"deploy": "deno task build && deno run -A ./node_modules/.bin/wrangler deploy",
+		"cf-typegen": "deno run -A ./node_modules/.bin/wrangler types"
+	},
 	"allowScripts": [
 		"npm:core-js@3.49.0",
 		"npm:esbuild@0.28.1",
