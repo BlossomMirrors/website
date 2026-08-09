@@ -186,9 +186,7 @@
 
 		<!-- File grid -->
 		<div class="flex-1 overflow-y-auto p-3">
-			<div
-				class="relative h-full rounded-md border border-border bg-card p-3"
-			>
+			<div class="relative h-full rounded-md border border-border bg-card p-3">
 				<div class="grid grid-cols-3 gap-4 select-none sm:grid-cols-4">
 					{#each files as file (file.id)}
 						<div
@@ -202,7 +200,6 @@
 						</div>
 					{/each}
 				</div>
-
 			</div>
 		</div>
 	</div>

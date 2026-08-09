@@ -9,7 +9,9 @@ const modules = import.meta.glob('/src/lib/llms/*.md', {
 	import: 'default'
 }) as Record<string, string>;
 
-const files = new Map(Object.entries(modules).map(([path, content]) => [path.split('/').pop()!, content]));
+const files = new Map(
+	Object.entries(modules).map(([path, content]) => [path.split('/').pop()!, content])
+);
 
 export const prerender = true;
 

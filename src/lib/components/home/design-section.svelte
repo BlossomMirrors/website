@@ -29,7 +29,10 @@
 		<div class="flex flex-col gap-4" use:reveal={120}>
 			<!-- Mock window -->
 			<div class="overflow-hidden rounded border border-border">
-				<div class="flex items-center justify-between bg-card px-2.5 select-none" style="height:36px">
+				<div
+					class="flex items-center justify-between bg-card px-2.5 select-none"
+					style="height:36px"
+				>
 					<div class="flex items-center gap-2">
 						<div class="h-4 w-4 rounded bg-muted"></div>
 						<span class="text-xs text-foreground">BlossomOS</span>

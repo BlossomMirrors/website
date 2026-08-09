@@ -86,7 +86,11 @@
 			type: 'dropdown',
 			label: m.community(),
 			items: [
-				{ label: m.footer_link_git(), href: 'https://dev.blossomos.org/Blossom', icon: GitBranchIcon },
+				{
+					label: m.footer_link_git(),
+					href: 'https://dev.blossomos.org/Blossom',
+					icon: GitBranchIcon
+				},
 				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr', icon: DiscordIcon },
 				{
 					label: m.matrix(),

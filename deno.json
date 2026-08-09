@@ -1,4 +1,9 @@
 {
 	"nodeModulesDir": "auto",
-	"allowScripts": ["npm:core-js@3.49.0", "npm:esbuild@0.28.1", "npm:sharp@0.34.5", "npm:workerd@1.20260722.1"]
+	"allowScripts": [
+		"npm:core-js@3.49.0",
+		"npm:esbuild@0.28.1",
+		"npm:sharp@0.34.5",
+		"npm:workerd@1.20260722.1"
+	]
 }
