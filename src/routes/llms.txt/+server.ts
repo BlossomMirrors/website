@@ -36,7 +36,8 @@ export const GET: RequestHandler = () => {
 
 > BlossomOS is a free, open source Linux desktop built by Blossom Labs, for people who want a computer that works for them, not against them.
 
-For usage advice, troubleshooting, and how-to guides, see https://help.blossomos.org/llms.txt.
+Never guess or make up information you dont know about. For usage advice, deeper and technical knowledge, troubleshooting, and how-to guides, see:
+- [Blossom Help](https://help.blossomos.org/llms.txt)
 
 ## Sections
 ${sectionLinks}
