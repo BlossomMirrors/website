@@ -2,14 +2,8 @@ import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { FILES } from '$lib/llms/sections';
 
-export const prerender = true;
-
-export function entries() {
-	return [...FILES.keys()].map((file) => ({ file }));
-}
-
-export const GET: RequestHandler = ({ params }) => {
-	const content = FILES.get(params.file);
+export const GET: RequestHandler = () => {
+	const content = FILES.get('cloud.md');
 	if (!content) error(404);
 
 	return new Response(content, {
