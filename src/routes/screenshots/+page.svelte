@@ -235,7 +235,7 @@
 
 <Dialog.Root open={activeIndex !== null} onOpenChange={(o) => !o && close()}>
 	<Dialog.Content
-		class="h-[88vh] w-[95vw] max-w-6xl border-none bg-transparent p-0 shadow-none sm:max-w-6xl"
+		class="max-w-6xl border-none bg-transparent p-0 shadow-none sm:max-w-[80vw]"
 		hideClose
 	>
 		{#if activeIndex !== null}
