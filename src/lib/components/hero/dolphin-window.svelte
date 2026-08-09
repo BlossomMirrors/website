@@ -22,7 +22,6 @@
 	import HardDriveIcon from '@lucide/svelte/icons/hard-drive';
 	import { ArrowLeftIcon, ArrowRightIcon } from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages';
-	import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 	import desktopColor from '$lib/assets/icons/places/color/desktop.svg?raw';
 	import documentsColor from '$lib/assets/icons/places/color/documents.svg?raw';
@@ -37,82 +36,6 @@
 
 	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } =
 		$props();
-
-	let selectedFiles = $state<Set<string>>(new Set());
-	let containerEl = $state<HTMLElement | null>(null);
-	let band = $state<{ x0: number; y0: number; x1: number; y1: number } | null>(null);
-
-	const fileEls = new SvelteMap<string, HTMLButtonElement>();
-	let dragStartX = 0;
-	let dragStartY = 0;
-	let isDragging = false;
-
-	function registerFile(el: HTMLButtonElement, id: string) {
-		fileEls.set(id, el);
-		return {
-			destroy() {
-				fileEls.delete(id);
-			}
-		};
-	}
-
-	function gridDown(e: PointerEvent) {
-		if (e.button !== 0) return;
-		if ((e.target as HTMLElement).closest('button[data-file]')) return;
-
-		const rect = containerEl!.getBoundingClientRect();
-		dragStartX = e.clientX - rect.left;
-		dragStartY = e.clientY - rect.top;
-		isDragging = false;
-		band = null;
-		selectedFiles = new Set();
-		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-		e.preventDefault();
-	}
-
-	function gridMove(e: PointerEvent) {
-		if (!(e.currentTarget as HTMLElement).hasPointerCapture(e.pointerId)) return;
-		const rect = containerEl!.getBoundingClientRect();
-		const cx = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
-		const cy = Math.min(Math.max(e.clientY - rect.top, 0), rect.height);
-
-		if (!isDragging) {
-			if (Math.abs(cx - dragStartX) < 4 && Math.abs(cy - dragStartY) < 4) return;
-			isDragging = true;
-		}
-
-		const b = {
-			x0: Math.min(dragStartX, cx),
-			y0: Math.min(dragStartY, cy),
-			x1: Math.max(dragStartX, cx),
-			y1: Math.max(dragStartY, cy)
-		};
-		band = b;
-
-		const bandLeft = rect.left + b.x0;
-		const bandTop = rect.top + b.y0;
-		const bandRight = rect.left + b.x1;
-		const bandBottom = rect.top + b.y1;
-
-		const next = new SvelteSet<string>();
-		for (const [id, el] of fileEls) {
-			const er = el.getBoundingClientRect();
-			if (
-				er.left < bandRight &&
-				er.right > bandLeft &&
-				er.top < bandBottom &&
-				er.bottom > bandTop
-			) {
-				next.add(id);
-			}
-		}
-		selectedFiles = next;
-	}
-
-	function gridUp() {
-		isDragging = false;
-		band = null;
-	}
 
 	const places = $derived([
 		{ id: 'home', label: m.dolphin_home(), icon: HomeIcon },
@@ -154,11 +77,11 @@
 	{onClose}
 	{onFocus}
 	{zIndex}
-	minW={620}
+	minW={800}
 	minH={400}
-	defaultW={740}
+	defaultW={850}
 	defaultH={536}
-	offsetX={80}
+	offsetX={150}
 	offsetY={-20}
 	bgClass="bg-background"
 >
@@ -207,15 +130,15 @@
 				{m.dolphin_places()}
 			</p>
 			{#each places as p (p.id)}
-				<button
+				<div
 					class="my-1.5 flex w-full cursor-default items-center gap-1.5 rounded-sidebar-item px-2 py-1 text-left text-xs {p.id ===
 					'home'
-						? 'bg-accent/30 font-semibold text-accent'
+						? 'bg-accent/15 font-bold text-accent'
 						: 'text-foreground/70'}"
 				>
 					<p.icon size={16} class="shrink-0" />
 					<span class="truncate">{p.label}</span>
-				</button>
+				</div>
 			{/each}
 
 			<p
@@ -224,12 +147,12 @@
 				{m.dolphin_remote()}
 			</p>
 			{#each remote as r (r.id)}
-				<button
+				<div
 					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
 				>
 					<r.icon size={14} class="shrink-0" />
 					<span class="truncate">{r.label}</span>
-				</button>
+				</div>
 			{/each}
 
 			<p
@@ -238,12 +161,12 @@
 				{m.dolphin_recent()}
 			</p>
 			{#each recent as r (r.id)}
-				<button
+				<div
 					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
 				>
 					<r.icon size={14} class="shrink-0" />
 					<span class="truncate">{r.label}</span>
-				</button>
+				</div>
 			{/each}
 
 			<p
@@ -252,53 +175,34 @@
 				{m.dolphin_devices()}
 			</p>
 			{#each devices as d (d.id)}
-				<button
+				<div
 					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
 				>
 					<d.icon size={14} class="shrink-0" />
 					<span class="truncate">{d.label}</span>
-				</button>
+				</div>
 			{/each}
 		</div>
 
 		<!-- File grid -->
 		<div class="flex-1 overflow-y-auto p-3">
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
-				bind:this={containerEl}
 				class="relative h-full rounded-md border border-border bg-card p-3"
-				onpointerdown={gridDown}
-				onpointermove={gridMove}
-				onpointerup={gridUp}
 			>
 				<div class="grid grid-cols-3 gap-4 select-none sm:grid-cols-4">
 					{#each files as file (file.id)}
-						<button
+						<div
 							data-file={file.id}
-							use:registerFile={file.id}
-							class="flex cursor-default flex-col items-center gap-2 rounded-lg p-3 text-center transition-colors {selectedFiles.has(
-								file.id
-							)
-								? 'bg-primary/12 ring-1 ring-primary/40'
-								: 'hover:bg-foreground/6'}"
-							onclick={() => (selectedFiles = new Set([file.id]))}
+							class="flex cursor-default flex-col items-center gap-2 rounded-lg p-3 text-center"
 						>
-							<SvgIcon svg={file.svg} size={56} class="shrink-0" />
+							<SvgIcon svg={file.svg} size={75} class="shrink-0" />
 							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground"
 								>{file.name}</span
 							>
-						</button>
+						</div>
 					{/each}
 				</div>
 
-				<!-- Rubber band selection -->
-				{#if band}
-					<div
-						class="pointer-events-none absolute rounded-lg border border-primary/50 bg-primary/10"
-						style="left:{band.x0}px;top:{band.y0}px;width:{band.x1 - band.x0}px;height:{band.y1 -
-							band.y0}px"
-					></div>
-				{/if}
 			</div>
 		</div>
 	</div>

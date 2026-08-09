@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
+	import * as m from '$lib/paraglide/messages';
 	import './layout.css';
 	import { ModeWatcher } from 'mode-watcher';
 	import Header from '$lib/components/header.svelte';
@@ -16,12 +17,7 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="manifest" href="/manifest.webmanifest" />
 	<meta name="theme-color" content="#0c0c12" />
-	<meta
-		name="keywords"
-		content="open source operating system, linux distribution, blossomos, privacy os, secure linux, community driven os, custom linux iso, linux for creators, open source community"
-	/>
-
-	<!-- Open Graph -->
+	<meta name="keywords" content={m.meta_keywords()} />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="BlossomOS" />
 	<meta property="og:url" content={page.url.href} />

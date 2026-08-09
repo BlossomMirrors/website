@@ -1,5 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"meta_keywords": "video editing, davinci, resolve, kde plasma, immutable linux, flatpak, appimage, arch packages, windows 10 alternative, privacy, gdpr, gaming, creators, beautiful desktop, linux distribution, distro, linux, blossom, os",
+	"privacy_meta_description": "Blossom Labs' privacy policy: what data we collect, why, and how we protect it.",
 	"home_subtitle": "The desktop platform for digital independence, finally ready for everyday use. Any software with a single click, no compromises.",
 	"home_alpha2_badge": "Now available",
 	"home_alpha2_text": "BlossomOS Alpha 2 is here.",
@@ -31,6 +33,7 @@
 	"about": "About",
 	"downloads": "Downloads",
 	"community": "Community",
+	"community_forums": "Community Forums",
 	"discord": "Discord",
 	"footer_follow_us": "Follow Us",
 	"footer_resources": "Resources",
@@ -57,6 +60,7 @@
 	"imprint_dispute_body": "The European Commission provides a platform for online dispute resolution (ODR) at https://ec.europa.eu/consumers/odr. We are not obligated or willing to participate in dispute resolution proceedings before a consumer arbitration board.",
 	"imprint_content_h2": "Responsible for Content",
 	"imprint_content_body": "Responsible for the content of this website pursuant to applicable law: Blossom Labs. Contact: {email}.\n\nDespite careful content verification, we accept no liability for the content of external links. The operators of the linked pages are solely responsible for their content.\n\nAll names, terms, signs, and graphics used herein may be trademarks or registered trademarks belonging to their respective legal owners. The rights to all mentioned and utilised trademarks and registered trademarks rest exclusively with their owners.",
+	"matrix": "Matrix",
 	"account": "Account",
 	"freedoms_subheader": "Your computer. Your rules.",
 	"freedoms_header": "Finally yours.",

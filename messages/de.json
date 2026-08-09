@@ -1,5 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"meta_keywords": "videobearbeitung, davinci, resolve, kde plasma, immutable linux, flatpak, appimage, arch pakete, windows 10 alternative, datenschutz, dsgvo, gaming, kreative, schöner desktop, linux-distribution, distro, linux, blossom, os",
+	"privacy_meta_description": "Die Datenschutzerklärung von Blossom Labs: welche Daten wir erheben, warum, und wie wir sie schützen.",
 	"home_subtitle": "Die Desktop-Plattform für digitale Unabhängigkeit, endlich alltagstauglich. Jede Software mit einem Klick, keine Kompromisse.",
 	"home_alpha2_badge": "Jetzt verfügbar",
 	"home_alpha2_text": "BlossomOS Alpha 2 ist da.",
@@ -31,6 +33,7 @@
 	"about": "Über",
 	"downloads": "Downloads",
 	"community": "Community",
+	"community_forums": "Community-Forum",
 	"discord": "Discord",
 	"footer_follow_us": "Folge uns",
 	"footer_resources": "Ressourcen",
@@ -57,6 +60,7 @@
 	"imprint_dispute_body": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr. Wir sind weder verpflichtet noch bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
 	"imprint_content_h2": "Verantwortlich für den Inhalt",
 	"imprint_content_body": "Verantwortlich für den Inhalt dieser Website gemäß geltendem Recht: Blossom Labs. Kontakt: {email}.\n\nTrotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.\n\nAlle hier verwendeten Namen, Begriffe, Zeichen und Grafiken können Marken- oder Warenzeichen im Besitze ihrer rechtlichen Eigentümer sein. Die Rechte aller erwähnten und benutzten Marken- und Warenzeichen liegen ausschließlich bei deren Besitzern.",
+	"matrix": "Matrix",
 	"account": "Account",
 	"freedoms_subheader": "Deine Computer. Deine Regeln.",
 	"freedoms_header": "Endlich deins.",

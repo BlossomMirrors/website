@@ -171,16 +171,16 @@
 	class:closing
 	class:rounded-none={!embedded && isMobile}
 	style="{embedded
-		? 'border-radius:14px;'
+		? 'border-radius:12px;'
 		: isMobile
 			? 'inset:0;border-radius:0;'
-			: `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:14px;`}z-index:{zIndex}"
+			: `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:12px;`}z-index:{zIndex}"
 	onpointerdown={embedded ? undefined : () => onFocus?.()}
 >
 	<!-- Title bar -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		class="flex shrink-0 touch-none items-center justify-between px-3 select-none"
+		class="flex shrink-0 touch-none items-center justify-between px-2.5 select-none"
 		style="height:36px;cursor:{embedded || isMobile
 			? 'default'
 			: drag
