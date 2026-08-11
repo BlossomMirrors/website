@@ -1,3 +1,39 @@
+<script module lang="ts">
+	declare global {
+		interface Window {
+			turnstile?: {
+				render: (
+					container: HTMLElement,
+					options: {
+						sitekey: string;
+						action?: string;
+						callback?: (token: string) => void;
+						'error-callback'?: () => void;
+					}
+				) => string;
+				remove: (widgetId: string) => void;
+			};
+		}
+	}
+
+	let turnstileLoad: Promise<void> | null = null;
+
+	function loadTurnstile(): Promise<void> {
+		if (typeof window !== 'undefined' && window.turnstile) return Promise.resolve();
+		if (turnstileLoad) return turnstileLoad;
+		turnstileLoad = new Promise((resolve, reject) => {
+			const script = document.createElement('script');
+			script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+			script.async = true;
+			script.defer = true;
+			script.onload = () => resolve();
+			script.onerror = () => reject(new Error('turnstile_load_failed'));
+			document.head.appendChild(script);
+		});
+		return turnstileLoad;
+	}
+</script>
+
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -14,6 +50,7 @@
 	import { UseClipboard } from '$lib/hooks/use-clipboard.svelte';
 	import { cn } from '$lib/utils.js';
 	import posthog from 'posthog-js';
+	import { env } from '$env/dynamic/public';
 
 	type IsoData = { name: string; sha256: string };
 
@@ -89,16 +126,19 @@
 
 	let dialogOpen = $state(false);
 
-	function downloadClick(e: MouseEvent, label: string) {
-		if (e.shiftKey) e.preventDefault();
+	let verifyOpen = $state(false);
+	let verifyError = $state(false);
+	let pendingIso = $state<{ label: string; data: IsoData } | null>(null);
+	let turnstileContainer = $state<HTMLDivElement | null>(null);
+	let verifyForm = $state<HTMLFormElement | null>(null);
+	let tokenInput = $state<HTMLInputElement | null>(null);
+	let isoInput = $state<HTMLInputElement | null>(null);
+	let widgetId: string | null = null;
+
+	function announceDownload(label: string) {
 		clearTimeout(spinTimer);
 		speed.set(0.72);
 		spinTimer = setTimeout(() => speed.set(0), 3000);
-		if (label === 'NVIDIA Open' && e.shiftKey) {
-			const novideo = document.getElementById('novideo') as HTMLAudioElement;
-			novideo.currentTime = 0;
-			novideo.play();
-		}
 		posthog.capture('download_started', {
 			iso_variant: label,
 			version: version || null,
@@ -106,6 +146,49 @@
 		});
 		dialogOpen = true;
 	}
+
+	function downloadClick(e: MouseEvent, label: string, data: IsoData) {
+		if (label === 'NVIDIA Open' && e.shiftKey) {
+			const novideo = document.getElementById('novideo') as HTMLAudioElement;
+			novideo.currentTime = 0;
+			novideo.play();
+			announceDownload(label);
+			return;
+		}
+		pendingIso = { label, data };
+		verifyOpen = true;
+	}
+
+	function onVerified(token: string) {
+		if (!pendingIso || !tokenInput || !isoInput || !verifyForm) return;
+		tokenInput.value = token;
+		isoInput.value = pendingIso.data.name;
+		verifyOpen = false;
+		announceDownload(pendingIso.label);
+		verifyForm.requestSubmit();
+	}
+
+	$effect(() => {
+		if (!verifyOpen || !turnstileContainer) return;
+		verifyError = false;
+		let cancelled = false;
+		loadTurnstile()
+			.then(() => {
+				if (cancelled || !turnstileContainer || !window.turnstile) return;
+				widgetId = window.turnstile.render(turnstileContainer, {
+					sitekey: env.PUBLIC_TURNSTILE_SITE_KEY ?? '',
+					action: 'download',
+					callback: onVerified,
+					'error-callback': () => (verifyError = true)
+				});
+			})
+			.catch(() => (verifyError = true));
+		return () => {
+			cancelled = true;
+			if (widgetId && window.turnstile) window.turnstile.remove(widgetId);
+			widgetId = null;
+		};
+	});
 
 	const isos = $derived([
 		{
@@ -126,6 +209,26 @@
 </script>
 
 <audio id="novideo" src="/novideo.mp3"></audio>
+
+<form bind:this={verifyForm} method="POST" action="/api/downloads/verify" class="hidden">
+	<input bind:this={tokenInput} type="hidden" name="cf-turnstile-response" />
+	<input bind:this={isoInput} type="hidden" name="iso" />
+</form>
+
+<Dialog.Root bind:open={verifyOpen}>
+	<Dialog.Content class="gap-4 sm:max-w-sm">
+		<Dialog.Header>
+			<Dialog.Title>{m.download_verify_title()}</Dialog.Title>
+			<Dialog.Description>{m.download_verify_body()}</Dialog.Description>
+		</Dialog.Header>
+		<div class="flex justify-center py-2">
+			<div bind:this={turnstileContainer}></div>
+		</div>
+		{#if verifyError}
+			<p class="text-center text-xs text-destructive">{m.download_verify_error()}</p>
+		{/if}
+	</Dialog.Content>
+</Dialog.Root>
 
 <Dialog.Root bind:open={dialogOpen}>
 	<Dialog.Content class="gap-0 overflow-hidden p-0 sm:max-w-md" hideClose={false}>
@@ -222,24 +325,22 @@
 					{#if loading || !iso.data}
 						<div class="h-9 w-28 shrink-0 animate-pulse rounded-lg bg-muted"></div>
 					{:else}
-						<a
-							href="{CDN}/{iso.data.name}"
-							download
+						<Button
+							variant={iso.recommended ? 'primary' : 'default'}
+							size="sm"
 							class="shrink-0"
-							onclick={(e) => downloadClick(e, iso.label)}
+							onclick={(e) => downloadClick(e, iso.label, iso.data as IsoData)}
 							onmouseenter={() => triggerDownload(iso.label)}
 							data-umami-event="download"
 							data-umami-event-label={iso.label}
 						>
-							<Button variant={iso.recommended ? 'primary' : 'default'} size="sm">
-								<DownloadIcon
-									size={16}
-									animate={hoveredLabel === iso.label}
-									class="pointer-events-none"
-								/>
-								{m.download_button()}
-							</Button>
-						</a>
+							<DownloadIcon
+								size={16}
+								animate={hoveredLabel === iso.label}
+								class="pointer-events-none"
+							/>
+							{m.download_button()}
+						</Button>
 					{/if}
 				</div>
 				{#if iso.data}

@@ -11,7 +11,10 @@
 	},
 	// non-secret values can live here as "vars"; set actual secrets with
 	// `wrangler secret put RESEND_API_KEY` / `NEWSLETTER_SECRET` / etc.
-	"vars": {},
+	"vars": {
+		"PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAD_XPyRIgGGhvLBo",
+		"TURNSTILE_HOSTNAMES": "blossomos.org"
+	},
 	"routes": [
 		{
 			"pattern": "blossomos.org",
