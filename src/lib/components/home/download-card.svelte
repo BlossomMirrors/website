@@ -152,8 +152,6 @@
 			const novideo = document.getElementById('novideo') as HTMLAudioElement;
 			novideo.currentTime = 0;
 			novideo.play();
-			announceDownload(label);
-			return;
 		}
 		pendingIso = { label, data };
 		verifyOpen = true;
