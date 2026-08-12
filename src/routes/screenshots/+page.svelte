@@ -197,7 +197,7 @@
 			{m.screenshots_tagline()}
 		</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">
-			{m.screenshots_h1_1()}<br />{m.screenshots_h1_2()}
+			{m.screenshots_h1()}
 		</h1>
 		<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
 			{m.screenshots_subtitle()}
