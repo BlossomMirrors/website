@@ -7,6 +7,7 @@
 	import Header from '$lib/components/header.svelte';
 	import Footer from '$lib/components/footer.svelte';
 	import ScrollToTop from '$lib/components/ui/scroll-to-top.svelte';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 
 	let { children } = $props();
 </script>
@@ -35,13 +36,15 @@
 <ModeWatcher />
 
 <Header />
-<div class="flex items-center justify-between">
-	<div class="mx-auto w-full max-w-7xl">
-		<main class="px-4">{@render children()}</main>
+<Tooltip.Provider>
+	<div class="flex items-center justify-between">
+		<div class="mx-auto w-full max-w-7xl">
+			<main class="px-4">{@render children()}</main>
+		</div>
 	</div>
-</div>
-<Footer />
-<ScrollToTop />
+	<Footer />
+	<ScrollToTop />
+</Tooltip.Provider>
 
 <!-- eslint-disable -->
 <div style="display:none">

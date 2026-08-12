@@ -456,5 +456,7 @@
 	"screenshots_prev": "Previous screenshot",
 	"screenshots_next": "Next screenshot",
 	"screenshots_zoom_in": "Zoom in",
-	"screenshots_zoom_out": "Zoom out"
+	"screenshots_zoom_out": "Zoom out",
+	"screenshot_community": "Community",
+	"screenshots_community_tooltip": "Screenshot provided by a community member"
 }
