@@ -2,6 +2,7 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { locales, getLocale, setLocale } from '$lib/paraglide/runtime';
+	import * as m from '$lib/paraglide/messages';
 
 	import type { Component } from 'svelte';
 
@@ -32,6 +33,7 @@
 				<Flag class="h-4 w-auto" />
 			{/if}
 		</div>
+		<span class="sr-only">{m.switch_language()}</span>
 	</Select.Trigger>
 	<Select.Content>
 		{#each locales as locale (locale)}

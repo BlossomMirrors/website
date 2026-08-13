@@ -3,9 +3,9 @@
 	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { mode } from 'mode-watcher';
-	import crtPng from '$lib/assets/crt.png';
-	import wallpaperDark from '$lib/assets/wallpaper-dark.png';
-	import wallpaperLight from '$lib/assets/wallpaper-light.png';
+	import crtPng from '$lib/assets/crt.png?enhanced&imgWidth=1280';
+	import wallpaperDark from '$lib/assets/wallpaper-dark.png?enhanced&imgWidth=1280';
+	import wallpaperLight from '$lib/assets/wallpaper-light.png?enhanced&imgWidth=1280';
 
 	const isDark = $derived(mode.current === 'dark');
 	let crtEl = $state<HTMLDivElement | null>(null);
@@ -36,7 +36,13 @@
 			<h2 class="font-serif text-5xl leading-tight md:text-6xl">
 				{m.crt_header1()}
 				{m.crt_header2()}
-				<img src="/recycling.svg" alt="Recycling" class="sticker inline animate-spin" />
+				<img
+					src="/recycling.svg"
+					alt="Recycling"
+					width="24"
+					height="24"
+					class="sticker inline animate-spin"
+				/>
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
 				{m.crt_description()}
@@ -52,6 +58,7 @@
 					<enhanced:img
 						src={wallpaperDark}
 						alt="BlossomOS desktop"
+						sizes="(min-width: 768px) 50vw, 100vw"
 						class="absolute inset-0 h-full w-full object-cover"
 						style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
 					/>
@@ -59,6 +66,7 @@
 					<enhanced:img
 						src={wallpaperLight}
 						alt="BlossomOS desktop"
+						sizes="(min-width: 768px) 50vw, 100vw"
 						class="absolute inset-0 h-full w-full object-cover"
 						style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
 					/>
@@ -75,6 +83,7 @@
 				<enhanced:img
 					src={crtPng}
 					alt="CRT monitor"
+					sizes="(min-width: 768px) 50vw, 100vw"
 					class="pointer-events-none absolute inset-0 h-full w-full"
 					style="object-fit: fill"
 				/>

@@ -2,8 +2,8 @@
 	import { reveal } from '$lib/actions/reveal';
 	import * as m from '$lib/paraglide/messages';
 	import { mode } from 'mode-watcher';
-	import wallpaperDark from '$lib/assets/wallpaper-dark.png';
-	import wallpaperLight from '$lib/assets/wallpaper-light.png';
+	import wallpaperDark from '$lib/assets/wallpaper-dark.png?enhanced&imgWidth=1280';
+	import wallpaperLight from '$lib/assets/wallpaper-light.png?enhanced&imgWidth=1280';
 	import WindowControl from '$lib/components/hero/window-control.svelte';
 
 	const isDark = $derived(mode.current === 'dark');
@@ -54,12 +54,14 @@
 						<enhanced:img
 							src={wallpaperDark}
 							alt="BlossomOS desktop"
+							sizes="(min-width: 768px) 50vw, 100vw"
 							class="h-full w-full object-cover object-top"
 						/>
 					{:else}
 						<enhanced:img
 							src={wallpaperLight}
 							alt="BlossomOS desktop"
+							sizes="(min-width: 768px) 50vw, 100vw"
 							class="h-full w-full object-cover object-top"
 						/>
 					{/if}
@@ -75,7 +77,7 @@
 						type={btn}
 						{isDark}
 						hovered={hoveredBtn === btn}
-						class="!h-16 !w-16 transition-transform duration-150 hover:scale-110"
+						class="h-16! w-16! transition-transform duration-150 hover:scale-110"
 						onmouseenter={() => (hoveredBtn = btn)}
 						onmouseleave={() => (hoveredBtn = null)}
 					/>

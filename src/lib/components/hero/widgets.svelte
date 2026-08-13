@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import * as m from '$lib/paraglide/messages';
 	import gameboyJpg from '$lib/assets/flyout/gameboy.jpg?enhanced';
 	import polaroidJpg from '$lib/assets/flyout/polaroid.jpg?enhanced';
 	import amigaJpg from '$lib/assets/flyout/amiga.jpg?enhanced';
@@ -102,6 +103,8 @@
 			role={item.id === 'folder' ? 'button' : undefined}
 			class="widget-in absolute touch-none opacity-0 select-none"
 			tabindex={item.id === 'folder' ? 0 : undefined}
+			aria-label={item.id === 'folder' ? m.widgets_open_folder() : undefined}
+			aria-expanded={item.id === 'folder' ? folderOpen : undefined}
 			style="left:{item.x}px;top:{item.y}px;z-index:{topIdx === idx
 				? 20
 				: 10};--tilt:{item.tilt}deg;animation-delay:{item.delay}s;cursor:{drag?.idx === idx

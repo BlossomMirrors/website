@@ -457,5 +457,7 @@
 	"screenshots_zoom_in": "Vergrößern",
 	"screenshots_zoom_out": "Verkleinern",
 	"screenshot_community": "Community",
-	"screenshots_community_tooltip": "Screenshot bereitgestellt von einem Community-Mitglied"
+	"screenshots_community_tooltip": "Screenshot bereitgestellt von einem Community-Mitglied",
+	"switch_language": "Sprache wechseln",
+	"widgets_open_folder": "Fotoordner öffnen"
 }

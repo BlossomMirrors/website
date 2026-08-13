@@ -33,6 +33,7 @@
 		alt=""
 		aria-hidden="true"
 		sizes="100vw"
+		fetchpriority="high"
 		class="pointer-events-none absolute inset-0 h-full w-full object-cover"
 	/>
 	<div class="animate-screen-on pointer-events-none absolute inset-0 z-50 bg-black"></div>

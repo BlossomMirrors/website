@@ -2,6 +2,7 @@
 	import Window from './window.svelte';
 	import kamosoPng from '$lib/assets/taskbar/kamoso.png';
 	import webcamJpg from '$lib/assets/webcam.jpg';
+	import webcamDisplay from '$lib/assets/webcam.jpg?enhanced&imgWidth=1600';
 	import ToolbarButton from './toolbar-button.svelte';
 	import CameraIcon from '@lucide/svelte/icons/camera';
 	import VideoIcon from '@lucide/svelte/icons/video';
@@ -56,6 +57,11 @@
 
 	<!-- Camera feed -->
 	<div class="relative min-h-0 flex-1 overflow-hidden bg-black">
-		<img src={webcamJpg} alt="" class="h-full w-full object-cover" />
+		<enhanced:img
+			src={webcamDisplay}
+			alt=""
+			sizes="(min-width: 768px) 800px, 100vw"
+			class="h-full w-full object-cover"
+		/>
 	</div>
 </Window>
