@@ -11,6 +11,8 @@
 	import ZoomInIcon from '@lucide/svelte/icons/zoom-in';
 	import ZoomOutIcon from '@lucide/svelte/icons/zoom-out';
 	import XIcon from '@lucide/svelte/icons/x';
+	import { Users } from '@lucide/svelte';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 
 	const MIN_ZOOM = 1;
 	const MAX_ZOOM = 4;
@@ -195,7 +197,7 @@
 			{m.screenshots_tagline()}
 		</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">
-			{m.screenshots_h1_1()}<br />{m.screenshots_h1_2()}
+			{m.screenshots_h1()}
 		</h1>
 		<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
 			{m.screenshots_subtitle()}
@@ -204,7 +206,7 @@
 
 	{#if screenshots.length === 0}
 		<div
-			class="mt-16 flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border py-24 text-center"
+			class="mt-16 flex flex-col items-center gap-3 rounded-md border border-dashed border-border py-24 text-center"
 			use:reveal={120}
 		>
 			<ImageOffIcon size={28} class="text-muted-foreground" strokeWidth={1.5} />
@@ -215,17 +217,29 @@
 			{#each screenshots as shot, i (shot.name)}
 				<button
 					type="button"
-					class="group overflow-hidden rounded-2xl border border-border"
+					class="group cursor-pointer overflow-hidden rounded-md border border-border"
 					onclick={() => open(i)}
 					aria-label={shot.name}
 					use:reveal={i * 60}
 				>
 					<div class="aspect-video overflow-hidden bg-muted">
-						<enhanced:img
-							src={shot.image}
-							alt={shot.name}
-							class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-						/>
+						<enhanced:img src={shot.image} alt={shot.name} class="h-full w-full object-cover" />
+						{#if shot.credit?.community}
+							<div
+								class="absolute right-3 bottom-3 rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground shadow-lg backdrop-blur"
+							>
+								<Tooltip.Root>
+									<Tooltip.Trigger>
+
+									<Users class="-mt-0.5 mr-1 inline size-3" />
+									{m.screenshot_community()}
+									</Tooltip.Trigger>
+									<Tooltip.Content>
+										<p>{m.screenshots_community_tooltip()}</p>
+									</Tooltip.Content>
+								</Tooltip.Root>
+							</div>
+						{/if}
 					</div>
 				</button>
 			{/each}
@@ -235,7 +249,7 @@
 
 <Dialog.Root open={activeIndex !== null} onOpenChange={(o) => !o && close()}>
 	<Dialog.Content
-		class="h-[88vh] w-[95vw] max-w-6xl border-none bg-transparent p-0 shadow-none sm:max-w-6xl"
+		class="max-w-6xl border-none bg-transparent p-0 shadow-none sm:max-w-[80vw]"
 		hideClose
 	>
 		{#if activeIndex !== null}
@@ -245,7 +259,7 @@
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
 					bind:this={stageEl}
-					class="h-full w-full touch-none overflow-hidden rounded-2xl"
+					class="h-full w-full touch-none overflow-hidden"
 					onpointerdown={onStagePointerDown}
 					onpointermove={onStagePointerMove}
 					onpointerup={endPointer}

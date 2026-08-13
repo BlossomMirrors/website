@@ -389,6 +389,9 @@
 	"download_dialog_body": "BlossomOS wird mit viel Liebe von einer kleinen Community entwickelt, und jede Person, die es ausprobiert, bedeutet uns wirklich etwas. Wir hoffen, dass es dir gefällt und würden uns freuen, deine Meinung zu hören.",
 	"download_dialog_community": "Community beitreten",
 	"download_dialog_support": "Spenden",
+	"download_verify_title": "Eine kurze Prüfung.",
+	"download_verify_body": "Wir bestätigen, dass du kein Bot bist, bevor der Download startet.",
+	"download_verify_error": "Verifizierung konnte nicht geladen werden. Bitte lade die Seite neu und versuche es erneut.",
 	"newsletter_label": "Bleib auf dem Laufenden",
 	"newsletter_placeholder": "deine@email.de",
 	"newsletter_submit": "Abonnieren",
@@ -444,8 +447,7 @@
 	"switch_sov_cost_body": "Kostenlos für alle. Für Organisationen, die es benötigen, sind professionelle Support-Pläne verfügbar.",
 	"screenshots_nav": "Screenshots",
 	"screenshots_tagline": "Galerie",
-	"screenshots_h1_1": "BlossomOS",
-	"screenshots_h1_2": "in Aktion.",
+	"screenshots_h1": "BlossomOS in Aktion",
 	"screenshots_subtitle": "Ein genauerer Blick auf den Desktop, die Apps und die Details des Alltags.",
 	"screenshots_empty": "Screenshots folgen in Kürze. Schau bald wieder vorbei.",
 	"screenshots_close": "Schließen",
@@ -453,5 +455,7 @@
 	"screenshots_prev": "Vorheriger Screenshot",
 	"screenshots_next": "Nächster Screenshot",
 	"screenshots_zoom_in": "Vergrößern",
-	"screenshots_zoom_out": "Verkleinern"
+	"screenshots_zoom_out": "Verkleinern",
+	"screenshot_community": "Community",
+	"screenshots_community_tooltip": "Screenshot bereitgestellt von einem Community-Mitglied"
 }

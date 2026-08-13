@@ -71,12 +71,12 @@
 			type: 'link',
 			label: m.downloads(),
 			href: '/downloads'
-		} /*
+		},
 		{
 			type: 'link',
 			label: m.screenshots_nav(),
 			href: '/screenshots'
-		},
+		} /*
 		{
 			type: 'link',
 			label: m.events(),
@@ -94,7 +94,7 @@
 				{ label: m.discord(), href: 'https://discord.gg/dTqsBdxvNr', icon: DiscordIcon },
 				{
 					label: m.matrix(),
-					href: 'https://matrix.to/#/#blossomos:blossomos.org',
+					href: 'https://matrix.to/#/#space:blossomos.org',
 					icon: MatrixIcon
 				},
 				{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', icon: BlueskyIcon }
