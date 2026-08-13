@@ -44,6 +44,20 @@ const handleParaglide: Handle = ({ event, resolve }) =>
 		});
 	});
 
+// link/meta tags are not enough as it needs server side handling before rendering the full html
+const handleAgentDiscovery: Handle = async ({ event, resolve }) => {
+	const response = await resolve(event);
+
+	if (event.url.pathname === '/') {
+		response.headers.append(
+			'Link',
+			`<${new URL('/llms.txt', event.url.origin)}>; rel="describedby"`
+		);
+	}
+
+	return response;
+};
+
 const handlePostHogProxy: Handle = async ({ event, resolve }) => {
 	const { pathname } = event.url;
 
@@ -84,7 +98,8 @@ const handlePostHogProxy: Handle = async ({ event, resolve }) => {
 export const handle: Handle = sequence(
 	handleMarkdownNegotiation,
 	handlePostHogProxy,
-	handleParaglide
+	handleParaglide,
+	handleAgentDiscovery
 );
 
 export const handleError: HandleServerError = async ({ error, status, message }) => {

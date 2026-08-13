@@ -16,7 +16,7 @@
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="manifest" href="/manifest.webmanifest" />
-	<link rel="llms" href="/llms.txt" />
+	<link rel="describedby" href="/llms.txt" />
 	<meta name="theme-color" content="#0c0c12" />
 	<meta name="keywords" content={m.meta_keywords()} />
 	<meta property="og:type" content="website" />
