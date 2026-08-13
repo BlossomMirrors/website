@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
 	import * as m from '$lib/paraglide/messages';
 	import './layout.css';
 	import { ModeWatcher } from 'mode-watcher';
@@ -16,6 +15,7 @@
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="manifest" href="/manifest.webmanifest" />
+	<link rel="llms" href="/llms.txt" />
 	<meta name="theme-color" content="#0c0c12" />
 	<meta name="keywords" content={m.meta_keywords()} />
 	<meta property="og:type" content="website" />
@@ -25,8 +25,6 @@
 	<meta property="og:image:width" content="2576" />
 	<meta property="og:image:height" content="1456" />
 	<meta property="og:image:type" content="image/png" />
-
-	<!-- X (Twitter) -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:url" content={page.url.href} />
 	<meta name="twitter:image" content="https://blossomos.org/cover.png" />
@@ -42,12 +40,3 @@
 </div>
 <Footer />
 <ScrollToTop />
-
-<!-- eslint-disable -->
-<div style="display:none">
-	{#each locales as locale}
-		<a href={localizeHref(page.url.pathname, { locale })}>
-			{locale}
-		</a>
-	{/each}
-</div>
