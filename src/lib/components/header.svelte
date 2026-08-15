@@ -174,7 +174,7 @@
 			>
 				<Button
 					variant="ghost"
-					class="text-destructive hover:bg-destructive/10 hover:text-destructive"
+					class="text-secondary-500 hover:bg-secondary-500/10 hover:text-secondary-500"
 				>
 					<HeartIcon size={14} strokeWidth={0} fill="currentColor" />{m.donate_nav()}
 				</Button>
@@ -245,7 +245,7 @@
 				<a href="https://liberapay.com/blossomos" target="_blank" rel="noreferrer">
 					<Button
 						variant="ghost"
-						class="w-full text-destructive hover:bg-destructive/10 hover:text-destructive"
+						class="w-full text-secondary-500 hover:bg-secondary-500/10 hover:text-secondary-500"
 					>
 						<HeartIcon size={14} strokeWidth={0} fill="currentColor" />{m.donate_nav()}
 					</Button>

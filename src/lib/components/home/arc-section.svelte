@@ -140,7 +140,7 @@
 		</div>
 
 		<div use:reveal={120}>
-			<Window title="Arc Software" icon={arcPng} closable={false}>
+			<Window title="Arc Software" icon={arcPng}>
 				<!-- Toolbar -->
 				<div class="hidden items-center gap-2 border-b border-border px-3 py-2 sm:flex">
 					<button

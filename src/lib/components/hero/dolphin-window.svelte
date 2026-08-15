@@ -101,7 +101,7 @@
 	<!-- Main content -->
 	<div class="flex min-h-0 flex-1">
 		<!-- Sidebar -->
-		<div class="hidden w-42 shrink-0 overflow-y-auto py-2 pr-2 pl-4 sm:block">
+		<div class="hidden w-42 shrink-0 overflow-y-auto py-2 pr-2  mb-6.5 pl-4 sm:block">
 			<p class="mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70">
 				{m.dolphin_places()}
 			</p>
@@ -131,7 +131,7 @@
 					{#each files as file (file.id)}
 						<div
 							data-file={file.id}
-							class="flex cursor-default flex-col items-center gap-2 rounded-lg p-3 text-center"
+							class="cursor-custom flex w-fit flex-col items-center gap-2 justify-self-center rounded-md py-0.5 px-7 text-center transition-colors hover:bg-foreground/10"
 						>
 							<file.icon size={75} class="shrink-0" />
 							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground"

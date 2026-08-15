@@ -6,25 +6,16 @@
 	let {
 		title,
 		icon,
-		closable = true,
 		bgClass = 'bg-card',
 		children
 	}: {
 		title: string;
 		icon?: string;
-		closable?: boolean;
 		bgClass?: string;
 		children: Snippet;
 	} = $props();
 
 	const isDark = $derived(mode.current === 'dark');
-	let closing = $state(false);
-
-	function handleClose() {
-		if (!closable || !children || closing) return;
-		closing = true;
-		setTimeout(() => children(), 140);
-	}
 </script>
 
 <div
@@ -32,7 +23,6 @@
 	aria-label={title}
 	tabindex="-1"
 	class="win pointer-events-auto flex flex-col overflow-hidden rounded-[12px] border border-border shadow-2xl {bgClass}"
-	class:closing
 >
 	<!-- Title bar -->
 	<div class="cursor-custom flex h-9 shrink-0 items-center justify-between px-2.5 select-none">
@@ -45,7 +35,7 @@
 		<div class="cursor-custom flex items-center gap-2">
 			<WindowControl type="minimize" {isDark} />
 			<WindowControl type="maximize" {isDark} />
-			<WindowControl type="close" {isDark} onclick={handleClose} />
+			<WindowControl type="close" {isDark} />
 		</div>
 	</div>
 
@@ -66,21 +56,8 @@
 			transform: scale(1);
 		}
 	}
-	@keyframes win-close {
-		from {
-			opacity: 1;
-			transform: scale(1);
-		}
-		to {
-			opacity: 0;
-			transform: scale(0.95);
-		}
-	}
 	.win {
 		animation: win-open 150ms ease-out forwards;
 		transform-origin: center;
-	}
-	.win.closing {
-		animation: win-close 140ms ease-in forwards;
 	}
 </style>

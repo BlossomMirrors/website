@@ -45,7 +45,7 @@
 	--button-hover: var(--neutral-200);
 	--button-accent: var(--primary-300);
 	--button-accent-hover: var(--primary-200);
-	--destructive-foreground: var(--neutral-25);
+	--destructive-foreground: var(--color-red-50);
 	--success: var(--tertiary-700);
 	--warning: #a35a00;
 	--link: var(--primary-300);
@@ -67,7 +67,7 @@
 	--muted-foreground: var(--neutral-100);
 	--accent: var(--primary-300);
 	--accent-foreground: #ffffff;
-	--destructive: var(--secondary-400);
+	--destructive: var(--color-red-400);
 	--border: var(--neutral-700);
 	--input: var(--neutral-700);
 	--ring: var(--primary-300);

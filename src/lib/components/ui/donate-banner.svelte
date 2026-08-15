@@ -21,8 +21,8 @@
 
 	<div class="relative max-w-2xl">
 		<div class="mb-4 flex items-center gap-2">
-			<HeartIcon size={12} class="text-destructive" fill="currentColor" />
-			<p class="text-xs font-semibold tracking-widest text-destructive uppercase">
+			<HeartIcon size={12} class="text-secondary-500" fill="currentColor" />
+			<p class="text-xs font-semibold tracking-widest text-secondary-500 uppercase">
 				{m.donate_nav()}
 			</p>
 		</div>

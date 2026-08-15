@@ -258,7 +258,7 @@
 				rel="noreferrer"
 				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-xs font-medium transition-colors hover:bg-muted"
 			>
-				<HeartIcon size={16} class="text-destructive" strokeWidth={0} fill="currentColor" />
+				<HeartIcon size={16} class="text-secondary-500" strokeWidth={0} fill="currentColor" />
 				{m.donate_nav()}
 			</a>
 			<a

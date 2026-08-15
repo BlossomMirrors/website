@@ -42,9 +42,11 @@
 
 	onDestroy(() => clearInterval(interval));
 
-	const timeStr = $derived(time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+	const timeStr = $derived(
+		time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+	);
 	const dateStr = $derived(
-		time.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })
+		time.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' })
 	);
 
 	let tooltip = $state<{ label: string; subtitle: string; x: number; bottom: number } | null>(null);
