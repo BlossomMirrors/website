@@ -78,15 +78,10 @@
 			{m.switch_hero_subtitle()}
 		</p>
 		<div class="mt-8 flex flex-wrap justify-center gap-3">
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/downloads">
-				<Button variant="primary"
-					>{m.download_title()} <ArrowRightIcon size={16} strokeWidth={1.5} /></Button
-				>
-			</a>
-			<a href="https://help.blossomos.org" target="_blank" rel="noreferrer">
-				<Button>{m.switch_cta_docs()}</Button>
-			</a>
+			<Button href="/downloads" variant="primary"
+				>{m.cta_download()} <ArrowRightIcon size={16} strokeWidth={1.5} /></Button
+			>
+			<Button href="https://help.blossomos.org">{m.switch_cta_docs()}</Button>
 		</div>
 	</div>
 
@@ -96,12 +91,12 @@
 		use:reveal
 	>
 		<div
-			class="pointer-events-none absolute -top-12 -right-12 h-48 w-48 rounded-full bg-red-500/8 blur-3xl"
+			class="pointer-events-none absolute -top-12 -right-12 size-48 rounded-full bg-red-500/8 blur-3xl"
 		></div>
 		<div class="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
 			<div class="flex items-start gap-4">
 				<div
-					class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-red-500"
+					class="mt-1 flex size-10 shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-red-500"
 				>
 					<AlertCircleIcon size={20} strokeWidth={1.5} />
 				</div>
@@ -125,9 +120,7 @@
 				</div>
 			</div>
 			<div class="shrink-0">
-				<a href="/downloads">
-					<Button variant="primary">{m.switch_endof10_cta()}</Button>
-				</a>
+				<Button href="/downloads" variant="primary">{m.switch_endof10_cta()}</Button>
 			</div>
 		</div>
 	</div>
@@ -147,7 +140,7 @@
 			{#each features as f, i (f.title)}
 				<div class="rounded-2xl border border-border bg-card p-7" use:reveal={i * 70}>
 					<div
-						class="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
+						class="mb-5 flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
 					>
 						<f.Icon size={20} strokeWidth={1.5} />
 					</div>
@@ -173,7 +166,7 @@
 			{#each steps as s, i (s.label)}
 				<div class="rounded-2xl border border-border bg-card p-7" use:reveal={i * 80}>
 					<div
-						class="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
+						class="mb-5 flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary"
 					>
 						<s.Icon size={20} strokeWidth={1.5} />
 					</div>
@@ -194,7 +187,7 @@
 		use:reveal
 	>
 		<div
-			class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary/8 blur-3xl"
+			class="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-primary/8 blur-3xl"
 		></div>
 		<div class="relative grid items-center gap-10 md:grid-cols-2">
 			<div>
@@ -208,19 +201,15 @@
 					{m.switch_cta2_body()}
 				</p>
 				<div class="mt-8 flex flex-wrap gap-3">
-					<a href="/downloads">
-						<Button variant="primary">{m.download_title()}</Button>
-					</a>
-					<a href="/about">
-						<Button>{m.learn_more()}</Button>
-					</a>
+					<Button href="/downloads" variant="primary">{m.cta_download()}</Button>
+					<Button href="/about">{m.learn_more()}</Button>
 				</div>
 			</div>
 			<div
 				class="flex items-center justify-center opacity-5 dark:opacity-[0.04]"
 				aria-hidden="true"
 			>
-				<div class="h-48 w-48 fill-foreground md:h-64 md:w-64">
+				<div class="size-48 fill-foreground md:size-64">
 					<WindowsIcon />
 				</div>
 			</div>

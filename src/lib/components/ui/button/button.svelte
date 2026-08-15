@@ -29,7 +29,9 @@
 
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import { resolve } from '$app/paths';
+	import type { Pathname } from '$app/types';
+	import type { HTMLButtonAttributes, HTMLAnchorAttributes } from 'svelte/elements';
 	import type { Snippet } from 'svelte';
 
 	let {
@@ -38,13 +40,19 @@
 		size,
 		child,
 		children,
+		href,
 		class: className,
 		onpointerdown,
 		...restProps
 	}: HTMLButtonAttributes &
+		Omit<HTMLAnchorAttributes, 'type'> &
 		VariantProps<typeof buttonVariants> & {
 			child?: Snippet<[{ props: Record<string, unknown> }]>;
 			ref?: HTMLElement | null;
+			/** Renders the button as a link. Internal paths (starting with `/`) are routed through
+			 * SvelteKit's resolve(); anything else is treated as an external URL and opens in a
+			 * new tab. */
+			href?: string;
 		} = $props();
 
 	type Ripple = { id: number; x: number; y: number; size: number };
@@ -74,19 +82,44 @@
 	});
 
 	const rippleColorClass = $derived(variant === 'destructive' ? 'bg-foreground' : 'bg-primary');
+	const isExternal = $derived(href !== undefined && !href.startsWith('/'));
 </script>
+
+{#snippet content()}
+	{@render children?.()}
+	{#each ripples as ripple (ripple.id)}
+		<span
+			class="blossom-ripple {rippleColorClass} pointer-events-none absolute rounded-full"
+			style="left: {ripple.x}px; top: {ripple.y}px; width: {ripple.size}px; height: {ripple.size}px;"
+		></span>
+	{/each}
+{/snippet}
 
 {#if child}
 	{@render child({ props: mergedProps })}
+{:else if href !== undefined && isExternal}
+	<a
+		{href}
+		target="_blank"
+		rel="external noreferrer"
+		{...mergedProps}
+		bind:this={ref}
+		onpointerdown={handlePointerDown}
+	>
+		{@render content()}
+	</a>
+{:else if href !== undefined}
+	<a
+		href={resolve(href as Pathname)}
+		{...mergedProps}
+		bind:this={ref}
+		onpointerdown={handlePointerDown}
+	>
+		{@render content()}
+	</a>
 {:else if children}
 	<button {...mergedProps} bind:this={ref} onpointerdown={handlePointerDown}>
-		{@render children?.()}
-		{#each ripples as ripple (ripple.id)}
-			<span
-				class="blossom-ripple {rippleColorClass} pointer-events-none absolute rounded-full"
-				style="left: {ripple.x}px; top: {ripple.y}px; width: {ripple.size}px; height: {ripple.size}px;"
-			></span>
-		{/each}
+		{@render content()}
 	</button>
 {/if}
 

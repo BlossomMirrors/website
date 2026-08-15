@@ -8,16 +8,17 @@
 	import SearchIcon from '@lucide/svelte/icons/search';
 	import SlidersHorizontalIcon from '@lucide/svelte/icons/sliders-horizontal';
 	import * as m from '$lib/paraglide/messages';
+	import SmartLink from '$lib/components/ui/smart-link.svelte';
 
-	import whatsappPng from '$lib/assets/proprietary/whatsapp.png?enhanced';
-	import netflixPng from '$lib/assets/proprietary/netflix.png?enhanced';
-	import spotifyPng from '$lib/assets/proprietary/spotify.png?enhanced';
+	import whatsappPng from '$lib/assets/proprietary/whatsapp.png';
+	import netflixPng from '$lib/assets/proprietary/netflix.png';
+	import spotifyPng from '$lib/assets/proprietary/spotify.png';
 	import arcPng from '$lib/assets/taskbar/arc.png';
-	import steamPng from '$lib/assets/taskbar/steam.png?enhanced';
-	import discordPng from '$lib/assets/taskbar/discord.png?enhanced';
-	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png?enhanced';
-	import libreofficePng from '$lib/assets/taskbar/libreoffice.png?enhanced';
-	import obsidianPng from '$lib/assets/taskbar/obsidian.png?enhanced';
+	import steamPng from '$lib/assets/taskbar/steam.png';
+	import discordPng from '$lib/assets/taskbar/discord.png';
+	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png';
+	import libreofficePng from '$lib/assets/taskbar/libreoffice.png';
+	import obsidianPng from '$lib/assets/taskbar/obsidian.png';
 
 	type InstallApp = {
 		name: string;
@@ -128,25 +129,22 @@
 				</p>
 			{/if}
 			{#if learnMore}
-				<!-- eslint-disable svelte/no-navigation-without-resolve -->
-				<a href="/arc" class="mt-6 inline-block" onmouseenter={triggerArrow}>
-					<Button variant="primary"
-						>{m.learn_more()}<ArrowRight
-							size={16}
-							animate={btnAnimating}
-							class="pointer-events-none"
-						/></Button
-					>
-				</a>
+				<Button href="/arc" variant="primary" class="mt-6" onmouseenter={triggerArrow}>
+					{m.learn_more()}<ArrowRight
+						size={16}
+						animate={btnAnimating}
+						class="pointer-events-none"
+					/>
+				</Button>
 			{/if}
 		</div>
 
 		<div use:reveal={120}>
-			<Window title="Arc Software" icon={arcPng} embedded closable={false}>
+			<Window title="Arc Software" icon={arcPng} closable={false}>
 				<!-- Toolbar -->
 				<div class="hidden items-center gap-2 border-b border-border px-3 py-2 sm:flex">
 					<button
-						class="flex h-7 w-7 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/8"
+						class="flex size-7 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/8"
 					>
 						<HomeIcon size={14} />
 					</button>
@@ -171,7 +169,7 @@
 						>
 					</div>
 					<button
-						class="flex h-7 w-7 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/8"
+						class="flex size-7 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/8"
 					>
 						<SlidersHorizontalIcon size={14} />
 					</button>
@@ -194,15 +192,15 @@
 								{#each demoApps as app (app.name)}
 									{@const pct = progress[app.name] ?? 0}
 									<div class="flex items-center gap-3 rounded-xl bg-muted px-3 py-3">
-										<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
-											<enhanced:img src={app.image} alt={app.name} sizes="32px" class="h-8 w-8" />
+										<div class="flex size-10 shrink-0 items-center justify-center rounded-xl">
+											<enhanced:img src={app.image} alt={app.name} sizes="32px" class="size-8" />
 										</div>
 										<div class="min-w-0 flex-1">
 											<div class="mb-1 flex items-center justify-between">
 												<span class="text-sm font-medium text-foreground">{app.name}</span>
 												<div class="flex items-center gap-2">
 													<span class="text-xs text-foreground/60">
-														{pct < 100 ? m.arc_installing() : m.arc_installed_status()}
+														{pct < 100 ? m.arc_installing() : m.arc_tab_installed()}
 													</span>
 													<span class="text-xs font-semibold text-primary">{pct}%</span>
 												</div>
@@ -230,8 +228,7 @@
 							<p class="mb-3 text-xs text-foreground/60">{m.arc_installed_apps()}</p>
 							<div class="flex flex-col gap-1">
 								{#each browseApps as app (app.appstreamId)}
-									<!-- eslint-disable svelte/no-navigation-without-resolve -->
-									<a
+									<SmartLink
 										href={installUrl(app.appstreamId)}
 										class="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-foreground/8"
 									>
@@ -239,13 +236,13 @@
 											src={app.img}
 											alt={app.name}
 											sizes="32px"
-											class="h-8 w-8 rounded-lg object-contain"
+											class="size-8 rounded-lg object-contain"
 										/>
 										<span class="flex-1 text-sm text-foreground/80">{app.name}</span>
 										<span class="text-xs text-primary"
 											>{isLinux ? m.arc_open_in_arc() : m.arc_install()}</span
 										>
-									</a>
+									</SmartLink>
 								{/each}
 							</div>
 						</div>

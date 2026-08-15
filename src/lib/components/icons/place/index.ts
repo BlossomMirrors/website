@@ -1,0 +1,10 @@
+export { default as CloudPlaceIcon } from './cloud.svelte';
+export { default as DesktopPlaceIcon } from './desktop.svelte';
+export { default as DocumentsPlaceIcon } from './documents.svelte';
+export { default as DownloadsPlaceIcon } from './downloads.svelte';
+export { default as GenericPlaceIcon } from './generic.svelte';
+export { default as MusicPlaceIcon } from './music.svelte';
+export { default as PicturesPlaceIcon } from './pictures.svelte';
+export { default as PublicPlaceIcon } from './public.svelte';
+export { default as TemplatesPlaceIcon } from './templates.svelte';
+export { default as VideosPlaceIcon } from './videos.svelte';

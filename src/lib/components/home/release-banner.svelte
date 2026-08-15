@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="mb-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-center text-sm sm:text-base"
+	class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-center text-sm sm:text-base"
 	use:reveal
 >
 	<span
@@ -16,7 +16,6 @@
 		{m.home_alpha2_badge()}
 	</span>
 	<span class="text-foreground">{m.home_alpha2_text()}</span>
-	<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 	<a
 		href="https://help.blossomos.org/help/changelog/alpha-2"
 		target="_blank"

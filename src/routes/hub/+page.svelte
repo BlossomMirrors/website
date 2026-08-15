@@ -47,7 +47,7 @@
 	<!-- Hero -->
 	<div class="mx-auto max-w-3xl text-center" use:reveal>
 		<div
-			class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary"
+			class="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-primary/10 text-primary"
 		>
 			<Building2Icon size={32} strokeWidth={1.5} />
 		</div>
@@ -57,13 +57,8 @@
 			{m.hub_hero_body()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
-			<a href="https://discord.gg/dTqsBdxvNr" target="_blank" rel="noreferrer">
-				<Button variant="primary">{m.hub_notify()}</Button>
-			</a>
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/about">
-				<Button>{m.home_product_learn_more()}</Button>
-			</a>
+			<Button href="https://discord.gg/dTqsBdxvNr" variant="primary">{m.hub_notify()}</Button>
+			<Button href="/about">{m.learn_more()}</Button>
 		</div>
 	</div>
 

@@ -38,7 +38,7 @@
 	use:reveal
 >
 	<div
-		class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary/8 blur-3xl"
+		class="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-primary/8 blur-3xl"
 	></div>
 	<div class="relative max-w-2xl">
 		<h2 class="font-serif text-4xl leading-tight md:text-5xl">
@@ -52,7 +52,7 @@
 			<p class="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
 				<span class="relative flex size-2">
 					<span
-						class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"
+						class="absolute inline-flex size-full animate-ping rounded-full bg-green-500 opacity-75"
 					></span>
 					<span class="relative inline-flex size-2 rounded-full bg-green-500"></span>
 				</span>
@@ -67,24 +67,10 @@
 			</div>
 		{/if}
 		<div class="mt-8 flex flex-wrap gap-3">
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a
-				href={props.button1Href ?? '/about'}
-				target={props.button1Href?.startsWith('http') && props.button1Href.includes('://')
-					? '_blank'
-					: undefined}
+			<Button href={props.button1Href ?? '/about'} variant="primary">{props.button1Text}</Button>
+			<Button href={props.button2Href ?? 'https://dev.blossomos.org/Blossom'}
+				>{props.button2Text}</Button
 			>
-				<Button variant="primary">{props.button1Text}</Button>
-			</a>
-			<a
-				href={props.button2Href ?? 'https://dev.blossomos.org/Blossom'}
-				target={props.button2Href?.startsWith('http') && props.button2Href.includes('://')
-					? '_blank'
-					: undefined}
-				rel="noreferrer"
-			>
-				<Button>{props.button2Text}</Button>
-			</a>
 		</div>
 	</div>
 </div>

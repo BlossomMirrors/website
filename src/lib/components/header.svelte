@@ -9,7 +9,10 @@
 	import XIcon from '@lucide/svelte/icons/x';
 	import ArrowRightLeftIcon from '@lucide/svelte/icons/arrow-right-left';
 	import HeartIcon from '@lucide/svelte/icons/heart';
-	import { Building2Icon, CloudIcon, ShoppingBagIcon, UserIcon } from 'lucide-svelte';
+	import Building2Icon from '@lucide/svelte/icons/building-2';
+	import CloudIcon from '@lucide/svelte/icons/cloud';
+	import ShoppingBagIcon from '@lucide/svelte/icons/shopping-bag';
+	import UserIcon from '@lucide/svelte/icons/user';
 	import GitBranchIcon from '@lucide/svelte/icons/git-branch';
 	import Logo from '$lib/components/logo.svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -21,6 +24,7 @@
 	import { Tween } from 'svelte/motion';
 	import { cubicInOut } from 'svelte/easing';
 	import { IsMobile } from '$lib/components/hooks/is-mobile.svelte.js';
+	import { resolve } from '$app/paths';
 
 	const nav: NavItem[] = [
 		{
@@ -149,14 +153,12 @@
 	class={cn('relative w-full bg-background', sticky && 'sticky top-0 z-50')}
 	style={isMobile.current ? `transform: translateY(${translateY.current}%)` : ''}
 >
-	<div class="mx-auto flex max-w-7xl items-center px-4 py-4 md:px-8">
+	<div class="mx-auto flex max-w-7xl items-center p-4 md:px-8">
 		<div class="flex items-center gap-1">
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/" class="mr-4 flex shrink-0 items-center gap-3">
-				<Logo size={32} />
-				<span class="font-serif text-xl">
-					{title}
-				</span>
+			<a href={resolve('/')}>
+				<Button variant="ghost" class="flex py-5! px-2! shrink-0 items-center gap-3">
+					<Logo size={32} /><span class="font-serif text-xl">{title}</span>
+				</Button>
 			</a>
 			<div class="hidden md:block">
 				<Navbar items={nav} />
@@ -183,7 +185,7 @@
 			<LanguageSwitcher />
 			<ModeToggle />
 			<button
-				class="flex h-9 w-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/8 md:hidden"
+				class="flex size-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/8 md:hidden"
 				onclick={() => (mobileOpen = !mobileOpen)}
 				aria-label="Toggle menu"
 			>

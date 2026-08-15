@@ -21,17 +21,17 @@
 
 <svelte:head>
 	<meta name="description" content={m.downloads_subtitle()} />
-	<meta property="og:title" content={getTitle(m.downloads_subheader())} />
+	<meta property="og:title" content={getTitle(m.downloads())} />
 	<meta property="og:description" content={m.downloads_subtitle()} />
-	<meta name="twitter:title" content={getTitle(m.downloads_subheader())} />
+	<meta name="twitter:title" content={getTitle(m.downloads())} />
 	<meta name="twitter:description" content={m.downloads_subtitle()} />
-	<title>{getTitle(m.downloads_subheader())}</title>
+	<title>{getTitle(m.downloads())}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">
 	<div class="mb-12 flex flex-col items-center">
 		<p class="mb-3 text-center text-xs font-semibold tracking-widest text-primary uppercase">
-			{m.downloads_subheader()}
+			{m.downloads()}
 		</p>
 		<h1 class="text-center font-serif text-5xl leading-tight md:text-7xl">
 			{m.downloads_h1()}
@@ -44,7 +44,6 @@
 		</div>
 		<p class="mt-4 max-w-xl text-sm text-muted-foreground">
 			{m.downloads_install_note()}
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a
 				href="https://help.blossomos.org/help/user/install-guide"
 				class="text-primary hover:underline"
@@ -60,7 +59,7 @@
 			{#each requirements as r (r.label)}
 				<div class="flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
 					<div
-						class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+						class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
 					>
 						<r.Icon size={16} strokeWidth={1.5} />
 					</div>

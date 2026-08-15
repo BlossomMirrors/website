@@ -51,7 +51,7 @@
 						use:reveal={100 + i * 60}
 					>
 						{#if h.icon}
-							<enhanced:img src={h.icon} alt="" sizes="16px" class="h-4 w-4 object-contain" />
+							<enhanced:img src={h.icon} alt="" sizes="16px" class="size-4 object-contain" />
 						{/if}
 						{h.label}
 					</div>

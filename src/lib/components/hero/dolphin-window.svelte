@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Window from './window.svelte';
-	import SvgIcon from './svg-icon.svelte';
+	import SidebarItem from './sidebar-item.svelte';
 	import dolphinPng from '$lib/assets/taskbar/dolphin.png';
 	import ToolbarButton from './toolbar-button.svelte';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
@@ -17,89 +17,67 @@
 	import VideoIcon from '@lucide/svelte/icons/video';
 	import Trash2Icon from '@lucide/svelte/icons/trash-2';
 	import NetworkIcon from '@lucide/svelte/icons/network';
-	import ClockIcon from '@lucide/svelte/icons/clock';
-	import MapPinIcon from '@lucide/svelte/icons/map-pin';
 	import HardDriveIcon from '@lucide/svelte/icons/hard-drive';
-	import { ArrowLeftIcon, ArrowRightIcon } from '@lucide/svelte';
+	import { ArrowLeftIcon, ArrowRightIcon, BookOpen, Film } from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages';
 
-	import desktopColor from '$lib/assets/icons/places/color/desktop.svg?raw';
-	import documentsColor from '$lib/assets/icons/places/color/documents.svg?raw';
-	import downloadsColor from '$lib/assets/icons/places/color/downloads.svg?raw';
-	import musicColor from '$lib/assets/icons/places/color/music.svg?raw';
-	import picturesColor from '$lib/assets/icons/places/color/pictures.svg?raw';
-	import videosColor from '$lib/assets/icons/places/color/videos.svg?raw';
-	import publicColor from '$lib/assets/icons/places/color/public.svg?raw';
-	import templatesColor from '$lib/assets/icons/places/color/templates.svg?raw';
-	import genericColor from '$lib/assets/icons/places/color/generic.svg?raw';
-	import cloudColor from '$lib/assets/icons/places/color/cloud.svg?raw';
-
-	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } =
-		$props();
+	import {
+		DesktopPlaceIcon,
+		DocumentsPlaceIcon,
+		DownloadsPlaceIcon,
+		MusicPlaceIcon,
+		PicturesPlaceIcon,
+		VideosPlaceIcon,
+		PublicPlaceIcon,
+		TemplatesPlaceIcon,
+		GenericPlaceIcon,
+		CloudPlaceIcon
+	} from '$lib/components/icons/place';
 
 	const places = $derived([
 		{ id: 'home', label: m.dolphin_home(), icon: HomeIcon },
 		{ id: 'desktop', label: m.dolphin_desktop(), icon: MonitorIcon },
-		{ id: 'documents', label: m.dolphin_documents(), icon: FileTextIcon },
-		{ id: 'downloads', label: m.dolphin_downloads(), icon: DownloadIcon },
+		{ id: 'documents', label: m.dolphin_documents(), icon: BookOpen },
+		{ id: 'downloads', label: m.downloads(), icon: DownloadIcon },
 		{ id: 'music', label: m.dolphin_music(), icon: MusicIcon },
 		{ id: 'pictures', label: m.dolphin_pictures(), icon: ImageIcon },
-		{ id: 'videos', label: m.dolphin_videos(), icon: VideoIcon },
+		{ id: 'videos', label: m.dolphin_videos(), icon: Film },
 		{ id: 'trash', label: m.dolphin_trash(), icon: Trash2Icon }
 	]);
 	const remote = $derived([{ id: 'network', label: m.dolphin_network(), icon: NetworkIcon }]);
-	const recent = $derived([
-		{ id: 'recent-files', label: m.dolphin_recent_files(), icon: ClockIcon },
-		{ id: 'recent-locations', label: m.dolphin_recent_locations(), icon: MapPinIcon }
-	]);
 	const devices = $derived([
 		{ id: 'blossomos', label: 'BlossomOS', icon: HardDriveIcon },
 		{ id: 'backups', label: m.dolphin_backups(), icon: HardDriveIcon }
 	]);
 
 	const files = $derived([
-		{ id: 'desktop', name: m.dolphin_desktop(), svg: desktopColor },
-		{ id: 'documents', name: m.dolphin_documents(), svg: documentsColor },
-		{ id: 'downloads', name: m.dolphin_downloads(), svg: downloadsColor },
-		{ id: 'music', name: m.dolphin_music(), svg: musicColor },
-		{ id: 'pictures', name: m.dolphin_pictures(), svg: picturesColor },
-		{ id: 'videos', name: m.dolphin_videos(), svg: videosColor },
-		{ id: 'public', name: m.dolphin_public(), svg: publicColor },
-		{ id: 'templates', name: m.dolphin_templates(), svg: templatesColor },
-		{ id: 'projects', name: m.dolphin_projects(), svg: genericColor },
-		{ id: 'cloud', name: 'Blossom Cloud', svg: cloudColor }
+		{ id: 'desktop', name: m.dolphin_desktop(), icon: DesktopPlaceIcon },
+		{ id: 'documents', name: m.dolphin_documents(), icon: DocumentsPlaceIcon },
+		{ id: 'downloads', name: m.downloads(), icon: DownloadsPlaceIcon },
+		{ id: 'music', name: m.dolphin_music(), icon: MusicPlaceIcon },
+		{ id: 'pictures', name: m.dolphin_pictures(), icon: PicturesPlaceIcon },
+		{ id: 'videos', name: m.dolphin_videos(), icon: VideosPlaceIcon },
+		{ id: 'public', name: m.dolphin_public(), icon: PublicPlaceIcon },
+		{ id: 'templates', name: m.dolphin_templates(), icon: TemplatesPlaceIcon },
+		{ id: 'projects', name: m.dolphin_projects(), icon: GenericPlaceIcon },
+		{ id: 'cloud', name: 'Blossom Cloud', icon: CloudPlaceIcon }
 	]);
 </script>
 
-<Window
-	title={`${m.dolphin_home()} — Dolphin`}
-	icon={dolphinPng}
-	{onClose}
-	{onFocus}
-	{zIndex}
-	minW={800}
-	minH={400}
-	defaultW={850}
-	defaultH={536}
-	offsetX={150}
-	offsetY={-20}
-	bgClass="bg-background"
->
+<Window title={`${m.dolphin_home()} — Dolphin`} icon={dolphinPng} bgClass="bg-background">
 	<!-- Toolbar -->
-	<div class="flex shrink-0 select-none" style="height:38px">
-		<div class="flex shrink-0 items-center justify-start gap-1 pr-2 pl-4 sm:w-52">
-			<ToolbarButton size="sm" muted>
+	<div class="flex h-9.5 shrink-0 select-none">
+		<div class="flex shrink-0 items-center justify-start gap-1 pr-2 pl-4 sm:w-42">
+			<ToolbarButton muted>
 				<ArrowLeftIcon size={15} />
 			</ToolbarButton>
-			<ToolbarButton size="sm" muted class="opacity-40">
+			<ToolbarButton muted class="opacity-40">
 				<ArrowRightIcon size={15} />
 			</ToolbarButton>
-			<div
-				class="flex h-7 items-center gap-0.5 rounded px-1.5 text-muted-foreground hover:bg-foreground/10"
-			>
+			<ToolbarButton muted>
 				<LayoutGridIcon size={13} />
 				<ChevronDownIcon size={11} />
-			</div>
+			</ToolbarButton>
 		</div>
 		<!-- Address bar — aligns with file view card -->
 		<div class="flex flex-1 items-center gap-1 px-2 sm:pr-2 sm:pl-3">
@@ -110,10 +88,10 @@
 				<span class="text-xs font-semibold text-foreground">{m.dolphin_home()}</span>
 			</div>
 			<div class="flex items-center gap-0.5">
-				<ToolbarButton size="sm" muted>
+				<ToolbarButton muted>
 					<SearchIcon size={14} />
 				</ToolbarButton>
-				<ToolbarButton size="sm" muted>
+				<ToolbarButton muted>
 					<MoreHorizontalIcon size={14} />
 				</ToolbarButton>
 			</div>
@@ -123,77 +101,39 @@
 	<!-- Main content -->
 	<div class="flex min-h-0 flex-1">
 		<!-- Sidebar -->
-		<div class="hidden w-52 shrink-0 overflow-y-auto py-2 pr-2 pl-4 sm:block">
-			<p
-				class="mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
-			>
+		<div class="hidden w-42 shrink-0 overflow-y-auto py-2 pr-2 pl-4 sm:block">
+			<p class="mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70">
 				{m.dolphin_places()}
 			</p>
 			{#each places as p (p.id)}
-				<div
-					class="my-1.5 flex w-full cursor-default items-center gap-1.5 rounded-sidebar-item px-2 py-1 text-left text-xs {p.id ===
-					'home'
-						? 'bg-accent/15 font-bold text-accent'
-						: 'text-foreground/70'}"
-				>
-					<p.icon size={16} class="shrink-0" />
-					<span class="truncate">{p.label}</span>
-				</div>
+				<SidebarItem icon={p.icon} label={p.label} active={p.id === 'home'} />
 			{/each}
 
-			<p
-				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
-			>
+			<p class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70">
 				{m.dolphin_remote()}
 			</p>
 			{#each remote as r (r.id)}
-				<div
-					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
-				>
-					<r.icon size={14} class="shrink-0" />
-					<span class="truncate">{r.label}</span>
-				</div>
+				<SidebarItem icon={r.icon} label={r.label} />
 			{/each}
 
-			<p
-				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
-			>
-				{m.dolphin_recent()}
-			</p>
-			{#each recent as r (r.id)}
-				<div
-					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
-				>
-					<r.icon size={14} class="shrink-0" />
-					<span class="truncate">{r.label}</span>
-				</div>
-			{/each}
-
-			<p
-				class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70 uppercase"
-			>
+			<p class="mt-3 mb-1 px-1 text-[10px] font-semibold tracking-widest text-muted-foreground/70">
 				{m.dolphin_devices()}
 			</p>
 			{#each devices as d (d.id)}
-				<div
-					class="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-xs text-foreground/70"
-				>
-					<d.icon size={14} class="shrink-0" />
-					<span class="truncate">{d.label}</span>
-				</div>
+				<SidebarItem icon={d.icon} label={d.label} />
 			{/each}
 		</div>
 
 		<!-- File grid -->
 		<div class="flex-1 overflow-y-auto p-3">
-			<div class="relative h-full rounded-md border border-border bg-card p-3">
+			<div class="relative h-full rounded-[5px] border border-border bg-card p-3">
 				<div class="grid grid-cols-3 gap-4 select-none sm:grid-cols-4">
 					{#each files as file (file.id)}
 						<div
 							data-file={file.id}
 							class="flex cursor-default flex-col items-center gap-2 rounded-lg p-3 text-center"
 						>
-							<SvgIcon svg={file.svg} size={75} class="shrink-0" />
+							<file.icon size={75} class="shrink-0" />
 							<span class="line-clamp-2 w-full text-xs leading-tight text-foreground"
 								>{file.name}</span
 							>

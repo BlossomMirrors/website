@@ -20,12 +20,12 @@
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import CheckCircleIcon from '@lucide/svelte/icons/check-circle';
+	import { SvelteURLSearchParams } from 'svelte/reactivity';
 
 	let toast = $state<string | null>(null);
 
 	onMount(() => {
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity
-		const params = new URLSearchParams(window.location.search);
+		const params = new SvelteURLSearchParams(window.location.search);
 		const newsletter = params.get('newsletter');
 		if (newsletter === 'confirmed') {
 			toast = m.newsletter_confirmed_toast();
@@ -46,18 +46,18 @@
 	<title>{getTitle('BlossomOS')}</title>
 </svelte:head>
 
-<div class="mb-4 flex flex-col">
+<div class="mb-4 flex flex-col gap-7">
 	<ReleaseBanner />
 	<Desktop />
 
-	<div class="mt-8 grid min-h-77 grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-12">
+	<div class="grid min-h-77 grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-12">
 		<div>
 			<h1 class="font-serif text-5xl leading-none sm:text-7xl md:text-8xl">BlossomOS</h1>
-			<p class="mt-3 text-lg leading-relaxed text-muted-foreground md:text-xl">
+			<p class="text-lg leading-relaxed text-muted-foreground md:text-xl">
 				{m.home_subtitle()}
 			</p>
 		</div>
-		<div>
+		<div class="mt-2">
 			<DownloadCard />
 		</div>
 	</div>

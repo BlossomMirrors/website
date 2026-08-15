@@ -33,7 +33,7 @@
 					<p class="mb-1 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
 						{m.less()}
 					</p>
-					<p class="font-serif text-xl leading-snug line-through decoration-destructive/60">
+					<p class="font-serif text-xl leading-snug line-through decoration-[2px] decoration-red-400">
 						{item.less}
 					</p>
 				</div>

@@ -30,16 +30,16 @@
 		use:reveal
 	>
 		<div
-			class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary/8 blur-3xl"
+			class="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-primary/8 blur-3xl"
 		></div>
 		<div
-			class="pointer-events-none absolute -bottom-12 left-1/3 h-48 w-48 rounded-full bg-secondary-400/10 blur-3xl"
+			class="pointer-events-none absolute -bottom-12 left-1/3 size-48 rounded-full bg-secondary-400/10 blur-3xl"
 		></div>
 
 		<div class="relative grid items-center gap-10 md:grid-cols-2">
 			<div>
 				<div
-					class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-primary"
+					class="mb-4 flex size-12 items-center justify-center rounded-2xl bg-primary/15 text-primary"
 				>
 					<CloudIcon size={24} strokeWidth={1.5} />
 				</div>
@@ -47,16 +47,13 @@
 				<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
 					{m.cloud_description()}
 				</p>
-				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-				<a href="/cloud" class="mt-6 inline-block" onmouseenter={triggerArrow}>
-					<Button variant="primary"
-						>{m.learn_more()}<ArrowRight
-							size={16}
-							animate={btnAnimating}
-							class="pointer-events-none"
-						/></Button
-					>
-				</a>
+				<Button href="/cloud" variant="primary" class="mt-6" onmouseenter={triggerArrow}>
+					{m.learn_more()}<ArrowRight
+						size={16}
+						animate={btnAnimating}
+						class="pointer-events-none"
+					/>
+				</Button>
 			</div>
 
 			<div class="grid-rows grid gap-3 md:grid-cols-2">

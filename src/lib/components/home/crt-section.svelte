@@ -3,9 +3,10 @@
 	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { mode } from 'mode-watcher';
-	import crtPng from '$lib/assets/crt.png?enhanced&imgWidth=1280';
-	import wallpaperDark from '$lib/assets/wallpaper-dark.png?enhanced&imgWidth=1280';
-	import wallpaperLight from '$lib/assets/wallpaper-light.png?enhanced&imgWidth=1280';
+	import crtPng from '$lib/assets/crt.png';
+	import wallpaperDark from '$lib/assets/wallpaper-dark.png';
+	import wallpaperLight from '$lib/assets/wallpaper-light.png';
+	import { Recycle } from '@lucide/svelte';
 
 	const isDark = $derived(mode.current === 'dark');
 	let crtEl = $state<HTMLDivElement | null>(null);
@@ -36,13 +37,7 @@
 			<h2 class="font-serif text-5xl leading-tight md:text-6xl">
 				{m.crt_header1()}
 				{m.crt_header2()}
-				<img
-					src="/recycling.svg"
-					alt="Recycling"
-					width="24"
-					height="24"
-					class="sticker inline animate-spin"
-				/>
+				<Recycle color="oklch(72.3% 0.219 149.579)" class="sticker mb-2 inline animate-spin" />
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-muted-foreground">
 				{m.crt_description()}
@@ -59,7 +54,7 @@
 						src={wallpaperDark}
 						alt="BlossomOS desktop"
 						sizes="(min-width: 768px) 50vw, 100vw"
-						class="absolute inset-0 h-full w-full object-cover"
+						class="absolute inset-0 size-full object-cover"
 						style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
 					/>
 				{:else}
@@ -67,7 +62,7 @@
 						src={wallpaperLight}
 						alt="BlossomOS desktop"
 						sizes="(min-width: 768px) 50vw, 100vw"
-						class="absolute inset-0 h-full w-full object-cover"
+						class="absolute inset-0 size-full object-cover"
 						style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
 					/>
 				{/if}
@@ -76,7 +71,7 @@
 					style="inset: 11% 13.5% 27% 13.5%; background: repeating-linear-gradient(transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px)"
 				></div>
 				<div
-					class="crt-overlay pointer-events-none absolute inset-0 h-full w-full"
+					class="crt-overlay pointer-events-none absolute inset-0 size-full"
 					class:lit
 					style="clip-path: inset(9% 12% 25% 12% round 4px); background: black; transform: scale(1.14); transform-origin: center center"
 				></div>
@@ -84,10 +79,9 @@
 					src={crtPng}
 					alt="CRT monitor"
 					sizes="(min-width: 768px) 50vw, 100vw"
-					class="pointer-events-none absolute inset-0 h-full w-full"
+					class="pointer-events-none absolute inset-0 size-full"
 					style="object-fit: fill"
 				/>
-				<!-- Green power LED: coords (2119,1971)→(2152,1978) in a 2445×2312 image -->
 				<div
 					class="crt-led pointer-events-none absolute rounded-sm"
 					class:lit

@@ -6,8 +6,8 @@
 	import UsersIcon from '@lucide/svelte/icons/users';
 	import * as m from '$lib/paraglide/messages';
 	import FeatureItem from '$lib/components/ui/feature-item.svelte';
-	import libreofficePng from '$lib/assets/taskbar/libreoffice.png?enhanced';
-	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png?enhanced';
+	import libreofficePng from '$lib/assets/taskbar/libreoffice.png';
+	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png';
 
 	const features = [
 		{ img: libreofficePng, label: m.business_office() },
@@ -25,10 +25,10 @@
 		use:reveal
 	>
 		<div
-			class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-amber-500/8 blur-3xl"
+			class="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-amber-500/8 blur-3xl"
 		></div>
 		<div
-			class="pointer-events-none absolute -bottom-12 left-1/3 h-48 w-48 rounded-full bg-orange-400/8 blur-3xl"
+			class="pointer-events-none absolute -bottom-12 left-1/3 size-48 rounded-full bg-orange-400/8 blur-3xl"
 		></div>
 
 		<div class="relative grid items-center gap-10 md:grid-cols-2">

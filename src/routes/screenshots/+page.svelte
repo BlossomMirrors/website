@@ -184,17 +184,17 @@
 
 <svelte:head>
 	<meta name="description" content={m.screenshots_subtitle()} />
-	<meta property="og:title" content={getTitle(m.screenshots_tagline())} />
+	<meta property="og:title" content={getTitle(m.screenshots_nav())} />
 	<meta property="og:description" content={m.screenshots_subtitle()} />
-	<meta name="twitter:title" content={getTitle(m.screenshots_tagline())} />
+	<meta name="twitter:title" content={getTitle(m.screenshots_nav())} />
 	<meta name="twitter:description" content={m.screenshots_subtitle()} />
-	<title>{getTitle(m.screenshots_tagline())}</title>
+	<title>{getTitle(m.screenshots_nav())}</title>
 </svelte:head>
 
 <div class="py-16 md:py-24">
 	<div class="mx-auto max-w-3xl text-center" use:reveal>
 		<p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">
-			{m.screenshots_tagline()}
+			{m.screenshots_nav()}
 		</p>
 		<h1 class="font-serif text-5xl leading-tight md:text-7xl">
 			{m.screenshots_h1()}
@@ -223,16 +223,15 @@
 					use:reveal={i * 60}
 				>
 					<div class="aspect-video overflow-hidden bg-muted">
-						<enhanced:img src={shot.image} alt={shot.name} class="h-full w-full object-cover" />
+						<enhanced:img src={shot.image} alt={shot.name} class="size-full object-cover" />
 						{#if shot.credit?.community}
 							<div
 								class="absolute right-3 bottom-3 rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground shadow-lg backdrop-blur"
 							>
 								<Tooltip.Root>
 									<Tooltip.Trigger>
-
-									<Users class="-mt-0.5 mr-1 inline size-3" />
-									{m.screenshot_community()}
+										<Users class="-mt-0.5 mr-1 inline size-3" />
+										{m.community()}
 									</Tooltip.Trigger>
 									<Tooltip.Content>
 										<p>{m.screenshots_community_tooltip()}</p>
@@ -255,11 +254,11 @@
 		{#if activeIndex !== null}
 			{@const credit = screenshots[activeIndex].credit}
 			<Dialog.Title class="sr-only">{screenshots[activeIndex].name}</Dialog.Title>
-			<div class="relative h-full w-full">
+			<div class="relative size-full">
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
 					bind:this={stageEl}
-					class="h-full w-full touch-none overflow-hidden"
+					class="size-full touch-none overflow-hidden"
 					onpointerdown={onStagePointerDown}
 					onpointermove={onStagePointerMove}
 					onpointerup={endPointer}
@@ -270,7 +269,7 @@
 						src={screenshots[activeIndex].image}
 						alt={screenshots[activeIndex].name}
 						draggable="false"
-						class="h-full w-full touch-none object-contain select-none"
+						class="size-full touch-none object-contain select-none"
 						style="transform: translate({panX}px, {panY}px) scale({zoom}); transition: {gesturing
 							? 'none'
 							: 'transform 150ms ease-out'}; cursor: {zoom > MIN_ZOOM
@@ -282,7 +281,7 @@
 				</div>
 
 				<Dialog.Close
-					class="absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-background text-foreground shadow-lg"
+					class="absolute top-3 right-3 flex size-9 items-center justify-center rounded-full bg-background text-foreground shadow-lg"
 					aria-label={m.screenshots_close()}
 				>
 					<XIcon size={16} />
@@ -291,7 +290,7 @@
 				<div class="absolute top-3 left-3 flex items-center gap-1.5">
 					<button
 						type="button"
-						class="flex h-9 w-9 items-center justify-center rounded-full bg-background text-foreground shadow-lg disabled:opacity-40"
+						class="flex size-9 items-center justify-center rounded-full bg-background text-foreground shadow-lg disabled:opacity-40"
 						onclick={zoomOut}
 						disabled={zoom <= MIN_ZOOM}
 						aria-label={m.screenshots_zoom_out()}
@@ -300,7 +299,7 @@
 					</button>
 					<button
 						type="button"
-						class="flex h-9 w-9 items-center justify-center rounded-full bg-background text-foreground shadow-lg disabled:opacity-40"
+						class="flex size-9 items-center justify-center rounded-full bg-background text-foreground shadow-lg disabled:opacity-40"
 						onclick={zoomIn}
 						disabled={zoom >= MAX_ZOOM}
 						aria-label={m.screenshots_zoom_in()}
@@ -314,8 +313,12 @@
 						class="absolute bottom-3 left-3 rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground shadow-lg backdrop-blur"
 					>
 						{#if credit.url}
-							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-							<a href={credit.url} target="_blank" rel="noreferrer" class="hover:underline">
+							<a
+								href={credit.url}
+								target="_blank"
+								rel="external noreferrer"
+								class="hover:underline"
+							>
 								{m.screenshots_credit({ name: credit.name })}
 							</a>
 						{:else}
@@ -327,7 +330,7 @@
 				{#if hasMultiple}
 					<button
 						type="button"
-						class="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/80 text-foreground shadow-lg backdrop-blur"
+						class="absolute top-1/2 left-3 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/80 text-foreground shadow-lg backdrop-blur"
 						onclick={prev}
 						aria-label={m.screenshots_prev()}
 					>
@@ -335,7 +338,7 @@
 					</button>
 					<button
 						type="button"
-						class="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/80 text-foreground shadow-lg backdrop-blur"
+						class="absolute top-1/2 right-3 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-background/80 text-foreground shadow-lg backdrop-blur"
 						onclick={next}
 						aria-label={m.screenshots_next()}
 					>

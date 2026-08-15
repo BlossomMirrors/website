@@ -5,7 +5,6 @@
 	let {
 		label,
 		muted = false,
-		size = 'md',
 		onclick,
 		disabled = false,
 		class: className,
@@ -13,7 +12,6 @@
 	}: {
 		label?: string;
 		muted?: boolean;
-		size?: 'sm' | 'md';
 		onclick?: () => void;
 		disabled?: boolean;
 		class?: string;
@@ -21,21 +19,19 @@
 	} = $props();
 </script>
 
-<button
+<div
 	class={cn(
 		'cursor-custom flex cursor-default items-center',
-		size === 'sm' ? 'h-7 rounded' : 'h-8 rounded-md',
+		'h-8 rounded-md',
 		label ? 'gap-2 px-2.5 text-xs' : 'justify-center',
-		!label && (size === 'sm' ? 'w-7' : 'w-8'),
+		!label && 'w-8',
 		muted ? 'text-muted-foreground' : 'text-foreground',
-		size === 'sm' ? 'hover:bg-foreground/10' : 'hover:bg-foreground/8',
+		'hover:bg-foreground/10',
 		className
 	)}
-	{onclick}
-	{disabled}
 >
 	{@render children()}
 	{#if label}
 		{label}
 	{/if}
-</button>
+</div>

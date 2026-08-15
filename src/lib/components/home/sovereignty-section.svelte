@@ -31,7 +31,7 @@
 			{#each cards as card, i (card.title)}
 				<div class="rounded-2xl border border-border bg-card p-6" use:reveal={i * 70}>
 					<div
-						class="mb-4 flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary"
+						class="mb-4 flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary"
 					>
 						<card.Icon size={18} strokeWidth={1.5} />
 					</div>

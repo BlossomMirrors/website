@@ -29,12 +29,9 @@
 		<div class="flex flex-col gap-4" use:reveal={120}>
 			<!-- Mock window -->
 			<div class="overflow-hidden rounded border border-border">
-				<div
-					class="flex items-center justify-between bg-card px-2.5 select-none"
-					style="height:36px"
-				>
+				<div class="flex h-9 items-center justify-between bg-card px-2.5 select-none">
 					<div class="flex items-center gap-2">
-						<div class="h-4 w-4 rounded bg-muted"></div>
+						<div class="size-4 rounded bg-muted"></div>
 						<span class="text-xs text-foreground">BlossomOS</span>
 					</div>
 					<div class="flex items-center gap-2">
@@ -55,14 +52,14 @@
 							src={wallpaperDark}
 							alt="BlossomOS desktop"
 							sizes="(min-width: 768px) 50vw, 100vw"
-							class="h-full w-full object-cover object-top"
+							class="size-full object-cover object-top"
 						/>
 					{:else}
 						<enhanced:img
 							src={wallpaperLight}
 							alt="BlossomOS desktop"
 							sizes="(min-width: 768px) 50vw, 100vw"
-							class="h-full w-full object-cover object-top"
+							class="size-full object-cover object-top"
 						/>
 					{/if}
 				</div>
@@ -77,7 +74,7 @@
 						type={btn}
 						{isDark}
 						hovered={hoveredBtn === btn}
-						class="h-16! w-16! transition-transform duration-150 hover:scale-110"
+						class="size-16! transition-transform duration-150 hover:scale-110"
 						onmouseenter={() => (hoveredBtn = btn)}
 						onmouseleave={() => (hoveredBtn = null)}
 					/>

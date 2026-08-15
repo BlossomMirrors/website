@@ -103,6 +103,11 @@ export const handle: Handle = sequence(
 );
 
 export const handleError: HandleServerError = async ({ error, status, message }) => {
+	// The rendered +error.svelte page only ever shows the generic `message`
+	// (SvelteKit redacts unexpected errors by default) - log the real error to
+	// the terminal running the dev server so it's actually diagnosable.
+	console.error('[handleError]', status, message, error);
+
 	const posthog = getPostHogClient();
 
 	posthog.capture({

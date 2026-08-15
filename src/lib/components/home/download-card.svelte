@@ -48,6 +48,7 @@
 	import NewsletterForm from '$lib/components/ui/newsletter-form.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { UseClipboard } from '$lib/hooks/use-clipboard.svelte';
+	import { useVersion } from '$lib/hooks/use-version.svelte';
 	import { cn } from '$lib/utils.js';
 	import posthog from 'posthog-js';
 	import { env } from '$env/dynamic/public';
@@ -57,6 +58,10 @@
 	let { class: className = '' }: { class?: string } = $props();
 
 	const CDN = 'https://cdn.blossomos.org/iso';
+	// The ISO metadata endpoint only returns a date-based version (e.g. "2026.08.05"), not a
+	// human-readable codename, so this is hardcoded until the CDN JSON exposes one. Update this
+	// when the next codenamed release ships.
+	const CODENAME = 'Alpha 2';
 
 	let standard = $state<IsoData | null>(null);
 	let nvidiaOpen = $state<IsoData | null>(null);
@@ -90,11 +95,8 @@
 		}
 	}
 
-	function extractVersion(name: string): string {
-		return name.match(/BlossomOS(?:-nvidia-open)?-(.+?)-x86_64/)?.[1] ?? '';
-	}
-
 	const clipboard = new UseClipboard();
+	const version = useVersion();
 
 	onMount(() => {
 		gpu = detectGPU();
@@ -109,8 +111,6 @@
 		});
 		return () => cancelAnimationFrame(rafId);
 	});
-
-	const version = $derived(standard ? extractVersion(standard.name) : '');
 
 	const speed = tweened(0, { duration: 1200, easing: cubicInOut });
 	let rotation = $state(0);
@@ -141,7 +141,7 @@
 		spinTimer = setTimeout(() => speed.set(0), 3000);
 		posthog.capture('download_started', {
 			iso_variant: label,
-			version: version || null,
+			version: version.current || null,
 			detected_gpu: gpu
 		});
 		dialogOpen = true;
@@ -235,10 +235,10 @@
 			class="relative overflow-hidden bg-linear-to-br from-primary/15 via-primary/5 to-transparent px-8 pt-8 pb-6"
 		>
 			<div
-				class="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-primary/15 blur-2xl"
+				class="pointer-events-none absolute -top-10 -right-10 size-36 rounded-full bg-primary/15 blur-2xl"
 			></div>
 			<div
-				class="pointer-events-none absolute bottom-0 left-1/3 h-20 w-20 rounded-full bg-primary/10 blur-xl"
+				class="pointer-events-none absolute bottom-0 left-1/3 size-20 rounded-full bg-primary/10 blur-xl"
 			></div>
 			<div class="relative">
 				<h2 class="mt-4 font-serif text-3xl leading-tight">{m.download_dialog_title()}</h2>
@@ -259,7 +259,7 @@
 				class="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-xs font-medium transition-colors hover:bg-muted"
 			>
 				<HeartIcon size={16} class="text-destructive" strokeWidth={0} fill="currentColor" />
-				{m.download_dialog_support()}
+				{m.donate_nav()}
 			</a>
 			<a
 				href="https://discord.gg/dTqsBdxvNr"
@@ -284,18 +284,18 @@
 	<!-- Header -->
 	<div class="flex items-center gap-4 border-b border-border px-6 py-5">
 		<div
-			class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
+			class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
 		>
-			<Disc3 class="h-6 w-6" style="transform: rotate({rotation}deg)" />
+			<Disc3 class="size-6" style="transform: rotate({rotation}deg)" />
 		</div>
 		<div class="min-w-0 flex-1">
 			<p class="font-semibold">BlossomOS</p>
-			{#if version}
-				<p class="text-xs text-muted-foreground">
-					Version {version} · Alpha 2
+			{#if version.current}
+				<p class="mt-1.5 text-xs text-muted-foreground">
+					{m.download_version({ version: version.current, codename: CODENAME })}
 				</p>
 			{:else}
-				<div class="mt-1.5 h-3 w-28 animate-pulse rounded bg-muted"></div>
+				<div class="loading-glare mt-1.5 h-4 w-28 rounded bg-muted"></div>
 			{/if}
 		</div>
 	</div>
@@ -321,7 +321,7 @@
 						</div>
 					</div>
 					{#if loading || !iso.data}
-						<div class="h-9 w-28 shrink-0 animate-pulse rounded-lg bg-muted"></div>
+						<div class="loading-glare h-8 w-28 shrink-0 rounded-lg bg-muted"></div>
 					{:else}
 						<Button
 							variant={iso.recommended ? 'primary' : 'default'}
@@ -358,8 +358,32 @@
 							{iso.data.sha256}
 						</button>
 					</details>
+				{:else}
+					<div class="loading-glare mt-2 h-4 w-16 rounded bg-muted"></div>
 				{/if}
 			</div>
 		{/each}
 	</div>
 </div>
+
+<style>
+	@keyframes loading-glare {
+		from {
+			background-position: 150% 0;
+		}
+		to {
+			background-position: -50% 0;
+		}
+	}
+	.loading-glare {
+		background-image: linear-gradient(
+			100deg,
+			transparent 30%,
+			color-mix(in oklab, var(--color-foreground) 12%, transparent) 45%,
+			color-mix(in oklab, var(--color-foreground) 12%, transparent) 55%,
+			transparent 70%
+		);
+		background-size: 200% 100%;
+		animation: loading-glare 1.4s ease-in-out infinite;
+	}
+</style>

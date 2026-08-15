@@ -17,26 +17,26 @@
 			title: 'BlossomOS',
 			body: m.home_product_os_tagline(),
 			href: '/',
-			cta: m.home_product_learn_more()
+			cta: m.learn_more()
 		},
 		{
 			Icon: ShoppingBagIcon,
 			title: 'Arc Software',
 			body: m.home_product_arc_tagline(),
 			href: '/arc',
-			cta: m.home_product_learn_more()
+			cta: m.learn_more()
 		},
 		{
 			Icon: CloudIcon,
 			title: 'Blossom Cloud',
 			body: m.home_product_cloud_tagline(),
 			href: '/cloud',
-			cta: m.home_product_learn_more()
+			cta: m.learn_more()
 		},
 		{
 			Icon: Building2Icon,
 			title: 'Blossom Hub',
-			body: m.home_product_hub_tagline(),
+			body: m.hub_tooltip(),
 			href: '/hub',
 			cta: m.coming_soon(),
 			soon: true
@@ -66,7 +66,7 @@
 	title1={m.home_mission_h2_1()}
 	title2={m.home_mission_h2_2()}
 	body={m.home_mission_body()}
-	button1Text={m.home_mission_about()}
+	button1Text={m.about_tagline()}
 	button2Text={m.home_view_source()}
 	button1Href="/about"
 	button2Href="https://dev.blossomos.org/Blossom"

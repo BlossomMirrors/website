@@ -5,6 +5,7 @@
 	import * as m from '$lib/paraglide/messages';
 	import LogoMono from './icons/logo-mono.svelte';
 	import { YouTubeIcon } from '$lib/components/icons/youtube/index.svelte';
+	import SmartLink from '$lib/components/ui/smart-link.svelte';
 
 	const year = new Date().getFullYear();
 
@@ -50,7 +51,7 @@
 
 <footer class="relative overflow-hidden border-t border-border bg-card">
 	<LogoMono
-		class="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 animate-spin-slow text-foreground opacity-50 md:h-96 md:w-96"
+		class="pointer-events-none absolute -right-24 -bottom-24 size-72 animate-spin-slow text-foreground opacity-50 md:size-96"
 	/>
 	<div class="mx-auto max-w-7xl px-4 py-16 md:py-20">
 		<!-- Link columns -->
@@ -60,11 +61,10 @@
 				<p class="mb-4 text-sm font-semibold">{m.footer_follow_us()}</p>
 				<div class="flex gap-3">
 					{#each socials as s (s.label)}
-						<!-- eslint-disable svelte/no-navigation-without-resolve -->
 						<a
 							href={s.href}
 							target="_blank"
-							rel="noreferrer"
+							rel="external noreferrer"
 							aria-label={s.label}
 							class="text-muted-foreground transition-colors hover:text-foreground"
 						>
@@ -80,15 +80,12 @@
 					<ul class="flex flex-col gap-2.5">
 						{#each col.links as link (link.href)}
 							<li>
-								<a
+								<SmartLink
 									href={link.href}
 									class="text-sm text-muted-foreground transition-colors hover:text-foreground"
-									target={link.href.startsWith('http') && link.href.includes('://')
-										? '_blank'
-										: undefined}
 								>
 									{link.label}
-								</a>
+								</SmartLink>
 							</li>
 						{/each}
 					</ul>

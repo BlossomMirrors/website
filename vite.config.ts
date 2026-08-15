@@ -15,6 +15,6 @@ export default defineConfig({
 		})
 	],
 	preview: {
-		allowedHosts: ['blossomos.org']
+		allowedHosts: ['blossomos.org', 'blossom.computer']
 	}
 });

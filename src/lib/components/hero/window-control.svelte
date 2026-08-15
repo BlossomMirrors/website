@@ -9,7 +9,6 @@
 		hovered: externalHovered = undefined,
 		class: className = '',
 		onclick,
-		onpointerdown,
 		onmouseenter,
 		onmouseleave
 	}: {
@@ -18,7 +17,6 @@
 		hovered?: boolean;
 		class?: string;
 		onclick?: () => void;
-		onpointerdown?: (e: PointerEvent) => void;
 		onmouseenter?: () => void;
 		onmouseleave?: () => void;
 	} = $props();
@@ -42,7 +40,6 @@
 		onmouseleave?.();
 	}}
 	{onclick}
-	{onpointerdown}
 >
 	<svg
 		width="100%"

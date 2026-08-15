@@ -1,10 +1,11 @@
 <script lang="ts" module>
+	import type { Component } from 'svelte';
+
 	export type NavDropdownItem = {
 		label: string;
 		href: string;
 		description?: string;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		icon?: any;
+		icon?: Component<{ size?: number; strokeWidth?: number; class?: string }>;
 		badge?: string;
 	};
 
@@ -36,8 +37,7 @@
 	import { cn } from '$lib/utils.js';
 	import { navigationMenuTriggerStyle } from '$lib/components/ui/navigation-menu/navigation-menu-trigger.svelte';
 	import { IsMobile } from '$lib/components/hooks/is-mobile.svelte.js';
-
-	const resolve = (href: string) => (href.startsWith('http') ? href : href);
+	import SmartLink from '$lib/components/ui/smart-link.svelte';
 
 	const isMobile = new IsMobile();
 
@@ -48,15 +48,12 @@
 	<li>
 		<NavigationMenu.Link>
 			{#snippet child()}
-				<!-- eslint-disable svelte/no-navigation-without-resolve -->
-				<a
-					href={resolve(item.href)}
+				<SmartLink
+					href={item.href}
 					class={cn(
 						'rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-foreground/10 focus:bg-foreground/10',
-						item.icon ? 'flex items-center gap-2' : 'block',
-						!item.icon && item.description && 'space-y-1'
+						item.icon ? 'flex items-center gap-2' : 'block'
 					)}
-					target={item.href.includes('http') ? '_blank' : undefined}
 				>
 					{#if item.icon}
 						{@const Icon = item.icon}
@@ -79,7 +76,7 @@
 							</p>
 						{/if}
 					</div>
-				</a>
+				</SmartLink>
 			{/snippet}
 		</NavigationMenu.Link>
 	</li>
@@ -93,7 +90,9 @@
 					<NavigationMenu.Item>
 						<NavigationMenu.Link>
 							{#snippet child()}
-								<a href={resolve(item.href)} class={navigationMenuTriggerStyle()}>{item.label}</a>
+								<SmartLink href={item.href} class={navigationMenuTriggerStyle()}
+									>{item.label}</SmartLink
+								>
 							{/snippet}
 						</NavigationMenu.Link>
 					</NavigationMenu.Item>
@@ -105,15 +104,15 @@
 								<ul class="grid gap-2 p-2 md:w-100 lg:w-125 lg:grid-cols-[.75fr_1fr]">
 									<li style="grid-row: span {item.items.length} / span {item.items.length}">
 										<NavigationMenu.Link
-											class="flex h-full w-full flex-col justify-start rounded-md bg-linear-to-b from-muted/50 to-muted p-4 no-underline outline-hidden select-none focus:shadow-md"
+											class="flex size-full flex-col justify-start rounded-md bg-linear-to-b from-muted/50 to-muted p-4 no-underline outline-hidden select-none focus:shadow-md"
 										>
 											{#snippet child({ props })}
-												<a {...props} href={resolve(item.featured!.href)}>
+												<SmartLink {...props} href={item.featured!.href}>
 													<div class="mb-2 text-lg font-medium">{item.featured!.title}</div>
 													<p class="line-clamp-4 text-sm leading-snug text-muted-foreground">
 														{item.featured!.description}
 													</p>
-												</a>
+												</SmartLink>
 											{/snippet}
 										</NavigationMenu.Link>
 									</li>

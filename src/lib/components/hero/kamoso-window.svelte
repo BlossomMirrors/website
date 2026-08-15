@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Window from './window.svelte';
 	import kamosoPng from '$lib/assets/taskbar/kamoso.png';
-	import webcamJpg from '$lib/assets/webcam.jpg';
-	import webcamDisplay from '$lib/assets/webcam.jpg?enhanced&imgWidth=1600';
+	import webcamDisplay from '$lib/assets/webcam.jpg';
 	import ToolbarButton from './toolbar-button.svelte';
 	import CameraIcon from '@lucide/svelte/icons/camera';
 	import VideoIcon from '@lucide/svelte/icons/video';
@@ -10,37 +9,18 @@
 	import InfoIcon from '@lucide/svelte/icons/info';
 	import LayoutGridIcon from '@lucide/svelte/icons/layout-grid';
 	import * as m from '$lib/paraglide/messages';
-
-	let { onClose, onFocus, zIndex }: { onClose: () => void; onFocus?: () => void; zIndex?: number } =
-		$props();
-
-	function takePicture() {
-		const a = document.createElement('a');
-		a.href = webcamJpg;
-		a.download = `kamoso-${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
-		a.click();
-	}
 </script>
 
 <Window
 	title="Kamoso"
 	icon={kamosoPng}
-	{onClose}
-	{onFocus}
-	{zIndex}
-	minW={420}
-	minH={300}
-	defaultW={800}
-	defaultH={528}
-	offsetX={-20}
-	offsetY={20}
 >
 	<!-- Toolbar -->
-	<div class="flex shrink-0 items-center gap-1 px-3 select-none" style="height:44px">
+	<div class="flex h-11 shrink-0 items-center gap-1 px-3 select-none">
 		<ToolbarButton label={m.kamoso_record_video()}>
 			<VideoIcon size={14} />
 		</ToolbarButton>
-		<ToolbarButton label={m.kamoso_take_picture()} onclick={takePicture}>
+		<ToolbarButton label={m.kamoso_take_picture()}>
 			<CameraIcon size={14} />
 		</ToolbarButton>
 		<ToolbarButton label={m.kamoso_start_sequence()}>
@@ -61,7 +41,8 @@
 			src={webcamDisplay}
 			alt=""
 			sizes="(min-width: 768px) 800px, 100vw"
-			class="h-full w-full object-cover"
+			class="size-full object-cover"
+			loading="lazy"
 		/>
 	</div>
 </Window>

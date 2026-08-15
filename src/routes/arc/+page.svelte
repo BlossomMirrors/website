@@ -14,7 +14,7 @@
 
 	const unifyFeatures = [
 		{ Icon: LayersIcon, title: m.arc_unify_feature1_title(), body: m.arc_unify_feature1_body() },
-		{ Icon: ZapIcon, title: m.arc_unify_feature2_title(), body: m.arc_unify_feature2_body() },
+		{ Icon: ZapIcon, title: m.arc_header2(), body: m.arc_unify_feature2_body() },
 		{
 			Icon: ShieldCheckIcon,
 			title: m.arc_unify_feature3_title(),
@@ -43,13 +43,8 @@
 			{m.arc_page_subtitle()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/">
-				<Button variant="primary">{m.cta_download()}</Button>
-			</a>
-			<a href="https://dev.blossomos.org/Blossom" target="_blank" rel="noreferrer">
-				<Button>{m.home_view_source()}</Button>
-			</a>
+			<Button href="/" variant="primary">{m.cta_download()}</Button>
+			<Button href="https://dev.blossomos.org/Blossom">{m.home_view_source()}</Button>
 		</div>
 	</div>
 
@@ -69,7 +64,7 @@
 				{#each unifyFeatures as f, i (f.title)}
 					<div class="flex gap-4" use:reveal={100 + i * 70}>
 						<div
-							class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+							class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
 						>
 							<f.Icon size={16} strokeWidth={1.5} />
 						</div>
@@ -112,7 +107,7 @@
 			<div class="flex items-center justify-center rounded-2xl border border-border bg-card p-12">
 				<div class="text-center">
 					<div
-						class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#0078d4]/10 fill-[#0078d4] p-4"
+						class="mx-auto mb-6 flex size-20 items-center justify-center rounded-2xl bg-[#0078d4]/10 fill-[#0078d4] p-4"
 					>
 						<WindowsIcon />
 					</div>

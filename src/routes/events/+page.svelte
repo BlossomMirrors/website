@@ -142,11 +142,11 @@
 				<span
 					class="flex items-center gap-2 rounded-full border border-destructive/30 bg-destructive/10 px-3 py-1 text-xs font-semibold text-destructive"
 				>
-					<span class="relative flex h-2 w-2">
+					<span class="relative flex size-2">
 						<span
-							class="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75"
+							class="absolute inline-flex size-full animate-ping rounded-full bg-destructive opacity-75"
 						></span>
-						<span class="relative inline-flex h-2 w-2 rounded-full bg-destructive"></span>
+						<span class="relative inline-flex size-2 rounded-full bg-destructive"></span>
 					</span>
 					{m.events_live_badge()}
 				</span>
@@ -188,13 +188,10 @@
 							</div>
 							{#if event.href}
 								<div class="mt-4">
-									<!-- eslint-disable svelte/no-navigation-without-resolve -->
-									<a href={event.href} target="_blank" rel="noreferrer">
-										<Button size="sm">
-											{m.events_join()}
-											<ExternalLinkIcon size={14} class="ml-1.5" />
-										</Button>
-									</a>
+									<Button href={event.href} size="sm">
+										{m.events_join()}
+										<ExternalLinkIcon size={14} class="ml-1.5" />
+									</Button>
 								</div>
 							{/if}
 						</div>
@@ -242,12 +239,10 @@
 							</div>
 							{#if event.href}
 								<div class="mt-5">
-									<a href={event.href} target="_blank" rel="noreferrer">
-										<Button size="sm">
-											{m.events_learn_more()}
-											<ExternalLinkIcon size={14} class="ml-1.5" />
-										</Button>
-									</a>
+									<Button href={event.href} size="sm">
+										{m.learn_more()}
+										<ExternalLinkIcon size={14} class="ml-1.5" />
+									</Button>
 								</div>
 							{/if}
 						</div>
@@ -296,12 +291,10 @@
 							</div>
 						</div>
 						{#if event.talkHref}
-							<a href={event.talkHref} target="_blank" rel="noreferrer">
-								<Button size="sm">
-									<VideoIcon size={14} class="mr-1.5" />
-									{m.events_watch_talk()}
-								</Button>
-							</a>
+							<Button href={event.talkHref} size="sm">
+								<VideoIcon size={14} class="mr-1.5" />
+								{m.events_watch_talk()}
+							</Button>
 						{/if}
 					</div>
 				{/each}

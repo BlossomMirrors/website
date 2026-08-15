@@ -23,30 +23,27 @@
 			{m.cta_description()}
 		</p>
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a
+			<Button
 				href="/downloads"
+				variant="primary"
+				size="lg"
 				onmouseenter={() => {
 					dlAnimating = true;
 					setTimeout(() => (dlAnimating = false), 400);
 				}}
 			>
-				<Button variant="primary" size="lg">
-					<Download size={18} animate={dlAnimating} class="pointer-events-none" />
-					{m.cta_download()}
-				</Button>
-			</a>
-			<a
+				<Download size={18} animate={dlAnimating} class="pointer-events-none" />
+				{m.cta_download()}
+			</Button>
+			<Button
 				href="https://discord.gg/dTqsBdxvNr"
-				target="_blank"
-				rel="noreferrer"
+				variant="ghost"
+				size="lg"
 				onmouseenter={triggerCommunity}
 			>
-				<Button variant="ghost" size="lg">
-					{m.cta_join_community()}
-					<ArrowRight size={16} animate={communityAnimating} class="pointer-events-none" />
-				</Button>
-			</a>
+				{m.cta_join_community()}
+				<ArrowRight size={16} animate={communityAnimating} class="pointer-events-none" />
+			</Button>
 		</div>
 		<p class="mt-6 text-xs text-muted-foreground">{m.cta_footer()}</p>
 	</div>

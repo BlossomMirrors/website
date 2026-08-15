@@ -23,11 +23,11 @@
 		},
 		{
 			Icon: VideoIcon,
-			title: m.cloud_feature_video_title(),
+			title: m.video_calls(),
 			body: m.cloud_video_body(),
 			done: true
 		},
-		{ Icon: ServerIcon, title: m.cloud_feature_eu_title(), body: m.cloud_eu_body(), done: true },
+		{ Icon: ServerIcon, title: m.eu_datacenters(), body: m.cloud_eu_body(), done: true },
 		{
 			Icon: SettingsIcon,
 			title: m.cloud_feature_settings_title(),
@@ -56,7 +56,7 @@
 <div class="py-16 md:py-24">
 	<div class="mx-auto max-w-3xl text-center" use:reveal>
 		<div
-			class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary"
+			class="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-primary/10 text-primary"
 		>
 			<CloudIcon size={32} strokeWidth={1.5} />
 		</div>
@@ -68,13 +68,8 @@
 			{m.cloud_page_subtitle()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
-			<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer">
-				<Button variant="primary">{m.cloud_get_started()}</Button>
-			</a>
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href="/">
-				<Button>{m.cloud_get_blossomos()}</Button>
-			</a>
+			<Button href="https://auth.blossomos.org" variant="primary">{m.cloud_get_started()}</Button>
+			<Button href="/">{m.cloud_get_blossomos()}</Button>
 		</div>
 	</div>
 
@@ -87,10 +82,10 @@
 		use:reveal
 	>
 		<div
-			class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary/8 blur-3xl"
+			class="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-primary/8 blur-3xl"
 		></div>
 		<div
-			class="pointer-events-none absolute -bottom-12 left-1/4 h-48 w-48 rounded-full bg-primary/5 blur-3xl"
+			class="pointer-events-none absolute -bottom-12 left-1/4 size-48 rounded-full bg-primary/5 blur-3xl"
 		></div>
 
 		<div class="relative grid items-center gap-12 md:grid-cols-2">
@@ -123,9 +118,8 @@
 			{m.cloud_cta_body()}
 		</p>
 		<div class="mt-8 flex justify-center gap-3">
-			<a href="https://auth.blossomos.org" target="_blank" rel="noreferrer">
-				<Button variant="primary">{m.cloud_create_account()}</Button>
-			</a>
+			<Button href="https://auth.blossomos.org" variant="primary">{m.cloud_create_account()}</Button
+			>
 		</div>
 	</div>
 </div>

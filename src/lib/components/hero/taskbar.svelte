@@ -9,17 +9,15 @@
 	import { LanIcon } from '$lib/components/icons/lan/index.svelte';
 	import LogoMono from '../icons/logo-mono.svelte';
 
-	import dolphinPng from '$lib/assets/taskbar/dolphin.png?enhanced';
-	import heliumPng from '$lib/assets/taskbar/helium.png?enhanced';
-	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png?enhanced';
-	import arcPng from '$lib/assets/taskbar/arc.png?enhanced';
-	import discordPng from '$lib/assets/taskbar/discord.png?enhanced';
-	import obsidianPng from '$lib/assets/taskbar/obsidian.png?enhanced';
-	import libreofficePng from '$lib/assets/taskbar/libreoffice.png?enhanced';
-	import steamPng from '$lib/assets/taskbar/steam.png?enhanced';
-	import kamosoPng from '$lib/assets/taskbar/kamoso.png?enhanced';
-
-	let { onIconClick }: { onIconClick?: (label: string) => void } = $props();
+	import dolphinPng from '$lib/assets/taskbar/dolphin.png';
+	import heliumPng from '$lib/assets/taskbar/helium.png';
+	import thunderbirdPng from '$lib/assets/taskbar/thunderbird.png';
+	import arcPng from '$lib/assets/taskbar/arc.png';
+	import discordPng from '$lib/assets/taskbar/discord.png';
+	import obsidianPng from '$lib/assets/taskbar/obsidian.png';
+	import libreofficePng from '$lib/assets/taskbar/libreoffice.png';
+	import steamPng from '$lib/assets/taskbar/steam.png';
+	import kamosoPng from '$lib/assets/taskbar/kamoso.png';
 
 	const icons = [
 		{ src: dolphinPng, label: 'Dolphin', subtitle: m.dolphin_tooltip() },
@@ -76,21 +74,20 @@
 
 <div
 	bind:this={taskbarEl}
-	class="taskbar-slide-up absolute right-3 bottom-3 left-3 flex items-center justify-between rounded-2xl border border-black/10 bg-white/40 px-2 py-1 shadow-xl backdrop-blur-md select-none sm:right-6 sm:bottom-6 sm:left-6 sm:px-3 sm:py-1.5 dark:border-white/15 dark:bg-black/30"
+	class="taskbar-slide-up pointer-events-auto absolute right-3 bottom-3 left-3 flex items-center justify-between rounded-2xl border border-black/10 bg-white/40 px-2 py-1 shadow-xl backdrop-blur-md select-none sm:right-6 sm:bottom-6 sm:left-6 sm:px-3 sm:py-1.5 dark:border-white/15 dark:bg-black/30"
 >
-	<div class="flex items-center gap-1.5 sm:gap-6">
-		<LogoMono class="pointer-events-none h-6 w-6 shrink-0 text-foreground sm:h-8 sm:w-8" />
+	<div class="no-scrollbar flex min-w-0 items-center gap-1.5 overflow-x-auto sm:gap-6">
+		<LogoMono class="pointer-events-none size-6 shrink-0 text-foreground sm:size-8" />
 		{#each icons as icon (icon.label)}
 			<button
-				class="cursor-custom h-7 w-7 shrink-0 rounded-xl p-0.5 transition-transform duration-150 hover:brightness-130 sm:h-10 sm:w-10 sm:p-1"
+				class="cursor-custom size-7 shrink-0 rounded-xl p-0.5 transition-transform duration-150 hover:brightness-130 sm:size-10 sm:p-1"
 				aria-label={icon.label}
 				onmouseenter={(e) => showTooltip(icon, e.currentTarget)}
 				onmouseleave={() => (tooltip = null)}
-				onclick={() => onIconClick?.(icon.label)}
 			>
 				<enhanced:img
 					src={icon.src}
-					class="pointer-events-none h-full w-full"
+					class="pointer-events-none size-full"
 					sizes="40px"
 					alt={icon.label}
 				/>
@@ -128,5 +125,11 @@
 		animation: taskbar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 		animation-delay: 1s;
 		opacity: 0;
+	}
+	.no-scrollbar {
+		scrollbar-width: none;
+	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
 	}
 </style>

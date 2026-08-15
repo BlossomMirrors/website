@@ -11,7 +11,7 @@
 	use:reveal
 >
 	<div
-		class="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-destructive/8 blur-3xl"
+		class="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full bg-destructive/8 blur-3xl"
 	></div>
 	<div
 		class="pointer-events-none absolute top-1/2 right-10 hidden -translate-y-1/2 text-foreground opacity-[0.04] md:block"
@@ -23,7 +23,7 @@
 		<div class="mb-4 flex items-center gap-2">
 			<HeartIcon size={12} class="text-destructive" fill="currentColor" />
 			<p class="text-xs font-semibold tracking-widest text-destructive uppercase">
-				{m.donate_subheader()}
+				{m.donate_nav()}
 			</p>
 		</div>
 		<h2 class="font-serif text-4xl leading-tight md:text-5xl">
@@ -32,17 +32,9 @@
 		<p class="mt-5 text-lg leading-relaxed text-muted-foreground">
 			{m.donate_body()}
 		</p>
-		<!-- eslint-disable svelte/no-navigation-without-resolve -->
-		<a
-			href="https://liberapay.com/blossomos"
-			target="_blank"
-			rel="noreferrer"
-			class="mt-8 inline-block"
-		>
-			<Button variant="destructive" size="lg">
-				<LiberapayIcon size={16} />
-				{m.donate_cta()}
-			</Button>
-		</a>
+		<Button href="https://liberapay.com/blossomos" variant="destructive" size="lg" class="mt-8">
+			<LiberapayIcon size={16} />
+			{m.donate_cta()}
+		</Button>
 	</div>
 </div>
