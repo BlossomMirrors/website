@@ -22,7 +22,7 @@ function confirmationEmail(confirmUrl: string): string {
     <a href="${confirmUrl}" style="display:inline-block;background:#7c3aed;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-weight:600;font-size:14px;">Confirm subscription</a>
     <p style="margin:32px 0 0;color:#737373;font-size:12px;line-height:1.5;">If you didn't sign up for this, you can safely ignore this email.</p>
     <hr style="border:none;border-top:1px solid #262626;margin:32px 0;">
-    <p style="color:#525252;font-size:11px;margin:0;">BlossomOS &middot; <a href="https://blossomos.org" style="color:#525252;">blossomos.org</a></p>
+    <p style="color:#525252;font-size:11px;margin:0;">BlossomOS &middot; <a href="https://blossom.computer" style="color:#525252;">blossom.computer</a></p>
   </div>
 </body>
 </html>`;

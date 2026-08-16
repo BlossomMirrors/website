@@ -1,7 +1,7 @@
 import { PAGES, EXTERNAL_LINKS } from './pages';
 import { SECTIONS } from './sections';
 
-const ORIGIN = 'https://blossomos.org';
+const ORIGIN = 'https://blossom.computer';
 
 export function buildLlmsTxt(): string {
 	const sectionLinks = SECTIONS.map(

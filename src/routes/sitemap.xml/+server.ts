@@ -2,7 +2,7 @@ import type { RequestHandler } from './$types';
 import { PAGES } from '$lib/llms/pages';
 import { SECTIONS } from '$lib/llms/sections';
 
-const ORIGIN = 'https://blossomos.org';
+const ORIGIN = 'https://blossom.computer';
 
 export const prerender = true;
 

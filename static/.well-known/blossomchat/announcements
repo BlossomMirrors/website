@@ -1,5 +1,5 @@
 {
-    "$schema": "https://blossomos.org/schema/announcements.schema.json",
+    "$schema": "https://blossom.computer/schema/announcements.schema.json",
     "announcements": [
         {
             "id": 1,

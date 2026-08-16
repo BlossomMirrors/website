@@ -13,12 +13,12 @@
 	// `wrangler secret put RESEND_API_KEY` / `NEWSLETTER_SECRET` / etc.
 	"vars": {
 		"PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAD_XPyRIgGGhvLBo",
-		"TURNSTILE_HOSTNAMES": "blossomos.org"
+		"TURNSTILE_HOSTNAMES": "blossom.computer"
 	},
 	"routes": [
 		{
-			"pattern": "blossomos.org",
-			"zone_name": "blossomos.org",
+			"pattern": "blossom.computer",
+			"zone_name": "blossom.computer",
 			"custom_domain": true,
 			"enabled": true,
 			"previews_enabled": false
