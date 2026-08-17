@@ -44,17 +44,17 @@
 
 <div class="grid gap-4 sm:grid-cols-2">
 	{#each features as p, i (p.title)}
-		<div use:reveal={i * 70}>
+		<div use:reveal={i * 70} class="h-full">
 			{#if p.href}
 				<SmartLink
 					href={p.href}
-					class="group flex flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-primary/30 hover:bg-primary/3 md:p-9"
+					class="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-primary/30 hover:bg-primary/3 md:p-9"
 				>
 					{@render card(p)}
 				</SmartLink>
 			{:else}
 				<div
-					class="group flex cursor-default flex-col rounded-2xl border border-border bg-card p-7 transition-colors md:p-9"
+					class="group flex h-full cursor-default flex-col rounded-2xl border border-border bg-card p-7 transition-colors md:p-9"
 				>
 					{@render card(p)}
 				</div>
