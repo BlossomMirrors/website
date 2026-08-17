@@ -22,13 +22,13 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="BlossomOS" />
 	<meta property="og:url" content={page.url.href} />
-	<meta property="og:image" content="https://blossomos.org/cover.png" />
+	<meta property="og:image" content="https://blossom.computer/cover.png" />
 	<meta property="og:image:width" content="2576" />
 	<meta property="og:image:height" content="1456" />
 	<meta property="og:image:type" content="image/png" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:url" content={page.url.href} />
-	<meta name="twitter:image" content="https://blossomos.org/cover.png" />
+	<meta name="twitter:image" content="https://blossom.computer/cover.png" />
 </svelte:head>
 
 <ModeWatcher />
