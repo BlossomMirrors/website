@@ -4,7 +4,9 @@
 	"main": ".svelte-kit/cloudflare/_worker.js",
 	"compatibility_date": "2026-07-25",
 	// node:crypto and Buffer (used by the newsletter API routes) need this
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
 	"assets": {
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
@@ -13,17 +15,22 @@
 	// `wrangler secret put RESEND_API_KEY` / `NEWSLETTER_SECRET` / etc.
 	"vars": {
 		"PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAD_XPyRIgGGhvLBo",
-		"TURNSTILE_HOSTNAMES": "blossomos.org"
+		"TURNSTILE_HOSTNAMES": "blossom.computer"
 	},
 	"routes": [
 		{
-			"pattern": "blossomos.org",
-			"zone_name": "blossomos.org",
+			"pattern": "blossom.computer",
+			"zone_name": "blossom.computer",
 			"custom_domain": true,
 			"enabled": true,
 			"previews_enabled": false
 		}
 	],
 	"workers_dev": true,
-	"preview_urls": true
+	"preview_urls": true,
+	"observability": {
+		"logs": {
+			"enabled": true
+		}
+	}
 }
