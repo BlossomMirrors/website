@@ -6,8 +6,8 @@
 	import NewsletterForm from '$lib/components/ui/newsletter-form.svelte';
 
 	type Props = {
-		button1Text: string;
-		button2Text: string;
+		button1Text?: string;
+		button2Text?: string;
 		button1Href?: string;
 		button2Href?: string;
 		title1: string;
@@ -67,10 +67,14 @@
 			</div>
 		{/if}
 		<div class="mt-8 flex flex-wrap gap-3">
-			<Button href={props.button1Href ?? '/about'} variant="primary">{props.button1Text}</Button>
-			<Button href={props.button2Href ?? 'https://dev.blossomos.org/Blossom'}
-				>{props.button2Text}</Button
-			>
+		    {#if props.button1Href && props.button1Text}
+						<Button href={props.button1Href ?? '/about'} variant="primary">{props.button1Text}</Button>
+			{/if}
+			{#if props.button2Href && props.button2Text}
+    			<Button href={props.button2Href ?? 'https://dev.blossomos.org/Blossom'}
+    				>{props.button2Text}</Button
+    			>
+			{/if}
 		</div>
 	</div>
 </div>
