@@ -348,15 +348,6 @@
 	transform: translateY(0);
 }
 
-.prose ul > li {
-	list-style-type: disc;
-	margin-left: 34px;
-}
-
-.prose ul {
-	margin: 12px 0;
-}
-
 @theme {
 	--animate-spin-slow: spin 16s linear infinite;
 }
