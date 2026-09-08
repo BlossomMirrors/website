@@ -29,6 +29,9 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:url" content={page.url.href} />
 	<meta name="twitter:image" content="https://blossom.computer/cover.png" />
+	<meta name="description" content={m.home_subtitle()} />
+	<meta property="og:description" content={m.home_subtitle()} />
+	<meta name="twitter:description" content={m.home_subtitle()} />
 </svelte:head>
 
 <ModeWatcher />
