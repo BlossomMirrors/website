@@ -52,7 +52,7 @@
 			Icon: BlueskyIcon,
 			title: m.community_channel_bluesky_title(),
 			body: m.community_channel_bluesky_body(),
-			href: 'https://bsky.app/profile/blossomos.org',
+			href: 'https://bsky.app/profile/blossom.computer',
 			cta: m.learn_more()
 		},
 		{

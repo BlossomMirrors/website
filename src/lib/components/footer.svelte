@@ -11,7 +11,7 @@
 
 	const socials = [
 		{ label: 'YouTube', href: 'https://www.youtube.com/@blossomlabstv', Icon: YouTubeIcon },
-		{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', Icon: BlueskyIcon },
+		{ label: 'Bluesky', href: 'https://bsky.app/profile/blossom.computer', Icon: BlueskyIcon },
 		{ label: 'Liberapay', href: 'https://liberapay.com/blossomos', Icon: LiberapayIcon }
 	];
 

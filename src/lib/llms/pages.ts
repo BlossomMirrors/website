@@ -20,6 +20,6 @@ export const EXTERNAL_LINKS: { title: string; url: string }[] = [
 	{ title: 'Discord', url: 'https://discord.gg/dTqsBdxvNr' },
 	{ title: 'Documentation', url: 'https://help.blossomos.org' },
 	{ title: 'Source (Blossom Git)', url: 'https://dev.blossomos.org/blossom' },
-	{ title: 'Bluesky', url: 'https://bsky.app/profile/blossomos.org' },
+	{ title: 'Bluesky', url: 'https://bsky.app/profile/blossom.computer' },
 	{ title: 'Liberapay (donate)', url: 'https://liberapay.com/blossomos' }
 ];

@@ -101,7 +101,7 @@
 					href: 'https://matrix.to/#/#space:blossomos.org',
 					icon: MatrixIcon
 				},
-				{ label: 'Bluesky', href: 'https://bsky.app/profile/blossomos.org', icon: BlueskyIcon }
+				{ label: 'Bluesky', href: 'https://bsky.app/profile/blossom.computer', icon: BlueskyIcon }
 			]
 		}
 	];
