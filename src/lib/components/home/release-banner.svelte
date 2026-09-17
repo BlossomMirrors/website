@@ -13,16 +13,16 @@
 		class="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-primary uppercase"
 	>
 		<SparklesIcon size={12} />
-		{m.home_alpha2_badge()}
+		{m.home_alpha3_badge()}
 	</span>
-	<span class="text-foreground">{m.home_alpha2_text()}</span>
+	<span class="text-foreground">{m.home_alpha3_text()}</span>
 	<a
-		href="https://help.blossomos.org/help/changelog/alpha-2"
+		href="https://help.blossomos.org/help/changelog/alpha-3"
 		target="_blank"
 		rel="noreferrer"
 		class="inline-flex items-center gap-1 font-medium text-primary underline underline-offset-2 hover:text-primary/80"
 	>
-		{m.home_alpha2_cta()}
+		{m.home_alpha3_cta()}
 		<ArrowRightIcon size={14} />
 	</a>
 </div>
