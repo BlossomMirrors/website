@@ -3,7 +3,8 @@ import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 const CDN = 'https://cdn.blossomos.org/iso';
-const ISO_NAME_PATTERN = /^BlossomOS(?:-nvidia-open)?-\d{4}\.\d{2}\.\d{2}-x86_64\.iso$/;
+const ISO_NAME_PATTERN =
+	/^BlossomOS(?:-(?:netinstall|nvidia-open|nvidia-legacy))?-\d{4}\.\d{2}\.\d{2}-x86_64\.iso$/;
 const EXPECTED_ACTION = 'download';
 
 export const POST: RequestHandler = async ({ request }) => {

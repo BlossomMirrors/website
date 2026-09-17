@@ -42,6 +42,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Disc3 } from '@lucide/svelte';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import DownloadIcon from '$lib/components/movingicons/download.svelte';
 	import HeartIcon from '@lucide/svelte/icons/heart';
 	import { DiscordIcon } from '$lib/components/icons/discord/index.svelte';
@@ -52,19 +53,57 @@
 	import { cn } from '$lib/utils.js';
 	import posthog from 'posthog-js';
 	import { env } from '$env/dynamic/public';
+	import { resolve } from '$app/paths';
 
 	type IsoData = { name: string; sha256: string };
+	type Variant = {
+		label: string;
+		file: string;
+		badge: () => string;
+		description: () => string;
+		matches?: 'nvidia' | 'other';
+	};
 
-	let { class: className = '' }: { class?: string } = $props();
+	let { class: className = '', full = false }: { class?: string; full?: boolean } = $props();
 
 	const CDN = 'https://cdn.blossomos.org/iso';
 	// The ISO metadata endpoint only returns a date-based version (e.g. "2026.08.05"), not a
 	// human-readable codename, so this is hardcoded until the CDN JSON exposes one. Update this
 	// when the next codenamed release ships.
-	const CODENAME = 'Alpha 2';
+	const CODENAME = '0.3.0 Alpha';
 
-	let standard = $state<IsoData | null>(null);
-	let nvidiaOpen = $state<IsoData | null>(null);
+	const ONLINE: Variant[] = [
+		{
+			label: 'Online',
+			file: 'isodata-netinstall.json',
+			badge: () => m.iso_all_gpus(),
+			description: () => m.iso_online_desc()
+		}
+	];
+	const OFFLINE: Variant[] = [
+		{
+			label: 'Standard',
+			file: 'isodata.json',
+			badge: () => 'AMD / Intel',
+			description: () => m.iso_standard_desc(),
+			matches: 'other'
+		},
+		{
+			label: 'NVIDIA Open',
+			file: 'isodata-nvidia-open.json',
+			badge: () => 'NVIDIA',
+			description: () => m.iso_nvidia_desc(),
+			matches: 'nvidia'
+		},
+		{
+			label: 'NVIDIA Legacy',
+			file: 'isodata-nvidia-legacy.json',
+			badge: () => 'NVIDIA',
+			description: () => m.iso_nvidia_legacy_desc()
+		}
+	];
+
+	let isoData = $state<Record<string, IsoData | null>>({});
 	let gpu = $state<'nvidia' | 'other'>('other');
 	let hoveredLabel = $state<string | null>(null);
 	let copiedLabel = $state<string | null>(null);
@@ -98,17 +137,24 @@
 	const clipboard = new UseClipboard();
 	const version = useVersion();
 
+	function fetchIso(file: string): Promise<IsoData | null> {
+		return fetch(`${CDN}/${file}?${Date.now()}`)
+			.then((r) => (r.ok ? (r.json() as Promise<IsoData>) : null))
+			.catch(() => null);
+	}
+
 	onMount(() => {
 		gpu = detectGPU();
 		rafId = requestAnimationFrame(loop);
-		Promise.all([
-			fetch(`${CDN}/isodata.json?${Date.now()}`).then((r) => r.json()),
-			fetch(`${CDN}/isodata-nvidia-open.json?${Date.now()}`).then((r) => r.json())
-		]).then(([std, nvidia]) => {
-			standard = std;
-			nvidiaOpen = nvidia;
-			loading = false;
-		});
+		// The compact card fetches the standard offline ISO too, so it can fall back to it
+		// whenever the online ISO has not been published to the CDN yet.
+		const variants = full ? [...ONLINE, ...OFFLINE] : [...ONLINE, OFFLINE[0]];
+		Promise.all(variants.map((v) => fetchIso(v.file).then((data) => [v.file, data] as const))).then(
+			(entries) => {
+				isoData = Object.fromEntries(entries);
+				loading = false;
+			}
+		);
 		return () => cancelAnimationFrame(rafId);
 	});
 
@@ -148,7 +194,7 @@
 	}
 
 	function downloadClick(e: MouseEvent, label: string, data: IsoData) {
-		if (label === 'NVIDIA Open' && e.shiftKey) {
+		if (label.startsWith('NVIDIA') && e.shiftKey) {
 			const novideo = document.getElementById('novideo') as HTMLAudioElement;
 			novideo.currentTime = 0;
 			novideo.play();
@@ -188,23 +234,108 @@
 		};
 	});
 
-	const isos = $derived([
-		{
-			data: standard,
-			label: 'Standard',
-			description: m.iso_standard_desc(),
-			gpu: 'AMD / Intel',
-			recommended: gpu === 'other'
-		},
-		{
-			data: nvidiaOpen,
-			label: 'NVIDIA Open',
-			description: m.iso_nvidia_desc(),
-			gpu: 'NVIDIA',
-			recommended: gpu === 'nvidia'
-		}
-	]);
+	function toRows(variants: Variant[], recommended: boolean) {
+		return variants.map((v) => ({
+			data: isoData[v.file] ?? null,
+			label: v.label,
+			description: v.description(),
+			gpu: v.badge(),
+			recommended,
+			matchesGpu: v.matches === gpu
+		}));
+	}
+
+	const compactIsos = $derived.by(() => {
+		const online = toRows(ONLINE, true);
+		if (loading || online[0].data) return online;
+		return toRows([OFFLINE[0]], true);
+	});
+
+	const groups = $derived(
+		full
+			? [
+					{
+						key: 'online',
+						title: m.iso_group_online(),
+						note: m.iso_group_online_note(),
+						isos: toRows(ONLINE, true)
+					},
+					{
+						key: 'offline',
+						title: m.iso_group_offline(),
+						note: m.iso_group_offline_note(),
+						isos: toRows(OFFLINE, false)
+					}
+				]
+			: [{ key: 'online', title: '', note: '', isos: compactIsos }]
+	);
 </script>
+
+{#snippet isoRow(iso: (typeof groups)[number]['isos'][number])}
+	<div class="px-6 py-4 {iso.recommended ? 'bg-primary/3' : ''}">
+		<div class="flex items-center gap-4">
+			<div class="min-w-0 flex-1">
+				<div class="flex flex-wrap items-center gap-2">
+					<span class="text-sm font-medium">{iso.label}</span>
+					<span class="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">{iso.gpu}</span
+					>
+					{#if iso.recommended}
+						<span class="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary">
+							{m.recommended()}
+						</span>
+					{:else if iso.matchesGpu}
+						<span
+							class="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
+						>
+							{m.iso_matches_gpu()}
+						</span>
+					{/if}
+				</div>
+				<p class="mt-1 text-xs leading-relaxed text-muted-foreground">{iso.description}</p>
+			</div>
+			{#if loading}
+				<div class="loading-glare h-8 w-28 shrink-0 rounded-lg bg-muted"></div>
+			{:else if !iso.data}
+				<span class="shrink-0 text-xs text-muted-foreground">{m.iso_unavailable()}</span>
+			{:else}
+				<Button
+					variant={iso.recommended ? 'primary' : 'default'}
+					size="sm"
+					class="shrink-0"
+					onclick={(e) => downloadClick(e, iso.label, iso.data as IsoData)}
+					onmouseenter={() => triggerDownload(iso.label)}
+					data-umami-event="download"
+					data-umami-event-label={iso.label}
+				>
+					<DownloadIcon
+						size={16}
+						animate={hoveredLabel === iso.label}
+						class="pointer-events-none"
+					/>
+					{m.download_button()}
+				</Button>
+			{/if}
+		</div>
+		{#if loading}
+			<div class="loading-glare mt-2 h-4 w-16 rounded bg-muted"></div>
+		{:else if iso.data}
+			<details class="mt-2">
+				<summary class="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
+					SHA256
+					{#if copiedLabel === iso.label}
+						<span transition:fade={{ duration: 200 }} class="ml-1 text-primary">{m.copied()}</span>
+					{/if}
+				</summary>
+				<button
+					class="mt-1 block w-full cursor-pointer text-left font-mono text-xs break-all text-muted-foreground hover:text-foreground"
+					onclick={() => copyHash(iso.label, iso.data?.sha256 || '')}
+				>
+					{iso.data.sha256}
+				</button>
+			</details>
+		{/if}
+	</div>
+{/snippet}
 
 <audio id="novideo" src="/novideo.mp3"></audio>
 
@@ -301,69 +432,35 @@
 	</div>
 
 	<!-- ISO options -->
-	<div class="flex flex-col divide-y divide-border">
-		{#each isos as iso (iso.label)}
-			<div class="px-6 py-4 {iso.recommended ? 'bg-primary/3' : ''}">
-				<div class="flex items-center gap-4">
-					<div class="min-w-0 flex-1">
-						<div class="flex flex-wrap items-center gap-2">
-							<span class="text-sm font-medium">{iso.label}</span>
-							<span class="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground"
-								>{iso.gpu}</span
-							>
-							{#if iso.recommended}
-								<span
-									class="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary"
-								>
-									{m.recommended()}
-								</span>
-							{/if}
-						</div>
+	<div class="flex flex-col">
+		{#each groups as group (group.key)}
+			<div class="border-b border-border last:border-b-0">
+				{#if full}
+					<div class="bg-muted/40 px-6 py-3">
+						<p class="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+							{group.title}
+						</p>
+						<p class="mt-1 text-xs text-muted-foreground">{group.note}</p>
 					</div>
-					{#if loading || !iso.data}
-						<div class="loading-glare h-8 w-28 shrink-0 rounded-lg bg-muted"></div>
-					{:else}
-						<Button
-							variant={iso.recommended ? 'primary' : 'default'}
-							size="sm"
-							class="shrink-0"
-							onclick={(e) => downloadClick(e, iso.label, iso.data as IsoData)}
-							onmouseenter={() => triggerDownload(iso.label)}
-							data-umami-event="download"
-							data-umami-event-label={iso.label}
-						>
-							<DownloadIcon
-								size={16}
-								animate={hoveredLabel === iso.label}
-								class="pointer-events-none"
-							/>
-							{m.download_button()}
-						</Button>
-					{/if}
-				</div>
-				{#if iso.data}
-					<details class="mt-2">
-						<summary class="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
-							SHA256
-							{#if copiedLabel === iso.label}
-								<span transition:fade={{ duration: 200 }} class="ml-1 text-primary"
-									>{m.copied()}</span
-								>
-							{/if}
-						</summary>
-						<button
-							class="mt-1 block w-full cursor-pointer text-left font-mono text-xs break-all text-muted-foreground hover:text-foreground"
-							onclick={() => copyHash(iso.label, iso.data?.sha256 || '')}
-						>
-							{iso.data.sha256}
-						</button>
-					</details>
-				{:else}
-					<div class="loading-glare mt-2 h-4 w-16 rounded bg-muted"></div>
 				{/if}
+				<div class="flex flex-col divide-y divide-border">
+					{#each group.isos as iso (iso.label)}
+						{@render isoRow(iso)}
+					{/each}
+				</div>
 			</div>
 		{/each}
 	</div>
+
+	{#if !full}
+		<a
+			href={resolve('/downloads')}
+			class="flex items-center justify-between border-t border-border px-6 py-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+		>
+			{m.iso_see_more()}
+			<ChevronRight class="size-4" />
+		</a>
+	{/if}
 </div>
 
 <style>

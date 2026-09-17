@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Desktop from '$lib/components/hero/desktop.svelte';
-	import ReleaseBanner from '$lib/components/home/release-banner.svelte';
 	import FreedomSection from '$lib/components/home/freedom-section.svelte';
 	import ArcSection from '$lib/components/home/arc-section.svelte';
 	import GamingSection from '$lib/components/home/gaming-section.svelte';
@@ -42,7 +41,6 @@
 </svelte:head>
 
 <div class="mb-4 flex flex-col gap-7">
-	<ReleaseBanner />
 	<Desktop />
 
 	<div class="grid min-h-77 grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-12">

@@ -3,7 +3,9 @@ import { browser } from '$app/environment';
 const CDN = 'https://cdn.blossomos.org/iso';
 
 function extractVersion(name: string): string {
-	return name.match(/BlossomOS(?:-nvidia-open)?-(.+?)-x86_64/)?.[1] ?? '';
+	return (
+		name.match(/BlossomOS(?:-(?:netinstall|nvidia-open|nvidia-legacy))?-(.+?)-x86_64/)?.[1] ?? ''
+	);
 }
 
 let version = $state('');
