@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
 	import PageMeta from '$lib/components/page/page-meta.svelte';
+	import Page from '$lib/components/page/page.svelte';
 	import CommunitySection from '$lib/components/sections/community-section.svelte';
 	import Hero from './hero.svelte';
 	import Channels from './channels.svelte';
@@ -10,10 +11,10 @@
 
 <PageMeta title={m.community()} description={m.community_hero_body()} />
 
-<div class="py-16 md:py-24">
+<Page>
 	<Hero />
 	<Channels />
 	<Involved />
 	<Stats />
 	<CommunitySection />
-</div>
+</Page>

@@ -1,4 +1,4 @@
-export { default as CloudPlaceIcon } from './cloud.svelte';
+
 export { default as DesktopPlaceIcon } from './desktop.svelte';
 export { default as DocumentsPlaceIcon } from './documents.svelte';
 export { default as DownloadsPlaceIcon } from './downloads.svelte';

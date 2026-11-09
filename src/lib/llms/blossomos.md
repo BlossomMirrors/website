@@ -12,7 +12,7 @@ BlossomOS is a free, open source Linux desktop built by Blossom Labs, on top of 
 - No data collection, no forced updates, no built-in ads, no AI you didn't want.
 - Runs well on older hardware thanks to optimizations.
 - Gaming: Steam and thousands of titles via Proton, high performance, low latency.
-- Business: LibreOffice, Thunderbird, enterprise-grade encryption, EU-hosted cloud storage out of the box, GDPR-compliant by design, no dependency on foreign vendors, paid support available.
+- Business: LibreOffice, Thunderbird, enterprise-grade encryption out of the box, GDPR-compliant by design, no dependency on foreign vendors, paid support available.
 - To install: a USB stick with 16 GB or more, a modern 64-bit computer (built after 2010), more than 35 GB free disk space, and 2 GB RAM or more.
 - Download the ISO from blossomos.org: the standard ISO for Intel/AMD GPUs, or the NVIDIA ISO if you have an NVIDIA graphics card. The site usually detects your GPU automatically and suggests the right file.
 - Free forever, no credit card, no catch.

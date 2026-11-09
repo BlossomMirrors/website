@@ -10,7 +10,7 @@
 	import ArrowRightLeftIcon from '@lucide/svelte/icons/arrow-right-left';
 	import HeartIcon from '@lucide/svelte/icons/heart';
 	import Building2Icon from '@lucide/svelte/icons/building-2';
-	import CloudIcon from '@lucide/svelte/icons/cloud';
+
 	import ShoppingBagIcon from '@lucide/svelte/icons/shopping-bag';
 	import UserIcon from '@lucide/svelte/icons/user';
 	import GitBranchIcon from '@lucide/svelte/icons/git-branch';
@@ -44,12 +44,7 @@
 					description: m.arc_header_tooltip(),
 					icon: ShoppingBagIcon
 				},
-				{
-					label: 'Blossom Cloud',
-					href: '/cloud',
-					description: m.cloud_tooltip(),
-					icon: CloudIcon
-				},
+
 				{
 					label: 'Blossom Hub',
 					href: '/hub',

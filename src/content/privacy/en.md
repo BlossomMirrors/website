@@ -28,17 +28,13 @@ Static assets and downloadable files, including BlossomOS ISO images, are distri
 
 When you download a file or load an asset delivered via BunnyCDN, your IP address and request metadata are processed by BunnyCDN as a technical necessity. Please refer to BunnyCDN's privacy policy for further details.
 
-## Blossom Cloud
-
-If you create a Blossom Cloud account, we store your email address and the files you upload. Files are stored on Cloudflare R2 infrastructure and encrypted with AES-256. All traffic between your device and our servers is secured with TLS.
-
-We do not sell, share, or monetise your data in any way. You can request deletion of your account and all associated data at any time by contacting hello@blossomos.org.
-
 ## Single Sign-On
 
 Blossom services share a single sign-on system powered by authentik. When you create an account, your username and email address are stored in authentik and used to authenticate you across all Blossom services.
 
 Authentication events such as sign-ins, sign-outs, and failed attempts are logged for security purposes. These logs are retained for a limited period and are not shared with third parties.
+
+We do not sell, share, or monetise your data in any way. You can request deletion of your account and all associated data at any time by contacting hello@blossomos.org.
 
 ## Analytics and Tracking
 
@@ -56,7 +52,7 @@ We use your email address solely to send release announcements and project updat
 
 This website does not use cookies for advertising or tracking.
 
-Aditionally a session cookie may be set if you sign in to Blossom Cloud or community features, solely to maintain your authenticated session. This cookie is strictly necessary for the service to function and is not shared with any third party. It is removed when you sign out.
+Aditionally a session cookie may be set if you sign in to community features, solely to maintain your authenticated session. This cookie is strictly necessary for the service to function and is not shared with any third party. It is removed when you sign out.
 
 ## Your Rights
 

@@ -1,12 +1,11 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
-	import { mode } from 'mode-watcher';
+
 	import wallpaperDark from '$lib/assets/wallpaper-dark.png?enhanced&imgWidth=1280';
 	import wallpaperLight from '$lib/assets/wallpaper-light.png?enhanced&imgWidth=1280';
 	import WindowControl from './window-control.svelte';
 	import ThemedImage from '$lib/components/media/themed-image.svelte';
 
-	const isDark = $derived(mode.current === 'dark');
 	const buttons = ['minimize', 'maximize', 'close'] as const;
 	type BtnType = (typeof buttons)[number];
 	let hoveredBtn = $state<BtnType | null>(null);
@@ -23,7 +22,6 @@
 				{#each buttons as btn (btn)}
 					<WindowControl
 						type={btn}
-						{isDark}
 						hovered={hoveredBtn === btn}
 						onmouseenter={() => (hoveredBtn = btn)}
 						onmouseleave={() => (hoveredBtn = null)}
@@ -48,7 +46,6 @@
 		{#each buttons as btn (btn)}
 			<WindowControl
 				type={btn}
-				{isDark}
 				hovered={hoveredBtn === btn}
 				class="size-16! transition-transform duration-150 hover:scale-110"
 				onmouseenter={() => (hoveredBtn = btn)}

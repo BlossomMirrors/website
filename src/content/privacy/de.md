@@ -27,17 +27,13 @@ Statische Assets und herunterladbare Dateien, darunter BlossomOS-ISO-Images, wer
 
 Wenn du eine Datei herunterlädst oder ein über BunnyCDN ausgeliefertes Asset lädst, werden deine IP-Adresse und Anfrage-Metadaten von BunnyCDN als technische Notwendigkeit verarbeitet. Weitere Informationen findest du in der Datenschutzrichtlinie von BunnyCDN.
 
-## Blossom Cloud
-
-Wenn du ein Blossom-Cloud-Konto erstellst, speichern wir deine E-Mail-Adresse und die von dir hochgeladenen Dateien. Dateien werden auf Cloudflare R2-Infrastruktur gespeichert und mit AES-256 verschlüsselt. Der gesamte Datenverkehr zwischen deinem Gerät und unseren Servern wird mit TLS gesichert.
-
-Wir verkaufen, teilen oder vermarkten deine Daten in keiner Weise. Du kannst jederzeit die Löschung deines Kontos und aller zugehörigen Daten unter [hello@blossomos.org](mailto:hello@blossomos.org) beantragen.
-
 ## Single Sign-On
 
 Blossom-Dienste nutzen ein gemeinsames Single-Sign-On-System auf Basis von authentik. Wenn du ein Konto erstellst, werden dein Benutzername und deine E-Mail-Adresse in authentik gespeichert und zur Authentifizierung über alle Blossom-Dienste hinweg verwendet.
 
 Authentifizierungsereignisse wie An- und Abmeldungen sowie fehlgeschlagene Versuche werden zu Sicherheitszwecken protokolliert. Diese Protokolle werden für einen begrenzten Zeitraum aufbewahrt und nicht an Dritte weitergegeben.
+
+Wir verkaufen, teilen oder vermarkten deine Daten in keiner Weise. Du kannst jederzeit die Löschung deines Kontos und aller zugehörigen Daten unter [hello@blossomos.org](mailto:hello@blossomos.org) beantragen.
 
 ## Analyse und Tracking
 
@@ -55,7 +51,7 @@ Wir nutzen deine E-Mail-Adresse ausschließlich für Versionsankündigungen und 
 
 Diese Website verwendet keine Cookies für Werbung oder Tracking.
 
-Ein Session-Cookie kann gesetzt werden, wenn du dich bei Blossom Cloud oder Community-Funktionen anmeldest, ausschließlich um deine authentifizierte Sitzung aufrechtzuerhalten. Dieses Cookie ist für die Funktion des Dienstes technisch notwendig und wird nicht an Dritte weitergegeben. Es wird beim Abmelden gelöscht.
+Ein Session-Cookie kann gesetzt werden, wenn du dich bei Community-Funktionen anmeldest, ausschließlich um deine authentifizierte Sitzung aufrechtzuerhalten. Dieses Cookie ist für die Funktion des Dienstes technisch notwendig und wird nicht an Dritte weitergegeben. Es wird beim Abmelden gelöscht.
 
 ## Deine Rechte
 

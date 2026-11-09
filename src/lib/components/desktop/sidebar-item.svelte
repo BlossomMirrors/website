@@ -2,7 +2,7 @@
 	import type { Component } from 'svelte';
 
 	let {
-		icon,
+		icon: Icon,
 		label,
 		active = false
 	}: {
@@ -10,8 +10,6 @@
 		label: string;
 		active?: boolean;
 	} = $props();
-
-	const Icon = $derived(icon);
 </script>
 
 <div

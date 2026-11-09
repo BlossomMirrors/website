@@ -20,8 +20,7 @@
 			heading: m.products(),
 			links: [
 				{ label: 'BlossomOS', href: '/' },
-				{ label: 'Arc Software', href: '/arc' },
-				{ label: 'Blossom Cloud', href: '/cloud' }
+				{ label: 'Arc Software', href: '/arc' }
 			]
 		},
 		{

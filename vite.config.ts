@@ -14,6 +14,9 @@ export default defineConfig({
 			outdir: './src/lib/paraglide'
 		})
 	],
+	ssr: {
+		noExternal: ['@panzoom/panzoom']
+	},
 	preview: {
 		allowedHosts: ['blossomos.org', 'blossom.computer']
 	}

@@ -65,35 +65,13 @@
 	$effect(() => {
 		if (!visible) return;
 
-		const WhatsApp = setInterval(() => {
-			if (progress['WhatsApp'] >= 100) {
-				clearInterval(WhatsApp);
-				return;
-			}
-			progress['WhatsApp'] = Math.min(100, progress['WhatsApp'] + 1);
-		}, 120);
-
-		const Netflix = setInterval(() => {
-			if (progress['Netflix'] >= 100) {
-				clearInterval(Netflix);
-				return;
-			}
-			progress['Netflix'] = Math.min(100, progress['Netflix'] + 1);
+		const id = setInterval(() => {
+			const pending = demoApps.filter((app) => progress[app.name] < 100);
+			if (pending.length === 0) return clearInterval(id);
+			for (const app of pending) progress[app.name]++;
 		}, 200);
 
-		const Spotify = setInterval(() => {
-			if (progress['Spotify'] >= 100) {
-				clearInterval(Spotify);
-				return;
-			}
-			progress['Spotify'] = Math.min(100, progress['Spotify'] + 1);
-		}, 200);
-
-		return () => {
-			clearInterval(WhatsApp);
-			clearInterval(Netflix);
-			clearInterval(Spotify);
-		};
+		return () => clearInterval(id);
 	});
 
 	function installUrl(id: string) {

@@ -28,8 +28,7 @@
 		VideosPlaceIcon,
 		PublicPlaceIcon,
 		TemplatesPlaceIcon,
-		GenericPlaceIcon,
-		CloudPlaceIcon
+		GenericPlaceIcon
 	} from '$lib/components/icons/place';
 
 	const places = $derived([
@@ -57,8 +56,7 @@
 		{ id: 'videos', name: m.dolphin_videos(), icon: VideosPlaceIcon },
 		{ id: 'public', name: m.dolphin_public(), icon: PublicPlaceIcon },
 		{ id: 'templates', name: m.dolphin_templates(), icon: TemplatesPlaceIcon },
-		{ id: 'projects', name: m.dolphin_projects(), icon: GenericPlaceIcon },
-		{ id: 'cloud', name: 'Blossom Cloud', icon: CloudPlaceIcon }
+		{ id: 'projects', name: m.dolphin_projects(), icon: GenericPlaceIcon }
 	]);
 </script>
 

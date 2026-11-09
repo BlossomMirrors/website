@@ -5,7 +5,7 @@ export const PAGES: { path: string; title: string }[] = [
 	{ path: '/', title: 'Home' },
 	{ path: '/about', title: 'About' },
 	{ path: '/arc', title: 'Arc' },
-	{ path: '/cloud', title: 'Blossom Cloud' },
+
 	{ path: '/hub', title: 'Blossom Hub' },
 	{ path: '/switch', title: 'BlossomOS Switch' },
 	{ path: '/downloads', title: 'Downloads' },

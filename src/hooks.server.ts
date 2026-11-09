@@ -8,7 +8,7 @@ import { buildLlmsTxt } from '$lib/llms/llms-txt';
 const MARKDOWN_ROUTES: Record<string, string> = {
 	'/about': 'about.md',
 	'/arc': 'arc.md',
-	'/cloud': 'cloud.md',
+
 	'/hub': 'hub.md',
 	'/switch': 'switch.md'
 };

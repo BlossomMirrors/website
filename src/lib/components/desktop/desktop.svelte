@@ -1,19 +1,10 @@
 <script lang="ts">
 	import Taskbar from '$lib/components/desktop/taskbar.svelte';
-	import Widgets from '$lib/components/desktop/widgets.svelte';
+	import FolderWidget from '$lib/components/desktop/folder-widget.svelte';
 	import DolphinWindow from '$lib/components/desktop/dolphin-window.svelte';
 	import KamosoWindow from '$lib/components/desktop/kamoso-window.svelte';
 	import noiseSrc from '$lib/assets/noise.png';
-	import { reveal } from '$lib/actions/reveal';
-
-	import { Tween } from 'svelte/motion';
-	import { cubicInOut } from 'svelte/easing';
-
-	const y = new Tween(-100, { duration: 1000, easing: cubicInOut });
-
-	$effect(() => {
-		setTimeout(() => y.set(100), 1100);
-	});
+	import { cn } from '$lib/utils.js';
 </script>
 
 <div
@@ -27,16 +18,15 @@
 		fetchpriority="high"
 		class="pointer-events-none absolute inset-0 size-full object-cover"
 	/>
-	<div class="animate-screen-on pointer-events-none absolute inset-0 z-50 bg-black"></div>
-	<!-- custom cursor-->
 	<div
-		class="cursor-custom absolute inset-0"
-		aria-hidden="true"
-		onpointerdown={(e) => e.stopPropagation()}
-		onpointermove={(e) => e.stopPropagation()}
-		onpointerup={(e) => e.stopPropagation()}
+		class={cn(
+			'pointer-events-none absolute inset-0 z-50 bg-black',
+			'animate-out delay-840 duration-560 ease-out fill-mode-forwards fade-out'
+		)}
 	></div>
-	<Widgets />
+	<!-- custom cursor-->
+	<div class="cursor-custom absolute inset-0" aria-hidden="true"></div>
+	<FolderWidget />
 	<div class="absolute top-[3%] left-[16%] hidden h-[78%] w-[58%] xl:block">
 		<KamosoWindow />
 	</div>
@@ -46,32 +36,10 @@
 		<DolphinWindow />
 	</div>
 	<Taskbar />
-	<div
-		use:reveal
-		class="glare-sweep pointer-events-none absolute inset-0 z-200"
-		style="transform: translateY({y.current}%)"
-		aria-hidden="true"
-	></div>
+	<div class="glare-sweep pointer-events-none absolute inset-0 z-200" aria-hidden="true"></div>
 </div>
 
 <style>
-	@keyframes screen-on {
-		0% {
-			opacity: 1;
-		}
-		60% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-			pointer-events: none;
-		}
-	}
-
-	.animate-screen-on {
-		animation: screen-on 1.4s ease-out forwards;
-	}
-
 	@keyframes glare-sweep {
 		from {
 			transform: translateY(-100%);
@@ -93,6 +61,7 @@
 			transparent 80%,
 			transparent 100%
 		);
-		animation: glare-sweep 1.5s 1.6s ease-in-out forwards;
+		/* `both` holds the stripe above the screen during the delay instead of flashing it in place */
+		animation: glare-sweep 1.5s 1.6s ease-in-out both;
 	}
 </style>

@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
+	import * as Tooltip from '$lib/components/ui/tooltip';
+	import { cn } from '$lib/utils.js';
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import SmartphoneIcon from '@lucide/svelte/icons/smartphone';
 	import Volume2Icon from '@lucide/svelte/icons/volume-2';
@@ -32,15 +34,11 @@
 	];
 
 	let time = $state(new Date());
-	let interval: ReturnType<typeof setInterval>;
 
 	onMount(() => {
-		interval = setInterval(() => {
-			time = new Date();
-		}, 1000);
+		const interval = setInterval(() => (time = new Date()), 1000);
+		return () => clearInterval(interval);
 	});
-
-	onDestroy(() => clearInterval(interval));
 
 	const timeStr = $derived(
 		time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
@@ -48,52 +46,48 @@
 	const dateStr = $derived(
 		time.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' })
 	);
-
-	let tooltip = $state<{ label: string; subtitle: string; x: number; bottom: number } | null>(null);
-	let taskbarEl = $state<HTMLDivElement | null>(null);
-
-	function showTooltip(icon: (typeof icons)[0], btn: HTMLButtonElement) {
-		const btnRect = btn.getBoundingClientRect();
-		const parentRect = taskbarEl!.parentElement!.getBoundingClientRect();
-		tooltip = {
-			label: icon.label,
-			subtitle: icon.subtitle,
-			x: btnRect.left + btnRect.width / 2 - parentRect.left,
-			bottom: parentRect.bottom - btnRect.top
-		};
-	}
 </script>
 
-{#if tooltip}
-	<div
-		class="pointer-events-none absolute z-50 max-w-75 -translate-x-1/2 rounded-xl border border-black/10 bg-white/60 px-5 py-5 shadow-xl backdrop-blur-md dark:border-white/15 dark:bg-black/30"
-		style="left: {tooltip.x}px; bottom: {tooltip.bottom + 4}px;"
-	>
-		<div class="text-md text-foreground">{tooltip.label}</div>
-		<div class="mt-0.5 text-xs text-foreground/70">{tooltip.subtitle}</div>
-	</div>
-{/if}
-
 <div
-	bind:this={taskbarEl}
-	class="taskbar-slide-up pointer-events-auto absolute right-3 bottom-3 left-3 flex items-center justify-between rounded-2xl border border-black/10 bg-white/40 px-2 py-1 shadow-xl backdrop-blur-md select-none sm:right-6 sm:bottom-6 sm:left-6 sm:px-3 sm:py-1.5 dark:border-white/15 dark:bg-black/30"
+	class={cn(
+		'pointer-events-auto absolute right-3 bottom-3 left-3 flex items-center justify-between select-none',
+		'px-2 py-1 sm:right-6 sm:bottom-6 sm:left-6 sm:px-3 sm:py-1.5',
+		'rounded-2xl border border-black/10 bg-white/40 shadow-xl backdrop-blur-md',
+		'dark:border-white/15 dark:bg-black/30',
+		'animate-in fill-mode-both fade-in slide-in-from-bottom-[calc(100%+1.5rem)]',
+		'delay-1000 duration-600 ease-[cubic-bezier(0.34,1.56,0.64,1)]'
+	)}
 >
-	<div class="no-scrollbar flex min-w-0 items-center gap-1.5 overflow-x-auto sm:gap-6">
+	<div
+		class="flex min-w-0 [scrollbar-width:none] items-center gap-1.5 overflow-x-auto sm:gap-6 [&::-webkit-scrollbar]:hidden"
+	>
 		<LogoMono class="pointer-events-none size-6 shrink-0 text-foreground sm:size-8" />
 		{#each icons as icon (icon.label)}
-			<button
-				class="cursor-custom size-7 shrink-0 rounded-xl p-0.5 transition-transform duration-150 hover:brightness-130 sm:size-10 sm:p-1"
-				aria-label={icon.label}
-				onmouseenter={(e) => showTooltip(icon, e.currentTarget)}
-				onmouseleave={() => (tooltip = null)}
-			>
-				<enhanced:img
-					src={icon.src}
-					class="pointer-events-none size-full"
-					sizes="40px"
-					alt={icon.label}
-				/>
-			</button>
+			<Tooltip.Root>
+				<Tooltip.Trigger
+					class="cursor-custom size-7 shrink-0 rounded-xl p-0.5 transition-transform duration-150 hover:brightness-130 sm:size-10 sm:p-1"
+					aria-label={icon.label}
+				>
+					<enhanced:img
+						src={icon.src}
+						class="pointer-events-none size-full"
+						sizes="40px"
+						alt={icon.label}
+					/>
+				</Tooltip.Trigger>
+				<Tooltip.Content
+					sideOffset={4}
+					arrowClasses="hidden"
+					class={cn(
+						'max-w-75 flex-col items-start gap-0.5 p-5 text-foreground',
+						'rounded-xl border border-black/10 bg-white/60 shadow-xl backdrop-blur-md',
+						'dark:border-white/15 dark:bg-black/30'
+					)}
+				>
+					<div class="text-base">{icon.label}</div>
+					<div class="text-xs text-foreground/70">{icon.subtitle}</div>
+				</Tooltip.Content>
+			</Tooltip.Root>
 		{/each}
 	</div>
 
@@ -111,27 +105,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	@keyframes taskbar-in {
-		from {
-			transform: translateY(calc(100% + 1.5rem));
-			opacity: 0;
-		}
-		to {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
-	.taskbar-slide-up {
-		animation: taskbar-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-		animation-delay: 1s;
-		opacity: 0;
-	}
-	.no-scrollbar {
-		scrollbar-width: none;
-	}
-	.no-scrollbar::-webkit-scrollbar {
-		display: none;
-	}
-</style>

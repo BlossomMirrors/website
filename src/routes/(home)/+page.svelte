@@ -8,7 +8,7 @@
 	import Crt from './crt.svelte';
 	import Foundation from './foundation.svelte';
 	import Gaming from './gaming.svelte';
-	import Cloud from './cloud.svelte';
+
 	import Business from './business.svelte';
 	import Sovereignty from './sovereignty.svelte';
 	import LessMore from './less-more.svelte';
@@ -20,13 +20,12 @@
 <PageMeta title="BlossomOS" />
 
 <Hero />
-<Freedom />
 <ArcSection />
 <Design />
 <Crt />
 <Foundation />
 <Gaming />
-<Cloud />
+
 <Business />
 <Sovereignty />
 <LessMore />
