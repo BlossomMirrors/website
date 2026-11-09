@@ -1,4 +1,5 @@
-export function reveal(node: HTMLElement, delay = 0) {
+export function reveal(node: HTMLElement, delay: number | false = 0) {
+	if (delay === false) return;
 	node.style.transitionDelay = `${delay}ms`;
 	node.setAttribute('data-reveal', 'pending');
 

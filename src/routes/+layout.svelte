@@ -3,9 +3,9 @@
 	import * as m from '$lib/paraglide/messages';
 	import './layout.css';
 	import { ModeWatcher } from 'mode-watcher';
-	import Header from '$lib/components/header.svelte';
-	import Footer from '$lib/components/footer.svelte';
-	import ScrollToTop from '$lib/components/ui/scroll-to-top.svelte';
+	import Header from '$lib/components/site/header.svelte';
+	import Footer from '$lib/components/site/footer.svelte';
+	import ScrollToTop from '$lib/components/site/scroll-to-top.svelte';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 
 	let { children } = $props();

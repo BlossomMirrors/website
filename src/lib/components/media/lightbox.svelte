@@ -1,0 +1,286 @@
+// needs to be replaced with a proper external library component
+<script lang="ts" module>
+	import type { Picture } from '@sveltejs/enhanced-img';
+
+	export type LightboxImage = {
+		name: string;
+		image: Picture;
+		credit?: { name: string; url?: string };
+	};
+</script>
+
+<script lang="ts">
+	import * as m from '$lib/paraglide/messages';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { SvelteMap } from 'svelte/reactivity';
+	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
+	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
+	import ZoomInIcon from '@lucide/svelte/icons/zoom-in';
+	import ZoomOutIcon from '@lucide/svelte/icons/zoom-out';
+	import XIcon from '@lucide/svelte/icons/x';
+	import FloatingIconButton from '$lib/components/elements/floating-icon-button.svelte';
+
+	let {
+		images,
+		index: activeIndex = $bindable(null)
+	}: { images: LightboxImage[]; index?: number | null } = $props();
+
+	const MIN_ZOOM = 1;
+	const MAX_ZOOM = 4;
+	const ZOOM_STEP = 0.5;
+
+	let zoom = $state(1);
+	let panX = $state(0);
+	let panY = $state(0);
+	let gesturing = $state(false);
+	let stageEl = $state<HTMLDivElement | null>(null);
+	const hasMultiple = $derived(images.length > 1);
+
+	const pointers = new SvelteMap<number, { x: number; y: number }>();
+	let gestureStartZoom = 1;
+	let gestureStartPan = { x: 0, y: 0 };
+	let gestureStartDist = 0;
+	let gestureStartMid = { x: 0, y: 0 };
+	let wheelTimeout: ReturnType<typeof setTimeout> | undefined;
+
+	function resetZoom() {
+		zoom = 1;
+		panX = 0;
+		panY = 0;
+		pointers.clear();
+		gesturing = false;
+		clearTimeout(wheelTimeout);
+	}
+
+	function close() {
+		activeIndex = null;
+		resetZoom();
+	}
+
+	function prev() {
+		if (activeIndex === null) return;
+		activeIndex = (activeIndex - 1 + images.length) % images.length;
+		resetZoom();
+	}
+
+	function next() {
+		if (activeIndex === null) return;
+		activeIndex = (activeIndex + 1) % images.length;
+		resetZoom();
+	}
+
+	// Clamps panning so the (possibly letterboxed) image can't be dragged past its own edges
+	function clampPan(x: number, y: number, atZoom: number) {
+		if (!stageEl || activeIndex === null) return { x: 0, y: 0 };
+		const { w: naturalW, h: naturalH } = images[activeIndex].image.img;
+		const stageW = stageEl.clientWidth;
+		const stageH = stageEl.clientHeight;
+		const widthConstrained = naturalW / naturalH > stageW / stageH;
+		const contentW = widthConstrained ? stageW : (stageH * naturalW) / naturalH;
+		const contentH = widthConstrained ? (stageW * naturalH) / naturalW : stageH;
+		const maxX = Math.max(0, (contentW * atZoom - stageW) / 2);
+		const maxY = Math.max(0, (contentH * atZoom - stageH) / 2);
+		return { x: Math.min(maxX, Math.max(-maxX, x)), y: Math.min(maxY, Math.max(-maxY, y)) };
+	}
+
+	function zoomTo(next: number) {
+		zoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, next));
+		({ x: panX, y: panY } = clampPan(panX, panY, zoom));
+	}
+
+	function zoomIn() {
+		zoomTo(zoom + ZOOM_STEP);
+	}
+
+	function zoomOut() {
+		zoomTo(zoom - ZOOM_STEP);
+	}
+
+	function midpoint(a: { x: number; y: number }, b: { x: number; y: number }) {
+		return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+	}
+
+	function pointerDist(a: { x: number; y: number }, b: { x: number; y: number }) {
+		return Math.hypot(a.x - b.x, a.y - b.y);
+	}
+
+	// Zooms around the cursor position so the point under it stays put, like Discord's lightbox
+	function onWheel(e: WheelEvent) {
+		if (!stageEl) return;
+		e.preventDefault();
+
+		gesturing = true;
+		clearTimeout(wheelTimeout);
+		wheelTimeout = setTimeout(() => (gesturing = false), 150);
+
+		const rect = stageEl.getBoundingClientRect();
+		const cx = e.clientX - rect.left - rect.width / 2;
+		const cy = e.clientY - rect.top - rect.height / 2;
+		const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom * Math.exp(-e.deltaY * 0.001)));
+		const pointX = (cx - panX) / zoom;
+		const pointY = (cy - panY) / zoom;
+
+		zoom = newZoom;
+		({ x: panX, y: panY } = clampPan(cx - pointX * newZoom, cy - pointY * newZoom, zoom));
+	}
+
+	// Re-baselines the active gesture so switching between one and two fingers doesn't jump
+	function beginGesture() {
+		gestureStartZoom = zoom;
+		gestureStartPan = { x: panX, y: panY };
+		const pts = [...pointers.values()];
+		if (pts.length === 2) {
+			gestureStartDist = pointerDist(pts[0], pts[1]);
+			gestureStartMid = midpoint(pts[0], pts[1]);
+		} else if (pts.length === 1) {
+			gestureStartMid = pts[0];
+		}
+	}
+
+	function onStagePointerDown(e: PointerEvent) {
+		if (e.pointerType === 'mouse' && e.button !== 0) return;
+		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+		gesturing = true;
+		beginGesture();
+	}
+
+	function onStagePointerMove(e: PointerEvent) {
+		if (!pointers.has(e.pointerId)) return;
+		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+		const pts = [...pointers.values()];
+
+		if (pts.length === 2) {
+			const scale = pointerDist(pts[0], pts[1]) / gestureStartDist;
+			const mid = midpoint(pts[0], pts[1]);
+			zoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, gestureStartZoom * scale));
+			({ x: panX, y: panY } = clampPan(
+				gestureStartPan.x + (mid.x - gestureStartMid.x),
+				gestureStartPan.y + (mid.y - gestureStartMid.y),
+				zoom
+			));
+		} else if (pts.length === 1 && zoom > MIN_ZOOM) {
+			const p = pts[0];
+			({ x: panX, y: panY } = clampPan(
+				gestureStartPan.x + (p.x - gestureStartMid.x),
+				gestureStartPan.y + (p.y - gestureStartMid.y),
+				zoom
+			));
+		}
+	}
+
+	function endPointer(e: PointerEvent) {
+		pointers.delete(e.pointerId);
+		if (pointers.size === 0) {
+			gesturing = false;
+		} else {
+			beginGesture();
+		}
+	}
+
+	function onkeydown(e: KeyboardEvent) {
+		if (activeIndex === null) return;
+		if (e.key === 'ArrowLeft') prev();
+		else if (e.key === 'ArrowRight') next();
+	}
+</script>
+
+<svelte:window {onkeydown} />
+
+<Dialog.Root open={activeIndex !== null} onOpenChange={(o) => !o && close()}>
+	<Dialog.Content
+		class="max-w-6xl border-none bg-transparent p-0 shadow-none sm:max-w-[80vw]"
+		hideClose
+	>
+		{#if activeIndex !== null}
+			{@const credit = images[activeIndex].credit}
+			<Dialog.Title class="sr-only">{images[activeIndex].name}</Dialog.Title>
+			<div class="relative size-full">
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					bind:this={stageEl}
+					class="size-full touch-none overflow-hidden"
+					onpointerdown={onStagePointerDown}
+					onpointermove={onStagePointerMove}
+					onpointerup={endPointer}
+					onpointercancel={endPointer}
+					onwheel={onWheel}
+				>
+					<enhanced:img
+						src={images[activeIndex].image}
+						alt={images[activeIndex].name}
+						draggable="false"
+						class="size-full touch-none object-contain select-none"
+						style="transform: translate({panX}px, {panY}px) scale({zoom}); transition: {gesturing
+							? 'none'
+							: 'transform 150ms ease-out'}; cursor: {zoom > MIN_ZOOM
+							? pointers.size > 0
+								? 'grabbing'
+								: 'grab'
+							: 'default'}"
+					/>
+				</div>
+
+				<Dialog.Close
+					class="absolute top-3 right-3 flex size-9 items-center justify-center rounded-full bg-background text-foreground shadow-lg"
+					aria-label={m.screenshots_close()}
+				>
+					<XIcon size={16} />
+				</Dialog.Close>
+
+				<div class="absolute top-3 left-3 flex items-center gap-1.5">
+					<FloatingIconButton
+						icon={ZoomOutIcon}
+						label={m.screenshots_zoom_out()}
+						onclick={zoomOut}
+						disabled={zoom <= MIN_ZOOM}
+					/>
+					<FloatingIconButton
+						icon={ZoomInIcon}
+						label={m.screenshots_zoom_in()}
+						onclick={zoomIn}
+						disabled={zoom >= MAX_ZOOM}
+					/>
+				</div>
+
+				{#if credit}
+					<div
+						class="absolute bottom-3 left-3 rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground shadow-lg backdrop-blur"
+					>
+						{#if credit.url}
+							<a
+								href={credit.url}
+								target="_blank"
+								rel="external noreferrer"
+								class="hover:underline"
+							>
+								{m.screenshots_credit({ name: credit.name })}
+							</a>
+						{:else}
+							{m.screenshots_credit({ name: credit.name })}
+						{/if}
+					</div>
+				{/if}
+
+				{#if hasMultiple}
+					<FloatingIconButton
+						icon={ChevronLeftIcon}
+						label={m.screenshots_prev()}
+						size="lg"
+						translucent
+						onclick={prev}
+						class="absolute top-1/2 left-3 -translate-y-1/2"
+					/>
+					<FloatingIconButton
+						icon={ChevronRightIcon}
+						label={m.screenshots_next()}
+						size="lg"
+						translucent
+						onclick={next}
+						class="absolute top-1/2 right-3 -translate-y-1/2"
+					/>
+				{/if}
+			</div>
+		{/if}
+	</Dialog.Content>
+</Dialog.Root>
