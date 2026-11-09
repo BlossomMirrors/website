@@ -5,7 +5,7 @@ const modules = import.meta.glob(
 	'/src/lib/assets/screenshots/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp}',
 	{
 		eager: true,
-		query: { enhanced: true }
+		query: { enhanced: true, w: '640;960;1920;2560' }
 	}
 ) as Record<string, { default: Picture }>;
 

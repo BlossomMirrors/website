@@ -110,6 +110,7 @@
 								<enhanced:img
 									src={images[i].image}
 									alt={images[i].name}
+									sizes="(min-width: 640px) 80vw, 100vw"
 									draggable="false"
 									class="block h-auto w-full select-none"
 								/>

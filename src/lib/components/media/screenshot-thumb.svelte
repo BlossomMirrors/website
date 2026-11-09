@@ -24,7 +24,13 @@
 	use:revealAction={reveal}
 >
 	<div class="aspect-video overflow-hidden bg-muted">
-		<enhanced:img src={shot.image} alt={shot.name} class="size-full object-cover" />
+		<enhanced:img
+			src={shot.image}
+			alt={shot.name}
+			sizes="(min-width: 1280px) 410px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+			loading="lazy"
+			class="size-full object-cover"
+		/>
 		{#if shot.credit?.community}
 			<div
 				class="absolute right-3 bottom-3 rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground shadow-lg backdrop-blur"
