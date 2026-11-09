@@ -3,6 +3,7 @@
 	export type IsoRowData = {
 		data: IsoData | null;
 		label: string;
+		name: string;
 		description: string;
 		gpu: string;
 		recommended: boolean;
@@ -48,7 +49,7 @@
 	<div class="flex items-center gap-4">
 		<div class="min-w-0 flex-1">
 			<div class="flex flex-wrap items-center gap-2">
-				<span class="text-sm font-medium">{iso.label}</span>
+				<span class="text-sm font-medium">{iso.name}</span>
 				<span class="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">{iso.gpu}</span>
 				{#if iso.recommended}
 					<Badge>{m.recommended()}</Badge>

@@ -28,8 +28,7 @@
 	class={className}
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}
-	aria-label="download"
-	role="img"
+	aria-hidden="true"
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

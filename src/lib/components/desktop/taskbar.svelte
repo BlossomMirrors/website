@@ -8,6 +8,7 @@
 	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up';
 
 	import * as m from '$lib/paraglide/messages';
+	import { getLocale } from '$lib/paraglide/runtime';
 	import { LanIcon } from '$lib/components/icons/lan/index.svelte';
 	import LogoMono from '$lib/components/brand/logo-mono.svelte';
 
@@ -30,7 +31,7 @@
 		{ src: obsidianPng, label: 'Obsidian', subtitle: m.obsidian_tooltip() },
 		{ src: libreofficePng, label: 'LibreOffice', subtitle: m.libreoffice_tooltip() },
 		{ src: steamPng, label: 'Steam', subtitle: m.steam_tooltip() },
-		{ src: kamosoPng, label: 'Kamoso', subtitle: m.kamoso_tooltip() }
+		{ src: kamosoPng, label: 'Camera', subtitle: m.kamoso_tooltip() }
 	];
 
 	let time = $state(new Date());
@@ -41,10 +42,10 @@
 	});
 
 	const timeStr = $derived(
-		time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+		time.toLocaleTimeString(getLocale(), { hour: 'numeric', minute: '2-digit' })
 	);
 	const dateStr = $derived(
-		time.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' })
+		time.toLocaleDateString(getLocale(), { weekday: 'short', month: 'long', day: 'numeric' })
 	);
 </script>
 

@@ -1,3 +1,5 @@
+import { getLocale } from '$lib/paraglide/runtime';
+
 export type Event = {
 	id: string;
 	title: string;
@@ -67,20 +69,14 @@ const events: Event[] = [
 
 export const events: Event[] = [];
 
+// formatRange collapses shared parts per locale, e.g. "May 21 – 22, 2026" or "21.–22. Mai 2026"
 export function formatDateRange(from: string, to: string): string {
-	const f = new Date(from);
-	const t = new Date(to);
-	const opts: Intl.DateTimeFormatOptions = {
+	return new Intl.DateTimeFormat(getLocale(), {
 		month: 'long',
 		day: 'numeric',
 		year: 'numeric',
 		timeZone: 'UTC'
-	};
-	if (f.toDateString() === t.toDateString()) return f.toLocaleDateString('en-US', opts);
-	if (f.getUTCMonth() === t.getUTCMonth() && f.getUTCFullYear() === t.getUTCFullYear()) {
-		return `${f.toLocaleDateString('en-US', { month: 'long', timeZone: 'UTC' })} ${f.getUTCDate()}-${t.getUTCDate()}, ${f.getUTCFullYear()}`;
-	}
-	return `${f.toLocaleDateString('en-US', opts)} - ${t.toLocaleDateString('en-US', opts)}`;
+	}).formatRange(new Date(from), new Date(to));
 }
 
 export function splitEvents(list: Event[] = events, now = Date.now()) {

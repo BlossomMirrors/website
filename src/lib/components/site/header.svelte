@@ -182,7 +182,7 @@
 			<button
 				class="flex size-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/8 md:hidden"
 				onclick={() => (mobileOpen = !mobileOpen)}
-				aria-label="Toggle menu"
+				aria-label={m.toggle_menu()}
 			>
 				{#if mobileOpen}
 					<XIcon size={20} />

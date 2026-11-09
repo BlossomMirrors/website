@@ -4,6 +4,7 @@
 	import wallpaperDark from '$lib/assets/wallpaper-dark.png';
 	import wallpaperLight from '$lib/assets/wallpaper-light.png';
 	import ThemedImage from './themed-image.svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	let crtEl = $state<HTMLDivElement | null>(null);
 	let lit = $state(false);
@@ -32,7 +33,7 @@
 		<ThemedImage
 			dark={wallpaperDark}
 			light={wallpaperLight}
-			alt="BlossomOS desktop"
+			alt={m.alt_blossomos_desktop()}
 			sizes="(min-width: 768px) 50vw, 100vw"
 			class="absolute inset-0 size-full object-cover"
 			style="clip-path: inset(9% 12% 25% 12% round 4px); transform: scale(1.14); transform-origin: center center; object-position: center calc(50% - 25px)"
@@ -48,7 +49,7 @@
 		></div>
 		<enhanced:img
 			src={crtPng}
-			alt="CRT monitor"
+			alt={m.alt_crt_monitor()}
 			sizes="(min-width: 768px) 50vw, 100vw"
 			class="pointer-events-none absolute inset-0 size-full"
 			style="object-fit: fill"

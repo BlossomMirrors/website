@@ -12,7 +12,7 @@
 >
 	<enhanced:img
 		src={noiseSrc}
-		alt="noise wallpaper"
+		alt=""
 		aria-hidden="true"
 		sizes="100vw"
 		fetchpriority="high"

@@ -3,7 +3,6 @@
 	import ArcSection from '$lib/components/sections/arc-section.svelte';
 	import CommunitySection from '$lib/components/sections/community-section.svelte';
 	import Hero from './hero.svelte';
-	import Freedom from './freedom.svelte';
 	import Design from './design.svelte';
 	import Crt from './crt.svelte';
 	import Foundation from './foundation.svelte';

@@ -16,7 +16,9 @@
 	import DownloadThanksDialog from './download-thanks-dialog.svelte';
 
 	type Variant = {
+		/** Stable id for analytics and logic, never shown */
 		label: string;
+		name: () => string;
 		file: string;
 		badge: () => string;
 		description: () => string;
@@ -34,6 +36,7 @@
 	const ONLINE: Variant[] = [
 		{
 			label: 'Online',
+			name: () => m.iso_variant_online(),
 			file: 'isodata-netinstall.json',
 			badge: () => m.iso_all_gpus(),
 			description: () => m.iso_online_desc()
@@ -42,6 +45,7 @@
 	const OFFLINE: Variant[] = [
 		{
 			label: 'Standard',
+			name: () => m.iso_variant_standard(),
 			file: 'isodata.json',
 			badge: () => 'AMD / Intel',
 			description: () => m.iso_standard_desc(),
@@ -49,6 +53,7 @@
 		},
 		{
 			label: 'NVIDIA Open',
+			name: () => 'NVIDIA Open',
 			file: 'isodata-nvidia-open.json',
 			badge: () => 'NVIDIA',
 			description: () => m.iso_nvidia_desc(),
@@ -56,6 +61,7 @@
 		},
 		{
 			label: 'NVIDIA Legacy',
+			name: () => 'NVIDIA Legacy',
 			file: 'isodata-nvidia-legacy.json',
 			badge: () => 'NVIDIA',
 			description: () => m.iso_nvidia_legacy_desc()
@@ -185,6 +191,7 @@
 		return variants.map((v) => ({
 			data: isoData[v.file] ?? null,
 			label: v.label,
+			name: v.name(),
 			description: v.description(),
 			gpu: v.badge(),
 			recommended,

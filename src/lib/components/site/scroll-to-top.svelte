@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import ArrowUpIcon from '@lucide/svelte/icons/arrow-up';
+	import * as m from '$lib/paraglide/messages';
 
 	let visible = $state(false);
 
@@ -21,7 +22,7 @@
 	<button
 		onclick={scrollToTop}
 		class="fixed right-6 bottom-6 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-md transition-all hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
-		aria-label="Scroll to top"
+		aria-label={m.scroll_to_top()}
 	>
 		<ArrowUpIcon size={18} strokeWidth={1.5} />
 	</button>

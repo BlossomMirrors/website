@@ -33,7 +33,7 @@
 			<ThemedImage
 				dark={wallpaperDark}
 				light={wallpaperLight}
-				alt="BlossomOS desktop"
+				alt={m.alt_blossomos_desktop()}
 				sizes="(min-width: 768px) 50vw, 100vw"
 				class="size-full object-cover object-top"
 			/>

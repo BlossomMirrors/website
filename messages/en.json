@@ -357,5 +357,18 @@
 	"community_involved3_title": "Test and report bugs",
 	"community_involved3_body": "BlossomOS is in alpha. Running it and telling us what breaks is one of the most valuable ways to help.",
 	"community_involved4_title": "Share what you know",
-	"community_involved4_body": "Answer questions on Discord, improve the docs, or write about your experience with BlossomOS."
+	"community_involved4_body": "Answer questions on Discord, improve the docs, or write about your experience with BlossomOS.",
+	"footer_privacy": "Privacy",
+	"toggle_menu": "Toggle menu",
+	"toggle_theme": "Toggle theme",
+	"scroll_to_top": "Scroll to top",
+	"error_not_found_title": "Not Found",
+	"error_not_found_body": "The page you are looking for does not exist.",
+	"error_internal_title": "Internal Error",
+	"error_internal_body": "An internal server error occurred.",
+	"alt_logo": "Blossom logo",
+	"alt_blossomos_desktop": "BlossomOS desktop",
+	"alt_crt_monitor": "CRT monitor",
+	"iso_variant_online": "Online",
+	"iso_variant_standard": "Standard"
 }

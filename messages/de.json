@@ -357,5 +357,18 @@
   "community_involved3_title": "Testen und Fehler melden",
   "community_involved3_body": "BlossomOS befindet sich im Alpha-Stadium. Es auszuprobieren und zu melden, was nicht funktioniert, hilft enorm.",
   "community_involved4_title": "Dein Wissen teilen",
-  "community_involved4_body": "Beantworte Fragen auf Discord, verbessere die Dokumentation oder schreib über deine Erfahrungen mit BlossomOS."
+  "community_involved4_body": "Beantworte Fragen auf Discord, verbessere die Dokumentation oder schreib über deine Erfahrungen mit BlossomOS.",
+  "footer_privacy": "Datenschutz",
+  "toggle_menu": "Menü umschalten",
+  "toggle_theme": "Farbschema wechseln",
+  "scroll_to_top": "Nach oben scrollen",
+  "error_not_found_title": "Nicht gefunden",
+  "error_not_found_body": "Die Seite, die du suchst, existiert nicht.",
+  "error_internal_title": "Interner Fehler",
+  "error_internal_body": "Es ist ein interner Serverfehler aufgetreten.",
+  "alt_logo": "Blossom-Logo",
+  "alt_blossomos_desktop": "BlossomOS-Desktop",
+  "alt_crt_monitor": "Röhrenmonitor",
+  "iso_variant_online": "Online",
+  "iso_variant_standard": "Standard"
 }
