@@ -2,16 +2,13 @@
 	import { onMount } from 'svelte';
 	import { tweened } from 'svelte/motion';
 	import { cubicInOut } from 'svelte/easing';
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Disc3 } from '@lucide/svelte';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import * as m from '$lib/paraglide/messages';
 	import { useVersion } from '$lib/hooks/use-version.svelte';
 	import { cn } from '$lib/utils.js';
 	import posthog from 'posthog-js';
-	import { env } from '$env/dynamic/public';
 	import { resolve } from '$app/paths';
-	import { loadTurnstile } from './turnstile';
 	import IsoRow, { type IsoData } from './iso-row.svelte';
 	import DownloadThanksDialog from './download-thanks-dialog.svelte';
 
@@ -125,15 +122,6 @@
 
 	let dialogOpen = $state(false);
 
-	let verifyOpen = $state(false);
-	let verifyError = $state(false);
-	let pendingIso = $state<{ label: string; data: IsoData } | null>(null);
-	let turnstileContainer = $state<HTMLDivElement | null>(null);
-	let verifyForm = $state<HTMLFormElement | null>(null);
-	let tokenInput = $state<HTMLInputElement | null>(null);
-	let isoInput = $state<HTMLInputElement | null>(null);
-	let widgetId: string | null = null;
-
 	function announceDownload(label: string) {
 		clearTimeout(spinTimer);
 		speed.set(0.72);
@@ -152,40 +140,9 @@
 			novideo.currentTime = 0;
 			novideo.play();
 		}
-		pendingIso = { label, data };
-		verifyOpen = true;
+		announceDownload(label);
+		window.location.href = `${CDN}/${data.name}`;
 	}
-
-	function onVerified(token: string) {
-		if (!pendingIso || !tokenInput || !isoInput || !verifyForm) return;
-		tokenInput.value = token;
-		isoInput.value = pendingIso.data.name;
-		verifyOpen = false;
-		announceDownload(pendingIso.label);
-		verifyForm.requestSubmit();
-	}
-
-	$effect(() => {
-		if (!verifyOpen || !turnstileContainer) return;
-		verifyError = false;
-		let cancelled = false;
-		loadTurnstile()
-			.then(() => {
-				if (cancelled || !turnstileContainer || !window.turnstile) return;
-				widgetId = window.turnstile.render(turnstileContainer, {
-					sitekey: env.PUBLIC_TURNSTILE_SITE_KEY ?? '',
-					action: 'download',
-					callback: onVerified,
-					'error-callback': () => (verifyError = true)
-				});
-			})
-			.catch(() => (verifyError = true));
-		return () => {
-			cancelled = true;
-			if (widgetId && window.turnstile) window.turnstile.remove(widgetId);
-			widgetId = null;
-		};
-	});
 
 	function toRows(variants: Variant[], recommended: boolean) {
 		return variants.map((v) => ({
@@ -226,26 +183,6 @@
 </script>
 
 <audio id="novideo" src="/novideo.mp3"></audio>
-
-<form bind:this={verifyForm} method="POST" action="/api/downloads/verify" class="hidden">
-	<input bind:this={tokenInput} type="hidden" name="cf-turnstile-response" />
-	<input bind:this={isoInput} type="hidden" name="iso" />
-</form>
-
-<Dialog.Root bind:open={verifyOpen}>
-	<Dialog.Content class="gap-4 sm:max-w-sm">
-		<Dialog.Header>
-			<Dialog.Title>{m.download_verify_title()}</Dialog.Title>
-			<Dialog.Description>{m.download_verify_body()}</Dialog.Description>
-		</Dialog.Header>
-		<div class="flex justify-center py-2">
-			<div bind:this={turnstileContainer}></div>
-		</div>
-		{#if verifyError}
-			<p class="text-center text-xs text-destructive">{m.download_verify_error()}</p>
-		{/if}
-	</Dialog.Content>
-</Dialog.Root>
 
 <DownloadThanksDialog bind:open={dialogOpen} />
 
