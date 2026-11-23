@@ -70,7 +70,7 @@
 	// The ISO metadata endpoint only returns a date-based version (e.g. "2026.08.05"), not a
 	// human-readable codename, so this is hardcoded until the CDN JSON exposes one. Update this
 	// when the next codenamed release ships.
-	const CODENAME = '0.3.0 Alpha';
+	const CODENAME = '0.3.3 Alpha';
 
 	const ONLINE: Variant[] = [
 		{
