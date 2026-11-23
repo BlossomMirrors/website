@@ -1,5 +1,6 @@
 <script module lang="ts">
-	export type IsoData = { name: string; sha256: string };
+	import type { IsoData } from './isos';
+
 	export type IsoRowData = {
 		data: IsoData | null;
 		label: string;
@@ -12,32 +13,26 @@
 </script>
 
 <script lang="ts">
-	import { fade } from 'svelte/transition';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import DownloadIcon from '$lib/components/icons/animated/download.svelte';
 	import Badge from '$lib/components/elements/badge.svelte';
 	import * as m from '$lib/paraglide/messages';
-	import { UseClipboard } from '$lib/hooks/use-clipboard.svelte';
+	import Checksum from './checksum.svelte';
+	import { isoUrl, type DesktopOS } from './isos';
 
 	let {
 		iso,
 		loading,
+		os = 'other',
 		ondownload
 	}: {
 		iso: IsoRowData;
 		loading: boolean;
-		ondownload: (e: MouseEvent, label: string, data: IsoData) => void;
+		os?: DesktopOS;
+		ondownload: (e: MouseEvent, label: string) => void;
 	} = $props();
 
-	const clipboard = new UseClipboard();
 	let hovered = $state(false);
-	let copied = $state(false);
-
-	function copyHash(hash: string) {
-		clipboard.copy(hash);
-		copied = true;
-		setTimeout(() => (copied = false), 1500);
-	}
 
 	function triggerDownload() {
 		hovered = true;
@@ -65,10 +60,13 @@
 			<span class="shrink-0 text-xs text-muted-foreground">{m.iso_unavailable()}</span>
 		{:else}
 			<Button
+				href={isoUrl(iso.data)}
+				target="_self"
+				download
 				variant={iso.recommended ? 'primary' : 'default'}
 				size="sm"
 				class="shrink-0"
-				onclick={(e) => ondownload(e, iso.label, iso.data as IsoData)}
+				onclick={(e) => ondownload(e, iso.label)}
 				onmouseenter={triggerDownload}
 				data-umami-event="download"
 				data-umami-event-label={iso.label}
@@ -81,19 +79,6 @@
 	{#if loading}
 		<div class="loading-glare mt-2 h-4 w-16 rounded bg-muted"></div>
 	{:else if iso.data}
-		<details class="mt-2">
-			<summary class="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
-				SHA256
-				{#if copied}
-					<span transition:fade={{ duration: 200 }} class="ml-1 text-primary">{m.copied()}</span>
-				{/if}
-			</summary>
-			<button
-				class="mt-1 block w-full cursor-pointer text-left font-mono text-xs break-all text-muted-foreground hover:text-foreground"
-				onclick={() => copyHash(iso.data?.sha256 || '')}
-			>
-				{iso.data.sha256}
-			</button>
-		</details>
+		<Checksum data={iso.data} {os} class="mt-2" />
 	{/if}
 </div>

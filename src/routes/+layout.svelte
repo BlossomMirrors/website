@@ -5,7 +5,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import Header from '$lib/components/site/header.svelte';
 	import Footer from '$lib/components/site/footer.svelte';
-	import ScrollToTop from '$lib/components/site/scroll-to-top.svelte';
+	import { ScrollToTop } from '$lib/components/ui/scroll-to-top';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 
 	let { children } = $props();
@@ -44,5 +44,5 @@
 		</div>
 	</div>
 	<Footer />
-	<ScrollToTop />
+	<ScrollToTop label={m.scroll_to_top()} />
 </Tooltip.Provider>

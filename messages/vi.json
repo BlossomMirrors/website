@@ -45,5 +45,21 @@
   "free": "Miễn phí",
   "forever": "Luôn luôn",
   "gaming_steam": "Steam",
-  "business_header2": "công sở."
+  "business_header2": "công sở.",
+  "downloads_changelog": "Xem nhật ký thay đổi",
+  "downloads_download_now": "Tải xuống ngay",
+  "downloads_iso_title": "Tệp ISO",
+  "downloads_iso_pick": "Chọn phiên bản ISO",
+  "downloads_newsletter_body": "Nhận ghi chú phát hành và tin tức từ BlossomOS ngay trong hộp thư. Không spam.",
+  "newsletter_email_label": "Email",
+  "downloads_verify_summary": "Kiểm tra tệp tải về (SHA256)",
+  "downloads_verify_copy_hash": "Sao chép mã SHA256",
+  "downloads_verify_copy_command": "Sao chép lệnh",
+  "downloads_verify_intro": "Chạy lệnh này trong thư mục chứa tệp ISO đã tải:",
+  "downloads_verify_result_unix": "Kết quả phải là “OK”. Nếu khác, tệp đã bị hỏng, hãy tải lại.",
+  "downloads_verify_result_windows": "Kết quả phải là “True”. Nếu khác, tệp đã bị hỏng, hãy tải lại.",
+  "downloads_verify_step_copy": "Sao chép mã SHA256 ở trên.",
+  "downloads_verify_step_properties": "Nhấp chuột phải vào tệp ISO trong trình quản lý tệp và chọn Thuộc tính.",
+  "downloads_verify_step_checksums": "Mở thẻ Mã kiểm tra (Checksums) và dán mã vào. Bạn sẽ thấy mã có khớp hay không.",
+  "downloads_switch_desc": "Chuyển ứng dụng, tệp và cài đặt của bạn từ Windows hoặc macOS sang và hướng dẫn bạn cài đặt BlossomOS."
 }

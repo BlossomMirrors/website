@@ -1,31 +1,51 @@
 <script lang="ts" module>
+	// Styles and variants come from the Blossom UI registry (web-registry). The website adds
+	// `href` support on top, so a Button can render as a link.
 	import { tv, type VariantProps } from 'tailwind-variants';
 
 	export const buttonVariants = tv({
-		base: "relative overflow-hidden inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-button)] border border-transparent text-sm font-medium transition-colors duration-100 active:translate-y-[1px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer",
+		base: "relative overflow-hidden inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-button text-sm font-normal transition-[background-color,color,box-shadow] duration-150 ease-[cubic-bezier(0.33,1,0.68,1)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 cursor-pointer shadow-[0_1px_2px_rgb(0_0_6/0.12)] dark:shadow-[0_1px_2px_rgb(0_0_0/0.4)]",
 		variants: {
 			variant: {
-				default: 'bg-button text-button-foreground border-border hover:bg-button-hover',
-				primary:
-					'bg-button-accent/25 text-button-foreground border-primary/50 hover:bg-button-accent-hover/35 hover:border-primary/80',
-				destructive:
-					'bg-destructive text-destructive-foreground border-destructive hover:bg-destructive/85 hover:border-destructive/85 focus-visible:ring-destructive/30',
-				ghost: 'border-transparent text-foreground hover:bg-button-hover',
-				link: 'border-transparent text-link underline-offset-4 hover:underline'
+				default: `font-semibold bg-button text-button-foreground hover:bg-button-hover`,
+				primary: `font-semibold bg-primary-500/25 text-primary hover:bg-primary-500/35`,
+				destructive: `font-semibold bg-destructive text-destructive-foreground hover:bg-destructive/85 focus-visible:ring-destructive/30`,
+				ghost: 'text-foreground hover:bg-button-hover',
+				link: 'text-link underline-offset-4 hover:underline',
+				outline:
+					'border border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs',
+				secondary: `bg-secondary text-secondary-foreground hover:bg-button-hover aria-expanded:bg-secondary aria-expanded:text-secondary-foreground`
 			},
 			size: {
 				default: 'h-9 px-4 py-2 has-[>svg]:px-3',
 				sm: 'h-8 gap-1.5 px-3 has-[>svg]:px-2.5',
-				lg: 'h-11 px-6 has-[>svg]:px-4',
+				lg: "h-11 px-6 has-[>svg]:px-4 text-[0.96875rem] tracking-[-0.01em] gap-[5px] [&_svg:not([class*='size-'])]:size-[26px]",
 				icon: 'size-9',
+				xs: "h-6 gap-1 rounded-[min(var(--radius-md),8px)] px-2 text-xs [&_svg:not([class*='size-'])]:size-3",
+				'icon-xs':
+					"size-6 rounded-[min(var(--radius-md),8px)] [&_svg:not([class*='size-'])]:size-3",
+				'icon-sm': 'size-8',
 				'icon-lg': 'size-10'
 			}
 		},
 		defaultVariants: {
 			variant: 'default',
 			size: 'default'
-		}
+		},
+		compoundVariants: [
+			{
+				variant: 'link',
+				class: 'px-0 has-[>svg]:px-0 active:scale-[0.93] shadow-none!'
+			},
+			{
+				variant: 'ghost',
+				class: 'shadow-none!'
+			}
+		]
 	});
+
+	export type ButtonVariant = VariantProps<typeof buttonVariants>['variant'];
+	export type ButtonSize = VariantProps<typeof buttonVariants>['size'];
 </script>
 
 <script lang="ts">
@@ -61,16 +81,18 @@
 	let nextId = 0;
 
 	function handlePointerDown(e: PointerEvent) {
-		const target = e.currentTarget as HTMLElement;
-		const rect = target.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-		const size = Math.max(rect.width, rect.height) * 2;
-		const id = nextId++;
-		ripples = [...ripples, { id, x, y, size }];
-		setTimeout(() => {
-			ripples = ripples.filter((r) => r.id !== id);
-		}, 600);
+		if (variant !== 'link') {
+			const target = e.currentTarget as HTMLElement;
+			const rect = target.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			const size = Math.max(rect.width, rect.height) * 2;
+			const id = nextId++;
+			ripples = [...ripples, { id, x, y, size }];
+			setTimeout(() => {
+				ripples = ripples.filter((r) => r.id !== id);
+			}, 600);
+		}
 		if (typeof onpointerdown === 'function') {
 			onpointerdown(e as PointerEvent & { currentTarget: EventTarget & HTMLButtonElement });
 		}
@@ -90,7 +112,7 @@
 	{@render children?.()}
 	{#each ripples as ripple (ripple.id)}
 		<span
-			class="blossom-ripple {rippleColorClass} pointer-events-none absolute rounded-full"
+			class="{rippleColorClass} pointer-events-none absolute -translate-1/2 animate-in rounded-full opacity-0 duration-600 ease-[ease-out] fade-in-35 zoom-in"
 			style="left: {ripple.x}px; top: {ripple.y}px; width: {ripple.size}px; height: {ripple.size}px;"
 		></span>
 	{/each}
@@ -123,18 +145,3 @@
 		{@render content()}
 	</button>
 {/if}
-
-<style>
-	.blossom-ripple {
-		transform: translate(-50%, -50%) scale(0);
-		opacity: 0.35;
-		animation: blossom-ripple-expand 600ms ease-out forwards;
-	}
-
-	@keyframes blossom-ripple-expand {
-		to {
-			transform: translate(-50%, -50%) scale(1);
-			opacity: 0;
-		}
-	}
-</style>

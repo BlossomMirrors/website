@@ -2,7 +2,7 @@
 	import { cn } from '$lib/utils.js';
 	import Navbar from '$lib/components/site/navbar.svelte';
 	import type { NavItem } from '$lib/components/site/navbar.svelte';
-	import ModeToggle from '$lib/components/site/mode-toggle.svelte';
+	import { ModeToggle } from '$lib/components/ui/mode-toggle';
 	import LanguageSwitcher from '$lib/components/site/language-switcher.svelte';
 	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import MenuIcon from '@lucide/svelte/icons/menu';
@@ -152,7 +152,9 @@
 		<div class="flex items-center gap-1">
 			<a href={resolve('/')}>
 				<Button variant="ghost" class="flex shrink-0 items-center gap-3 px-2! py-5!">
-					<Logo size={32} /><span class="font-serif text-xl">{title}</span>
+					<Logo size={32} /><span class="font-serif text-xl"
+						><i>Blossom</i>{title === 'BlossomOS' ? 'OS' : ''}</span
+					>
 				</Button>
 			</a>
 			<div class="hidden md:block">
@@ -178,7 +180,7 @@
 				<Button><UserIcon strokeWidth={1.5} />{m.account()}</Button>
 			</a>
 			<LanguageSwitcher />
-			<ModeToggle />
+			<ModeToggle label={m.toggle_theme()} />
 			<button
 				class="flex size-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/8 md:hidden"
 				onclick={() => (mobileOpen = !mobileOpen)}

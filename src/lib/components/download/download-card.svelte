@@ -9,96 +9,36 @@
 	import { cn } from '$lib/utils.js';
 	import posthog from 'posthog-js';
 	import { resolve } from '$app/paths';
-	import IsoRow, { type IsoData } from './iso-row.svelte';
+	import IsoRow from './iso-row.svelte';
+	import {
+		CODENAME,
+		ONLINE_ISO,
+		OFFLINE_ISOS,
+		detectGPU,
+		detectOS,
+		fetchIso,
+		type DesktopOS,
+		type IsoData,
+		type IsoVariant
+	} from './isos';
 	import DownloadThanksDialog from './download-thanks-dialog.svelte';
 
-	type Variant = {
-		/** Stable id for analytics and logic, never shown */
-		label: string;
-		name: () => string;
-		file: string;
-		badge: () => string;
-		description: () => string;
-		matches?: 'nvidia' | 'other';
-	};
-
-	let { class: className = '', full = false }: { class?: string; full?: boolean } = $props();
-
-	const CDN = 'https://cdn.blossomos.org/iso';
-	// The ISO metadata endpoint only returns a date-based version (e.g. "2026.08.05"), not a
-	// human-readable codename, so this is hardcoded until the CDN JSON exposes one. Update this
-	// when the next codenamed release ships.
-	const CODENAME = '0.3.0 Alpha';
-
-	const ONLINE: Variant[] = [
-		{
-			label: 'Online',
-			name: () => m.iso_variant_online(),
-			file: 'isodata-netinstall.json',
-			badge: () => m.iso_all_gpus(),
-			description: () => m.iso_online_desc()
-		}
-	];
-	const OFFLINE: Variant[] = [
-		{
-			label: 'Standard',
-			name: () => m.iso_variant_standard(),
-			file: 'isodata.json',
-			badge: () => 'AMD / Intel',
-			description: () => m.iso_standard_desc(),
-			matches: 'other'
-		},
-		{
-			label: 'NVIDIA Open',
-			name: () => 'NVIDIA Open',
-			file: 'isodata-nvidia-open.json',
-			badge: () => 'NVIDIA',
-			description: () => m.iso_nvidia_desc(),
-			matches: 'nvidia'
-		},
-		{
-			label: 'NVIDIA Legacy',
-			name: () => 'NVIDIA Legacy',
-			file: 'isodata-nvidia-legacy.json',
-			badge: () => 'NVIDIA',
-			description: () => m.iso_nvidia_legacy_desc()
-		}
-	];
+	let { class: className = '' }: { class?: string } = $props();
 
 	let isoData = $state<Record<string, IsoData | null>>({});
 	let gpu = $state<'nvidia' | 'other'>('other');
+	let os = $state<DesktopOS>('other');
 	let loading = $state(true);
 
-	function detectGPU(): 'nvidia' | 'other' {
-		try {
-			const canvas = document.createElement('canvas');
-			const gl =
-				(canvas.getContext('webgl') as WebGLRenderingContext | null) ||
-				(canvas.getContext('experimental-webgl') as WebGLRenderingContext | null);
-			if (!gl) return 'other';
-			const ext = gl.getExtension('WEBGL_debug_renderer_info');
-			if (!ext) return 'other';
-			const renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) as string;
-			return renderer.toLowerCase().includes('nvidia') ? 'nvidia' : 'other';
-		} catch {
-			return 'other';
-		}
-	}
-
 	const version = useVersion();
-
-	function fetchIso(file: string): Promise<IsoData | null> {
-		return fetch(`${CDN}/${file}?${Date.now()}`)
-			.then((r) => (r.ok ? (r.json() as Promise<IsoData>) : null))
-			.catch(() => null);
-	}
 
 	onMount(() => {
 		gpu = detectGPU();
 		rafId = requestAnimationFrame(loop);
-		// The compact card fetches the standard offline ISO too, so it can fall back to it
-		// whenever the online ISO has not been published to the CDN yet.
-		const variants = full ? [...ONLINE, ...OFFLINE] : [...ONLINE, OFFLINE[0]];
+		os = detectOS(navigator.userAgent);
+		// The card fetches the standard offline ISO too, so it can fall back to it whenever the
+		// online ISO has not been published to the CDN yet.
+		const variants = [ONLINE_ISO, OFFLINE_ISOS[0]];
 		Promise.all(variants.map((v) => fetchIso(v.file).then((data) => [v.file, data] as const))).then(
 			(entries) => {
 				isoData = Object.fromEntries(entries);
@@ -134,17 +74,7 @@
 		dialogOpen = true;
 	}
 
-	function downloadClick(e: MouseEvent, label: string, data: IsoData) {
-		if (label.startsWith('NVIDIA') && e.shiftKey) {
-			const novideo = document.getElementById('novideo') as HTMLAudioElement;
-			novideo.currentTime = 0;
-			novideo.play();
-		}
-		announceDownload(label);
-		window.location.href = `${CDN}/${data.name}`;
-	}
-
-	function toRows(variants: Variant[], recommended: boolean) {
+	function toRows(variants: IsoVariant[], recommended: boolean) {
 		return variants.map((v) => ({
 			data: isoData[v.file] ?? null,
 			label: v.label,
@@ -156,33 +86,12 @@
 		}));
 	}
 
-	const compactIsos = $derived.by(() => {
-		const online = toRows(ONLINE, true);
+	const isos = $derived.by(() => {
+		const online = toRows([ONLINE_ISO], true);
 		if (loading || online[0].data) return online;
-		return toRows([OFFLINE[0]], true);
+		return toRows([OFFLINE_ISOS[0]], true);
 	});
-
-	const groups = $derived(
-		full
-			? [
-					{
-						key: 'online',
-						title: m.iso_group_online(),
-						note: m.iso_group_online_note(),
-						isos: toRows(ONLINE, true)
-					},
-					{
-						key: 'offline',
-						title: m.iso_group_offline(),
-						note: m.iso_group_offline_note(),
-						isos: toRows(OFFLINE, false)
-					}
-				]
-			: [{ key: 'online', title: '', note: '', isos: compactIsos }]
-	);
 </script>
-
-<audio id="novideo" src="/novideo.mp3"></audio>
 
 <DownloadThanksDialog bind:open={dialogOpen} />
 
@@ -207,35 +116,19 @@
 	</div>
 
 	<!-- ISO options -->
-	<div class="flex flex-col">
-		{#each groups as group (group.key)}
-			<div class="border-b border-border last:border-b-0">
-				{#if full}
-					<div class="bg-muted/40 px-6 py-3">
-						<p class="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-							{group.title}
-						</p>
-						<p class="mt-1 text-xs text-muted-foreground">{group.note}</p>
-					</div>
-				{/if}
-				<div class="flex flex-col divide-y divide-border">
-					{#each group.isos as iso (iso.label)}
-						<IsoRow {iso} {loading} ondownload={downloadClick} />
-					{/each}
-				</div>
-			</div>
+	<div class="flex flex-col divide-y divide-border">
+		{#each isos as iso (iso.label)}
+			<IsoRow {iso} {loading} {os} ondownload={(_, label) => announceDownload(label)} />
 		{/each}
 	</div>
 
-	{#if !full}
-		<a
-			href={resolve('/downloads')}
-			class="flex items-center justify-between border-t border-border px-6 py-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-		>
-			{m.iso_see_more()}
-			<ChevronRight class="size-4" />
-		</a>
-	{/if}
+	<a
+		href={resolve('/downloads')}
+		class="flex items-center justify-between border-t border-border px-6 py-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+	>
+		{m.iso_see_more()}
+		<ChevronRight class="size-4" />
+	</a>
 </div>
 
 <style>
