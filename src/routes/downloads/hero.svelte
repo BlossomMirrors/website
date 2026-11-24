@@ -96,7 +96,7 @@
 
 	const SWITCH_BUILDS = [
 		{ os: 'windows', label: 'Windows', href: `${SWITCH_CDN}/blossomos-switch.exe` },
-		{ os: 'mac', label: 'macOS', href: `${SWITCH_CDN}/blossomos-switch.zip` }
+		{ os: 'mac', label: 'macOS', href: `${SWITCH_CDN}/blossomos-switch.dmg` }
 	] as const;
 	// Put the visitor's own platform first.
 	const switchBuilds = $derived(
